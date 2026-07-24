@@ -1,0 +1,107 @@
+{
+  "services": {
+    "hero": {
+      "label": "Services",
+      "title": "Car inspection, diagnostics and expert assessment",
+      "subtitle": "Used car inspection, OBD computer diagnostics, mileage and body check. So your decision is based on facts."
+    },
+    "s1": {
+      "number": "01",
+      "title": "Comprehensive pre-purchase car inspection",
+      "text": "Full on-site vehicle evaluation: body with paint thickness measurement, engine, transmission, suspension, electrical system, interior. Every element the seller might hope goes unnoticed is checked. The result: a documented report with photos and a clear recommendation.",
+      "link": "Order inspection"
+    },
+    "s2": {
+      "number": "02",
+      "title": "Computer diagnostics (OBD)",
+      "text": "Using professional OBD scanners, error codes are read and engine control, safety, comfort and transmission systems are checked. Suitable for diesel, petrol, hybrid and electric vehicles.",
+      "link": "Order diagnostics"
+    },
+    "s3": {
+      "number": "03",
+      "title": "Pre-deal consultation",
+      "text": "An opportunity to evaluate a specific listing from Autoplius, Autogidas or other platforms before visiting the car. Photos, price, and specifications are analyzed.",
+      "link": "Get consultation"
+    },
+    "s4": {
+      "number": "04",
+      "title": "Car buying and selling assistance",
+      "text": "Assistance in finding a reliable used car or selling a current one. The process is handled transparently, without intermediary schemes. We also advise on cars imported from Germany, the USA and other countries.",
+      "link": "Learn more"
+    },
+    "cta": {
+      "title": "Need a tailored solution?",
+      "text": "Get in touch. The service will be adapted to the specific situation.",
+      "button": "Contact"
+    },
+    "checklist": {
+      "label": "Inspection scope",
+      "title": "What is checked during every car inspection",
+      "item1": "Body condition, paint thickness measurement, corrosion and accident signs",
+      "item2": "Engine, transmission, cooling system operation",
+      "item3": "Suspension, brakes, steering mechanism",
+      "item4": "Electrical system and OBD computer diagnostics",
+      "item5": "Interior condition, electronics functionality",
+      "item6": "Fluid levels and condition",
+      "item7": "Tire condition and wear evenness",
+      "item8": "Mileage analysis and vehicle history verification",
+      "item9": "Test drive and road behaviour assessment",
+      "item10": "Documented report with photos and clear recommendation"
+    },
+    "faq": {
+      "label": "FAQ",
+      "title": "Frequently asked questions about car inspection",
+      "q1": "Is a pre-purchase car inspection really worth it?",
+      "a1": "You can skip it. Then you'll pay the mechanic instead, usually several times more. A car inspection isn't an expense. It's insurance against expensive surprises.",
+      "q2": "How long does the inspection take?",
+      "a2": "About 1.5–2 hours on average. It depends on the car and its condition. We don't rush — better to find a problem now than regret it later.",
+      "q3": "Do you inspect cars in any city in Lithuania?",
+      "a3": "Yes. We come to wherever the car is: at the seller's place, a car lot, or a service centre. No extra charge within Kaunas city and district. A travel fee applies outside the Kaunas area, agreed in advance.",
+      "q4": "What do I get after the car inspection?",
+      "a4": "A documented report with photos, identified defects, and a clear recommendation: buy, negotiate, or walk away.",
+      "more": "All questions and answers"
+    }
+  },
+  "process": {
+    "hero": {
+      "label": "Process",
+      "title": "Clear structure, transparent result",
+      "subtitle": "From inquiry to report. Every stage is defined and understandable."
+    },
+    "step1": {
+      "number": "Stage 01",
+      "title": "Inquiry",
+      "text": "Contact is made by phone, email, or through the contact form. The vehicle and its location are specified."
+    },
+    "step2": {
+      "number": "Stage 02",
+      "title": "Scheduling",
+      "text": "Inspection time is arranged according to the client's availability. Inspections are conducted evenings and weekends as well."
+    },
+    "step3": {
+      "number": "Stage 03",
+      "title": "On-site arrival",
+      "text": "The inspection is performed at the vehicle's location: at the seller's, in a car lot, or at a service center."
+    },
+    "step4": {
+      "number": "Stage 04",
+      "title": "Inspection and diagnostics",
+      "text": "Systematic visual inspection, computer diagnostics, and test drive. Every element is checked according to an established methodology."
+    },
+    "step5": {
+      "number": "Stage 05",
+      "title": "Documented report",
+      "text": "A clear report is delivered with photos, identified defects, and an overall recommendation. No ambiguity."
+    },
+    "step6": {
+      "number": "Stage 06",
+      "title": "Client's decision",
+      "text": "All necessary information is provided. The decision to buy, negotiate, or walk away is made based on facts."
+    },
+    "cta": {
+      "title": "The process starts with an inquiry",
+      "text": "One message or call is all it takes.",
+      "button": "Contact"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "gallery": "Gallery",
+    "about": "About",
+    "contact": "Book",
+    "faq": "FAQ",
+    "prices": "Prices",
+    "privacy": "Privacy Policy",
+    "terms": "Terms and Conditions"
+  },
+  "footer": {
+    "copy": "© 2026 checkauto.lt. All rights reserved."
+  },
+  "error": {
+    "title": "Page not found",
+    "text": "This page doesn't exist or has been moved. Return to the homepage.",
+    "cta": "Back to homepage"
+  }
+}

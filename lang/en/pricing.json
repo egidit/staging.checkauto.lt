@@ -1,0 +1,36 @@
+{
+  "pricing": {
+    "hero": {
+      "label": "Pricing",
+      "title": "Car inspection cost",
+      "subtitle": "How much does a car inspection cost in Lithuania? See service prices and travel fee rules before booking."
+    },
+    "card1": {
+      "title": "OBD computer diagnostics",
+      "price": "20",
+      "currency": "€",
+      "text": "OBD error code reading, engine and system condition check. Suitable for diesel, petrol, hybrid and electric vehicles.",
+      "cta": "Order diagnostics"
+    },
+    "card2": {
+      "title": "Full pre-purchase car inspection",
+      "price": "100",
+      "currency": "€",
+      "text": "Comprehensive vehicle inspection: body with paint thickness measurement, engine, suspension, OBD diagnostics, mileage analysis, test drive. Documented report with photos.",
+      "cta": "Order inspection"
+    },
+    "travel": {
+      "title": "Travel fee",
+      "text": "Travel pricing depends on the car location and is always stated or agreed before the appointment is confirmed.",
+      "free_zone": "No travel fee applies within Kaunas city and up to 20 km from the Kaunas city boundary.",
+      "rate": "Outside this zone, a travel fee of €0.50/km may apply.",
+      "calculation": "The fee is calculated for a round trip from the Kaunas city boundary or another base location agreed in advance.",
+      "custom": "For long distances or non-standard locations, travel pricing is agreed individually before appointment confirmation."
+    },
+    "cta": {
+      "title": "Ready to book?",
+      "text": "Get in touch and we'll arrange the time and place.",
+      "button": "Contact"
+    }
+  }
+}

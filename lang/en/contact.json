@@ -1,0 +1,69 @@
+{
+  "contact": {
+    "hero": {
+      "label": "Book",
+      "title": "Book a car inspection",
+      "subtitle": "Pre-purchase car inspection in Kaunas, Vilnius, Klaipėda, Šiauliai, Panevėžys and across Lithuania. Get in touch, we respond within a few hours."
+    },
+    "info": {
+      "title": "Direct contact",
+      "phone_label": "Phone",
+      "phone": "+370 609 45 238",
+      "email_label": "Email",
+      "email": "info@checkauto.lt"
+    },
+    "form": {
+      "label": "Booking",
+      "title": "Choose an inspection time",
+      "subtitle": "Fill in a short request, choose a real available time, and we will confirm the appointment by email.",
+      "step_time_title": "Service and time",
+      "step_time_text": "Only admin-approved available times are shown.",
+      "step_details_title": "Your details and car",
+      "step_details_text": "Leave only what we need to arrange the visit.",
+      "name_label": "Name",
+      "name_placeholder": "Full name",
+      "email_label": "Email",
+      "email_placeholder": "name@example.com",
+      "phone_label": "Phone",
+      "phone_placeholder": "+370...",
+      "inspection_type_label": "Inspection type",
+      "inspection_type_placeholder": "Select service",
+      "service_required_hint": "Required service",
+      "inspection_type_full": "Full pre-purchase car inspection",
+      "inspection_type_full_meta": "Bodywork, diagnostics, test drive, and a clear conclusion.",
+      "inspection_type_diagnostics": "OBD computer diagnostics",
+      "inspection_type_diagnostics_meta": "OBD faults, live data, and a short explanation.",
+      "slot_label": "Choose a time",
+      "slot_placeholder": "Select an inspection type first.",
+      "slot_hint": "The time becomes a confirmed appointment only after admin review.",
+      "selected_empty": "Your selected time will appear here.",
+      "vehicle_label": "Car",
+      "vehicle_placeholder": "Make, model, year, engine",
+      "location_label": "Car location / address",
+      "location_placeholder": "City, address, or seller location",
+      "listing_url_label": "Listing URL",
+      "listing_url_placeholder": "https://...",
+      "message_label": "Additional information",
+      "message_placeholder": "Anything important about the car, seller, or timing?",
+      "legal_consent_prefix": "I have read and accept the",
+      "terms_link": "Terms and Conditions",
+      "legal_consent_middle": "and confirm that I have read the",
+      "privacy_link": "Privacy Policy",
+      "early_service_consent": "I agree that the service may begin before the end of the 14-day contract withdrawal period if my selected and confirmed appointment time falls within that period. I understand that once the service has been fully performed, I will lose the right to withdraw from the contract, and if the service has started but is not completed, I may have to pay a proportionate amount for the part of the service provided and reasonable expenses.",
+      "vehicle_access_consent": "I confirm that I am responsible for the car being accessible at the agreed time and for the seller, owner, or lawful holder allowing the inspection, diagnostics, and, if agreed and safe, a test drive.",
+      "marketing_consent": "I agree to receive checkauto.lt news, tips, and offers by email. I understand that I can withdraw this consent at any time.",
+      "submit": "Reserve time",
+      "sending": "Reserving...",
+      "success": "Request received. The selected time is temporarily reserved; we will send confirmation by email.",
+      "rate_limited": "Too many requests were sent. Please try again later.",
+      "error": "The booking request could not be sent. Please try again or email info@checkauto.lt."
+    },
+    "help": {
+      "label": "How it works",
+      "title": "Booking without back-and-forth",
+      "item1": "Choose the service and an available time.",
+      "item2": "Enter the car, location, and your contact details.",
+      "item3": "We confirm the appointment or offer the closest alternative."
+    }
+  }
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Atsisakyti naujienlaiškio | checkauto.lt</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+  <style>
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      margin: 0;
+      padding: clamp(1rem, 4vw, 2rem);
+      background: #f5f6f8;
+    }
+
+    .unsubscribe-card {
+      width: min(100%, 520px);
+      padding: clamp(1.5rem, 5vw, 2.5rem);
+      background: #fff;
+      border: 1px solid #e4e7ec;
+      border-radius: 8px;
+      box-shadow: 0 14px 36px rgba(17, 24, 39, 0.06);
+    }
+
+    .unsubscribe-brand {
+      color: #1f2328;
+      font-weight: 800;
+    }
+
+    .unsubscribe-brand span {
+      color: #0071e3;
+    }
+
+    .unsubscribe-card h1 {
+      margin: 1.5rem 0 0.75rem;
+      color: #1f2328;
+      font-size: clamp(1.75rem, 1.25rem + 2vw, 2.5rem);
+      letter-spacing: 0;
+    }
+
+    .unsubscribe-card p {
+      color: #667085;
+      line-height: 1.65;
+    }
+
+    .unsubscribe-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="unsubscribe-card">
+    <div class="unsubscribe-brand">check<span>auto</span>.lt</div>
+    <h1 data-title>Tvarkoma...</h1>
+    <p data-message>Tikriname atsisakymo nuorodą.</p>
+    <div class="unsubscribe-actions">
+      <a class="button button-primary" href="/">Grįžti į checkauto.lt</a>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var endpoint = 'https://ddhhhieitupjixynjrry.supabase.co/functions/v1/marketing-unsubscribe';
+      var title = document.querySelector('[data-title]');
+      var message = document.querySelector('[data-message]');
+      var token = new URLSearchParams(window.location.search).get('token') || '';
+
+      function setState(nextTitle, nextMessage) {
+        title.textContent = nextTitle;
+        message.textContent = nextMessage;
+      }
+
+      if (!token) {
+        setState('Nuoroda neteisinga', 'Atsisakymo nuorodoje trūksta saugaus patvirtinimo kodo.');
+        return;
+      }
+
+      fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: token })
+      }).then(function (response) {
+        return response.json().then(function (body) {
+          if (!response.ok) throw new Error(body.error || 'Nepavyko apdoroti šios nuorodos.');
+          return body;
+        });
+      }).then(function (body) {
+        if (body.status === 'already_unsubscribed') {
+          setState('Jau atsisakyta', 'Šis el. pašto adresas jau yra pašalintas iš checkauto.lt naujienų gavėjų sąrašo.');
+          return;
+        }
+        setState('Atsisakyta', 'Sutikimas gauti checkauto.lt naujienas el. paštu buvo atšauktas.');
+      }).catch(function (error) {
+        setState('Nuoroda neteisinga', error instanceof Error ? error.message : 'Nepavyko apdoroti šios nuorodos.');
+      });
+    })();
+  </script>
+</body>
+</html>

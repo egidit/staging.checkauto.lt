@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 – Puslapis nerastas | checkauto.lt</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/css/styles.css">
+
+  <script>
+    (function(){var l=localStorage.getItem('checkauto-lang');if(l&&l!=='lt'){document.documentElement.lang=l;document.documentElement.classList.add('i18n-loading');}})();
+  </script>
+
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0071e3">
+  <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+  <style>
+    .error-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 60vh;
+      padding: var(--space-xl) var(--space-md);
+    }
+
+    .error-code {
+      font-size: clamp(5rem, 4rem + 5vw, 9rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--color-border-light);
+      margin-bottom: 1rem;
+      user-select: none;
+    }
+
+    .error-wrap h1 {
+      margin-bottom: 0.75rem;
+    }
+
+    .error-wrap p {
+      color: var(--color-text-secondary);
+      max-width: 400px;
+      margin-bottom: 2.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="site-header"></div>
+
+  <main>
+    <div class="error-wrap">
+      <div class="error-code" aria-hidden="true">404</div>
+      <h1 data-i18n="error.title">Puslapis nerastas</h1>
+      <p data-i18n="error.text">Tokio puslapio nėra arba jis buvo perkeltas. Grįžkite į pradžią ir sužinokite apie automobilio patikrą prieš pirkimą.</p>
+      <a href="/" class="btn btn-primary" data-i18n="error.cta">Grįžti į pradžią</a>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="/js/components.js"></script>
+  <script src="/js/i18n.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

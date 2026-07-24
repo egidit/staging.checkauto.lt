@@ -1,0 +1,60 @@
+{
+  "home": {
+    "hero": {
+      "label": "Pre-purchase car inspection",
+      "title": "Better to know now than pay later",
+      "subtitle": "Professional used car diagnostics, body inspection and engine check. Documented report with photos, before you buy.",
+      "cta": "Order inspection",
+      "scroll": "scroll"
+    },
+    "problem": {
+      "label": "Risk",
+      "title": "Buying a car without an inspection is a financial risk",
+      "text": "Most used cars hide defects: tampered mileage, hidden accidents, cleared error codes. The seller has no interest in revealing problems. Only an independent car inspection or professional diagnostics uncovers them.",
+      "stat1_number": "63%",
+      "stat1_label": "of used cars have hidden defects",
+      "stat2_number": "€1,200+",
+      "stat2_label": "average cost of unplanned repairs",
+      "stat3_number": "1 in 4",
+      "stat3_label": "cars are sold with tampered mileage"
+    },
+    "why": {
+      "label": "Risk factors",
+      "title": "What you won't see yourself",
+      "item1_title": "Technical defects",
+      "item1_text": "Engine, transmission, suspension issues invisible to the naked eye. Professional car diagnostics and OBD error scanning identifies them.",
+      "item2_title": "Falsified vehicle history",
+      "item2_text": "Tampered mileage, hidden accidents, repainted body panels. A full pre-purchase car inspection with paint thickness measurement and mileage analysis reveals what the seller won't tell.",
+      "item3_title": "Negotiation position",
+      "item3_text": "An accurate vehicle condition report enables informed negotiation. Every defect found is a bargaining chip or grounds to walk away.",
+      "item4_title": "Financial protection",
+      "item4_text": "A car inspection costs a fraction of unexpected repairs. Invest in an inspection, save thousands."
+    },
+    "compare": {
+      "label": "Before & after",
+      "title": "What a buyer loses by not checking",
+      "title_prefix": "What changes when a",
+      "title_accent": "specialist checks",
+      "subtitle": "The seller will always know more than you. Unless you bring a specialist.",
+      "without": "Without inspection",
+      "with": "With checkauto.lt",
+      "no1": "Judging the car by the seller's words and listing photos",
+      "no2": "Tampered mileage, cleared error codes, invisible without tools",
+      "no3": "Repainted panels after an accident go undetected",
+      "no4": "\u201cEverything's fine\u201d, then a €1,500+ service bill a month later",
+      "no5": "Negotiating on gut feeling, not on facts",
+      "no6": "Pressured to decide on the spot because \u201cit'll be sold next week\u201d",
+      "yes1": "An independent specialist checks the car for you",
+      "yes2": "OBD diagnostics, mileage analysis, hidden error scan",
+      "yes3": "Paint thickness measurement and body geometry check",
+      "yes4": "A clear report with photos. You'll know before you pay",
+      "yes5": "A justified negotiation position with every defect found",
+      "yes6": "Peace of mind that you bought what you actually saw"
+    },
+    "cta": {
+      "title": "Decisions should be based on facts",
+      "text": "An inspection takes a few hours. Unplanned repairs take months.",
+      "button": "Get in touch"
+    }
+  }
+}

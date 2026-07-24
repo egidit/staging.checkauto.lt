@@ -1,0 +1,66 @@
+{
+  "gallery": {
+    "hero": {
+      "label": "Gallery",
+      "title": "Hidden car defects: real inspection cases",
+      "subtitle": "Body damage, mileage fraud, hidden accidents. How to recognise a crashed or repainted car. Real examples from BMW, Volkswagen, Audi, Mercedes inspections."
+    },
+    "filter_all": "All",
+    "filter_body": "Body",
+    "filter_engine": "Engine",
+    "filter_mileage": "Mileage",
+    "filter_electrical": "Electrical",
+    "found": "Found",
+    "seller_said": "Seller said",
+    "we_found": "What we found",
+    "cta": {
+      "title": "Don't be the next one",
+      "text": "A pre-purchase car inspection protects against costly mistakes. Get in touch before you buy.",
+      "button": "Book inspection"
+    },
+    "items": {
+      "i1": {
+        "tag": "Body",
+        "title": "Car model, year",
+        "seller": "Seller's claim about the car's condition.",
+        "found": "Body defects found during inspection will be described here.",
+        "verdict": "Verdict"
+      },
+      "i2": {
+        "tag": "Mileage",
+        "title": "Car model, year",
+        "seller": "Seller's claim about the car's mileage.",
+        "found": "Mileage discrepancies found during inspection will be described here.",
+        "verdict": "Verdict"
+      },
+      "i3": {
+        "tag": "Engine",
+        "title": "Car model, year",
+        "seller": "Seller's claim about the engine condition.",
+        "found": "Engine defects found during inspection will be described here.",
+        "verdict": "Verdict"
+      },
+      "i4": {
+        "tag": "Electrical",
+        "title": "Car model, year",
+        "seller": "Seller's claim about the electronics condition.",
+        "found": "Electrical faults found during inspection will be described here.",
+        "verdict": "Verdict"
+      },
+      "i5": {
+        "tag": "Body",
+        "title": "Car model, year",
+        "seller": "Seller's claim about the car's condition.",
+        "found": "Body defects found during inspection will be described here.",
+        "verdict": "Verdict"
+      },
+      "i6": {
+        "tag": "Mileage",
+        "title": "Car model, year",
+        "seller": "Seller's claim about the car's mileage.",
+        "found": "Mileage discrepancies found during inspection will be described here.",
+        "verdict": "Verdict"
+      }
+    }
+  }
+}

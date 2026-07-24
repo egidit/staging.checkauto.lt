@@ -1,0 +1,49 @@
+{
+  "faq": {
+    "hero": {
+      "label": "FAQ",
+      "title": "Frequently asked questions about car inspection in Lithuania",
+      "subtitle": "How does a pre-purchase car inspection work, what does it include, and how much does it cost?"
+    },
+    "q1": "Is a pre-purchase car inspection really worth it?",
+    "a1": "You can skip it. Then you'll pay the mechanic instead, usually several times more. A car inspection isn't an expense. It's insurance against expensive surprises.",
+    "q2": "How long does the car inspection take?",
+    "a2": "About 1.5–2 hours on average. It depends on the car and its condition. We don't rush. Better to find a problem now than regret it later.",
+    "q3": "Do you inspect cars in any city in Lithuania?",
+    "a3": "Yes. We come to wherever the car is: at the seller's place, a car lot, or a service centre. No extra charge within Kaunas city and district. A travel fee applies outside the Kaunas area, agreed in advance.",
+    "q4": "What do I get after the car inspection?",
+    "a4": "A documented report with photos, identified defects, and a clear recommendation: buy, negotiate, or walk away.",
+    "q5": "What if the car turns out to be fine?",
+    "a5": "Great. Then you know you're paying for what you're actually getting. Peace of mind has its value too.",
+    "q6": "Can I be present during the inspection?",
+    "a6": "Absolutely. We even encourage it. You'll see the process firsthand and can ask questions on the spot.",
+    "q7": "Do you only inspect used cars?",
+    "a7": "Mostly, yes. But if you're buying a demo car or something \u201calmost new\u201d — it's still worth checking. Dealerships can be quiet about things too.",
+    "q8": "How much does a car inspection cost?",
+    "a8": "Computer diagnostics – €20, full pre-purchase inspection – €80. Additional travel fees may apply outside the Kaunas area.",
+    "a8_link": "All prices",
+    "q9": "Do you help negotiate the price?",
+    "a9": "Not directly. But a report with specific defects is the strongest negotiation tool you can have.",
+    "q10": "How do I book an inspection?",
+    "a10": "Call, write, or fill out the form on the contact page. We respond within a few hours.",
+    "q11": "What does a full car inspection include?",
+    "a11": "A comprehensive pre-purchase inspection covers the body (paint thickness measurement), engine, transmission, suspension, electrical system, OBD computer diagnostics, mileage verification and a test drive. You receive a documented report with photos.",
+    "q12": "Do you inspect cars imported from Germany or the USA?",
+    "a12": "Yes. We inspect cars from all countries: Germany, the USA, and elsewhere. For imports we pay special attention to accident history and mileage authenticity.",
+    "q13": "Which car brands do you inspect?",
+    "a13": "All brands: BMW, Volkswagen, Audi, Mercedes-Benz, Toyota, Volvo, Škoda, and any others. We have experience with both popular European and Japanese brands.",
+    "q14": "Do you inspect electric or hybrid vehicles?",
+    "a14": "Yes. We inspect electric and hybrid cars, including battery health assessment and EV-specific diagnostics.",
+    "q15": "What's the difference between car inspection and diagnostics?",
+    "a15": "Computer diagnostics (OBD scan) reads electronic control unit data and error codes. A full car inspection additionally includes body assessment, paint thickness measurement, suspension, mileage analysis, test drive, and a comprehensive report.",
+    "q16": "Can you detect mileage fraud?",
+    "a16": "Yes. We use specialised tools and multiple data sources to verify actual mileage. Odometer tampering leaves traceable patterns that inspection reveals.",
+    "q17": "Can I have a car from Autoplius or Autogidas inspected?",
+    "a17": "Of course. Send us the listing link from Autoplius, Autogidas, or any other platform — we can provide a preliminary assessment and arrange an on-site inspection.",
+    "cta": {
+      "title": "Didn't find your answer?",
+      "text": "Drop us a message. We'll reply personally.",
+      "button": "Contact"
+    }
+  }
+}
