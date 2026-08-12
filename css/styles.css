@@ -1665,14 +1665,15 @@ p {
   background: var(--color-bg-alt);
   border: 1px solid var(--color-border-light);
   border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
   font-weight: 500;
-  line-height: var(--line-height-snug);
+  line-height: 1.45;
   color: var(--color-text-secondary);
 }
 
 .form-field .form-checkbox a {
   color: var(--color-accent);
-  font-weight: 700;
+  font-weight: 650;
   text-decoration: underline;
   text-underline-offset: 0.16em;
 }
@@ -2162,7 +2163,7 @@ p {
   display: grid;
   grid-template-columns: 32px minmax(0, 1fr);
   gap: 0.75rem;
-  align-items: start;
+  align-items: center;
 }
 
 .booking-step-number {
@@ -2180,13 +2181,8 @@ p {
 .booking-step-heading h3 {
   margin: 0;
   font-size: var(--font-size-md);
+  line-height: 1.25;
   letter-spacing: 0;
-}
-
-.booking-step-heading p {
-  margin-top: 0.2rem;
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-snug);
 }
 
 .booking-slot-panel {
@@ -2311,9 +2307,15 @@ p {
 }
 
 .contact-form .btn[disabled] {
+  opacity: 0.48;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.contact-form .btn.is-submitting[disabled] {
   opacity: 0.68;
   cursor: wait;
-  transform: none;
 }
 
 @media (max-width: 640px) {

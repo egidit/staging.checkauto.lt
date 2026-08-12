@@ -33,7 +33,7 @@
   <link rel="preload" href="/assets/fonts/Inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="/css/styles.css?v=20260813">
+  <link rel="stylesheet" href="/css/styles.css?v=20260813b">
 
   <script>
     (function(){var l=localStorage.getItem('checkauto-lang');if(l&&l!=='lt'){document.documentElement.lang=l;document.documentElement.classList.add('i18n-loading');}})();
@@ -138,8 +138,7 @@
               <div class="booking-step-heading">
                 <span class="booking-step-number">2</span>
                 <div>
-                  <h3 data-i18n="contact.form.step_details_title">Jūsų duomenys ir automobilis</h3>
-                  <p data-i18n="contact.form.step_details_text">Palikite tik tai, ko reikia vizitui suderinti.</p>
+                  <h3 data-i18n="contact.form.step_personal_title">Jūsų duomenys</h3>
                 </div>
               </div>
 
@@ -158,12 +157,25 @@
                   </div>
                 </div>
 
-                <div class="form-field form-field--floating">
+                <div class="form-field form-field--floating form-field--full">
                   <div class="floating-field">
                     <input id="contact-email" name="email" type="email" autocomplete="email" required maxlength="160" placeholder="vardas@example.com" data-i18n-placeholder="contact.form.email_placeholder">
                     <label for="contact-email" data-required="true" data-i18n="contact.form.email_label">El. paštas</label>
                   </div>
                 </div>
+
+              </div>
+            </div>
+
+            <div class="booking-form-section">
+              <div class="booking-step-heading">
+                <span class="booking-step-number">3</span>
+                <div>
+                  <h3 data-i18n="contact.form.step_vehicle_title">Automobilio duomenys</h3>
+                </div>
+              </div>
+
+              <div class="contact-form-grid">
 
                 <div class="form-field form-field--floating">
                   <div class="floating-field">
@@ -179,7 +191,7 @@
                   </div>
                 </div>
 
-                <div class="form-field form-field--floating">
+                <div class="form-field form-field--floating form-field--full">
                   <div class="floating-field">
                     <input id="contact-listing-url" name="listingUrl" type="url" inputmode="url" autocomplete="url" maxlength="500" placeholder="https://..." data-i18n-placeholder="contact.form.listing_url_placeholder">
                     <label for="contact-listing-url" data-i18n="contact.form.listing_url_label">Skelbimo nuoroda</label>
@@ -193,26 +205,26 @@
                   </div>
                 </div>
 
-                <div class="form-field form-field--full">
-                  <label class="form-checkbox form-checkbox--required" for="contact-legal-consent">
-                    <input id="contact-legal-consent" name="legalConsent" type="checkbox" required data-legal-consent>
-                    <span>
-                      <span data-i18n="contact.form.legal_consent_prefix">Sutinku su</span>
-                      <a href="/taisykles-ir-salygos/" data-i18n="contact.form.terms_link">Taisyklėmis ir sąlygomis</a>
-                      <span data-i18n="contact.form.legal_consent_middle">ir susipažinau su</span>
-                      <a href="/privatumo-politika/" data-i18n="contact.form.privacy_link">Privatumo politika</a>.
-                      <span data-i18n="contact.form.early_service_consent_inline">Jei vizitas vyks per 14 dienų nuo užsakymo patvirtinimo, prašau paslaugą suteikti pasirinktu laiku. Visiškai ją suteikus nebegalėsiu atsisakyti sutarties.</span>
-                      <span class="required-mark" aria-hidden="true">*</span>
-                    </span>
-                  </label>
-                </div>
-
               </div>
+            </div>
+
+            <div class="form-field form-field--full">
+              <label class="form-checkbox form-checkbox--required" for="contact-legal-consent">
+                <input id="contact-legal-consent" name="legalConsent" type="checkbox" required data-legal-consent>
+                <span>
+                  <span data-i18n="contact.form.legal_consent_prefix">Sutinku su</span>
+                  <a href="/taisykles-ir-salygos/" data-i18n="contact.form.terms_link">Taisyklėmis ir sąlygomis</a>
+                  <span data-i18n="contact.form.legal_consent_middle">ir susipažinau su</span>
+                  <a href="/privatumo-politika/" data-i18n="contact.form.privacy_link">Privatumo politika</a>.
+                  <span data-i18n="contact.form.early_service_consent_inline">Jei vizitas vyks per 14 dienų nuo užsakymo patvirtinimo, prašau paslaugą suteikti pasirinktu laiku. Visiškai ją suteikus nebegalėsiu atsisakyti sutarties.</span>
+                  <span class="required-mark" aria-hidden="true">*</span>
+                </span>
+              </label>
             </div>
 
             <div class="contact-form-actions">
               <p class="contact-form-status" data-contact-form-status role="status" aria-live="polite"></p>
-              <button class="btn btn-primary" type="submit" data-contact-form-submit>
+              <button class="btn btn-primary" type="submit" data-contact-form-submit disabled>
                 <span data-contact-submit-label data-i18n="contact.form.submit">Rezervuoti laiką</span>
               </button>
             </div>
@@ -298,6 +310,6 @@
   <script src="/js/components.js"></script>
   <script src="/js/i18n.js"></script>
   <script src="/js/main.js"></script>
-  <script src="/js/contact-form.js?v=20260812"></script>
+  <script src="/js/contact-form.js?v=20260813b"></script>
 </body>
 </html>

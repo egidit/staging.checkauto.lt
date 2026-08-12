@@ -104,8 +104,7 @@
     statusEl.classList.toggle('is-error', type === 'error');
   }
 
-  function setSubmitting(button, label, isSubmitting, idleLabel) {
-    if (button) button.disabled = isSubmitting;
+  function setSubmitLabel(label, isSubmitting, idleLabel) {
     if (label) label.textContent = isSubmitting ? message('sending') : idleLabel;
   }
 
@@ -438,8 +437,30 @@
     var submitLabel = form.querySelector('[data-contact-submit-label]');
     var statusEl = form.querySelector('[data-contact-form-status]');
     var legalConsent = form.querySelector('[data-legal-consent]');
+    var isSubmitting = false;
 
     if (!serviceSelect || !slotsEl || !selectedSlotInput) return;
+
+    function canSubmitForm() {
+      if (!selectedSlotInput.value) return false;
+
+      return Array.prototype.every.call(form.elements, function (control) {
+        return !control.willValidate || control.validity.valid;
+      });
+    }
+
+    function syncSubmitButton() {
+      if (!submitButton) return;
+      submitButton.disabled = isSubmitting || !canSubmitForm();
+      submitButton.classList.toggle('is-submitting', isSubmitting);
+    }
+
+    function setBookingSubmitting(nextState, idleLabel) {
+      isSubmitting = nextState;
+      setSubmitLabel(submitLabel, isSubmitting, idleLabel);
+      syncSubmitButton();
+    }
+
     initFloatingFields(form);
     var serviceWidget = initServiceSelect(form, serviceSelect);
 
@@ -447,6 +468,7 @@
       setFormStatus(statusEl, '', '');
       slotsEl.classList.remove('is-invalid');
       loadAvailability(serviceSelect, slotsEl, selectedSlotInput, statusEl);
+      syncSubmitButton();
     });
 
     form.addEventListener('input', function () {
@@ -455,6 +477,17 @@
         var checkbox = legalConsent.closest('.form-checkbox');
         if (checkbox) checkbox.classList.remove('is-invalid');
       }
+      syncSubmitButton();
+    });
+
+    form.addEventListener('change', syncSubmitButton);
+    form.addEventListener('reset', function () {
+      setTimeout(syncSubmitButton, 0);
+    });
+    window.addEventListener('pageshow', syncSubmitButton);
+
+    [100, 500, 1500].forEach(function (delay) {
+      setTimeout(syncSubmitButton, delay);
     });
 
     form.addEventListener('submit', async function (event) {
@@ -520,7 +553,7 @@
       };
 
       setFormStatus(statusEl, '', '');
-      setSubmitting(submitButton, submitLabel, true, idleLabel);
+      setBookingSubmitting(true, idleLabel);
 
       try {
         var response = await fetch(BOOKING_ENDPOINT, {
@@ -574,10 +607,11 @@
           loadAvailability(serviceSelect, slotsEl, selectedSlotInput, statusEl);
         }
       } finally {
-        setSubmitting(submitButton, submitLabel, false, idleLabel);
+        setBookingSubmitting(false, idleLabel);
       }
     });
 
+    syncSubmitButton();
     loadAvailability(serviceSelect, slotsEl, selectedSlotInput, statusEl);
   }
 

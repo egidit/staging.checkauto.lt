@@ -15,8 +15,8 @@
     "form": {
       "accessible_title": "Car inspection booking form",
       "step_time_title": "Service and time",
-      "step_details_title": "Your details and car",
-      "step_details_text": "Leave only what we need to arrange the visit.",
+      "step_personal_title": "Your details",
+      "step_vehicle_title": "Car details",
       "name_label": "Name",
       "name_placeholder": "Full name",
       "email_label": "Email",
