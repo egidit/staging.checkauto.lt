@@ -1945,13 +1945,13 @@ p {
 }
 
 .booking-service-select[data-selected-service="full_inspection"] .booking-service-trigger-icon {
-  -webkit-mask-image: url("../admin/icons/file-invoice.svg");
-  mask-image: url("../admin/icons/file-invoice.svg");
+  -webkit-mask-image: url("/assets/icons/booking/full-inspection.svg");
+  mask-image: url("/assets/icons/booking/full-inspection.svg");
 }
 
 .booking-service-select[data-selected-service="computer_diagnostics"] .booking-service-trigger-icon {
-  -webkit-mask-image: url("../admin/icons/info-circle.svg");
-  mask-image: url("../admin/icons/info-circle.svg");
+  -webkit-mask-image: url("/assets/icons/booking/computer-diagnostics.svg");
+  mask-image: url("/assets/icons/booking/computer-diagnostics.svg");
 }
 
 .booking-service-trigger-label {
@@ -2101,13 +2101,13 @@ p {
 }
 
 .booking-service-option-icon[data-service-icon="full_inspection"]::before {
-  -webkit-mask-image: url("../admin/icons/file-invoice.svg");
-  mask-image: url("../admin/icons/file-invoice.svg");
+  -webkit-mask-image: url("/assets/icons/booking/full-inspection.svg");
+  mask-image: url("/assets/icons/booking/full-inspection.svg");
 }
 
 .booking-service-option-icon[data-service-icon="computer_diagnostics"]::before {
-  -webkit-mask-image: url("../admin/icons/info-circle.svg");
-  mask-image: url("../admin/icons/info-circle.svg");
+  -webkit-mask-image: url("/assets/icons/booking/computer-diagnostics.svg");
+  mask-image: url("/assets/icons/booking/computer-diagnostics.svg");
 }
 
 .booking-service-option-copy {
@@ -2127,8 +2127,8 @@ p {
 }
 
 .booking-service-option-indicator::before {
-  -webkit-mask-image: url("../admin/icons/circle-check.svg");
-  mask-image: url("../admin/icons/circle-check.svg");
+  -webkit-mask-image: url("/assets/icons/booking/selected.svg");
+  mask-image: url("/assets/icons/booking/selected.svg");
 }
 
 .booking-service-option[aria-selected="true"] .booking-service-option-indicator {
