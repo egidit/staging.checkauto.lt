@@ -11,11 +11,11 @@
   'use strict';
 
   var BOOKING_ENDPOINT = 'https://ddhhhieitupjixynjrry.supabase.co/functions/v1/public-booking';
-  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRkaGhoaWVpdHVwaml4eW5qcnJ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxNDAyOTQsImV4cCI6MjA5NzcxNjI5NH0.PXAxGc3TSFUnbcyWdizhkiJkKqJlqD1Ic8PHAjHSFIc';
+  var SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_E-TFw7kuSofnw-xDmBk54w_0Ld0HTyC';
   var TERMS_TEXT_VERSION = 'terms-2026-07-03';
   var PRIVACY_TEXT_VERSION = 'privacy-2026-07-03';
-  var EARLY_SERVICE_CONSENT_VERSION = 'early-service-consent-2026-07-03';
-  var VEHICLE_ACCESS_CONSENT_VERSION = 'vehicle-access-confirmation-2026-07-03';
+  var EARLY_SERVICE_CONSENT_VERSION = 'early-service-consent-2026-08-12';
+  var VEHICLE_ACCESS_TEXT_VERSION = 'vehicle-access-via-terms-2026-07-03';
 
   var MESSAGES = {
     lt: {
@@ -23,38 +23,38 @@
       loadingSlots: 'Kraunami galimi laikai...',
       chooseService: 'Pirmiausia pasirinkite patikros tipą.',
       chooseSlot: 'Pasirinkite vieną iš galimų laikų.',
-      chooseLegal: 'Norint rezervuoti laiką reikia sutikti su taisyklėmis ir privatumo politika.',
-      chooseEarlyService: 'Patvirtinkite 14 dienų paslaugos pradėjimo sutikimą.',
-      chooseVehicleAccess: 'Patvirtinkite, kad automobilis bus prieinamas ir patikrai bus gautas leidimas.',
+      chooseLegal: 'Norint rezervuoti laiką reikia patvirtinti taisykles, privatumo politiką ir paslaugos pradėjimo sąlygą.',
       serviceRequiredHint: 'Privaloma paslauga',
-      noSlots: 'Šiuo metu nėra viešai prieinamų laikų šiai paslaugai. Susisiekite telefonu arba el. paštu.',
+      noSlots: 'Šiuo metu šiai paslaugai laisvų laikų nerasta. Pasirinkite kitą paslaugą arba susisiekite telefonu ar el. paštu.',
+      availabilityError: 'Laisvų laikų nepavyko įkelti dėl techninės klaidos. Bandykite dar kartą.',
+      connectionError: 'Nepavyko susisiekti su rezervacijos sistema. Patikrinkite interneto ryšį ir bandykite dar kartą.',
       availableCount: 'Galimi laikai per artimiausias 45 dienas',
       slotReview: 'Peržiūrėsime',
-      selectedEmpty: 'Pasirinktas laikas bus rodomas čia.',
-      selectedPrefix: 'Pasirinktas laikas:',
       slotUnavailable: 'Pasirinktas laikas nebėra prieinamas. Pasirinkite kitą laiką.',
+      duplicateRequest: 'Šiam laikui rezervacijos užklausa jau pateikta. Patikrinkite el. paštą dėl jos numerio.',
+      requestRejected: 'Rezervacijos duomenų nepavyko priimti. Patikrinkite laukus ir bandykite dar kartą.',
       success: 'Užklausa gauta. Pasirinktas laikas laikinai rezervuotas, patvirtinimą atsiųsime el. paštu.',
       rateLimited: 'Išsiųsta per daug užklausų. Bandykite dar kartą vėliau.',
-      error: 'Rezervacijos užklausos išsiųsti nepavyko. Bandykite dar kartą arba rašykite info@checkauto.lt.'
+      bookingError: 'Rezervacijos užklausos nepavyko išsiųsti dėl techninės klaidos. Bandykite dar kartą arba rašykite info@checkauto.lt.'
     },
     en: {
       sending: 'Reserving...',
       loadingSlots: 'Loading available times...',
       chooseService: 'Select an inspection type first.',
       chooseSlot: 'Choose one available time.',
-      chooseLegal: 'To reserve a time, you need to accept the terms and privacy policy.',
-      chooseEarlyService: 'Confirm the 14-day early service start consent.',
-      chooseVehicleAccess: 'Confirm that the car will be accessible and permission for inspection will be available.',
+      chooseLegal: 'To reserve a time, confirm the terms, privacy policy, and early service condition.',
       serviceRequiredHint: 'Required service',
-      noSlots: 'There are no public times for this service right now. Please contact us by phone or email.',
+      noSlots: 'No available times were found for this service. Choose another service or contact us by phone or email.',
+      availabilityError: 'Available times could not be loaded because of a technical error. Please try again.',
+      connectionError: 'Could not connect to the booking system. Check your internet connection and try again.',
       availableCount: 'Available times in the next 45 days',
       slotReview: 'Review first',
-      selectedEmpty: 'Your selected time will appear here.',
-      selectedPrefix: 'Selected time:',
       slotUnavailable: 'The selected time is no longer available. Please choose another time.',
+      duplicateRequest: 'A booking request for this time has already been submitted. Check your email for its reference.',
+      requestRejected: 'The booking details could not be accepted. Review the form and try again.',
       success: 'Request received. The selected time is temporarily reserved; we will send confirmation by email.',
       rateLimited: 'Too many requests were sent. Please try again later.',
-      error: 'The booking request could not be sent. Please try again or email info@checkauto.lt.'
+      bookingError: 'The booking request could not be sent because of a technical error. Please try again or email info@checkauto.lt.'
     }
   };
 
@@ -86,10 +86,6 @@
     }).format(new Date(value));
   }
 
-  function formatSelectedSlot(slot) {
-    return formatDate(slot.start_at) + ', ' + formatTime(slot.start_at) + ' - ' + formatTime(slot.end_at);
-  }
-
   function createStatusText(text) {
     var p = document.createElement('p');
     p.className = 'booking-slot-empty';
@@ -108,20 +104,59 @@
     statusEl.classList.toggle('is-error', type === 'error');
   }
 
-  function setSelectedSummary(summaryEl, slot) {
-    if (!summaryEl) return;
-    if (!slot) {
-      summaryEl.textContent = message('selectedEmpty');
-      summaryEl.dataset.state = 'empty';
-      return;
-    }
-    summaryEl.textContent = message('selectedPrefix') + ' ' + formatSelectedSlot(slot);
-    summaryEl.dataset.state = 'selected';
-  }
-
   function setSubmitting(button, label, isSubmitting, idleLabel) {
     if (button) button.disabled = isSubmitting;
     if (label) label.textContent = isSubmitting ? message('sending') : idleLabel;
+  }
+
+  function initFloatingFields(form) {
+    var fields = Array.prototype.slice.call(form.querySelectorAll('.floating-field'));
+    if (!fields.length) return;
+
+    function syncField(field) {
+      var control = field.querySelector('input, textarea');
+      if (!control) return;
+
+      field.classList.toggle('has-value', control.value.length > 0);
+
+      if (control.validity.valid) {
+        field.classList.remove('is-invalid');
+        control.removeAttribute('aria-invalid');
+      } else if (form.classList.contains('was-validated')) {
+        field.classList.add('is-invalid');
+        control.setAttribute('aria-invalid', 'true');
+      }
+    }
+
+    fields.forEach(function (field) {
+      var control = field.querySelector('input, textarea');
+      if (!control) return;
+
+      ['input', 'change', 'blur'].forEach(function (eventName) {
+        control.addEventListener(eventName, function () {
+          syncField(field);
+        });
+      });
+
+      control.addEventListener('invalid', function () {
+        field.classList.add('is-invalid');
+        control.setAttribute('aria-invalid', 'true');
+      });
+    });
+
+    function syncAllFields() {
+      fields.forEach(syncField);
+    }
+
+    form.addEventListener('reset', function () {
+      setTimeout(syncAllFields, 0);
+    });
+    window.addEventListener('pageshow', syncAllFields);
+
+    syncAllFields();
+    [100, 500, 1500].forEach(function (delay) {
+      setTimeout(syncAllFields, delay);
+    });
   }
 
   function initServiceSelect(form, serviceSelect) {
@@ -131,7 +166,6 @@
     var trigger = root.querySelector('[data-booking-service-trigger]');
     var menu = root.querySelector('[data-booking-service-menu]');
     var label = root.querySelector('[data-booking-service-label]');
-    var meta = root.querySelector('[data-booking-service-meta]');
     var options = Array.prototype.slice.call(root.querySelectorAll('[data-service-option]'));
 
     if (!trigger || !menu || !label || !options.length) return null;
@@ -141,14 +175,22 @@
       return title ? title.textContent.trim() : option.textContent.trim();
     }
 
-    function getOptionMeta(option) {
-      var text = option.querySelector('.booking-service-option-text');
-      return text ? text.textContent.trim() : '';
-    }
-
     function setOpen(isOpen) {
+      if (trigger.disabled) isOpen = false;
+      menu.hidden = !isOpen;
       root.classList.toggle('is-open', isOpen);
       trigger.setAttribute('aria-expanded', String(isOpen));
+    }
+
+    function updateDisabledState() {
+      trigger.disabled = serviceSelect.disabled;
+      root.classList.toggle('is-disabled', serviceSelect.disabled);
+      if (serviceSelect.disabled) setOpen(false);
+    }
+
+    function focusOption(index) {
+      var option = options[index];
+      if (option) option.focus();
     }
 
     function updateFromSelect() {
@@ -163,14 +205,15 @@
 
       if (selectedOption) {
         label.textContent = getOptionTitle(selectedOption);
-        if (meta) meta.textContent = getOptionMeta(selectedOption);
       } else {
         label.textContent = serviceSelect.options[0] ? serviceSelect.options[0].textContent : message('chooseService');
-        if (meta) meta.textContent = message('serviceRequiredHint');
       }
 
       root.classList.toggle('has-value', Boolean(selectedOption));
+      root.dataset.selectedService = selectedOption ? selectedValue : '';
       root.classList.remove('is-invalid');
+      trigger.removeAttribute('aria-invalid');
+      updateDisabledState();
     }
 
     trigger.addEventListener('click', function () {
@@ -178,13 +221,16 @@
     });
 
     trigger.addEventListener('keydown', function (event) {
-      if (event.key === 'ArrowDown' || event.key === 'Enter' || event.key === ' ') {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp' || event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
         setOpen(true);
         var selected = menu.querySelector('[aria-selected="true"]') || options[0];
         if (selected) selected.focus();
       }
-      if (event.key === 'Escape') setOpen(false);
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setOpen(false);
+      }
     });
 
     options.forEach(function (option, index) {
@@ -198,17 +244,26 @@
       option.addEventListener('keydown', function (event) {
         if (event.key === 'ArrowDown') {
           event.preventDefault();
-          (options[index + 1] || options[0]).focus();
+          focusOption(index + 1 < options.length ? index + 1 : 0);
         }
         if (event.key === 'ArrowUp') {
           event.preventDefault();
-          (options[index - 1] || options[options.length - 1]).focus();
+          focusOption(index - 1 >= 0 ? index - 1 : options.length - 1);
+        }
+        if (event.key === 'Home') {
+          event.preventDefault();
+          focusOption(0);
+        }
+        if (event.key === 'End') {
+          event.preventDefault();
+          focusOption(options.length - 1);
         }
         if (event.key === 'Escape') {
           event.preventDefault();
           setOpen(false);
           trigger.focus();
         }
+        if (event.key === 'Tab') setOpen(false);
       });
     });
 
@@ -216,11 +271,22 @@
       if (!root.contains(event.target)) setOpen(false);
     });
 
+    root.addEventListener('focusout', function () {
+      setTimeout(function () {
+        if (!root.contains(document.activeElement)) setOpen(false);
+      }, 0);
+    });
+
     serviceSelect.addEventListener('change', updateFromSelect);
     form.addEventListener('reset', function () {
       setTimeout(updateFromSelect, 0);
     });
     window.addEventListener('checkauto:languagechange', updateFromSelect);
+
+    if (typeof MutationObserver === 'function') {
+      var disabledObserver = new MutationObserver(updateDisabledState);
+      disabledObserver.observe(serviceSelect, { attributes: true, attributeFilter: ['disabled'] });
+    }
 
     updateFromSelect();
 
@@ -234,15 +300,34 @@
   function getHeaders() {
     return {
       'Content-Type': 'application/json',
-      apikey: SUPABASE_ANON_KEY,
-      Authorization: 'Bearer ' + SUPABASE_ANON_KEY
+      apikey: SUPABASE_PUBLISHABLE_KEY,
+      Authorization: 'Bearer ' + SUPABASE_PUBLISHABLE_KEY
     };
   }
 
-  function renderSlots(slotsEl, slots, selectedSlotInput, selectedSummaryEl) {
+  function uniqueAvailabilityTimes(slots) {
+    var byTime = {};
+    (Array.isArray(slots) ? slots : []).forEach(function (slot) {
+      var key = [
+        String(slot.service_code || ''),
+        String(slot.start_at || ''),
+        String(slot.end_at || '')
+      ].join('|');
+      var current = byTime[key];
+      if (!current || String(slot.slot_id || '').localeCompare(String(current.slot_id || '')) < 0) {
+        byTime[key] = slot;
+      }
+    });
+    return Object.keys(byTime).map(function (key) { return byTime[key]; }).sort(function (a, b) {
+      return String(a.start_at || '').localeCompare(String(b.start_at || '')) ||
+        String(a.end_at || '').localeCompare(String(b.end_at || ''));
+    });
+  }
+
+  function renderSlots(slotsEl, slots, selectedSlotInput) {
+    slots = uniqueAvailabilityTimes(slots);
     clearElement(slotsEl);
     selectedSlotInput.value = '';
-    setSelectedSummary(selectedSummaryEl, null);
 
     if (!slots.length) {
       slotsEl.appendChild(createStatusText(message('noSlots')));
@@ -294,7 +379,6 @@
           selectedSlotInput.value = slot.slot_id;
           slotsEl.classList.remove('is-invalid');
           selectedSlotInput.dispatchEvent(new Event('input', { bubbles: true }));
-          setSelectedSummary(selectedSummaryEl, slot);
         });
 
         grid.appendChild(button);
@@ -305,11 +389,10 @@
     });
   }
 
-  async function loadAvailability(serviceSelect, slotsEl, selectedSlotInput, statusEl, selectedSummaryEl) {
+  async function loadAvailability(serviceSelect, slotsEl, selectedSlotInput, statusEl) {
     var serviceCode = serviceSelect.value;
     clearElement(slotsEl);
     selectedSlotInput.value = '';
-    setSelectedSummary(selectedSummaryEl, null);
 
     if (!serviceCode) {
       slotsEl.appendChild(createStatusText(message('chooseService')));
@@ -328,15 +411,19 @@
         signal: availabilityController.signal
       });
 
-      if (!response.ok) throw new Error('Availability request failed');
+      if (!response.ok) throw new Error('availabilityError');
 
       var data = await response.json();
-      renderSlots(slotsEl, Array.isArray(data.slots) ? data.slots : [], selectedSlotInput, selectedSummaryEl);
+      if (!data || !Array.isArray(data.slots)) throw new Error('availabilityError');
+      renderSlots(slotsEl, data.slots, selectedSlotInput);
     } catch (error) {
       if (error && error.name === 'AbortError') return;
+      var key = error instanceof Error && error.message === 'availabilityError'
+        ? 'availabilityError'
+        : 'connectionError';
       clearElement(slotsEl);
-      slotsEl.appendChild(createStatusText(message('error')));
-      setFormStatus(statusEl, 'error', message('error'));
+      slotsEl.appendChild(createStatusText(message(key)));
+      setFormStatus(statusEl, 'error', message(key));
     }
   }
 
@@ -350,28 +437,24 @@
     var submitButton = form.querySelector('[data-contact-form-submit]');
     var submitLabel = form.querySelector('[data-contact-submit-label]');
     var statusEl = form.querySelector('[data-contact-form-status]');
-    var selectedSummaryEl = form.querySelector('[data-booking-selected-summary]');
     var legalConsent = form.querySelector('[data-legal-consent]');
-    var earlyServiceConsent = form.querySelector('[data-early-service-consent]');
-    var vehicleAccessConsent = form.querySelector('[data-vehicle-access-consent]');
 
     if (!serviceSelect || !slotsEl || !selectedSlotInput) return;
+    initFloatingFields(form);
     var serviceWidget = initServiceSelect(form, serviceSelect);
-    setSelectedSummary(selectedSummaryEl, null);
 
     serviceSelect.addEventListener('change', function () {
       setFormStatus(statusEl, '', '');
       slotsEl.classList.remove('is-invalid');
-      loadAvailability(serviceSelect, slotsEl, selectedSlotInput, statusEl, selectedSummaryEl);
+      loadAvailability(serviceSelect, slotsEl, selectedSlotInput, statusEl);
     });
 
     form.addEventListener('input', function () {
       if (statusEl && statusEl.textContent) setFormStatus(statusEl, '', '');
-      [legalConsent, earlyServiceConsent, vehicleAccessConsent].forEach(function (checkboxInput) {
-        if (!checkboxInput || !checkboxInput.checked) return;
-        var checkbox = checkboxInput.closest('.form-checkbox');
+      if (legalConsent && legalConsent.checked) {
+        var checkbox = legalConsent.closest('.form-checkbox');
         if (checkbox) checkbox.classList.remove('is-invalid');
-      });
+      }
     });
 
     form.addEventListener('submit', async function (event) {
@@ -379,7 +462,10 @@
       form.classList.add('was-validated');
 
       if (!serviceSelect.value) {
-        if (serviceWidget) serviceWidget.root.classList.add('is-invalid');
+        if (serviceWidget) {
+          serviceWidget.root.classList.add('is-invalid');
+          serviceWidget.trigger.setAttribute('aria-invalid', 'true');
+        }
         setFormStatus(statusEl, 'error', message('chooseService'));
         if (serviceWidget) serviceWidget.trigger.focus();
         return;
@@ -400,22 +486,6 @@
         return;
       }
 
-      if (earlyServiceConsent && !earlyServiceConsent.checked) {
-        var earlyServiceWrapper = earlyServiceConsent.closest('.form-checkbox');
-        if (earlyServiceWrapper) earlyServiceWrapper.classList.add('is-invalid');
-        setFormStatus(statusEl, 'error', message('chooseEarlyService'));
-        earlyServiceConsent.focus();
-        return;
-      }
-
-      if (vehicleAccessConsent && !vehicleAccessConsent.checked) {
-        var vehicleAccessWrapper = vehicleAccessConsent.closest('.form-checkbox');
-        if (vehicleAccessWrapper) vehicleAccessWrapper.classList.add('is-invalid');
-        setFormStatus(statusEl, 'error', message('chooseVehicleAccess'));
-        vehicleAccessConsent.focus();
-        return;
-      }
-
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
@@ -423,6 +493,7 @@
 
       var idleLabel = submitLabel ? submitLabel.textContent : '';
       var formData = new FormData(form);
+      var legalAccepted = formData.get('legalConsent') === 'on';
       var payload = {
         slotId: selectedSlotInput.value,
         serviceCode: String(formData.get('serviceCode') || '').trim(),
@@ -436,15 +507,15 @@
         website: String(formData.get('website') || '').trim(),
         pageUrl: window.location.href,
         language: getActiveLang(),
-        termsAccepted: formData.get('legalConsent') === 'on',
+        termsAccepted: legalAccepted,
         termsTextVersion: TERMS_TEXT_VERSION,
-        privacyAccepted: formData.get('legalConsent') === 'on',
+        privacyAccepted: legalAccepted,
         privacyTextVersion: PRIVACY_TEXT_VERSION,
-        earlyServiceConsent: formData.get('earlyServiceConsent') === 'on',
+        earlyServiceConsent: legalAccepted,
         earlyServiceConsentTextVersion: EARLY_SERVICE_CONSENT_VERSION,
-        vehicleAccessConfirmed: formData.get('vehicleAccessConsent') === 'on',
-        vehicleAccessTextVersion: VEHICLE_ACCESS_CONSENT_VERSION,
-        marketingConsent: formData.get('marketingConsent') === 'on',
+        vehicleAccessConfirmed: legalAccepted,
+        vehicleAccessTextVersion: VEHICLE_ACCESS_TEXT_VERSION,
+        marketingConsent: false,
         marketingConsentTextVersion: 'booking-form-2026-07-02'
       };
 
@@ -458,9 +529,26 @@
           body: JSON.stringify(payload)
         });
 
-        if (response.status === 429) throw new Error('rateLimited');
-        if (response.status === 409) throw new Error('slotUnavailable');
-        if (!response.ok) throw new Error('Request failed');
+        if (!response.ok) {
+          var responseBody = null;
+          try {
+            responseBody = await response.json();
+          } catch (_) {
+            responseBody = null;
+          }
+
+          if (response.status === 429) throw new Error('rateLimited');
+          if (response.status === 409) {
+            var responseMessage = responseBody && typeof responseBody.error === 'string'
+              ? responseBody.error
+              : '';
+            throw new Error(responseMessage.indexOf('already submitted') !== -1
+              ? 'duplicateRequest'
+              : 'slotUnavailable');
+          }
+          if (response.status >= 400 && response.status < 500) throw new Error('requestRejected');
+          throw new Error('bookingError');
+        }
 
         form.reset();
         form.classList.remove('was-validated');
@@ -468,23 +556,29 @@
         clearElement(slotsEl);
         slotsEl.classList.remove('is-invalid');
         slotsEl.appendChild(createStatusText(message('chooseService')));
-        setSelectedSummary(selectedSummaryEl, null);
         setFormStatus(statusEl, 'success', message('success'));
       } catch (error) {
-        var key = 'error';
-        if (error instanceof Error && error.message === 'rateLimited') key = 'rateLimited';
-        if (error instanceof Error && error.message === 'slotUnavailable') key = 'slotUnavailable';
+        var knownErrors = [
+          'rateLimited',
+          'slotUnavailable',
+          'duplicateRequest',
+          'requestRejected',
+          'bookingError'
+        ];
+        var key = error instanceof Error && knownErrors.indexOf(error.message) !== -1
+          ? error.message
+          : 'connectionError';
         setFormStatus(statusEl, 'error', message(key));
 
         if (key === 'slotUnavailable') {
-          loadAvailability(serviceSelect, slotsEl, selectedSlotInput, statusEl, selectedSummaryEl);
+          loadAvailability(serviceSelect, slotsEl, selectedSlotInput, statusEl);
         }
       } finally {
         setSubmitting(submitButton, submitLabel, false, idleLabel);
       }
     });
 
-    loadAvailability(serviceSelect, slotsEl, selectedSlotInput, statusEl, selectedSummaryEl);
+    loadAvailability(serviceSelect, slotsEl, selectedSlotInput, statusEl);
   }
 
   if (document.readyState === 'loading') {
