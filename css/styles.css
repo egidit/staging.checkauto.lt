@@ -1757,6 +1757,7 @@ p {
 }
 
 .form-field label[data-required]::after,
+.booking-native-select-label[data-required]::after,
 .booking-service-floating-label[data-required]::after {
   content: " *";
   color: var(--booking-field-danger);
@@ -1808,6 +1809,15 @@ p {
   color: var(--color-text-secondary);
   font-size: var(--font-size-xs);
   line-height: 1.5;
+}
+
+.form-checkbox-details--consent {
+  margin: 0;
+}
+
+.form-checkbox-details--consent label {
+  color: inherit;
+  cursor: pointer;
 }
 
 .legal-consent-note {
@@ -1989,6 +1999,8 @@ p {
 
 .booking-service-select {
   position: relative;
+  display: grid;
+  gap: 0.4rem;
   min-width: 0;
   border-radius: var(--radius-md);
   transition: opacity var(--booking-field-transition);
@@ -1999,14 +2011,51 @@ p {
 }
 
 .booking-native-select {
-  position: absolute;
-  inset: auto auto 0 0;
-  width: 1px !important;
-  min-height: 0 !important;
-  height: 1px !important;
-  padding: 0 !important;
-  opacity: 0;
-  pointer-events: none;
+  width: 100%;
+  min-height: 56px;
+  padding: 0.75rem 2.75rem 0.75rem 0.95rem;
+  appearance: auto;
+  color: var(--color-text);
+  background: var(--booking-field-surface);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  box-shadow: inset 0 0 0 1px rgba(29, 29, 31, 0.035);
+  cursor: pointer;
+  transition: background var(--booking-field-transition),
+              border-color var(--booking-field-transition),
+              box-shadow var(--booking-field-transition);
+}
+
+.booking-native-select-label {
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.booking-native-select:hover:not(:disabled) {
+  background: var(--booking-field-surface-hover);
+}
+
+.booking-native-select:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  background: #fff;
+  border-color: rgba(0, 113, 227, 0.64);
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.12);
+}
+
+.booking-service-select.is-invalid .booking-native-select,
+.booking-native-select[aria-invalid="true"] {
+  background: var(--booking-field-surface-error);
+  border-color: rgba(201, 52, 45, 0.62);
+  box-shadow: 0 0 0 3px rgba(201, 52, 45, 0.10);
+}
+
+.booking-native-select:disabled {
+  color: #77787d;
+  background: #e9e9ec;
+  cursor: not-allowed;
 }
 
 .booking-service-floating-label {
@@ -2387,19 +2436,12 @@ p {
   font-size: var(--font-size-sm);
   font-weight: 700;
   text-align: center;
+  cursor: pointer;
+  user-select: none;
   transition: border-color var(--duration-fast) var(--ease-out),
               color var(--duration-fast) var(--ease-out),
               background var(--duration-fast) var(--ease-out),
               box-shadow var(--duration-fast) var(--ease-out);
-}
-
-.booking-slot input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: 0;
-  opacity: 0;
-  pointer-events: none;
 }
 
 .booking-slot::after {
@@ -2423,26 +2465,26 @@ p {
 }
 
 .booking-slot:hover,
-.booking-slot:has(input:focus-visible) {
+.booking-slot:focus {
   border-color: var(--color-accent);
   color: var(--color-accent);
   box-shadow: 0 3px 16px rgba(0, 113, 227, 0.10);
 }
 
 .booking-slot.is-selected,
-.booking-slot:has(input:checked) {
+.booking-slot[aria-checked="true"] {
   color: #fff;
   background: var(--color-accent);
   border-color: var(--color-accent);
 }
 
 .booking-slot.is-selected::after,
-.booking-slot:has(input:checked)::after {
+.booking-slot[aria-checked="true"]::after {
   content: "✓";
   border-color: #fff;
 }
 
-.booking-slot:has(input:focus-visible) {
+.booking-slot:focus {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
 }
@@ -2475,14 +2517,6 @@ p {
   gap: 0.35rem;
 }
 
-.contact-submit-hint {
-  max-width: 28rem;
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-xs);
-  line-height: 1.35;
-  text-align: right;
-}
-
 .contact-form .btn {
   min-width: 172px;
   min-height: 48px;
@@ -2503,6 +2537,10 @@ p {
 }
 
 @media (max-width: 640px) {
+  .booking-native-select {
+    font-size: 16px;
+  }
+
   .contact-form-actions {
     align-items: stretch;
     flex-direction: column;
@@ -2517,9 +2555,6 @@ p {
     justify-items: stretch;
   }
 
-  .contact-submit-hint {
-    text-align: left;
-  }
 }
 
 /* Legacy contact classes kept for compatibility */
@@ -2953,6 +2988,7 @@ p {
 
 @media (forced-colors: active) {
   .nav-cta,
+  .booking-native-select,
   .booking-service-trigger,
   .booking-service-option,
   .booking-slot,
@@ -2960,7 +2996,8 @@ p {
     forced-color-adjust: auto;
   }
 
-  .booking-slot:has(input:checked) {
+  .booking-slot[aria-checked="true"],
+  .booking-slot.is-selected {
     outline: 3px solid CanvasText;
   }
 }

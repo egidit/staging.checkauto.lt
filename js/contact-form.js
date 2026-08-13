@@ -27,8 +27,6 @@
       serviceRequiredHint: 'Privaloma paslauga',
       slotsAvailable: 'Laisvų laikų: {count}. Pasirinkite vieną.',
       formNeedsAttention: 'Patikrinkite pažymėtus laukus. Perkelta į pirmą nebaigtą lauką.',
-      submitIncomplete: 'Užpildykite privalomus laukus ir pasirinkite laiką.',
-      submitReady: 'Forma paruošta. Galite rezervuoti laiką.',
       nameRequired: 'Įveskite vardą ir pavardę.',
       phoneRequired: 'Įveskite telefono numerį.',
       emailRequired: 'Įveskite el. pašto adresą.',
@@ -56,8 +54,6 @@
       serviceRequiredHint: 'Required service',
       slotsAvailable: 'Available times: {count}. Choose one.',
       formNeedsAttention: 'Review the highlighted fields. Focus moved to the first incomplete field.',
-      submitIncomplete: 'Complete the required fields and choose a time.',
-      submitReady: 'The form is ready. You can reserve the time.',
       nameRequired: 'Enter your full name.',
       phoneRequired: 'Enter your phone number.',
       emailRequired: 'Enter your email address.',
@@ -224,10 +220,54 @@
     var root = form.querySelector('[data-booking-service-select]');
     if (!root || !serviceSelect) return null;
 
+    var errorEl = root.querySelector('.form-error');
     var trigger = root.querySelector('[data-booking-service-trigger]');
+
+    if (!trigger) {
+      function setNativeInvalid(isInvalid) {
+        root.classList.toggle('is-invalid', isInvalid);
+        if (isInvalid) {
+          serviceSelect.setAttribute('aria-invalid', 'true');
+        } else {
+          serviceSelect.removeAttribute('aria-invalid');
+        }
+
+        if (errorEl) {
+          errorEl.hidden = !isInvalid;
+          if (isInvalid) errorEl.textContent = message('chooseService');
+          toggleDescription(serviceSelect, errorEl.id, isInvalid);
+        }
+      }
+
+      function updateNativeSelect() {
+        root.classList.toggle('has-value', Boolean(serviceSelect.value));
+        root.classList.toggle('is-disabled', serviceSelect.disabled);
+        if (serviceSelect.value) setNativeInvalid(false);
+      }
+
+      serviceSelect.addEventListener('change', updateNativeSelect);
+      form.addEventListener('reset', function () {
+        setTimeout(updateNativeSelect, 0);
+      });
+      window.addEventListener('checkauto:languagechange', updateNativeSelect);
+
+      if (typeof MutationObserver === 'function') {
+        var nativeDisabledObserver = new MutationObserver(updateNativeSelect);
+        nativeDisabledObserver.observe(serviceSelect, { attributes: true, attributeFilter: ['disabled'] });
+      }
+
+      updateNativeSelect();
+
+      return {
+        root: root,
+        trigger: serviceSelect,
+        update: updateNativeSelect,
+        setInvalid: setNativeInvalid
+      };
+    }
+
     var menu = root.querySelector('[data-booking-service-menu]');
     var valueLabel = root.querySelector('[data-booking-service-label]');
-    var errorEl = root.querySelector('.form-error');
     var options = Array.prototype.slice.call(root.querySelectorAll('[data-service-option]'));
     var activeIndex = -1;
     var typeahead = '';
@@ -473,6 +513,7 @@
   }
 
   function renderSlots(slotsEl, slotOptionsEl, slotStatusEl, slots, selectedSlotInput, preferredSlotId, focusFirst) {
+    var hadSlotFocus = slotsEl.contains(document.activeElement);
     slots = uniqueAvailabilityTimes(slots);
     clearElement(slotOptionsEl);
     selectedSlotInput.value = '';
@@ -480,6 +521,7 @@
     if (!slots.length) {
       setSlotStatus(slotStatusEl, 'noSlots');
       slotsEl.setAttribute('tabindex', '0');
+      if (hadSlotFocus || focusFirst) slotsEl.focus();
       return 0;
     }
 
@@ -487,6 +529,29 @@
     slotsEl.setAttribute('tabindex', '-1');
 
     var grouped = {};
+    var createdOptions = [];
+    var preferredOption = null;
+
+    function selectSlot(option, shouldFocus) {
+      createdOptions.forEach(function (item) {
+        var isSelected = item === option;
+        item.setAttribute('aria-checked', String(isSelected));
+        item.classList.toggle('is-selected', isSelected);
+        item.setAttribute('tabindex', isSelected ? '0' : '-1');
+      });
+
+      selectedSlotInput.value = option.dataset.slotId || '';
+      slotsEl.classList.remove('is-invalid');
+      slotsEl.removeAttribute('aria-invalid');
+      var slotError = document.getElementById('contact-slot-error');
+      if (slotError) {
+        slotError.hidden = true;
+        toggleDescription(slotsEl, slotError.id, false);
+      }
+      selectedSlotInput.dispatchEvent(new Event('input', { bubbles: true }));
+      if (shouldFocus) option.focus();
+    }
+
     slots.forEach(function (slot) {
       var key = formatDate(slot.start_at);
       if (!grouped[key]) grouped[key] = [];
@@ -508,57 +573,68 @@
       grouped[dateLabel].forEach(function (slot, slotIndex) {
         var optionId = 'contact-slot-' + groupIndex + '-' + slotIndex;
         var timeId = optionId + '-time';
-        var label = document.createElement('label');
-        label.className = 'booking-slot';
-        label.dataset.slotId = slot.slot_id;
-
-        var radio = document.createElement('input');
-        radio.id = optionId;
-        radio.type = 'radio';
-        radio.name = 'bookingSlotChoice';
-        radio.value = slot.slot_id;
-        radio.required = true;
-        radio.setAttribute('aria-labelledby', heading.id + ' ' + timeId);
+        var option = document.createElement('div');
+        option.id = optionId;
+        option.className = 'booking-slot';
+        option.dataset.slotId = String(slot.slot_id || '');
+        option.setAttribute('role', 'radio');
+        option.setAttribute('aria-checked', 'false');
+        option.setAttribute('aria-labelledby', heading.id + ' ' + timeId);
+        option.setAttribute('tabindex', '-1');
 
         var time = document.createElement('span');
         time.id = timeId;
         time.className = 'booking-slot-time';
         time.textContent = formatTime(slot.start_at);
-        label.appendChild(radio);
-        label.appendChild(time);
+        option.appendChild(time);
 
-        radio.addEventListener('change', function () {
-          var labels = slotsEl.querySelectorAll('.booking-slot');
-          labels.forEach(function (item) {
-            item.classList.remove('is-selected');
-          });
-
-          label.classList.add('is-selected');
-          selectedSlotInput.value = slot.slot_id;
-          slotsEl.classList.remove('is-invalid');
-          slotsEl.removeAttribute('aria-invalid');
-          var slotError = document.getElementById('contact-slot-error');
-          if (slotError) slotError.hidden = true;
-          selectedSlotInput.dispatchEvent(new Event('input', { bubbles: true }));
+        option.addEventListener('click', function () {
+          selectSlot(option, true);
         });
 
+        option.addEventListener('keydown', function (event) {
+          var currentIndex = createdOptions.indexOf(option);
+          var nextIndex = currentIndex;
+
+          if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+            nextIndex = (currentIndex + 1) % createdOptions.length;
+          } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+            nextIndex = (currentIndex - 1 + createdOptions.length) % createdOptions.length;
+          } else if (event.key === 'Home') {
+            nextIndex = 0;
+          } else if (event.key === 'End') {
+            nextIndex = createdOptions.length - 1;
+          } else if (event.key === ' ' || event.key === 'Enter') {
+            event.preventDefault();
+            selectSlot(option, true);
+            return;
+          } else {
+            return;
+          }
+
+          event.preventDefault();
+          selectSlot(createdOptions[nextIndex], true);
+        });
+
+        createdOptions.push(option);
         if (preferredSlotId && preferredSlotId === String(slot.slot_id)) {
-          radio.checked = true;
-          label.classList.add('is-selected');
+          option.setAttribute('aria-checked', 'true');
+          option.classList.add('is-selected');
+          option.setAttribute('tabindex', '0');
           selectedSlotInput.value = String(slot.slot_id);
+          preferredOption = option;
         }
 
-        grid.appendChild(label);
+        grid.appendChild(option);
       });
 
       group.appendChild(grid);
       slotOptionsEl.appendChild(group);
     });
 
-    if (focusFirst) {
-      var firstRadio = slotOptionsEl.querySelector('input[type="radio"]');
-      if (firstRadio) firstRadio.focus();
-    }
+    var activeOption = preferredOption || createdOptions[0];
+    if (activeOption && !preferredOption) activeOption.setAttribute('tabindex', '0');
+    if (activeOption && (focusFirst || hadSlotFocus)) activeOption.focus();
 
     return slots.length;
   }
@@ -629,7 +705,6 @@
     var selectedSlotInput = form.querySelector('[data-booking-slot-id]');
     var submitButton = form.querySelector('[data-contact-form-submit]');
     var submitLabel = form.querySelector('[data-contact-submit-label]');
-    var submitHint = form.querySelector('[data-contact-submit-hint]');
     var statusEl = form.querySelector('[data-contact-form-status]');
     var legalConsent = form.querySelector('[data-legal-consent]');
     var textControls = Array.prototype.slice.call(form.querySelectorAll('.floating-field input, .floating-field textarea'));
@@ -670,9 +745,6 @@
       submitButton.setAttribute('aria-disabled', String(!isReady));
       submitButton.classList.toggle('is-disabled', !isReady && !isSubmitting);
       submitButton.classList.toggle('is-submitting', isSubmitting);
-      if (submitHint) {
-        submitHint.textContent = isReady ? message('submitReady') : message('submitIncomplete');
-      }
     }
 
     function setBookingSubmitting(nextState, idleLabel) {
@@ -769,7 +841,7 @@
       var slotInvalid = Boolean(serviceSelect.value) && !selectedSlotInput.value;
       setSlotError(slotInvalid);
       if (slotInvalid) {
-        invalidTargets.push(slotOptionsEl.querySelector('input[type="radio"]') || slotsEl);
+        invalidTargets.push(slotOptionsEl.querySelector('[role="radio"][tabindex="0"]') || slotsEl);
       }
 
       textControls.forEach(function (control) {

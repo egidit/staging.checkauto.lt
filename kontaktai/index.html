@@ -33,7 +33,7 @@
   <link rel="preload" href="/assets/fonts/Inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="/css/styles.css?v=20260813f">
+  <link rel="stylesheet" href="/css/styles.css?v=20260813g">
 
   <script>
     (function(){var l=localStorage.getItem('checkauto-lang');if(l&&l!=='lt'){document.documentElement.lang=l;document.documentElement.classList.add('i18n-loading');}})();
@@ -88,47 +88,19 @@
               <div class="contact-form-grid">
                 <div class="form-field form-field--full">
                   <div class="booking-service-select" data-booking-service-select>
-                    <select id="contact-inspection-type" class="booking-native-select" name="serviceCode" required hidden data-booking-service>
+                    <label for="contact-inspection-type" class="booking-native-select-label" data-required="true" data-i18n="contact.form.inspection_type_label">Patikros tipas</label>
+                    <select id="contact-inspection-type" class="booking-native-select" name="serviceCode" required data-booking-service>
                       <option value="" data-i18n="contact.form.inspection_type_placeholder">Pasirinkite paslaugą</option>
                       <option value="full_inspection" data-i18n="contact.form.inspection_type_full">Išsami patikra prieš pirkimą</option>
                       <option value="computer_diagnostics" data-i18n="contact.form.inspection_type_diagnostics">Kompiuterinė diagnostika</option>
                     </select>
-                    <span id="contact-inspection-type-label" class="booking-service-floating-label" data-required="true" data-i18n="contact.form.inspection_type_label">Patikros tipas</span>
-                    <button class="booking-service-trigger" type="button" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="contact-inspection-type-menu" aria-labelledby="contact-inspection-type-label contact-inspection-type-value" aria-describedby="contact-inspection-type-hint" aria-required="true" data-booking-service-trigger>
-                      <span class="booking-service-trigger-value">
-                        <span class="booking-service-trigger-icon" aria-hidden="true" data-booking-service-trigger-icon></span>
-                        <span id="contact-inspection-type-value" class="booking-service-trigger-label" data-booking-service-label data-i18n="contact.form.inspection_type_placeholder">Pasirinkite paslaugą</span>
-                      </span>
-                      <span class="booking-service-chevron" aria-hidden="true">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-                      </span>
-                    </button>
-                    <div id="contact-inspection-type-menu" class="booking-service-menu" role="listbox" aria-labelledby="contact-inspection-type-label" data-booking-service-menu hidden>
-                      <button id="contact-service-full" class="booking-service-option" type="button" role="option" aria-selected="false" tabindex="-1" data-service-option data-value="full_inspection">
-                        <span class="booking-service-option-icon" data-service-icon="full_inspection" aria-hidden="true"></span>
-                        <span class="booking-service-option-copy">
-                          <span class="booking-service-option-title" data-i18n="contact.form.inspection_type_full">Išsami patikra prieš pirkimą</span>
-                          <span class="booking-service-option-text" data-i18n="contact.form.inspection_type_full_meta">Kėbulas, diagnostika, bandomasis važiavimas ir aiški išvada.</span>
-                        </span>
-                        <span class="booking-service-option-indicator" aria-hidden="true"></span>
-                      </button>
-                      <button id="contact-service-diagnostics" class="booking-service-option" type="button" role="option" aria-selected="false" tabindex="-1" data-service-option data-value="computer_diagnostics">
-                        <span class="booking-service-option-icon" data-service-icon="computer_diagnostics" aria-hidden="true"></span>
-                        <span class="booking-service-option-copy">
-                          <span class="booking-service-option-title" data-i18n="contact.form.inspection_type_diagnostics">Kompiuterinė diagnostika</span>
-                          <span class="booking-service-option-text" data-i18n="contact.form.inspection_type_diagnostics_meta">OBD klaidos, gyvi parametrai ir trumpas paaiškinimas.</span>
-                        </span>
-                        <span class="booking-service-option-indicator" aria-hidden="true"></span>
-                      </button>
-                    </div>
-                    <p id="contact-inspection-type-hint" class="visually-hidden" data-i18n="contact.form.inspection_type_keyboard_hint">Privalomas laukas. Atverkite sąrašą, pasirinkite rodyklių klavišais ir patvirtinkite Enter, tarpo arba Tab klavišu.</p>
                     <p id="contact-inspection-type-error" class="form-error" data-error-key="chooseService" hidden>Pasirinkite patikros tipą.</p>
                   </div>
                 </div>
 
                 <div class="form-field form-field--full">
                   <input id="contact-slot-id" name="slotId" type="hidden" data-booking-slot-id>
-                  <fieldset class="booking-slot-panel" aria-describedby="contact-slot-status" aria-busy="false" tabindex="0" data-booking-slots>
+                  <fieldset class="booking-slot-panel" role="radiogroup" aria-required="true" aria-describedby="contact-slot-status" aria-busy="false" tabindex="0" data-booking-slots>
                     <legend id="contact-slot-label" class="visually-hidden" data-i18n="contact.form.slot_label">Pasirinkite laiką</legend>
                     <p id="contact-slot-status" class="booking-slot-status" role="status" aria-live="polite" aria-atomic="true" data-booking-slot-status data-i18n="contact.form.slot_placeholder">Pirmiausia pasirinkite patikros tipą.</p>
                     <div class="booking-slot-options" data-booking-slot-options></div>
@@ -220,18 +192,17 @@
 
             <div class="form-field form-field--full">
               <div class="form-checkbox form-checkbox--required">
-                <input id="contact-legal-consent" name="legalConsent" type="checkbox" required aria-describedby="contact-legal-details" data-legal-consent>
+                <input id="contact-legal-consent" name="legalConsent" type="checkbox" required aria-labelledby="contact-legal-details" data-legal-consent>
                 <div class="form-checkbox-copy">
-                  <label for="contact-legal-consent">
-                    <span data-i18n="contact.form.legal_consent_label">Patvirtinu privalomas užsakymo sąlygas</span>
-                    <span class="required-mark" aria-hidden="true">*</span>
-                  </label>
-                  <p id="contact-legal-details" class="form-checkbox-details">
-                  <span data-i18n="contact.form.legal_consent_prefix">Sutinku su</span>
-                  <a href="/taisykles-ir-salygos/" data-i18n="contact.form.terms_link">Taisyklėmis ir sąlygomis</a>
-                  <span data-i18n="contact.form.legal_consent_middle">ir susipažinau su</span>
-                  <a href="/privatumo-politika/" data-i18n="contact.form.privacy_link">Privatumo politika</a>.
-                  <span data-i18n="contact.form.early_service_consent_inline">Jei vizitas vyks per 14 dienų nuo užsakymo patvirtinimo, prašau paslaugą suteikti pasirinktu laiku. Visiškai ją suteikus nebegalėsiu atsisakyti sutarties.</span>
+                  <p id="contact-legal-details" class="form-checkbox-details form-checkbox-details--consent">
+                    <label for="contact-legal-consent"><span data-i18n="contact.form.legal_consent_prefix">Sutinku su</span></label>
+                    <a href="/taisykles-ir-salygos/" data-i18n="contact.form.terms_link">Taisyklėmis ir sąlygomis</a>
+                    <label for="contact-legal-consent"><span data-i18n="contact.form.legal_consent_middle">ir susipažinau su</span></label>
+                    <a href="/privatumo-politika/" data-i18n="contact.form.privacy_link">Privatumo politika</a>.
+                    <label for="contact-legal-consent">
+                      <span data-i18n="contact.form.early_service_consent_inline">Jei vizitas vyks per 14 dienų nuo užsakymo patvirtinimo, prašau paslaugą suteikti pasirinktu laiku. Visiškai ją suteikus nebegalėsiu atsisakyti sutarties.</span>
+                      <span class="required-mark" aria-hidden="true">*</span>
+                    </label>
                   </p>
                   <p id="contact-legal-error" class="form-error" data-error-key="chooseLegal" hidden>Patvirtinkite privalomas užsakymo sąlygas.</p>
                 </div>
@@ -241,8 +212,7 @@
             <div class="contact-form-actions">
               <p class="contact-form-status" data-contact-form-status role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
               <div class="contact-submit-control">
-                <p id="contact-submit-hint" class="contact-submit-hint" data-contact-submit-hint data-i18n="contact.form.submit_incomplete">Užpildykite privalomus laukus ir pasirinkite laiką.</p>
-                <button class="btn btn-primary is-disabled" type="submit" aria-disabled="true" aria-describedby="contact-submit-hint" data-contact-form-submit>
+                <button class="btn btn-primary is-disabled" type="submit" aria-disabled="true" data-contact-form-submit>
                   <span data-contact-submit-label data-i18n="contact.form.submit">Rezervuoti laiką</span>
                 </button>
               </div>
@@ -329,6 +299,6 @@
   <script src="/js/components.js?v=20260813f"></script>
   <script src="/js/i18n.js"></script>
   <script src="/js/main.js"></script>
-  <script src="/js/contact-form.js?v=20260813f"></script>
+  <script src="/js/contact-form.js?v=20260813g"></script>
 </body>
 </html>
