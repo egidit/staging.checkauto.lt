@@ -254,6 +254,34 @@ p {
   transition: background var(--duration-fast) var(--ease-out);
 }
 
+.skip-link {
+  position: fixed;
+  z-index: 1400;
+  top: 0.5rem;
+  left: 0.75rem;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.65rem 1rem;
+  color: #fff;
+  background: #003f7f;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  transform: translateY(calc(-100% - 1rem));
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.skip-link:focus-visible {
+  color: #fff;
+  outline-color: #fff;
+  transform: translateY(0);
+}
+
+#main-content:focus {
+  outline: none;
+}
+
 .header-inner {
   display: flex;
   align-items: center;
@@ -283,7 +311,7 @@ p {
 
 .nav-desktop ul {
   display: flex;
-  gap: var(--space-md);
+  gap: clamp(0.75rem, 2vw, var(--space-md));
   align-items: center;
 }
 
@@ -323,6 +351,46 @@ p {
 
 .nav-desktop a[aria-current="page"]::after {
   width: 100%;
+}
+
+.nav-desktop a.nav-cta {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1rem;
+  color: #fff;
+  background: var(--color-accent);
+  border-radius: 999px;
+  font-weight: 700;
+  line-height: 1;
+  transition: color var(--duration-fast) var(--ease-out),
+              background var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out);
+}
+
+.nav-desktop a.nav-cta::after {
+  display: none;
+}
+
+.nav-desktop a.nav-cta:hover,
+.nav-desktop a.nav-cta:focus-visible {
+  color: #fff;
+  background: #0066cc;
+  box-shadow: 0 5px 16px rgba(0, 71, 143, 0.22);
+  transform: translateY(-1px);
+}
+
+.nav-desktop a.nav-cta:focus-visible {
+  outline-color: #003f7f;
+}
+
+.nav-desktop a.nav-cta[aria-current="page"] {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
 }
 
 /* Language dropdown */
@@ -387,10 +455,11 @@ p {
 
 .lang-dropdown-menu {
   display: flex;
+  flex-direction: column;
   position: absolute;
   top: calc(100% + 6px);
   left: 50%;
-  min-width: auto;
+  min-width: 150px;
   background: var(--color-bg);
   border: 1px solid var(--color-border-light);
   border-radius: var(--radius-sm);
@@ -410,6 +479,16 @@ p {
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) translateY(0);
+}
+
+.nav-desktop .lang-dropdown-menu {
+  left: auto;
+  right: 0;
+  transform: translateY(-8px);
+}
+
+.nav-desktop .lang-dropdown.open .lang-dropdown-menu {
+  transform: translateY(0);
 }
 
 .lang-dropdown-menu li {
@@ -478,6 +557,8 @@ p {
   justify-content: center;
   align-items: center;
   gap: var(--space-lg);
+  overflow-y: auto;
+  padding: calc(var(--header-height) + var(--space-md)) var(--container-padding) var(--space-lg);
   opacity: 0;
   visibility: hidden;
   transition: opacity var(--duration-normal) var(--ease-out),
@@ -505,12 +586,42 @@ p {
   transform: translateY(0);
 }
 
+.nav-mobile a[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+.nav-mobile a.nav-cta {
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1.5rem;
+  color: #fff;
+  background: var(--color-accent);
+  border-radius: 999px;
+  font-size: var(--font-size-lg);
+  box-shadow: 0 8px 24px rgba(0, 71, 143, 0.18);
+}
+
+.nav-mobile a.nav-cta:hover,
+.nav-mobile a.nav-cta:focus-visible {
+  color: #fff;
+  background: #0066cc;
+}
+
+.nav-mobile a.nav-cta:focus-visible {
+  outline-color: #003f7f;
+}
+
 /* Staggered entrance for mobile nav links */
 .nav-open .nav-mobile a:nth-child(1) { transition-delay: 80ms; }
 .nav-open .nav-mobile a:nth-child(2) { transition-delay: 140ms; }
 .nav-open .nav-mobile a:nth-child(3) { transition-delay: 200ms; }
 .nav-open .nav-mobile a:nth-child(4) { transition-delay: 260ms; }
 .nav-open .nav-mobile a:nth-child(5) { transition-delay: 320ms; }
+.nav-open .nav-mobile a:nth-child(6) { transition-delay: 380ms; }
 
 .nav-mobile .lang-dropdown {
   margin-left: 0;
@@ -1597,7 +1708,7 @@ p {
   --booking-field-surface-hover: #ececef;
   --booking-field-surface-error: #fff4f3;
   --booking-field-label: #5f6065;
-  --booking-field-danger: #c9342d;
+  --booking-field-danger: #b42318;
   --booking-field-transition: 140ms cubic-bezier(0.2, 0, 0, 1);
   display: grid;
   gap: var(--space-md);
@@ -1645,14 +1756,15 @@ p {
   color: var(--color-text);
 }
 
-.form-field label[data-required]::after {
+.form-field label[data-required]::after,
+.booking-service-floating-label[data-required]::after {
   content: " *";
-  color: var(--color-danger);
+  color: var(--booking-field-danger);
   font-weight: 800;
 }
 
 .required-mark {
-  color: var(--color-danger);
+  color: var(--booking-field-danger);
   font-weight: 800;
 }
 
@@ -1672,10 +1784,30 @@ p {
 }
 
 .form-field .form-checkbox a {
-  color: var(--color-accent);
+  color: #005fbf;
   font-weight: 650;
   text-decoration: underline;
   text-underline-offset: 0.16em;
+}
+
+.form-checkbox-copy {
+  min-width: 0;
+}
+
+.form-checkbox-copy > label {
+  display: inline-block;
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  line-height: 1.35;
+  cursor: pointer;
+}
+
+.form-checkbox-details {
+  margin-top: 0.25rem;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xs);
+  line-height: 1.5;
 }
 
 .legal-consent-note {
@@ -1687,7 +1819,8 @@ p {
   line-height: 1.35;
 }
 
-.contact-form.was-validated .form-checkbox--required:has(input:invalid) {
+.contact-form.was-validated .form-checkbox--required:has(input:invalid),
+.form-checkbox.is-invalid {
   border-color: rgba(201, 52, 45, 0.45);
   background: var(--booking-field-surface-error);
 }
@@ -1709,6 +1842,18 @@ p {
 .form-field .form-checkbox:has(input:disabled) {
   cursor: not-allowed;
   opacity: 0.62;
+}
+
+.form-error {
+  margin: 0;
+  color: var(--booking-field-danger, #b42318);
+  font-size: var(--font-size-xs);
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+.form-error[hidden] {
+  display: none;
 }
 
 .form-hint {
@@ -2065,7 +2210,8 @@ p {
 }
 
 .booking-service-option:hover,
-.booking-service-option:focus-visible {
+.booking-service-option:focus-visible,
+.booking-service-option.is-active {
   background: #f2f7fd;
   border-color: rgba(0, 113, 227, 0.18);
   box-shadow: inset 0 0 0 1px rgba(0, 113, 227, 0.06);
@@ -2189,6 +2335,8 @@ p {
   min-height: 96px;
   max-height: 360px;
   overflow: auto;
+  min-inline-size: 0;
+  margin: 0;
   padding: 0.75rem;
   background: #fff;
   border: 1px solid var(--color-border-light);
@@ -2196,7 +2344,7 @@ p {
   box-shadow: inset 0 1px 2px rgba(17, 17, 19, 0.03);
 }
 
-.booking-slot-empty {
+.booking-slot-status {
   margin: 0;
   padding: 0.25rem;
   color: var(--color-text-secondary);
@@ -2204,26 +2352,20 @@ p {
   line-height: var(--line-height-snug);
 }
 
-.booking-slot-count {
-  margin: 0 0 0.65rem;
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-xs);
-  font-weight: 700;
-  line-height: var(--line-height-snug);
-  text-transform: uppercase;
+.booking-slot-options:not(:empty) {
+  margin-top: 0.65rem;
 }
 
 .booking-slot-group + .booking-slot-group {
   margin-top: var(--space-sm);
 }
 
-.booking-slot-group h3 {
+.booking-slot-group h4 {
   margin-bottom: 0.45rem;
   font-size: var(--font-size-sm);
   color: var(--color-text);
   font-weight: 700;
   letter-spacing: 0;
-  text-transform: capitalize;
 }
 
 .booking-slot-grid {
@@ -2233,11 +2375,11 @@ p {
 }
 
 .booking-slot {
+  position: relative;
   min-height: 50px;
   display: grid;
   align-content: center;
-  gap: 0.16rem;
-  padding: 0.5rem 0.64rem;
+  padding: 0.5rem 1.8rem 0.5rem 0.64rem;
   color: var(--color-text);
   background: var(--color-bg);
   border: 1.5px solid var(--color-border-light);
@@ -2251,31 +2393,58 @@ p {
               box-shadow var(--duration-fast) var(--ease-out);
 }
 
+.booking-slot input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.booking-slot::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0.65rem;
+  width: 1rem;
+  height: 1rem;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  line-height: 1;
+  transform: translateY(-50%);
+}
+
 .booking-slot-time {
   line-height: 1.1;
 }
 
-.booking-slot-note {
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-}
-
 .booking-slot:hover,
-.booking-slot:focus-visible {
+.booking-slot:has(input:focus-visible) {
   border-color: var(--color-accent);
   color: var(--color-accent);
   box-shadow: 0 3px 16px rgba(0, 113, 227, 0.10);
 }
 
-.booking-slot.is-selected {
+.booking-slot.is-selected,
+.booking-slot:has(input:checked) {
   color: #fff;
   background: var(--color-accent);
   border-color: var(--color-accent);
 }
 
-.booking-slot.is-selected .booking-slot-note {
-  color: rgba(255, 255, 255, 0.82);
+.booking-slot.is-selected::after,
+.booking-slot:has(input:checked)::after {
+  content: "✓";
+  border-color: #fff;
+}
+
+.booking-slot:has(input:focus-visible) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
 }
 
 .contact-form-actions {
@@ -2293,20 +2462,35 @@ p {
 }
 
 .contact-form-status.is-success {
-  color: var(--color-success);
+  color: #1f7a39;
 }
 
 .contact-form-status.is-error {
-  color: var(--color-danger);
+  color: #b42318;
+}
+
+.contact-submit-control {
+  display: grid;
+  justify-items: end;
+  gap: 0.35rem;
+}
+
+.contact-submit-hint {
+  max-width: 28rem;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xs);
+  line-height: 1.35;
+  text-align: right;
 }
 
 .contact-form .btn {
   min-width: 172px;
-  min-height: 42px;
+  min-height: 48px;
   padding-block: 0.58rem;
 }
 
-.contact-form .btn[disabled] {
+.contact-form .btn.is-disabled,
+.contact-form .btn[aria-disabled="true"] {
   opacity: 0.48;
   cursor: not-allowed;
   transform: none;
@@ -2326,6 +2510,15 @@ p {
 
   .contact-form .btn {
     width: 100%;
+  }
+
+  .contact-submit-control {
+    width: 100%;
+    justify-items: stretch;
+  }
+
+  .contact-submit-hint {
+    text-align: left;
   }
 }
 
@@ -2756,6 +2949,35 @@ p {
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
+}
+
+@media (forced-colors: active) {
+  .nav-cta,
+  .booking-service-trigger,
+  .booking-service-option,
+  .booking-slot,
+  .form-checkbox {
+    forced-color-adjust: auto;
+  }
+
+  .booking-slot:has(input:checked) {
+    outline: 3px solid CanvasText;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Prevents FOUC on i18n elements before text loads */

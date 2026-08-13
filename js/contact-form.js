@@ -25,11 +25,21 @@
       chooseSlot: 'Pasirinkite vieną iš galimų laikų.',
       chooseLegal: 'Norint rezervuoti laiką reikia patvirtinti taisykles, privatumo politiką ir paslaugos pradėjimo sąlygą.',
       serviceRequiredHint: 'Privaloma paslauga',
+      slotsAvailable: 'Laisvų laikų: {count}. Pasirinkite vieną.',
+      formNeedsAttention: 'Patikrinkite pažymėtus laukus. Perkelta į pirmą nebaigtą lauką.',
+      submitIncomplete: 'Užpildykite privalomus laukus ir pasirinkite laiką.',
+      submitReady: 'Forma paruošta. Galite rezervuoti laiką.',
+      nameRequired: 'Įveskite vardą ir pavardę.',
+      phoneRequired: 'Įveskite telefono numerį.',
+      emailRequired: 'Įveskite el. pašto adresą.',
+      emailInvalid: 'Įveskite tinkamą el. pašto adresą.',
+      vehicleRequired: 'Įveskite automobilio duomenis.',
+      locationRequired: 'Įveskite automobilio vietą arba adresą.',
+      listingUrlInvalid: 'Įveskite visą nuorodą, prasidedančią „https://“.',
+      fieldInvalid: 'Patikrinkite šio lauko reikšmę.',
       noSlots: 'Šiuo metu šiai paslaugai laisvų laikų nerasta. Pasirinkite kitą paslaugą arba susisiekite telefonu ar el. paštu.',
       availabilityError: 'Laisvų laikų nepavyko įkelti dėl techninės klaidos. Bandykite dar kartą.',
       connectionError: 'Nepavyko susisiekti su rezervacijos sistema. Patikrinkite interneto ryšį ir bandykite dar kartą.',
-      availableCount: 'Galimi laikai per artimiausias 45 dienas',
-      slotReview: 'Peržiūrėsime',
       slotUnavailable: 'Pasirinktas laikas nebėra prieinamas. Pasirinkite kitą laiką.',
       duplicateRequest: 'Šiam laikui rezervacijos užklausa jau pateikta. Patikrinkite el. paštą dėl jos numerio.',
       requestRejected: 'Rezervacijos duomenų nepavyko priimti. Patikrinkite laukus ir bandykite dar kartą.',
@@ -44,11 +54,21 @@
       chooseSlot: 'Choose one available time.',
       chooseLegal: 'To reserve a time, confirm the terms, privacy policy, and early service condition.',
       serviceRequiredHint: 'Required service',
+      slotsAvailable: 'Available times: {count}. Choose one.',
+      formNeedsAttention: 'Review the highlighted fields. Focus moved to the first incomplete field.',
+      submitIncomplete: 'Complete the required fields and choose a time.',
+      submitReady: 'The form is ready. You can reserve the time.',
+      nameRequired: 'Enter your full name.',
+      phoneRequired: 'Enter your phone number.',
+      emailRequired: 'Enter your email address.',
+      emailInvalid: 'Enter a valid email address.',
+      vehicleRequired: 'Enter the car details.',
+      locationRequired: 'Enter the car location or address.',
+      listingUrlInvalid: 'Enter the full URL beginning with “https://”.',
+      fieldInvalid: 'Review the value in this field.',
       noSlots: 'No available times were found for this service. Choose another service or contact us by phone or email.',
       availabilityError: 'Available times could not be loaded because of a technical error. Please try again.',
       connectionError: 'Could not connect to the booking system. Check your internet connection and try again.',
-      availableCount: 'Available times in the next 45 days',
-      slotReview: 'Review first',
       slotUnavailable: 'The selected time is no longer available. Please choose another time.',
       duplicateRequest: 'A booking request for this time has already been submitted. Check your email for its reference.',
       requestRejected: 'The booking details could not be accepted. Review the form and try again.',
@@ -59,6 +79,7 @@
   };
 
   var availabilityController = null;
+  var currentAvailabilitySlots = [];
 
   function getActiveLang() {
     return document.documentElement.lang === 'en' ? 'en' : 'lt';
@@ -69,13 +90,33 @@
     return MESSAGES[lang][key] || MESSAGES.lt[key];
   }
 
+  function slotsAvailableMessage(count) {
+    return message('slotsAvailable').replace('{count}', String(count));
+  }
+
   function formatDate(value) {
-    return new Intl.DateTimeFormat(getActiveLang() === 'en' ? 'en-GB' : 'lt-LT', {
+    var lang = getActiveLang();
+    var parts = new Intl.DateTimeFormat(lang === 'en' ? 'en-GB' : 'lt-LT', {
       weekday: 'long',
       month: 'long',
       day: 'numeric',
       timeZone: 'Europe/Vilnius'
-    }).format(new Date(value));
+    }).formatToParts(new Date(value));
+    var values = {};
+
+    parts.forEach(function (part) {
+      if (part.type !== 'literal') values[part.type] = part.value;
+    });
+
+    function capitalize(text) {
+      return text ? text.charAt(0).toLocaleUpperCase(lang === 'en' ? 'en-GB' : 'lt-LT') + text.slice(1) : '';
+    }
+
+    if (lang === 'en') {
+      return capitalize(values.weekday) + ', ' + values.day + ' ' + capitalize(values.month);
+    }
+
+    return capitalize(values.weekday) + ', ' + capitalize(values.month) + ' ' + values.day + 'd.';
   }
 
   function formatTime(value) {
@@ -86,22 +127,43 @@
     }).format(new Date(value));
   }
 
-  function createStatusText(text) {
-    var p = document.createElement('p');
-    p.className = 'booking-slot-empty';
-    p.textContent = text;
-    return p;
-  }
-
   function clearElement(element) {
     while (element.firstChild) element.removeChild(element.firstChild);
   }
 
-  function setFormStatus(statusEl, type, text) {
+  function setFormStatus(statusEl, type, text, messageKey) {
     if (!statusEl) return;
     statusEl.textContent = text || '';
+    statusEl.dataset.messageKey = messageKey || '';
+    statusEl.dataset.statusType = type || '';
     statusEl.classList.toggle('is-success', type === 'success');
     statusEl.classList.toggle('is-error', type === 'error');
+  }
+
+  function setSlotStatus(statusEl, messageKey, count) {
+    if (!statusEl) return;
+    statusEl.dataset.messageKey = messageKey || '';
+    statusEl.dataset.count = typeof count === 'number' ? String(count) : '';
+    statusEl.textContent = messageKey === 'slotsAvailable'
+      ? slotsAvailableMessage(count)
+      : message(messageKey);
+  }
+
+  function toggleDescription(control, descriptionId, shouldInclude) {
+    if (!control || !descriptionId) return;
+
+    var ids = String(control.getAttribute('aria-describedby') || '')
+      .split(/\s+/)
+      .filter(Boolean)
+      .filter(function (id) { return id !== descriptionId; });
+
+    if (shouldInclude) ids.push(descriptionId);
+
+    if (ids.length) {
+      control.setAttribute('aria-describedby', ids.join(' '));
+    } else {
+      control.removeAttribute('aria-describedby');
+    }
   }
 
   function setSubmitLabel(label, isSubmitting, idleLabel) {
@@ -164,21 +226,94 @@
 
     var trigger = root.querySelector('[data-booking-service-trigger]');
     var menu = root.querySelector('[data-booking-service-menu]');
-    var label = root.querySelector('[data-booking-service-label]');
+    var valueLabel = root.querySelector('[data-booking-service-label]');
+    var errorEl = root.querySelector('.form-error');
     var options = Array.prototype.slice.call(root.querySelectorAll('[data-service-option]'));
+    var activeIndex = -1;
+    var typeahead = '';
+    var typeaheadTimer = null;
 
-    if (!trigger || !menu || !label || !options.length) return null;
+    if (!trigger || !menu || !valueLabel || !options.length) return null;
 
     function getOptionTitle(option) {
       var title = option.querySelector('.booking-service-option-title');
       return title ? title.textContent.trim() : option.textContent.trim();
     }
 
-    function setOpen(isOpen) {
+    function getSelectedIndex() {
+      return options.findIndex(function (option) {
+        return option.dataset.value === serviceSelect.value;
+      });
+    }
+
+    function setInvalid(isInvalid) {
+      root.classList.toggle('is-invalid', isInvalid);
+      if (isInvalid) {
+        trigger.setAttribute('aria-invalid', 'true');
+      } else {
+        trigger.removeAttribute('aria-invalid');
+      }
+
+      if (errorEl) {
+        errorEl.hidden = !isInvalid;
+        if (isInvalid) errorEl.textContent = message('chooseService');
+        toggleDescription(trigger, errorEl.id, isInvalid);
+      }
+    }
+
+    function syncOptionState() {
+      var selectedIndex = getSelectedIndex();
+      var open = root.classList.contains('is-open');
+
+      options.forEach(function (option, index) {
+        var isCurrent = open ? index === activeIndex : index === selectedIndex;
+        option.classList.toggle('is-active', open && index === activeIndex);
+        option.setAttribute('aria-selected', String(isCurrent));
+      });
+
+      if (open && options[activeIndex]) {
+        trigger.setAttribute('aria-activedescendant', options[activeIndex].id);
+        options[activeIndex].scrollIntoView({ block: 'nearest' });
+      } else {
+        trigger.removeAttribute('aria-activedescendant');
+      }
+    }
+
+    function setActive(index) {
+      if (!options.length) return;
+      activeIndex = Math.max(0, Math.min(index, options.length - 1));
+      syncOptionState();
+    }
+
+    function setOpen(isOpen, preferredIndex) {
       if (trigger.disabled) isOpen = false;
+
+      if (isOpen) {
+        var selectedIndex = getSelectedIndex();
+        activeIndex = typeof preferredIndex === 'number'
+          ? preferredIndex
+          : (selectedIndex >= 0 ? selectedIndex : 0);
+      }
+
       menu.hidden = !isOpen;
       root.classList.toggle('is-open', isOpen);
       trigger.setAttribute('aria-expanded', String(isOpen));
+      syncOptionState();
+    }
+
+    function commitActiveOption() {
+      var option = options[activeIndex];
+      if (!option) return;
+
+      var nextValue = option.dataset.value || '';
+      var valueChanged = serviceSelect.value !== nextValue;
+      serviceSelect.value = nextValue;
+      if (valueChanged) {
+        serviceSelect.dispatchEvent(new Event('change', { bubbles: true }));
+      } else {
+        updateFromSelect();
+      }
+      setOpen(false);
     }
 
     function updateDisabledState() {
@@ -187,32 +322,26 @@
       if (serviceSelect.disabled) setOpen(false);
     }
 
-    function focusOption(index) {
-      var option = options[index];
-      if (option) option.focus();
-    }
-
     function updateFromSelect() {
       var selectedValue = serviceSelect.value;
       var selectedOption = null;
 
       options.forEach(function (option) {
         var isSelected = option.dataset.value === selectedValue;
-        option.setAttribute('aria-selected', String(isSelected));
         if (isSelected) selectedOption = option;
       });
 
       if (selectedOption) {
-        label.textContent = getOptionTitle(selectedOption);
+        valueLabel.textContent = getOptionTitle(selectedOption);
       } else {
-        label.textContent = serviceSelect.options[0] ? serviceSelect.options[0].textContent : message('chooseService');
+        valueLabel.textContent = serviceSelect.options[0] ? serviceSelect.options[0].textContent : message('chooseService');
       }
 
       root.classList.toggle('has-value', Boolean(selectedOption));
       root.dataset.selectedService = selectedOption ? selectedValue : '';
-      root.classList.remove('is-invalid');
-      trigger.removeAttribute('aria-invalid');
+      if (selectedOption) setInvalid(false);
       updateDisabledState();
+      syncOptionState();
     }
 
     trigger.addEventListener('click', function () {
@@ -220,49 +349,68 @@
     });
 
     trigger.addEventListener('keydown', function (event) {
-      if (event.key === 'ArrowDown' || event.key === 'ArrowUp' || event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        setOpen(true);
-        var selected = menu.querySelector('[aria-selected="true"]') || options[0];
-        if (selected) selected.focus();
+      var isOpen = root.classList.contains('is-open');
+
+      if (event.key === 'Tab' && isOpen) {
+        commitActiveOption();
+        return;
       }
-      if (event.key === 'Escape') {
+
+      if (event.key === 'Escape' && isOpen) {
         event.preventDefault();
         setOpen(false);
+        return;
+      }
+
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        if (isOpen) {
+          commitActiveOption();
+        } else {
+          setOpen(true);
+        }
+        return;
+      }
+
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault();
+        if (!isOpen) {
+          setOpen(true, event.key === 'ArrowUp' ? options.length - 1 : undefined);
+        } else {
+          setActive(activeIndex + (event.key === 'ArrowDown' ? 1 : -1));
+        }
+        return;
+      }
+
+      if (event.key === 'Home' || event.key === 'End') {
+        event.preventDefault();
+        if (!isOpen) setOpen(true);
+        setActive(event.key === 'Home' ? 0 : options.length - 1);
+        return;
+      }
+
+      if (event.key.length === 1 && !event.altKey && !event.ctrlKey && !event.metaKey) {
+        typeahead += event.key.toLocaleLowerCase(getActiveLang() === 'en' ? 'en-GB' : 'lt-LT');
+        clearTimeout(typeaheadTimer);
+        typeaheadTimer = setTimeout(function () { typeahead = ''; }, 500);
+
+        var matchIndex = options.findIndex(function (option) {
+          return getOptionTitle(option).toLocaleLowerCase(getActiveLang() === 'en' ? 'en-GB' : 'lt-LT').indexOf(typeahead) === 0;
+        });
+
+        if (matchIndex >= 0) {
+          event.preventDefault();
+          if (!isOpen) setOpen(true, matchIndex);
+          setActive(matchIndex);
+        }
       }
     });
 
     options.forEach(function (option, index) {
       option.addEventListener('click', function () {
-        serviceSelect.value = option.dataset.value || '';
-        serviceSelect.dispatchEvent(new Event('change', { bubbles: true }));
-        setOpen(false);
+        setActive(index);
+        commitActiveOption();
         trigger.focus();
-      });
-
-      option.addEventListener('keydown', function (event) {
-        if (event.key === 'ArrowDown') {
-          event.preventDefault();
-          focusOption(index + 1 < options.length ? index + 1 : 0);
-        }
-        if (event.key === 'ArrowUp') {
-          event.preventDefault();
-          focusOption(index - 1 >= 0 ? index - 1 : options.length - 1);
-        }
-        if (event.key === 'Home') {
-          event.preventDefault();
-          focusOption(0);
-        }
-        if (event.key === 'End') {
-          event.preventDefault();
-          focusOption(options.length - 1);
-        }
-        if (event.key === 'Escape') {
-          event.preventDefault();
-          setOpen(false);
-          trigger.focus();
-        }
-        if (event.key === 'Tab') setOpen(false);
       });
     });
 
@@ -292,7 +440,8 @@
     return {
       root: root,
       trigger: trigger,
-      update: updateFromSelect
+      update: updateFromSelect,
+      setInvalid: setInvalid
     };
   }
 
@@ -323,20 +472,19 @@
     });
   }
 
-  function renderSlots(slotsEl, slots, selectedSlotInput) {
+  function renderSlots(slotsEl, slotOptionsEl, slotStatusEl, slots, selectedSlotInput, preferredSlotId, focusFirst) {
     slots = uniqueAvailabilityTimes(slots);
-    clearElement(slotsEl);
+    clearElement(slotOptionsEl);
     selectedSlotInput.value = '';
 
     if (!slots.length) {
-      slotsEl.appendChild(createStatusText(message('noSlots')));
-      return;
+      setSlotStatus(slotStatusEl, 'noSlots');
+      slotsEl.setAttribute('tabindex', '0');
+      return 0;
     }
 
-    var count = document.createElement('p');
-    count.className = 'booking-slot-count';
-    count.textContent = slots.length + ' · ' + message('availableCount');
-    slotsEl.appendChild(count);
+    setSlotStatus(slotStatusEl, 'slotsAvailable', slots.length);
+    slotsEl.setAttribute('tabindex', '-1');
 
     var grouped = {};
     slots.forEach(function (slot) {
@@ -345,84 +493,127 @@
       grouped[key].push(slot);
     });
 
-    Object.keys(grouped).forEach(function (dateLabel) {
+    Object.keys(grouped).forEach(function (dateLabel, groupIndex) {
       var group = document.createElement('div');
       group.className = 'booking-slot-group';
 
-      var heading = document.createElement('h3');
+      var heading = document.createElement('h4');
+      heading.id = 'contact-slot-date-' + groupIndex;
       heading.textContent = dateLabel;
       group.appendChild(heading);
 
       var grid = document.createElement('div');
       grid.className = 'booking-slot-grid';
 
-      grouped[dateLabel].forEach(function (slot) {
-        var button = document.createElement('button');
-        button.className = 'booking-slot';
-        button.type = 'button';
-        button.setAttribute('aria-pressed', 'false');
-        button.dataset.slotId = slot.slot_id;
-        button.innerHTML =
-          '<span class="booking-slot-time">' + formatTime(slot.start_at) + ' - ' + formatTime(slot.end_at) + '</span>' +
-          '<span class="booking-slot-note">' + message('slotReview') + '</span>';
+      grouped[dateLabel].forEach(function (slot, slotIndex) {
+        var optionId = 'contact-slot-' + groupIndex + '-' + slotIndex;
+        var timeId = optionId + '-time';
+        var label = document.createElement('label');
+        label.className = 'booking-slot';
+        label.dataset.slotId = slot.slot_id;
 
-        button.addEventListener('click', function () {
-          var buttons = slotsEl.querySelectorAll('.booking-slot');
-          buttons.forEach(function (item) {
+        var radio = document.createElement('input');
+        radio.id = optionId;
+        radio.type = 'radio';
+        radio.name = 'bookingSlotChoice';
+        radio.value = slot.slot_id;
+        radio.required = true;
+        radio.setAttribute('aria-labelledby', heading.id + ' ' + timeId);
+
+        var time = document.createElement('span');
+        time.id = timeId;
+        time.className = 'booking-slot-time';
+        time.textContent = formatTime(slot.start_at);
+        label.appendChild(radio);
+        label.appendChild(time);
+
+        radio.addEventListener('change', function () {
+          var labels = slotsEl.querySelectorAll('.booking-slot');
+          labels.forEach(function (item) {
             item.classList.remove('is-selected');
-            item.setAttribute('aria-pressed', 'false');
           });
 
-          button.classList.add('is-selected');
-          button.setAttribute('aria-pressed', 'true');
+          label.classList.add('is-selected');
           selectedSlotInput.value = slot.slot_id;
           slotsEl.classList.remove('is-invalid');
+          slotsEl.removeAttribute('aria-invalid');
+          var slotError = document.getElementById('contact-slot-error');
+          if (slotError) slotError.hidden = true;
           selectedSlotInput.dispatchEvent(new Event('input', { bubbles: true }));
         });
 
-        grid.appendChild(button);
+        if (preferredSlotId && preferredSlotId === String(slot.slot_id)) {
+          radio.checked = true;
+          label.classList.add('is-selected');
+          selectedSlotInput.value = String(slot.slot_id);
+        }
+
+        grid.appendChild(label);
       });
 
       group.appendChild(grid);
-      slotsEl.appendChild(group);
+      slotOptionsEl.appendChild(group);
     });
+
+    if (focusFirst) {
+      var firstRadio = slotOptionsEl.querySelector('input[type="radio"]');
+      if (firstRadio) firstRadio.focus();
+    }
+
+    return slots.length;
   }
 
-  async function loadAvailability(serviceSelect, slotsEl, selectedSlotInput, statusEl) {
+  async function loadAvailability(serviceSelect, slotsEl, slotOptionsEl, slotStatusEl, selectedSlotInput, statusEl, focusFirst) {
     var serviceCode = serviceSelect.value;
-    clearElement(slotsEl);
+    clearElement(slotOptionsEl);
     selectedSlotInput.value = '';
+    currentAvailabilitySlots = [];
+    slotsEl.removeAttribute('aria-invalid');
+    slotsEl.classList.remove('is-invalid');
 
     if (!serviceCode) {
-      slotsEl.appendChild(createStatusText(message('chooseService')));
-      return;
+      if (availabilityController) availabilityController.abort();
+      slotsEl.setAttribute('aria-busy', 'false');
+      slotsEl.setAttribute('tabindex', '0');
+      setSlotStatus(slotStatusEl, 'chooseService');
+      return 0;
     }
 
     if (availabilityController) availabilityController.abort();
-    availabilityController = new AbortController();
+    var controller = new AbortController();
+    availabilityController = controller;
 
-    slotsEl.appendChild(createStatusText(message('loadingSlots')));
+    slotsEl.setAttribute('aria-busy', 'true');
+    slotsEl.setAttribute('tabindex', '0');
+    setSlotStatus(slotStatusEl, 'loadingSlots');
 
     try {
       var response = await fetch(BOOKING_ENDPOINT + '?service=' + encodeURIComponent(serviceCode), {
         method: 'GET',
         headers: getHeaders(),
-        signal: availabilityController.signal
+        signal: controller.signal
       });
 
       if (!response.ok) throw new Error('availabilityError');
 
       var data = await response.json();
       if (!data || !Array.isArray(data.slots)) throw new Error('availabilityError');
-      renderSlots(slotsEl, data.slots, selectedSlotInput);
+      currentAvailabilitySlots = data.slots;
+      return renderSlots(slotsEl, slotOptionsEl, slotStatusEl, data.slots, selectedSlotInput, '', focusFirst);
     } catch (error) {
-      if (error && error.name === 'AbortError') return;
+      if (error && error.name === 'AbortError') return 0;
       var key = error instanceof Error && error.message === 'availabilityError'
         ? 'availabilityError'
         : 'connectionError';
-      clearElement(slotsEl);
-      slotsEl.appendChild(createStatusText(message(key)));
-      setFormStatus(statusEl, 'error', message(key));
+      clearElement(slotOptionsEl);
+      slotsEl.setAttribute('tabindex', '0');
+      setSlotStatus(slotStatusEl, key);
+      setFormStatus(statusEl, 'error', message(key), key);
+      return 0;
+    } finally {
+      if (availabilityController === controller) {
+        slotsEl.setAttribute('aria-busy', 'false');
+      }
     }
   }
 
@@ -432,27 +623,56 @@
 
     var serviceSelect = form.querySelector('[data-booking-service]');
     var slotsEl = form.querySelector('[data-booking-slots]');
+    var slotOptionsEl = form.querySelector('[data-booking-slot-options]');
+    var slotStatusEl = form.querySelector('[data-booking-slot-status]');
+    var slotErrorEl = document.getElementById('contact-slot-error');
     var selectedSlotInput = form.querySelector('[data-booking-slot-id]');
     var submitButton = form.querySelector('[data-contact-form-submit]');
     var submitLabel = form.querySelector('[data-contact-submit-label]');
+    var submitHint = form.querySelector('[data-contact-submit-hint]');
     var statusEl = form.querySelector('[data-contact-form-status]');
     var legalConsent = form.querySelector('[data-legal-consent]');
+    var textControls = Array.prototype.slice.call(form.querySelectorAll('.floating-field input, .floating-field textarea'));
     var isSubmitting = false;
+    var hasAttemptedSubmit = false;
+    var observedServiceValue = serviceSelect ? serviceSelect.value : '';
 
-    if (!serviceSelect || !slotsEl || !selectedSlotInput) return;
+    if (!serviceSelect || !slotsEl || !slotOptionsEl || !slotStatusEl || !selectedSlotInput) return;
+
+    function isControlValid(control) {
+      if (!control || !control.willValidate) return true;
+
+      if (
+        control.required &&
+        (control.tagName === 'INPUT' || control.tagName === 'TEXTAREA') &&
+        control.type !== 'checkbox' &&
+        control.type !== 'radio' &&
+        !String(control.value || '').trim()
+      ) {
+        return false;
+      }
+
+      return control.validity.valid;
+    }
 
     function canSubmitForm() {
       if (!selectedSlotInput.value) return false;
 
       return Array.prototype.every.call(form.elements, function (control) {
-        return !control.willValidate || control.validity.valid;
+        return isControlValid(control);
       });
     }
 
     function syncSubmitButton() {
       if (!submitButton) return;
-      submitButton.disabled = isSubmitting || !canSubmitForm();
+      var isReady = !isSubmitting && canSubmitForm();
+      submitButton.disabled = isSubmitting;
+      submitButton.setAttribute('aria-disabled', String(!isReady));
+      submitButton.classList.toggle('is-disabled', !isReady && !isSubmitting);
       submitButton.classList.toggle('is-submitting', isSubmitting);
+      if (submitHint) {
+        submitHint.textContent = isReady ? message('submitReady') : message('submitIncomplete');
+      }
     }
 
     function setBookingSubmitting(nextState, idleLabel) {
@@ -464,63 +684,231 @@
     initFloatingFields(form);
     var serviceWidget = initServiceSelect(form, serviceSelect);
 
+    function setInlineError(errorEl, key, isVisible) {
+      if (!errorEl) return;
+      if (key) errorEl.dataset.errorKey = key;
+      if (isVisible) errorEl.textContent = message(key || errorEl.dataset.errorKey);
+      errorEl.hidden = !isVisible;
+    }
+
+    function controlErrorKey(control) {
+      if (control.id === 'contact-name') return 'nameRequired';
+      if (control.id === 'contact-phone') return 'phoneRequired';
+      if (control.id === 'contact-email') {
+        return !String(control.value || '').trim() ? 'emailRequired' : 'emailInvalid';
+      }
+      if (control.id === 'contact-vehicle') return 'vehicleRequired';
+      if (control.id === 'contact-location') return 'locationRequired';
+      if (control.id === 'contact-listing-url') return 'listingUrlInvalid';
+      return 'fieldInvalid';
+    }
+
+    function setControlError(control, shouldShow) {
+      var isInvalid = shouldShow && !isControlValid(control);
+      var field = control.closest('.floating-field');
+      var errorEl = control.id ? document.getElementById(control.id + '-error') : null;
+
+      if (field) field.classList.toggle('is-invalid', isInvalid);
+      if (isInvalid) {
+        control.setAttribute('aria-invalid', 'true');
+      } else {
+        control.removeAttribute('aria-invalid');
+      }
+      setInlineError(errorEl, controlErrorKey(control), isInvalid);
+      if (errorEl) toggleDescription(control, errorEl.id, isInvalid);
+      return !isInvalid;
+    }
+
+    function setSlotError(isInvalid) {
+      slotsEl.classList.toggle('is-invalid', isInvalid);
+      if (isInvalid) {
+        slotsEl.setAttribute('aria-invalid', 'true');
+      } else {
+        slotsEl.removeAttribute('aria-invalid');
+      }
+      setInlineError(slotErrorEl, 'chooseSlot', isInvalid);
+      if (slotErrorEl) toggleDescription(slotsEl, slotErrorEl.id, isInvalid);
+    }
+
+    function setLegalError(isInvalid) {
+      if (!legalConsent) return;
+      var wrapper = legalConsent.closest('.form-checkbox');
+      var errorEl = document.getElementById('contact-legal-error');
+      if (wrapper) wrapper.classList.toggle('is-invalid', isInvalid);
+      if (isInvalid) {
+        legalConsent.setAttribute('aria-invalid', 'true');
+      } else {
+        legalConsent.removeAttribute('aria-invalid');
+      }
+      setInlineError(errorEl, 'chooseLegal', isInvalid);
+      if (errorEl) toggleDescription(legalConsent, errorEl.id, isInvalid);
+    }
+
+    function focusInvalidTarget(target) {
+      if (!target || typeof target.focus !== 'function') return;
+      try {
+        target.focus({ preventScroll: true });
+      } catch (_) {
+        target.focus();
+      }
+
+      target.scrollIntoView({
+        block: 'center',
+        behavior: window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          ? 'auto'
+          : 'smooth'
+      });
+    }
+
+    function validateForm(shouldFocus, shouldAnnounce) {
+      var invalidTargets = [];
+      var serviceInvalid = !serviceSelect.value;
+      if (serviceWidget) serviceWidget.setInvalid(serviceInvalid);
+      if (serviceInvalid && serviceWidget) invalidTargets.push(serviceWidget.trigger);
+
+      var slotInvalid = Boolean(serviceSelect.value) && !selectedSlotInput.value;
+      setSlotError(slotInvalid);
+      if (slotInvalid) {
+        invalidTargets.push(slotOptionsEl.querySelector('input[type="radio"]') || slotsEl);
+      }
+
+      textControls.forEach(function (control) {
+        if (!setControlError(control, true)) invalidTargets.push(control);
+      });
+
+      var legalInvalid = Boolean(legalConsent && !legalConsent.checked);
+      setLegalError(legalInvalid);
+      if (legalInvalid) invalidTargets.push(legalConsent);
+
+      var isValid = invalidTargets.length === 0 && canSubmitForm();
+      if (!isValid && shouldAnnounce) {
+        setFormStatus(statusEl, 'error', message('formNeedsAttention'), 'formNeedsAttention');
+      }
+
+      if (!isValid && shouldFocus) focusInvalidTarget(invalidTargets[0]);
+      return isValid;
+    }
+
+    function clearValidationErrors() {
+      form.classList.remove('was-validated');
+      if (serviceWidget) serviceWidget.setInvalid(false);
+      setSlotError(false);
+      textControls.forEach(function (control) {
+        setControlError(control, false);
+      });
+      setLegalError(false);
+    }
+
+    function refreshVisibleMessages() {
+      form.querySelectorAll('.form-error:not([hidden])').forEach(function (errorEl) {
+        if (errorEl.dataset.errorKey) errorEl.textContent = message(errorEl.dataset.errorKey);
+      });
+
+      if (slotStatusEl.dataset.messageKey) {
+        var slotCount = Number(slotStatusEl.dataset.count || 0);
+        setSlotStatus(slotStatusEl, slotStatusEl.dataset.messageKey, slotCount);
+      }
+
+      if (statusEl && statusEl.dataset.messageKey) {
+        setFormStatus(
+          statusEl,
+          statusEl.dataset.statusType || '',
+          message(statusEl.dataset.messageKey),
+          statusEl.dataset.messageKey
+        );
+      }
+    }
+
     serviceSelect.addEventListener('change', function () {
+      observedServiceValue = serviceSelect.value;
       setFormStatus(statusEl, '', '');
-      slotsEl.classList.remove('is-invalid');
-      loadAvailability(serviceSelect, slotsEl, selectedSlotInput, statusEl);
+      if (serviceWidget) serviceWidget.setInvalid(false);
+      setSlotError(false);
+      loadAvailability(serviceSelect, slotsEl, slotOptionsEl, slotStatusEl, selectedSlotInput, statusEl, false);
       syncSubmitButton();
     });
 
-    form.addEventListener('input', function () {
-      if (statusEl && statusEl.textContent) setFormStatus(statusEl, '', '');
-      if (legalConsent && legalConsent.checked) {
-        var checkbox = legalConsent.closest('.form-checkbox');
-        if (checkbox) checkbox.classList.remove('is-invalid');
+    form.addEventListener('input', function (event) {
+      var preserveValidationSummary = hasAttemptedSubmit &&
+        statusEl && statusEl.dataset.messageKey === 'formNeedsAttention';
+      if (statusEl && statusEl.textContent && !preserveValidationSummary) {
+        setFormStatus(statusEl, '', '');
       }
+
+      if (hasAttemptedSubmit) {
+        if (textControls.indexOf(event.target) !== -1) setControlError(event.target, true);
+        if (event.target === selectedSlotInput) setSlotError(!selectedSlotInput.value);
+        if (event.target === legalConsent) setLegalError(!legalConsent.checked);
+
+        if (validateForm(false, false)) setFormStatus(statusEl, '', '');
+      }
+
       syncSubmitButton();
     });
 
     form.addEventListener('change', syncSubmitButton);
     form.addEventListener('reset', function () {
-      setTimeout(syncSubmitButton, 0);
+      setTimeout(function () {
+        hasAttemptedSubmit = false;
+        observedServiceValue = serviceSelect.value;
+        if (availabilityController) availabilityController.abort();
+        currentAvailabilitySlots = [];
+        clearElement(slotOptionsEl);
+        slotsEl.setAttribute('aria-busy', 'false');
+        slotsEl.setAttribute('tabindex', '0');
+        setSlotStatus(slotStatusEl, 'chooseService');
+        clearValidationErrors();
+        if (serviceWidget) serviceWidget.update();
+        syncSubmitButton();
+      }, 0);
     });
-    window.addEventListener('pageshow', syncSubmitButton);
+
+    window.addEventListener('pageshow', function () {
+      if (serviceWidget) serviceWidget.update();
+      if (serviceSelect.value !== observedServiceValue) {
+        observedServiceValue = serviceSelect.value;
+        loadAvailability(serviceSelect, slotsEl, slotOptionsEl, slotStatusEl, selectedSlotInput, statusEl, false);
+      }
+      syncSubmitButton();
+    });
+
+    window.addEventListener('checkauto:languagechange', function () {
+      var preferredSlotId = selectedSlotInput.value;
+      if (currentAvailabilitySlots.length) {
+        renderSlots(
+          slotsEl,
+          slotOptionsEl,
+          slotStatusEl,
+          currentAvailabilitySlots,
+          selectedSlotInput,
+          preferredSlotId,
+          false
+        );
+      }
+      refreshVisibleMessages();
+      syncSubmitButton();
+    });
 
     [100, 500, 1500].forEach(function (delay) {
-      setTimeout(syncSubmitButton, delay);
+      setTimeout(function () {
+        if (serviceWidget) serviceWidget.update();
+        if (serviceSelect.value !== observedServiceValue) {
+          observedServiceValue = serviceSelect.value;
+          loadAvailability(serviceSelect, slotsEl, slotOptionsEl, slotStatusEl, selectedSlotInput, statusEl, false);
+        }
+        syncSubmitButton();
+      }, delay);
     });
 
     form.addEventListener('submit', async function (event) {
       event.preventDefault();
+      if (isSubmitting) return;
+
+      hasAttemptedSubmit = true;
       form.classList.add('was-validated');
 
-      if (!serviceSelect.value) {
-        if (serviceWidget) {
-          serviceWidget.root.classList.add('is-invalid');
-          serviceWidget.trigger.setAttribute('aria-invalid', 'true');
-        }
-        setFormStatus(statusEl, 'error', message('chooseService'));
-        if (serviceWidget) serviceWidget.trigger.focus();
-        return;
-      }
-
-      if (!selectedSlotInput.value) {
-        slotsEl.classList.add('is-invalid');
-        setFormStatus(statusEl, 'error', message('chooseSlot'));
-        slotsEl.scrollIntoView({ block: 'center', behavior: 'smooth' });
-        return;
-      }
-
-      if (legalConsent && !legalConsent.checked) {
-        var legalWrapper = legalConsent.closest('.form-checkbox');
-        if (legalWrapper) legalWrapper.classList.add('is-invalid');
-        setFormStatus(statusEl, 'error', message('chooseLegal'));
-        legalConsent.focus();
-        return;
-      }
-
-      if (!form.checkValidity()) {
-        form.reportValidity();
+      if (!validateForm(true, true)) {
+        syncSubmitButton();
         return;
       }
 
@@ -552,7 +940,7 @@
         marketingConsentTextVersion: 'booking-form-2026-07-02'
       };
 
-      setFormStatus(statusEl, '', '');
+      setFormStatus(statusEl, '', '', '');
       setBookingSubmitting(true, idleLabel);
 
       try {
@@ -584,12 +972,10 @@
         }
 
         form.reset();
-        form.classList.remove('was-validated');
-        if (serviceWidget) serviceWidget.update();
-        clearElement(slotsEl);
-        slotsEl.classList.remove('is-invalid');
-        slotsEl.appendChild(createStatusText(message('chooseService')));
-        setFormStatus(statusEl, 'success', message('success'));
+        setFormStatus(statusEl, 'success', message('success'), 'success');
+        setTimeout(function () {
+          if (statusEl) statusEl.focus();
+        }, 0);
       } catch (error) {
         var knownErrors = [
           'rateLimited',
@@ -601,10 +987,18 @@
         var key = error instanceof Error && knownErrors.indexOf(error.message) !== -1
           ? error.message
           : 'connectionError';
-        setFormStatus(statusEl, 'error', message(key));
+        setFormStatus(statusEl, 'error', message(key), key);
 
         if (key === 'slotUnavailable') {
-          loadAvailability(serviceSelect, slotsEl, selectedSlotInput, statusEl);
+          await loadAvailability(
+            serviceSelect,
+            slotsEl,
+            slotOptionsEl,
+            slotStatusEl,
+            selectedSlotInput,
+            statusEl,
+            true
+          );
         }
       } finally {
         setBookingSubmitting(false, idleLabel);
@@ -612,7 +1006,7 @@
     });
 
     syncSubmitButton();
-    loadAvailability(serviceSelect, slotsEl, selectedSlotInput, statusEl);
+    loadAvailability(serviceSelect, slotsEl, slotOptionsEl, slotStatusEl, selectedSlotInput, statusEl, false);
   }
 
   if (document.readyState === 'loading') {

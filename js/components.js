@@ -7,7 +7,7 @@
     { href: '/galerija/', i18n: 'nav.gallery', text: 'Galerija' },
     { href: '/kainos/', i18n: 'nav.prices', text: 'Kainos' },
     { href: '/apie/', i18n: 'nav.about', text: 'Apie' },
-    { href: '/kontaktai/', i18n: 'nav.contact', text: 'Užsisakyti' }
+    { href: '/kontaktai/', i18n: 'nav.contact', text: 'Užsakyti', cta: true }
   ];
 
   var footerLinks = [
@@ -15,7 +15,7 @@
     { href: '/galerija/', i18n: 'nav.gallery', text: 'Galerija' },
     { href: '/kainos/', i18n: 'nav.prices', text: 'Kainos' },
     { href: '/apie/', i18n: 'nav.about', text: 'Apie' },
-    { href: '/kontaktai/', i18n: 'nav.contact', text: 'Užsisakyti' },
+    { href: '/kontaktai/', i18n: 'nav.contact', text: 'Užsakyti' },
     { href: '/duk/', i18n: 'nav.faq', text: 'D.U.K.' },
     { href: '/privatumo-politika/', i18n: 'nav.privacy', text: 'Privatumo politika' },
     { href: '/taisykles-ir-salygos/', i18n: 'nav.terms', text: 'Taisyklės ir sąlygos' }
@@ -56,7 +56,8 @@
   for (var i = 0; i < navLinks.length; i++) {
     var link = navLinks[i];
     var ariaCurrent = isActive(link.href) ? ' aria-current="page"' : '';
-    desktopNavItems += '<li><a href="' + link.href + '"' + ariaCurrent + ' data-i18n="' + link.i18n + '">' + link.text + '</a></li>';
+    var linkClass = link.cta ? ' class="nav-cta"' : '';
+    desktopNavItems += '<li><a href="' + link.href + '"' + linkClass + ariaCurrent + ' data-i18n="' + link.i18n + '">' + link.text + '</a></li>';
   }
 
   // Build mobile nav links
@@ -64,11 +65,13 @@
   for (var j = 0; j < navLinks.length; j++) {
     var mLink = navLinks[j];
     var mAriaCurrent = isActive(mLink.href) ? ' aria-current="page"' : '';
-    mobileNavItems += '<a href="' + mLink.href + '"' + mAriaCurrent + ' data-i18n="' + mLink.i18n + '">' + mLink.text + '</a>';
+    var mLinkClass = mLink.cta ? ' class="nav-cta"' : '';
+    mobileNavItems += '<a href="' + mLink.href + '"' + mLinkClass + mAriaCurrent + ' data-i18n="' + mLink.i18n + '">' + mLink.text + '</a>';
   }
 
   var headerHTML =
     '<header class="site-header" role="banner">' +
+      '<a class="skip-link" href="#main-content" data-i18n="nav.skip">Pereiti prie pagrindinio turinio</a>' +
       '<div class="container header-inner">' +
         '<a href="/" class="logo" aria-label="checkauto.lt pradžia">' +
           'check<span>auto</span>.lt' +
@@ -110,6 +113,12 @@
   var headerEl = document.getElementById('site-header');
   if (headerEl) {
     headerEl.outerHTML = headerHTML;
+  }
+
+  var mainEl = document.querySelector('main');
+  if (mainEl && !mainEl.id) {
+    mainEl.id = 'main-content';
+    mainEl.setAttribute('tabindex', '-1');
   }
 
   // Inject footer

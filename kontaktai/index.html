@@ -33,7 +33,7 @@
   <link rel="preload" href="/assets/fonts/Inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="/css/styles.css?v=20260813b">
+  <link rel="stylesheet" href="/css/styles.css?v=20260813f">
 
   <script>
     (function(){var l=localStorage.getItem('checkauto-lang');if(l&&l!=='lt'){document.documentElement.lang=l;document.documentElement.classList.add('i18n-loading');}})();
@@ -72,29 +72,29 @@
           <form class="contact-form" aria-labelledby="contact-form-title" data-contact-form novalidate>
             <h2 id="contact-form-title" class="visually-hidden" data-i18n="contact.form.accessible_title">Automobilio patikros rezervacijos forma</h2>
 
-            <div class="contact-form-honeypot" aria-hidden="true">
+            <div class="contact-form-honeypot" aria-hidden="true" inert>
               <label for="contact-website">Website</label>
               <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off">
             </div>
 
-            <div class="booking-form-section">
+            <div class="booking-form-section" role="group" aria-labelledby="contact-step-time-title">
               <div class="booking-step-heading">
-                <span class="booking-step-number">1</span>
+                <span class="booking-step-number" aria-hidden="true">1</span>
                 <div>
-                  <h3 data-i18n="contact.form.step_time_title">Paslauga ir laikas</h3>
+                  <h3 id="contact-step-time-title" data-i18n="contact.form.step_time_title">Paslauga ir laikas</h3>
                 </div>
               </div>
 
               <div class="contact-form-grid">
                 <div class="form-field form-field--full">
                   <div class="booking-service-select" data-booking-service-select>
-                    <select id="contact-inspection-type" class="booking-native-select" name="serviceCode" required aria-hidden="true" tabindex="-1" data-booking-service>
+                    <select id="contact-inspection-type" class="booking-native-select" name="serviceCode" required hidden data-booking-service>
                       <option value="" data-i18n="contact.form.inspection_type_placeholder">Pasirinkite paslaugą</option>
                       <option value="full_inspection" data-i18n="contact.form.inspection_type_full">Išsami patikra prieš pirkimą</option>
                       <option value="computer_diagnostics" data-i18n="contact.form.inspection_type_diagnostics">Kompiuterinė diagnostika</option>
                     </select>
-                    <label id="contact-inspection-type-label" class="booking-service-floating-label" for="contact-inspection-type" data-required="true" data-i18n="contact.form.inspection_type_label">Patikros tipas</label>
-                    <button class="booking-service-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="contact-inspection-type-menu" aria-labelledby="contact-inspection-type-label contact-inspection-type-value" data-booking-service-trigger>
+                    <span id="contact-inspection-type-label" class="booking-service-floating-label" data-required="true" data-i18n="contact.form.inspection_type_label">Patikros tipas</span>
+                    <button class="booking-service-trigger" type="button" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="contact-inspection-type-menu" aria-labelledby="contact-inspection-type-label contact-inspection-type-value" aria-describedby="contact-inspection-type-hint" aria-required="true" data-booking-service-trigger>
                       <span class="booking-service-trigger-value">
                         <span class="booking-service-trigger-icon" aria-hidden="true" data-booking-service-trigger-icon></span>
                         <span id="contact-inspection-type-value" class="booking-service-trigger-label" data-booking-service-label data-i18n="contact.form.inspection_type_placeholder">Pasirinkite paslaugą</span>
@@ -121,24 +121,28 @@
                         <span class="booking-service-option-indicator" aria-hidden="true"></span>
                       </button>
                     </div>
+                    <p id="contact-inspection-type-hint" class="visually-hidden" data-i18n="contact.form.inspection_type_keyboard_hint">Privalomas laukas. Atverkite sąrašą, pasirinkite rodyklių klavišais ir patvirtinkite Enter, tarpo arba Tab klavišu.</p>
+                    <p id="contact-inspection-type-error" class="form-error" data-error-key="chooseService" hidden>Pasirinkite patikros tipą.</p>
                   </div>
                 </div>
 
                 <div class="form-field form-field--full">
-                  <span id="contact-slot-label" class="visually-hidden" data-i18n="contact.form.slot_label">Pasirinkite laiką</span>
                   <input id="contact-slot-id" name="slotId" type="hidden" data-booking-slot-id>
-                  <div class="booking-slot-panel" role="group" aria-labelledby="contact-slot-label" aria-required="true" data-booking-slots>
-                    <p class="booking-slot-empty" data-i18n="contact.form.slot_placeholder">Pirmiausia pasirinkite patikros tipą.</p>
-                  </div>
+                  <fieldset class="booking-slot-panel" aria-describedby="contact-slot-status" aria-busy="false" tabindex="0" data-booking-slots>
+                    <legend id="contact-slot-label" class="visually-hidden" data-i18n="contact.form.slot_label">Pasirinkite laiką</legend>
+                    <p id="contact-slot-status" class="booking-slot-status" role="status" aria-live="polite" aria-atomic="true" data-booking-slot-status data-i18n="contact.form.slot_placeholder">Pirmiausia pasirinkite patikros tipą.</p>
+                    <div class="booking-slot-options" data-booking-slot-options></div>
+                  </fieldset>
+                  <p id="contact-slot-error" class="form-error" data-error-key="chooseSlot" hidden>Pasirinkite vieną iš galimų laikų.</p>
                 </div>
               </div>
             </div>
 
-            <div class="booking-form-section">
+            <div class="booking-form-section" role="group" aria-labelledby="contact-step-personal-title">
               <div class="booking-step-heading">
-                <span class="booking-step-number">2</span>
+                <span class="booking-step-number" aria-hidden="true">2</span>
                 <div>
-                  <h3 data-i18n="contact.form.step_personal_title">Jūsų duomenys</h3>
+                  <h3 id="contact-step-personal-title" data-i18n="contact.form.step_personal_title">Jūsų duomenys</h3>
                 </div>
               </div>
 
@@ -148,6 +152,7 @@
                     <input id="contact-name" name="name" type="text" autocomplete="name" required maxlength="120" placeholder="Vardas ir pavardė" data-i18n-placeholder="contact.form.name_placeholder">
                     <label for="contact-name" data-required="true" data-i18n="contact.form.name_label">Vardas</label>
                   </div>
+                  <p id="contact-name-error" class="form-error" data-error-key="nameRequired" hidden>Įveskite vardą ir pavardę.</p>
                 </div>
 
                 <div class="form-field form-field--floating">
@@ -155,6 +160,7 @@
                     <input id="contact-phone" name="phone" type="tel" autocomplete="tel" required maxlength="40" placeholder="+370..." data-i18n-placeholder="contact.form.phone_placeholder">
                     <label for="contact-phone" data-required="true" data-i18n="contact.form.phone_label">Telefonas</label>
                   </div>
+                  <p id="contact-phone-error" class="form-error" data-error-key="phoneRequired" hidden>Įveskite telefono numerį.</p>
                 </div>
 
                 <div class="form-field form-field--floating form-field--full">
@@ -162,16 +168,17 @@
                     <input id="contact-email" name="email" type="email" autocomplete="email" required maxlength="160" placeholder="vardas@example.com" data-i18n-placeholder="contact.form.email_placeholder">
                     <label for="contact-email" data-required="true" data-i18n="contact.form.email_label">El. paštas</label>
                   </div>
+                  <p id="contact-email-error" class="form-error" data-error-key="emailRequired" hidden>Įveskite el. pašto adresą.</p>
                 </div>
 
               </div>
             </div>
 
-            <div class="booking-form-section">
+            <div class="booking-form-section" role="group" aria-labelledby="contact-step-vehicle-title">
               <div class="booking-step-heading">
-                <span class="booking-step-number">3</span>
+                <span class="booking-step-number" aria-hidden="true">3</span>
                 <div>
-                  <h3 data-i18n="contact.form.step_vehicle_title">Automobilio duomenys</h3>
+                  <h3 id="contact-step-vehicle-title" data-i18n="contact.form.step_vehicle_title">Automobilio duomenys</h3>
                 </div>
               </div>
 
@@ -182,6 +189,7 @@
                     <input id="contact-vehicle" name="vehicle" type="text" required maxlength="180" placeholder="Markė, modelis, metai, variklis" data-i18n-placeholder="contact.form.vehicle_placeholder">
                     <label for="contact-vehicle" data-required="true" data-i18n="contact.form.vehicle_label">Automobilis</label>
                   </div>
+                  <p id="contact-vehicle-error" class="form-error" data-error-key="vehicleRequired" hidden>Įveskite automobilio duomenis.</p>
                 </div>
 
                 <div class="form-field form-field--floating">
@@ -189,6 +197,7 @@
                     <input id="contact-location" name="vehicleLocation" type="text" autocomplete="street-address" required maxlength="200" placeholder="Miestas, adresas arba pardavėjo vieta" data-i18n-placeholder="contact.form.location_placeholder">
                     <label for="contact-location" data-required="true" data-i18n="contact.form.location_label">Automobilio vieta / adresas</label>
                   </div>
+                  <p id="contact-location-error" class="form-error" data-error-key="locationRequired" hidden>Įveskite automobilio vietą arba adresą.</p>
                 </div>
 
                 <div class="form-field form-field--floating form-field--full">
@@ -196,6 +205,7 @@
                     <input id="contact-listing-url" name="listingUrl" type="url" inputmode="url" autocomplete="url" maxlength="500" placeholder="https://..." data-i18n-placeholder="contact.form.listing_url_placeholder">
                     <label for="contact-listing-url" data-i18n="contact.form.listing_url_label">Skelbimo nuoroda</label>
                   </div>
+                  <p id="contact-listing-url-error" class="form-error" data-error-key="listingUrlInvalid" hidden>Įveskite visą nuorodą, prasidedančią „https://“.</p>
                 </div>
 
                 <div class="form-field form-field--floating form-field--full">
@@ -209,24 +219,33 @@
             </div>
 
             <div class="form-field form-field--full">
-              <label class="form-checkbox form-checkbox--required" for="contact-legal-consent">
-                <input id="contact-legal-consent" name="legalConsent" type="checkbox" required data-legal-consent>
-                <span>
+              <div class="form-checkbox form-checkbox--required">
+                <input id="contact-legal-consent" name="legalConsent" type="checkbox" required aria-describedby="contact-legal-details" data-legal-consent>
+                <div class="form-checkbox-copy">
+                  <label for="contact-legal-consent">
+                    <span data-i18n="contact.form.legal_consent_label">Patvirtinu privalomas užsakymo sąlygas</span>
+                    <span class="required-mark" aria-hidden="true">*</span>
+                  </label>
+                  <p id="contact-legal-details" class="form-checkbox-details">
                   <span data-i18n="contact.form.legal_consent_prefix">Sutinku su</span>
                   <a href="/taisykles-ir-salygos/" data-i18n="contact.form.terms_link">Taisyklėmis ir sąlygomis</a>
                   <span data-i18n="contact.form.legal_consent_middle">ir susipažinau su</span>
                   <a href="/privatumo-politika/" data-i18n="contact.form.privacy_link">Privatumo politika</a>.
                   <span data-i18n="contact.form.early_service_consent_inline">Jei vizitas vyks per 14 dienų nuo užsakymo patvirtinimo, prašau paslaugą suteikti pasirinktu laiku. Visiškai ją suteikus nebegalėsiu atsisakyti sutarties.</span>
-                  <span class="required-mark" aria-hidden="true">*</span>
-                </span>
-              </label>
+                  </p>
+                  <p id="contact-legal-error" class="form-error" data-error-key="chooseLegal" hidden>Patvirtinkite privalomas užsakymo sąlygas.</p>
+                </div>
+              </div>
             </div>
 
             <div class="contact-form-actions">
-              <p class="contact-form-status" data-contact-form-status role="status" aria-live="polite"></p>
-              <button class="btn btn-primary" type="submit" data-contact-form-submit disabled>
-                <span data-contact-submit-label data-i18n="contact.form.submit">Rezervuoti laiką</span>
-              </button>
+              <p class="contact-form-status" data-contact-form-status role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
+              <div class="contact-submit-control">
+                <p id="contact-submit-hint" class="contact-submit-hint" data-contact-submit-hint data-i18n="contact.form.submit_incomplete">Užpildykite privalomus laukus ir pasirinkite laiką.</p>
+                <button class="btn btn-primary is-disabled" type="submit" aria-disabled="true" aria-describedby="contact-submit-hint" data-contact-form-submit>
+                  <span data-contact-submit-label data-i18n="contact.form.submit">Rezervuoti laiką</span>
+                </button>
+              </div>
             </div>
           </form>
 
@@ -307,9 +326,9 @@
   }
   </script>
 
-  <script src="/js/components.js"></script>
+  <script src="/js/components.js?v=20260813f"></script>
   <script src="/js/i18n.js"></script>
   <script src="/js/main.js"></script>
-  <script src="/js/contact-form.js?v=20260813b"></script>
+  <script src="/js/contact-form.js?v=20260813f"></script>
 </body>
 </html>
