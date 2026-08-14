@@ -216,6 +216,53 @@
     });
   }
 
+  function initLegalCheckbox(form, legalConsent) {
+    var trigger = form.querySelector('[data-legal-checkbox]');
+    if (!legalConsent || !trigger) return null;
+
+    var wrapper = trigger.closest('.form-checkbox');
+
+    function update() {
+      var isDisabled = legalConsent.disabled;
+      trigger.setAttribute('aria-checked', String(legalConsent.checked));
+      trigger.setAttribute('aria-disabled', String(isDisabled));
+      trigger.tabIndex = isDisabled ? -1 : 0;
+      if (wrapper) wrapper.classList.toggle('is-checked', legalConsent.checked);
+    }
+
+    function activate() {
+      if (legalConsent.disabled) return;
+      trigger.focus();
+      legalConsent.click();
+    }
+
+    trigger.addEventListener('click', activate);
+    trigger.addEventListener('keydown', function (event) {
+      if (event.key !== ' ') return;
+      event.preventDefault();
+      activate();
+    });
+
+    legalConsent.addEventListener('input', update);
+    legalConsent.addEventListener('change', update);
+    form.addEventListener('reset', function () {
+      setTimeout(update, 0);
+    });
+    window.addEventListener('pageshow', update);
+
+    if (typeof MutationObserver === 'function') {
+      var disabledObserver = new MutationObserver(update);
+      disabledObserver.observe(legalConsent, { attributes: true, attributeFilter: ['disabled'] });
+    }
+
+    update();
+
+    return {
+      trigger: trigger,
+      update: update
+    };
+  }
+
   function initServiceSelect(form, serviceSelect) {
     var root = form.querySelector('[data-booking-service-select]');
     if (!root || !serviceSelect) return null;
@@ -721,6 +768,7 @@
     var slotErrorEl = document.getElementById('contact-slot-error');
     var selectedSlotInput = form.querySelector('[data-booking-slot-id]');
     var submitButton = form.querySelector('[data-contact-form-submit]');
+    var nativeSubmitButton = form.querySelector('[data-contact-native-submit]');
     var submitLabel = form.querySelector('[data-contact-submit-label]');
     var statusEl = form.querySelector('[data-contact-form-status]');
     var legalConsent = form.querySelector('[data-legal-consent]');
@@ -758,10 +806,12 @@
     function syncSubmitButton() {
       if (!submitButton) return;
       var isReady = !isSubmitting && canSubmitForm();
-      submitButton.disabled = isSubmitting;
       submitButton.setAttribute('aria-disabled', String(!isReady));
+      submitButton.setAttribute('aria-busy', String(isSubmitting));
+      submitButton.tabIndex = 0;
       submitButton.classList.toggle('is-disabled', !isReady && !isSubmitting);
       submitButton.classList.toggle('is-submitting', isSubmitting);
+      if (nativeSubmitButton) nativeSubmitButton.disabled = !isReady;
     }
 
     function setBookingSubmitting(nextState, idleLabel) {
@@ -772,6 +822,64 @@
 
     initFloatingFields(form);
     var serviceWidget = initServiceSelect(form, serviceSelect);
+    var legalWidget = initLegalCheckbox(form, legalConsent);
+    var legalLinks = legalWidget
+      ? Array.prototype.slice.call(legalWidget.trigger.closest('.form-checkbox').querySelectorAll('a[href]'))
+      : [];
+    var legalTabStops = legalWidget && submitButton
+      ? [legalWidget.trigger].concat(legalLinks, [submitButton])
+      : [];
+
+    legalTabStops.forEach(function (control, index) {
+      control.addEventListener('keydown', function (event) {
+        if (
+          event.key !== 'Tab' ||
+          event.defaultPrevented ||
+          event.altKey ||
+          event.ctrlKey ||
+          event.metaKey
+        ) {
+          return;
+        }
+
+        var nextIndex = index + (event.shiftKey ? -1 : 1);
+        if (nextIndex < 0 || nextIndex >= legalTabStops.length) return;
+
+        event.preventDefault();
+        legalTabStops[nextIndex].focus();
+      });
+    });
+
+    function requestBookingSubmit() {
+      var isReady = !isSubmitting && canSubmitForm();
+      if (nativeSubmitButton) nativeSubmitButton.disabled = !isReady;
+      if (!isReady) {
+        syncSubmitButton();
+        return;
+      }
+
+      if (typeof form.requestSubmit === 'function') {
+        if (nativeSubmitButton) {
+          form.requestSubmit(nativeSubmitButton);
+        } else {
+          form.requestSubmit();
+        }
+      } else if (nativeSubmitButton) {
+        nativeSubmitButton.click();
+      }
+    }
+
+    if (submitButton) {
+      submitButton.addEventListener('click', function () {
+        submitButton.focus();
+        requestBookingSubmit();
+      });
+      submitButton.addEventListener('keydown', function (event) {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        if (!event.repeat) requestBookingSubmit();
+      });
+    }
 
     function setInlineError(errorEl, key, isVisible) {
       if (!errorEl) return;
@@ -823,14 +931,15 @@
       if (!legalConsent) return;
       var wrapper = legalConsent.closest('.form-checkbox');
       var errorEl = document.getElementById('contact-legal-error');
+      var legalControl = legalWidget ? legalWidget.trigger : legalConsent;
       if (wrapper) wrapper.classList.toggle('is-invalid', isInvalid);
       if (isInvalid) {
-        legalConsent.setAttribute('aria-invalid', 'true');
+        legalControl.setAttribute('aria-invalid', 'true');
       } else {
-        legalConsent.removeAttribute('aria-invalid');
+        legalControl.removeAttribute('aria-invalid');
       }
       setInlineError(errorEl, 'chooseLegal', isInvalid);
-      if (errorEl) toggleDescription(legalConsent, errorEl.id, isInvalid);
+      if (errorEl) toggleDescription(legalControl, errorEl.id, isInvalid);
     }
 
     function focusInvalidTarget(target) {
@@ -867,7 +976,7 @@
 
       var legalInvalid = Boolean(legalConsent && !legalConsent.checked);
       setLegalError(legalInvalid);
-      if (legalInvalid) invalidTargets.push(legalConsent);
+      if (legalInvalid) invalidTargets.push(legalWidget ? legalWidget.trigger : legalConsent);
 
       var isValid = invalidTargets.length === 0 && canSubmitForm();
       if (!isValid && shouldAnnounce) {
@@ -948,12 +1057,14 @@
         setSlotStatus(slotStatusEl, 'chooseService');
         clearValidationErrors();
         if (serviceWidget) serviceWidget.update();
+        if (legalWidget) legalWidget.update();
         syncSubmitButton();
       }, 0);
     });
 
     window.addEventListener('pageshow', function () {
       if (serviceWidget) serviceWidget.update();
+      if (legalWidget) legalWidget.update();
       if (serviceSelect.value !== observedServiceValue) {
         observedServiceValue = serviceSelect.value;
         loadAvailability(serviceSelect, slotsEl, slotOptionsEl, slotStatusEl, selectedSlotInput, statusEl, false);

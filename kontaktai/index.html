@@ -33,7 +33,7 @@
   <link rel="preload" href="/assets/fonts/Inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="/css/styles.css?v=20260813h">
+  <link rel="stylesheet" href="/css/styles.css?v=20260814i">
 
   <script>
     (function(){var l=localStorage.getItem('checkauto-lang');if(l&&l!=='lt'){document.documentElement.lang=l;document.documentElement.classList.add('i18n-loading');}})();
@@ -250,7 +250,8 @@
 
             <div class="form-field form-field--full">
               <div class="form-checkbox form-checkbox--required">
-                <input id="contact-legal-consent" name="legalConsent" type="checkbox" required aria-labelledby="contact-legal-details" data-legal-consent>
+                <input id="contact-legal-consent" name="legalConsent" type="checkbox" required hidden aria-hidden="true" tabindex="-1" data-legal-consent>
+                <div class="form-checkbox-control" role="checkbox" tabindex="0" aria-checked="false" aria-required="true" aria-labelledby="contact-legal-details" data-legal-checkbox></div>
                 <div class="form-checkbox-copy">
                   <p id="contact-legal-details" class="form-checkbox-details form-checkbox-details--consent">
                     <label for="contact-legal-consent"><span data-i18n="contact.form.legal_consent_prefix">Sutinku su</span></label>
@@ -270,9 +271,10 @@
             <div class="contact-form-actions">
               <p class="contact-form-status" data-contact-form-status role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
               <div class="contact-submit-control">
-                <button class="btn btn-primary is-disabled" type="submit" aria-disabled="true" data-contact-form-submit>
+                <div class="btn btn-primary is-disabled" role="button" tabindex="0" aria-disabled="true" data-contact-form-submit>
                   <span data-contact-submit-label data-i18n="contact.form.submit">Rezervuoti laiką</span>
-                </button>
+                </div>
+                <button type="submit" hidden aria-hidden="true" tabindex="-1" data-contact-native-submit></button>
               </div>
             </div>
           </form>
@@ -357,6 +359,6 @@
   <script src="/js/components.js?v=20260813f"></script>
   <script src="/js/i18n.js"></script>
   <script src="/js/main.js"></script>
-  <script src="/js/contact-form.js?v=20260813h"></script>
+  <script src="/js/contact-form.js?v=20260814i"></script>
 </body>
 </html>

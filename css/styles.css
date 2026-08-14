@@ -1858,13 +1858,60 @@ p {
   background: var(--booking-field-surface-error);
 }
 
-.form-field .form-checkbox input {
+.form-field .form-checkbox input[hidden] {
+  display: none;
+}
+
+.form-checkbox-control {
+  position: relative;
   width: 18px;
   min-height: 18px;
   height: 18px;
   margin: 0.1rem 0 0;
   padding: 0;
+  background: #fff;
+  border: 1.5px solid #73747a;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgba(29, 29, 31, 0.03);
+  cursor: pointer;
+  transition: background var(--booking-field-transition),
+              border-color var(--booking-field-transition),
+              box-shadow var(--booking-field-transition);
+}
+
+.form-checkbox-control::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 4px;
+  height: 8px;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  opacity: 0;
+  transform: rotate(45deg) scale(0.8);
+  transition: opacity var(--booking-field-transition),
+              transform var(--booking-field-transition);
+}
+
+.form-checkbox-control[aria-checked="true"] {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
   box-shadow: none;
+}
+
+.form-checkbox-control[aria-checked="true"]::after {
+  opacity: 1;
+  transform: rotate(45deg) scale(1);
+}
+
+.form-checkbox-control[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.62;
+}
+
+.form-checkbox-control:focus-visible {
+  outline-color: #005fbf;
 }
 
 .form-field .form-checkbox:focus-within {
@@ -2552,6 +2599,21 @@ p {
   padding-block: 0.58rem;
 }
 
+.contact-form [role="button"].btn {
+  cursor: pointer;
+  user-select: none;
+}
+
+.contact-form [role="button"].btn-primary:hover,
+.contact-form [role="button"].btn-primary:focus-visible {
+  background: #0066cc;
+  transform: none;
+}
+
+.contact-form [role="button"].btn-primary:focus-visible {
+  outline-color: #003f7f;
+}
+
 .contact-form .btn.is-disabled,
 .contact-form .btn[aria-disabled="true"] {
   opacity: 0.48;
@@ -2560,7 +2622,7 @@ p {
   box-shadow: none;
 }
 
-.contact-form .btn.is-submitting[disabled] {
+.contact-form .btn.is-submitting {
   opacity: 0.68;
   cursor: wait;
 }
@@ -3022,6 +3084,8 @@ p {
   .booking-service-trigger,
   .booking-service-option,
   .booking-slot,
+  .form-checkbox-control,
+  .contact-form [role="button"].btn,
   .form-checkbox {
     forced-color-adjust: auto;
   }
@@ -3029,6 +3093,28 @@ p {
   .booking-slot[aria-checked="true"],
   .booking-slot.is-selected {
     outline: 3px solid CanvasText;
+  }
+
+  .form-checkbox-control[aria-checked="true"] {
+    color: HighlightText;
+    background: Highlight;
+    border-color: Highlight;
+    outline: 2px solid CanvasText;
+  }
+
+  .form-checkbox-control[aria-checked="true"]::after {
+    border-color: HighlightText;
+  }
+
+  .form-checkbox-control:focus-visible {
+    outline-color: Highlight;
+  }
+
+  .contact-form [role="button"].btn[aria-disabled="true"] {
+    color: GrayText;
+    background: Canvas;
+    border: 1px solid GrayText;
+    opacity: 1;
   }
 
   .nav-desktop a.nav-cta[aria-current="page"]::after,
