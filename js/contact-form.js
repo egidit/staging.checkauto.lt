@@ -510,6 +510,14 @@
       }
     });
 
+    menu.addEventListener('mousedown', function (event) {
+      var target = event.target;
+      if (target && target.nodeType !== 1) target = target.parentElement;
+      if (event.button === 0 && target && target.closest('[data-service-option]')) {
+        event.preventDefault();
+      }
+    });
+
     options.forEach(function (option, index) {
       option.addEventListener('click', function () {
         setActive(index);
