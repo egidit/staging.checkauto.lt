@@ -307,6 +307,7 @@
 
       options.forEach(function (option, index) {
         var isCurrent = open ? index === activeIndex : index === selectedIndex;
+        option.classList.toggle('is-committed', index === selectedIndex);
         option.classList.toggle('is-active', open && index === activeIndex);
         option.setAttribute('aria-selected', String(isCurrent));
       });
@@ -326,7 +327,7 @@
     }
 
     function setOpen(isOpen, preferredIndex) {
-      if (trigger.disabled) isOpen = false;
+      if (serviceSelect.disabled) isOpen = false;
 
       if (isOpen) {
         var selectedIndex = getSelectedIndex();
@@ -358,8 +359,19 @@
 
     function updateDisabledState() {
       trigger.disabled = serviceSelect.disabled;
+      trigger.setAttribute('aria-disabled', String(serviceSelect.disabled));
+      trigger.tabIndex = serviceSelect.disabled ? -1 : 0;
       root.classList.toggle('is-disabled', serviceSelect.disabled);
       if (serviceSelect.disabled) setOpen(false);
+    }
+
+    function setCollapsedValue(text, hasSelection) {
+      if (valueLabel.tagName === 'INPUT') {
+        valueLabel.value = hasSelection ? text : '';
+        valueLabel.placeholder = hasSelection ? '' : text;
+      } else {
+        valueLabel.textContent = text;
+      }
     }
 
     function updateFromSelect() {
@@ -372,9 +384,12 @@
       });
 
       if (selectedOption) {
-        valueLabel.textContent = getOptionTitle(selectedOption);
+        setCollapsedValue(getOptionTitle(selectedOption), true);
       } else {
-        valueLabel.textContent = serviceSelect.options[0] ? serviceSelect.options[0].textContent : message('chooseService');
+        setCollapsedValue(
+          serviceSelect.options[0] ? serviceSelect.options[0].textContent : message('chooseService'),
+          false
+        );
       }
 
       root.classList.toggle('has-value', Boolean(selectedOption));
@@ -385,6 +400,8 @@
     }
 
     trigger.addEventListener('click', function () {
+      if (serviceSelect.disabled) return;
+      trigger.focus();
       setOpen(!root.classList.contains('is-open'));
     });
 

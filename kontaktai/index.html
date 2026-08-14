@@ -33,7 +33,7 @@
   <link rel="preload" href="/assets/fonts/Inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="/css/styles.css?v=20260813g">
+  <link rel="stylesheet" href="/css/styles.css?v=20260813h">
 
   <script>
     (function(){var l=localStorage.getItem('checkauto-lang');if(l&&l!=='lt'){document.documentElement.lang=l;document.documentElement.classList.add('i18n-loading');}})();
@@ -88,19 +88,77 @@
               <div class="contact-form-grid">
                 <div class="form-field form-field--full">
                   <div class="booking-service-select" data-booking-service-select>
-                    <label for="contact-inspection-type" class="booking-native-select-label" data-required="true" data-i18n="contact.form.inspection_type_label">Patikros tipas</label>
-                    <select id="contact-inspection-type" class="booking-native-select" name="serviceCode" required data-booking-service>
+                    <select id="contact-inspection-type" class="booking-native-select" name="serviceCode" required hidden aria-hidden="true" tabindex="-1" data-booking-service>
                       <option value="" data-i18n="contact.form.inspection_type_placeholder">Pasirinkite paslaugą</option>
                       <option value="full_inspection" data-i18n="contact.form.inspection_type_full">Išsami patikra prieš pirkimą</option>
                       <option value="computer_diagnostics" data-i18n="contact.form.inspection_type_diagnostics">Kompiuterinė diagnostika</option>
                     </select>
+                    <span id="contact-inspection-type-label" class="booking-service-floating-label" data-required="true" data-i18n="contact.form.inspection_type_label">Patikros tipas</span>
+                    <div
+                      id="contact-inspection-type-combobox"
+                      class="booking-service-trigger"
+                      role="combobox"
+                      tabindex="0"
+                      aria-haspopup="listbox"
+                      aria-expanded="false"
+                      aria-controls="contact-inspection-type-menu"
+                      aria-labelledby="contact-inspection-type-label"
+                      aria-required="true"
+                      data-booking-service-trigger
+                    >
+                      <span class="booking-service-trigger-value">
+                        <span class="booking-service-trigger-icon" aria-hidden="true"></span>
+                        <span class="booking-service-trigger-label" data-booking-service-label></span>
+                      </span>
+                      <span class="booking-service-chevron" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </span>
+                    </div>
+                    <div id="contact-inspection-type-menu" class="booking-service-menu" role="listbox" aria-labelledby="contact-inspection-type-label" hidden data-booking-service-menu>
+                      <div
+                        id="contact-inspection-type-full"
+                        class="booking-service-option"
+                        role="option"
+                        aria-selected="false"
+                        aria-labelledby="contact-inspection-type-full-title"
+                        aria-describedby="contact-inspection-type-full-description"
+                        data-service-option
+                        data-value="full_inspection"
+                      >
+                        <span class="booking-service-option-icon" data-service-icon="full_inspection" aria-hidden="true"></span>
+                        <span class="booking-service-option-copy">
+                          <span id="contact-inspection-type-full-title" class="booking-service-option-title" data-i18n="contact.form.inspection_type_full">Išsami patikra prieš pirkimą</span>
+                          <span id="contact-inspection-type-full-description" class="booking-service-option-text" data-i18n="contact.form.inspection_type_full_meta">Kėbulas, diagnostika, bandomasis važiavimas ir aiški išvada.</span>
+                        </span>
+                        <span class="booking-service-option-indicator" aria-hidden="true"></span>
+                      </div>
+                      <div
+                        id="contact-inspection-type-diagnostics"
+                        class="booking-service-option"
+                        role="option"
+                        aria-selected="false"
+                        aria-labelledby="contact-inspection-type-diagnostics-title"
+                        aria-describedby="contact-inspection-type-diagnostics-description"
+                        data-service-option
+                        data-value="computer_diagnostics"
+                      >
+                        <span class="booking-service-option-icon" data-service-icon="computer_diagnostics" aria-hidden="true"></span>
+                        <span class="booking-service-option-copy">
+                          <span id="contact-inspection-type-diagnostics-title" class="booking-service-option-title" data-i18n="contact.form.inspection_type_diagnostics">Kompiuterinė diagnostika</span>
+                          <span id="contact-inspection-type-diagnostics-description" class="booking-service-option-text" data-i18n="contact.form.inspection_type_diagnostics_meta">OBD klaidos, gyvi duomenys ir trumpas paaiškinimas.</span>
+                        </span>
+                        <span class="booking-service-option-indicator" aria-hidden="true"></span>
+                      </div>
+                    </div>
                     <p id="contact-inspection-type-error" class="form-error" data-error-key="chooseService" hidden>Pasirinkite patikros tipą.</p>
                   </div>
                 </div>
 
                 <div class="form-field form-field--full">
                   <input id="contact-slot-id" name="slotId" type="hidden" data-booking-slot-id>
-                  <fieldset class="booking-slot-panel" role="radiogroup" aria-required="true" aria-describedby="contact-slot-status" aria-busy="false" tabindex="0" data-booking-slots>
+                  <fieldset class="booking-slot-panel" role="radiogroup" aria-labelledby="contact-slot-label" aria-required="true" aria-describedby="contact-slot-status" aria-busy="false" tabindex="0" data-booking-slots>
                     <legend id="contact-slot-label" class="visually-hidden" data-i18n="contact.form.slot_label">Pasirinkite laiką</legend>
                     <p id="contact-slot-status" class="booking-slot-status" role="status" aria-live="polite" aria-atomic="true" data-booking-slot-status data-i18n="contact.form.slot_placeholder">Pirmiausia pasirinkite patikros tipą.</p>
                     <div class="booking-slot-options" data-booking-slot-options></div>
@@ -299,6 +357,6 @@
   <script src="/js/components.js?v=20260813f"></script>
   <script src="/js/i18n.js"></script>
   <script src="/js/main.js"></script>
-  <script src="/js/contact-form.js?v=20260813g"></script>
+  <script src="/js/contact-form.js?v=20260813h"></script>
 </body>
 </html>
