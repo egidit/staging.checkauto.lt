@@ -44,6 +44,7 @@
       "legal_consent_middle": "and have read the",
       "privacy_link": "Privacy Policy",
       "early_service_consent_inline": "If the appointment is within 14 days after the booking is confirmed, I request the service at the selected time. Once fully performed, I can no longer withdraw from the contract.",
+      "marketing_consent": "I agree to receive checkauto.lt news, tips, and offers by email. I understand that I can withdraw this consent at any time.",
       "submit": "Reserve time",
       "sending": "Reserving...",
       "success": "Request received. The selected time is temporarily reserved; we will send confirmation by email.",

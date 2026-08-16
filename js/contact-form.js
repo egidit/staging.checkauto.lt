@@ -16,6 +16,7 @@
   var PRIVACY_TEXT_VERSION = 'privacy-2026-07-03';
   var EARLY_SERVICE_CONSENT_VERSION = 'early-service-consent-2026-08-12';
   var VEHICLE_ACCESS_TEXT_VERSION = 'vehicle-access-via-terms-2026-07-03';
+  var MARKETING_CONSENT_TEXT_VERSION = 'booking-form-2026-07-02';
 
   var MESSAGES = {
     lt: {
@@ -216,24 +217,23 @@
     });
   }
 
-  function initLegalCheckbox(form, legalConsent) {
-    var trigger = form.querySelector('[data-legal-checkbox]');
-    if (!legalConsent || !trigger) return null;
+  function initProxyCheckbox(form, checkbox, trigger) {
+    if (!checkbox || !trigger) return null;
 
     var wrapper = trigger.closest('.form-checkbox');
 
     function update() {
-      var isDisabled = legalConsent.disabled;
-      trigger.setAttribute('aria-checked', String(legalConsent.checked));
+      var isDisabled = checkbox.disabled;
+      trigger.setAttribute('aria-checked', String(checkbox.checked));
       trigger.setAttribute('aria-disabled', String(isDisabled));
       trigger.tabIndex = isDisabled ? -1 : 0;
-      if (wrapper) wrapper.classList.toggle('is-checked', legalConsent.checked);
+      if (wrapper) wrapper.classList.toggle('is-checked', checkbox.checked);
     }
 
     function activate() {
-      if (legalConsent.disabled) return;
+      if (checkbox.disabled) return;
       trigger.focus();
-      legalConsent.click();
+      checkbox.click();
     }
 
     trigger.addEventListener('click', activate);
@@ -243,8 +243,8 @@
       activate();
     });
 
-    legalConsent.addEventListener('input', update);
-    legalConsent.addEventListener('change', update);
+    checkbox.addEventListener('input', update);
+    checkbox.addEventListener('change', update);
     form.addEventListener('reset', function () {
       setTimeout(update, 0);
     });
@@ -252,7 +252,7 @@
 
     if (typeof MutationObserver === 'function') {
       var disabledObserver = new MutationObserver(update);
-      disabledObserver.observe(legalConsent, { attributes: true, attributeFilter: ['disabled'] });
+      disabledObserver.observe(checkbox, { attributes: true, attributeFilter: ['disabled'] });
     }
 
     update();
@@ -780,6 +780,7 @@
     var submitLabel = form.querySelector('[data-contact-submit-label]');
     var statusEl = form.querySelector('[data-contact-form-status]');
     var legalConsent = form.querySelector('[data-legal-consent]');
+    var marketingConsent = form.querySelector('[data-marketing-consent]');
     var textControls = Array.prototype.slice.call(form.querySelectorAll('.floating-field input, .floating-field textarea'));
     var isSubmitting = false;
     var hasAttemptedSubmit = false;
@@ -830,15 +831,31 @@
 
     initFloatingFields(form);
     var serviceWidget = initServiceSelect(form, serviceSelect);
-    var legalWidget = initLegalCheckbox(form, legalConsent);
+    var legalWidget = initProxyCheckbox(
+      form,
+      legalConsent,
+      form.querySelector('[data-legal-checkbox]')
+    );
+    var marketingWidget = initProxyCheckbox(
+      form,
+      marketingConsent,
+      form.querySelector('[data-marketing-checkbox]')
+    );
     var legalLinks = legalWidget
       ? Array.prototype.slice.call(legalWidget.trigger.closest('.form-checkbox').querySelectorAll('a[href]'))
       : [];
-    var legalTabStops = legalWidget && submitButton
-      ? [legalWidget.trigger].concat(legalLinks, [submitButton])
+    var marketingLinks = marketingWidget
+      ? Array.prototype.slice.call(marketingWidget.trigger.closest('.form-checkbox').querySelectorAll('a[href]'))
       : [];
+    var endFormTabStops = [];
 
-    legalTabStops.forEach(function (control, index) {
+    if (legalWidget) endFormTabStops.push(legalWidget.trigger);
+    endFormTabStops = endFormTabStops.concat(legalLinks);
+    if (marketingWidget) endFormTabStops.push(marketingWidget.trigger);
+    endFormTabStops = endFormTabStops.concat(marketingLinks);
+    if (submitButton) endFormTabStops.push(submitButton);
+
+    endFormTabStops.forEach(function (control, index) {
       control.addEventListener('keydown', function (event) {
         if (
           event.key !== 'Tab' ||
@@ -851,10 +868,10 @@
         }
 
         var nextIndex = index + (event.shiftKey ? -1 : 1);
-        if (nextIndex < 0 || nextIndex >= legalTabStops.length) return;
+        if (nextIndex < 0 || nextIndex >= endFormTabStops.length) return;
 
         event.preventDefault();
-        legalTabStops[nextIndex].focus();
+        endFormTabStops[nextIndex].focus();
       });
     });
 
@@ -1066,6 +1083,7 @@
         clearValidationErrors();
         if (serviceWidget) serviceWidget.update();
         if (legalWidget) legalWidget.update();
+        if (marketingWidget) marketingWidget.update();
         syncSubmitButton();
       }, 0);
     });
@@ -1073,6 +1091,7 @@
     window.addEventListener('pageshow', function () {
       if (serviceWidget) serviceWidget.update();
       if (legalWidget) legalWidget.update();
+      if (marketingWidget) marketingWidget.update();
       if (serviceSelect.value !== observedServiceValue) {
         observedServiceValue = serviceSelect.value;
         loadAvailability(serviceSelect, slotsEl, slotOptionsEl, slotStatusEl, selectedSlotInput, statusEl, false);
@@ -1100,6 +1119,8 @@
     [100, 500, 1500].forEach(function (delay) {
       setTimeout(function () {
         if (serviceWidget) serviceWidget.update();
+        if (legalWidget) legalWidget.update();
+        if (marketingWidget) marketingWidget.update();
         if (serviceSelect.value !== observedServiceValue) {
           observedServiceValue = serviceSelect.value;
           loadAvailability(serviceSelect, slotsEl, slotOptionsEl, slotStatusEl, selectedSlotInput, statusEl, false);
@@ -1123,6 +1144,7 @@
       var idleLabel = submitLabel ? submitLabel.textContent : '';
       var formData = new FormData(form);
       var legalAccepted = formData.get('legalConsent') === 'on';
+      var marketingAccepted = formData.get('marketingConsent') === 'on';
       var payload = {
         slotId: selectedSlotInput.value,
         serviceCode: String(formData.get('serviceCode') || '').trim(),
@@ -1144,8 +1166,8 @@
         earlyServiceConsentTextVersion: EARLY_SERVICE_CONSENT_VERSION,
         vehicleAccessConfirmed: legalAccepted,
         vehicleAccessTextVersion: VEHICLE_ACCESS_TEXT_VERSION,
-        marketingConsent: false,
-        marketingConsentTextVersion: 'booking-form-2026-07-02'
+        marketingConsent: marketingAccepted,
+        marketingConsentTextVersion: MARKETING_CONSENT_TEXT_VERSION
       };
 
       setFormStatus(statusEl, '', '', '');
