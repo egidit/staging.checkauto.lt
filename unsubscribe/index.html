@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
   <title>Atsisakyti naujienlaiškio | checkauto.lt</title>
-  <link rel="stylesheet" href="/css/styles.css?v=20260814i">
+  <meta name="theme-color" content="#0071e3">
+  <link rel="preload" href="/assets/fonts/Inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/styles.css?v=20260823-8">
   <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
   <style>
     body {
@@ -28,11 +30,37 @@
 
     .unsubscribe-brand {
       color: #1f2328;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
       font-weight: 800;
     }
 
     .unsubscribe-brand span {
       color: #0071e3;
+    }
+
+    .unsubscribe-status-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      margin-top: 2rem;
+      color: #0071e3;
+      background: #e4f1ff;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+
+    .unsubscribe-card[data-state="success"] .unsubscribe-status-icon {
+      color: #1f7a39;
+      background: #f2fbf4;
+    }
+
+    .unsubscribe-card[data-state="error"] .unsubscribe-status-icon,
+    .unsubscribe-card[data-state="invalid"] .unsubscribe-status-icon {
+      color: #b42318;
+      background: #fff4f3;
     }
 
     .unsubscribe-card h1 {
@@ -53,16 +81,37 @@
       gap: 0.75rem;
       margin-top: 1.5rem;
     }
+
+    .unsubscribe-actions .btn {
+      flex: 1 1 auto;
+    }
+
+    .unsubscribe-help {
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid #e4e7ec;
+      font-size: 0.8125rem;
+    }
+
+    .unsubscribe-help a {
+      color: #0071e3;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 0.15em;
+    }
   </style>
 </head>
 <body>
-  <main class="unsubscribe-card">
+  <main class="unsubscribe-card" data-card data-state="loading" aria-busy="true">
     <div class="unsubscribe-brand">check<span>auto</span>.lt</div>
-    <h1 data-title>Tvarkoma...</h1>
+    <div class="unsubscribe-status-icon" data-status-icon aria-hidden="true">…</div>
+    <h1 data-title>Tvarkoma…</h1>
     <p data-message>Tikriname atsisakymo nuorodą.</p>
     <div class="unsubscribe-actions">
-      <a class="button button-primary" href="/">Grįžti į checkauto.lt</a>
+      <button class="btn btn-primary" type="button" data-retry hidden>Bandyti dar kartą</button>
+      <a class="btn btn-secondary" href="/">Grįžti į svetainę</a>
     </div>
+    <p class="unsubscribe-help">Reikia pagalbos? <a href="mailto:info@checkauto.lt">info@checkauto.lt</a></p>
   </main>
 
   <script>
@@ -72,36 +121,57 @@
       var endpoint = 'https://ddhhhieitupjixynjrry.supabase.co/functions/v1/marketing-unsubscribe';
       var title = document.querySelector('[data-title]');
       var message = document.querySelector('[data-message]');
+      var card = document.querySelector('[data-card]');
+      var statusIcon = document.querySelector('[data-status-icon]');
+      var retryButton = document.querySelector('[data-retry]');
       var token = new URLSearchParams(window.location.search).get('token') || '';
 
-      function setState(nextTitle, nextMessage) {
+      function setState(state, nextTitle, nextMessage, canRetry) {
+        card.dataset.state = state;
+        card.setAttribute('aria-busy', String(state === 'loading'));
+        statusIcon.textContent = state === 'success' ? '✓' : (state === 'loading' ? '…' : '!');
         title.textContent = nextTitle;
         message.textContent = nextMessage;
+        retryButton.hidden = !canRetry;
       }
 
       if (!token) {
-        setState('Nuoroda neteisinga', 'Atsisakymo nuorodoje trūksta saugaus patvirtinimo kodo.');
+        setState('invalid', 'Nuoroda neteisinga', 'Atsisakymo nuorodoje trūksta patvirtinimo kodo.', false);
         return;
       }
 
-      fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: token })
-      }).then(function (response) {
-        return response.json().then(function (body) {
-          if (!response.ok) throw new Error(body.error || 'Nepavyko apdoroti šios nuorodos.');
-          return body;
+      function unsubscribe() {
+        setState('loading', 'Tvarkoma…', 'Tikriname atsisakymo nuorodą.', false);
+        fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: token })
+        }).then(function (response) {
+          return response.json().catch(function () { return {}; }).then(function (body) {
+            if (!response.ok) {
+              var error = new Error('unsubscribe_failed');
+              error.status = response.status;
+              throw error;
+            }
+            return body;
+          });
+        }).then(function (body) {
+          if (body.status === 'already_unsubscribed') {
+            setState('success', 'Naujienų jau atsisakyta', 'Šis el. pašto adresas jau pašalintas iš naujienų gavėjų sąrašo.', false);
+            return;
+          }
+          setState('success', 'Naujienų atsisakyta', 'Sutikimas gauti checkauto.lt naujienas el. paštu atšauktas.', false);
+        }).catch(function (error) {
+          if (error && (error.status === 400 || error.status === 404)) {
+            setState('invalid', 'Nuoroda nebegalioja', 'Parašykite mums el. paštu ir atšauksime sutikimą rankiniu būdu.', false);
+            return;
+          }
+          setState('error', 'Nepavyko atnaujinti pasirinkimo', 'Patikrinkite interneto ryšį ir bandykite dar kartą.', true);
         });
-      }).then(function (body) {
-        if (body.status === 'already_unsubscribed') {
-          setState('Jau atsisakyta', 'Šis el. pašto adresas jau yra pašalintas iš checkauto.lt naujienų gavėjų sąrašo.');
-          return;
-        }
-        setState('Atsisakyta', 'Sutikimas gauti checkauto.lt naujienas el. paštu buvo atšauktas.');
-      }).catch(function (error) {
-        setState('Nuoroda neteisinga', error instanceof Error ? error.message : 'Nepavyko apdoroti šios nuorodos.');
-      });
+      }
+
+      retryButton.addEventListener('click', unsubscribe);
+      unsubscribe();
     })();
   </script>
 </body>

@@ -5,7 +5,8 @@
       "title": "Better to know now than pay later",
       "subtitle": "Professional used car diagnostics, body inspection and engine check. Documented report with photos, before you buy.",
       "cta": "Order inspection",
-      "scroll": "scroll"
+      "scroll": "scroll",
+      "image_alt": "A yellow Mercedes-Benz sports car on the road"
     },
     "problem": {
       "label": "Risk",
@@ -31,23 +32,22 @@
       "item4_text": "A car inspection costs a fraction of unexpected repairs. Invest in an inspection, save thousands."
     },
     "compare": {
-      "label": "Before & after",
-      "title": "What a buyer loses by not checking",
+      "label": "Before and after",
       "title_prefix": "What changes when a",
       "title_accent": "specialist checks",
       "subtitle": "The seller will always know more than you. Unless you bring a specialist.",
       "without": "Without inspection",
       "with": "With checkauto.lt",
       "no1": "Judging the car by the seller's words and listing photos",
-      "no2": "Tampered mileage, cleared error codes, invisible without tools",
+      "no2": "Tampered mileage and cleared error codes are invisible without tools",
       "no3": "Repainted panels after an accident go undetected",
-      "no4": "\u201cEverything's fine\u201d, then a €1,500+ service bill a month later",
+      "no4": "Everything looks fine, then a €1,500+ service bill arrives a month later",
       "no5": "Negotiating on gut feeling, not on facts",
-      "no6": "Pressured to decide on the spot because \u201cit'll be sold next week\u201d",
+      "no6": "Pressured to decide on the spot because the car may be sold tomorrow",
       "yes1": "An independent specialist checks the car for you",
       "yes2": "OBD diagnostics, mileage analysis, hidden error scan",
       "yes3": "Paint thickness measurement and body geometry check",
-      "yes4": "A clear report with photos. You'll know before you pay",
+      "yes4": "A clear report with photos so you know before you pay",
       "yes5": "A justified negotiation position with every defect found",
       "yes6": "Peace of mind that you bought what you actually saw"
     },

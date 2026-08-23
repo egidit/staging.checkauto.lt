@@ -9,6 +9,7 @@
     "  \"category\"  – kategorija filtrui. Galimos reikšmės: \"body\", \"engine\", \"mileage\", \"electrical\".",
     "  \"image\"     – nuotraukos kelias. Įkelkite nuotrauką į /assets/images/ aplanką ir čia nurodykite kelią.",
     "                 Pvz.: \"/assets/images/bmw-520d.jpg\"",
+    "  \"imageAvailable\" – nustatykite true, kai nuotraukos failas įkeltas, arba false, kai jo nėra.",
     "",
     "  Tekstai pateikiami dviem kalbomis – \"lt\" (lietuvių) ir \"en\" (anglų):",
     "",
@@ -23,7 +24,7 @@
     "  1. Nukopijuokite bet kurį esamą įrašą iš \"items\" sąrašo.",
     "  2. Pakeiskite \"id\" į kitą (dar nenaudotą) numerį.",
     "  3. Užpildykite visus laukus abiem kalbomis (\"lt\" ir \"en\").",
-    "  4. Įkelkite nuotrauką į /assets/images/ ir nurodykite kelią \"image\" lauke.",
+    "  4. Įkelkite nuotrauką į /assets/images/, nurodykite kelią \"image\" lauke ir nustatykite \"imageAvailable\": true.",
     "  5. Išsaugokite failą ir pakeitimai atsiras puslapyje.",
     "",
     "KAIP IŠTRINTI KORTELĘ:",
@@ -42,12 +43,13 @@
       "id": 1,
       "category": "body",
       "image": "/assets/images/AudiA7_1.jpg",
+      "imageAvailable": false,
       "recommended": false,
       "lt": {
         "tag": "Kėbulas",
         "title": "Audi A7, 3.0 TDI, 2012",
         "seller": "Pardavėjas teigė, kad automobilio būklė gera, dažytos kelios kėbulo detalės.",
-        "found": "Patikros metu nustatyti dideli automobilio trūkumai bei akivaizdus priežiūros stoka. Kėbulo dažų matuoklis užfiksavo glaisto sluoksnį, o įvairūs gedimai bei kėbulo elementai, tokie kaip galinis žibintas, buvo tvarkyti ūkiškais metodais. Be to, ilgą transporto priemonės stovėjimą išduoda po kėbulo apdailomis rasti širšių lizdai.",
+        "found": "Patikros metu nustatyti dideli automobilio trūkumai bei akivaizdi priežiūros stoka. Kėbulo dažų matuoklis užfiksavo glaisto sluoksnį, o įvairūs gedimai bei kėbulo elementai, tokie kaip galinis žibintas, buvo tvarkyti ūkiškais metodais. Be to, ilgą transporto priemonės stovėjimą išduoda po kėbulo apdailomis rasti širšių lizdai.",
         "verdict": "Nerekomenduota pirkti"
       },
       "en": {
@@ -62,6 +64,7 @@
       "id": 2,
       "category": "mileage",
       "image": "/assets/images/Passat_1.jpg",
+      "imageAvailable": false,
       "recommended": false,
       "lt": {
         "tag": "Rida",
@@ -82,6 +85,7 @@
       "id": 3,
       "category": "mileage",
       "image": "/assets/images/Passat_2.jpg",
+      "imageAvailable": false,
       "recommended": false,
       "lt": {
         "tag": "Rida",
@@ -102,6 +106,7 @@
       "id": 4,
       "category": "body",
       "image": "/assets/images/x6_1.jpg",
+      "imageAvailable": false,
       "recommended": true,
       "lt": {
         "tag": "Kėbulas",
@@ -122,6 +127,7 @@
       "id": 5,
       "category": "body",
       "image": "/assets/images/honda_1.jpg",
+      "imageAvailable": false,
       "recommended": true,
       "lt": {
         "tag": "Kėbulas",
@@ -142,6 +148,7 @@
       "id": 6,
       "category": "engine",
       "image": "/assets/images/6gt_1.jpg",
+      "imageAvailable": false,
       "recommended": true,
       "lt": {
         "tag": "Variklis",
@@ -162,6 +169,7 @@
       "id": 7,
       "category": "body",
       "image": "/assets/images/f48_1.jpg",
+      "imageAvailable": false,
       "recommended": true,
       "lt": {
         "tag": "Kėbulas",
@@ -182,6 +190,7 @@
       "id": 8,
       "category": "body",
       "image": "/assets/images/PassatCC_1.jpg",
+      "imageAvailable": false,
       "recommended": false,
       "lt": {
         "tag": "Kėbulas",
@@ -202,6 +211,7 @@
       "id": 9,
       "category": "mileage",
       "image": "/assets/images/Passat_3.jpg",
+      "imageAvailable": false,
       "recommended": false,
       "lt": {
         "tag": "Rida",
@@ -222,6 +232,7 @@
       "id": 10,
       "category": "body",
       "image": "/assets/images/bmwf11_1.jpg",
+      "imageAvailable": false,
       "recommended": true,
       "lt": {
         "tag": "Kėbulas",
@@ -242,6 +253,7 @@
       "id": 11,
       "category": "body",
       "image": "/assets/images/Passat_4.jpg",
+      "imageAvailable": false,
       "recommended": true,
       "lt": {
         "tag": "Kėbulas",
@@ -262,12 +274,13 @@
       "id": 12,
       "category": "mileage",
       "image": "/assets/images/bmwf11_2.jpeg",
+      "imageAvailable": false,
       "recommended": false,
       "lt": {
         "tag": "Rida",
         "title": "BMW 5, 520d, 2012",
-        "seller": "Pardavėjas teigė, kad automobilis yra idealios techninės būklės, visapusiškai tvarkingas ir turi originalią rida.",
-        "found": "Patikros metu nustatytas ridos atsukimas: prietaisų skydelyje rodoma 277 000 km, tačiau kompiuterinė diagnostika užfiksavo realią, 315 000 km siekiančią ridą. Taip pat elektronikos patikros metu aptikti pakaitinimo žvakių bei jų valdymo bloko (rėlės) gedimai.",
+        "seller": "Pardavėjas teigė, kad automobilis yra idealios techninės būklės, visapusiškai tvarkingas ir turi originalią ridą.",
+        "found": "Patikros metu nustatytas ridos atsukimas: prietaisų skydelyje rodoma 277 000 km, tačiau kompiuterinė diagnostika užfiksavo realią, 315 000 km siekiančią ridą. Taip pat elektronikos patikros metu aptikti pakaitinimo žvakių bei jų valdymo bloko (relės) gedimai.",
         "verdict": "Nerekomenduota pirkti"
       },
       "en": {
@@ -282,11 +295,12 @@
       "id": 13,
       "category": "engine",
       "image": "/assets/images/hyundai_1.jpeg",
+      "imageAvailable": false,
       "recommended": false,
       "lt": {
         "tag": "Variklis",
         "title": "Hyundai Tucson, 1.7 CRDi, 2017",
-        "seller": "Pardavėjas teigė, kad automobilis yra idealiai prižiūrėtas",
+        "seller": "Pardavėjas teigė, kad automobilis yra idealiai prižiūrėtas.",
         "found": "Patikros metu nustatytas kritinis variklio priežiūros trūkumas – po alyvos įpylimo kamščiu matomas tirštas juodas dumblas, rodantis stipriai ignoruojamus alyvos keitimo intervalus. Kėbulo dažų matuoklis taip pat užfiksavo glaisto sluoksnį, o bagažinės skyriuje matomi stiprūs plastiko apdailos nusidėvėjimai bei subraižymai.",
         "verdict": "Nerekomenduota pirkti"
       },
@@ -302,12 +316,13 @@
       "id": 14,
       "category": "electrical",
       "image": "/assets/images/mercedes_1.jpeg",
+      "imageAvailable": false,
       "recommended": true,
       "lt": {
-        "tag": "Elektronika",
+        "tag": "Elektra",
         "title": "Mercedes-Benz C 180, 1.5 Mild Hybrid, 2022",
         "seller": "Pardavėjas teigė, kad automobilis yra visiškai puikios būklės, neturintis jokių paslėptų defektų ir yra idealiai paruoštas naudojimui.",
-        "found": "Patikros metu nustatyti tik smulkūs trūkumai. Klaidos radaro ir kameros blokuose. Automobiliui reikalinga „Distronic“ bei saugumo sistemų asistentų kalibracija, tačiau rimtų techninių ar kėbulo defektų nerasta, todėl transporto priemonė rekomenduojama pirkimui.",
+        "found": "Patikros metu nustatyti tik smulkūs trūkumai: užfiksuotos klaidos radaro ir kameros blokuose. Automobiliui reikalinga „Distronic“ bei saugumo sistemų asistentų kalibracija, tačiau rimtų techninių ar kėbulo defektų nerasta, todėl transporto priemonė rekomenduojama pirkimui.",
         "verdict": "Rekomenduota pirkti"
       },
       "en": {
@@ -322,12 +337,13 @@
       "id": 15,
       "category": "electrical",
       "image": "/assets/images/mercedes_2.jpeg",
+      "imageAvailable": false,
       "recommended": false,
       "lt": {
-        "tag": "Elektronika",
+        "tag": "Elektra",
         "title": "Mercedes-Benz E-Class, 2.0 Petrol/Hybrid, 2018",
         "seller": "Pardavėjas teigė, kad automobilis yra idealiai prižiūrėtas autorizuotame servise, neturi jokių techninių trūkumų, o visi agregatai veikia nepriekaištingai.",
-        "found": "Patikros metu nustatytas stiprus priekinių stabdžių diskų nusidėvėjimas, perkaitimo žymės. Atlikus kompiuterinę diagnostiką užfiksuotos aktyvios variklio klaidos dėl nesandarumo įsiurbimo sistemoje bei alyvos siurblio vožtuvo gedimas. Taip pat aptikti papildomi elektronikos gedimai, kaip „Keyless-Go“ durelių rankenėlės.",
+        "found": "Patikros metu nustatytas stiprus priekinių stabdžių diskų nusidėvėjimas ir perkaitimo žymės. Atlikus kompiuterinę diagnostiką užfiksuotos aktyvios variklio klaidos dėl nesandarumo įsiurbimo sistemoje bei alyvos siurblio vožtuvo gedimas. Taip pat aptikta papildomų elektronikos gedimų, pavyzdžiui, „Keyless-Go“ durelių rankenėlėje.",
         "verdict": "Nerekomenduota pirkti"
       },
       "en": {
@@ -342,6 +358,7 @@
       "id": 16,
       "category": "engine",
       "image": "/assets/images/skoda_1.jpeg",
+      "imageAvailable": false,
       "recommended": true,
       "lt": {
         "tag": "Variklis",

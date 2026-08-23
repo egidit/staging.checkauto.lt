@@ -33,7 +33,7 @@
   <link rel="preload" href="/assets/fonts/Inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="/css/styles.css?v=20260814i">
+  <link rel="stylesheet" href="/css/styles.css?v=20260823-8">
 
   <script>
     (function(){var l=localStorage.getItem('checkauto-lang');if(l&&l!=='lt'){document.documentElement.lang=l;document.documentElement.classList.add('i18n-loading');}})();
@@ -49,24 +49,17 @@
   <div id="site-header"></div>
 
   <main>
-
-    <!-- ==================================================================
-         PAGE HERO
-         ================================================================== -->
     <section class="section">
       <div class="container">
-        <div class="section-header" style="margin-bottom: var(--space-lg);">
+        <header class="section-header" style="margin-bottom: var(--space-lg);">
           <span class="section-label" data-i18n="contact.hero.label">Rezervacija</span>
           <h1 data-i18n="contact.hero.title">Rezervuokite automobilio patikrą</h1>
-          <p data-i18n="contact.hero.subtitle">Pasirinkite paslaugą ir laisvą laiką, pateikite automobilio duomenis, o mes patvirtinsime vizitą.</p>
-        </div>
+          <p data-i18n="contact.hero.subtitle">Pasirinkite paslaugą ir laisvą laiką. Vizitą patvirtinsime el. paštu.</p>
+        </header>
       </div>
     </section>
 
-    <!-- ==================================================================
-         CONTACT FORM
-         ================================================================== -->
-    <section class="section section--alt booking-section">
+    <section class="section section--alt booking-section" id="booking-form">
       <div class="container">
         <div class="booking-layout">
           <form class="contact-form" aria-labelledby="contact-form-title" data-contact-form novalidate>
@@ -132,6 +125,7 @@
                           <span id="contact-inspection-type-full-title" class="booking-service-option-title" data-i18n="contact.form.inspection_type_full">Išsami patikra prieš pirkimą</span>
                           <span id="contact-inspection-type-full-description" class="booking-service-option-text" data-i18n="contact.form.inspection_type_full_meta">Kėbulas, diagnostika, bandomasis važiavimas ir aiški išvada.</span>
                         </span>
+                        <span class="booking-service-option-price" aria-label="100 eurų" data-i18n="contact.form.inspection_type_full_price">100 €</span>
                         <span class="booking-service-option-indicator" aria-hidden="true"></span>
                       </div>
                       <div
@@ -149,6 +143,7 @@
                           <span id="contact-inspection-type-diagnostics-title" class="booking-service-option-title" data-i18n="contact.form.inspection_type_diagnostics">Kompiuterinė diagnostika</span>
                           <span id="contact-inspection-type-diagnostics-description" class="booking-service-option-text" data-i18n="contact.form.inspection_type_diagnostics_meta">OBD klaidos, gyvi duomenys ir trumpas paaiškinimas.</span>
                         </span>
+                        <span class="booking-service-option-price" aria-label="20 eurų" data-i18n="contact.form.inspection_type_diagnostics_price">20 €</span>
                         <span class="booking-service-option-indicator" aria-hidden="true"></span>
                       </div>
                     </div>
@@ -161,6 +156,7 @@
                   <fieldset class="booking-slot-panel" role="radiogroup" aria-labelledby="contact-slot-label" aria-required="true" aria-describedby="contact-slot-status" aria-busy="false" tabindex="0" data-booking-slots>
                     <legend id="contact-slot-label" class="visually-hidden" data-i18n="contact.form.slot_label">Pasirinkite laiką</legend>
                     <p id="contact-slot-status" class="booking-slot-status" role="status" aria-live="polite" aria-atomic="true" data-booking-slot-status data-i18n="contact.form.slot_placeholder">Pirmiausia pasirinkite patikros tipą.</p>
+                    <button class="btn btn-secondary booking-slot-retry" type="button" data-booking-slot-retry hidden data-i18n="contact.form.retry_availability">Bandyti dar kartą</button>
                     <div class="booking-slot-options" data-booking-slot-options></div>
                   </fieldset>
                   <p id="contact-slot-error" class="form-error" data-error-key="chooseSlot" hidden>Pasirinkite vieną iš galimų laikų.</p>
@@ -180,14 +176,14 @@
                 <div class="form-field form-field--floating">
                   <div class="floating-field">
                     <input id="contact-name" name="name" type="text" autocomplete="name" required maxlength="120" placeholder="Vardas ir pavardė" data-i18n-placeholder="contact.form.name_placeholder">
-                    <label for="contact-name" data-required="true" data-i18n="contact.form.name_label">Vardas</label>
+                    <label for="contact-name" data-required="true" data-i18n="contact.form.name_label">Vardas ir pavardė</label>
                   </div>
                   <p id="contact-name-error" class="form-error" data-error-key="nameRequired" hidden>Įveskite vardą ir pavardę.</p>
                 </div>
 
                 <div class="form-field form-field--floating">
                   <div class="floating-field">
-                    <input id="contact-phone" name="phone" type="tel" autocomplete="tel" required maxlength="40" placeholder="+370..." data-i18n-placeholder="contact.form.phone_placeholder">
+                    <input id="contact-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required minlength="7" maxlength="40" pattern="[+0-9() .-]{7,40}" placeholder="+370..." data-i18n-placeholder="contact.form.phone_placeholder">
                     <label for="contact-phone" data-required="true" data-i18n="contact.form.phone_label">Telefonas</label>
                   </div>
                   <p id="contact-phone-error" class="form-error" data-error-key="phoneRequired" hidden>Įveskite telefono numerį.</p>
@@ -248,52 +244,44 @@
               </div>
             </div>
 
-            <div class="form-field form-field--full">
-              <div class="form-checkbox form-checkbox--required">
-                <input id="contact-legal-consent" name="legalConsent" type="checkbox" required hidden aria-hidden="true" tabindex="-1" data-legal-consent>
-                <div class="form-checkbox-control" role="checkbox" tabindex="0" aria-checked="false" aria-required="true" aria-labelledby="contact-legal-details" data-legal-checkbox></div>
-                <div class="form-checkbox-copy">
-                  <p id="contact-legal-details" class="form-checkbox-details form-checkbox-details--consent">
-                    <label for="contact-legal-consent"><span data-i18n="contact.form.legal_consent_prefix">Sutinku su</span></label>
-                    <a href="/taisykles-ir-salygos/" data-i18n="contact.form.terms_link">Taisyklėmis ir sąlygomis</a>
-                    <label for="contact-legal-consent"><span data-i18n="contact.form.legal_consent_middle">ir susipažinau su</span></label>
-                    <a href="/privatumo-politika/" data-i18n="contact.form.privacy_link">Privatumo politika</a>.
-                    <label for="contact-legal-consent">
-                      <span data-i18n="contact.form.early_service_consent_inline">Jei vizitas vyks per 14 dienų nuo užsakymo patvirtinimo, prašau paslaugą suteikti pasirinktu laiku. Visiškai ją suteikus nebegalėsiu atsisakyti sutarties.</span>
-                      <span class="required-mark" aria-hidden="true">*</span>
-                    </label>
-                  </p>
-                  <p id="contact-legal-error" class="form-error" data-error-key="chooseLegal" hidden>Patvirtinkite privalomas užsakymo sąlygas.</p>
-                </div>
-              </div>
-            </div>
+            <fieldset class="booking-consents" data-legal-consents>
+              <legend data-i18n="contact.form.confirmations_title">Sutikimai</legend>
 
-            <div class="form-field form-field--full">
-              <div class="form-checkbox">
-                <input id="contact-marketing-consent" name="marketingConsent" type="checkbox" hidden aria-hidden="true" tabindex="-1" data-marketing-consent>
-                <div class="form-checkbox-control" role="checkbox" tabindex="0" aria-checked="false" aria-labelledby="contact-marketing-details" data-marketing-checkbox></div>
-                <div class="form-checkbox-copy">
-                  <p id="contact-marketing-details" class="form-checkbox-details form-checkbox-details--consent">
-                    <label for="contact-marketing-consent">
-                      <span data-i18n="contact.form.marketing_consent">Sutinku gauti checkauto.lt naujienas, patarimus ir pasiūlymus el. paštu. Suprantu, kad sutikimą galėsiu bet kada atšaukti.</span>
-                    </label>
-                  </p>
-                </div>
+              <div class="consent-row">
+                <input id="contact-terms-consent" name="termsConsent" type="checkbox" required data-terms-consent aria-labelledby="contact-terms-consent-copy" aria-describedby="contact-legal-error">
+                <p id="contact-terms-consent-copy">
+                  <label for="contact-terms-consent"><span data-i18n="contact.form.legal_consent_prefix">Susipažinau ir sutinku su</span></label>
+                  <a href="/taisykles-ir-salygos/" data-i18n="contact.form.terms_link">Taisyklėmis ir sąlygomis</a>
+                  <label for="contact-terms-consent"><span data-i18n="contact.form.legal_consent_middle">bei patvirtinu, kad perskaičiau</span></label>
+                  <a href="/privatumo-politika/" data-i18n="contact.form.privacy_link">Privatumo politiką</a>.
+                  <span class="required-mark" aria-hidden="true">*</span>
+                </p>
               </div>
-            </div>
+
+              <p id="contact-legal-error" class="form-error" data-error-key="chooseLegal" hidden>Sutikite su taisyklėmis ir privatumo politika.</p>
+
+              <div class="consent-row consent-row--optional">
+                <input id="contact-marketing-consent" name="marketingConsent" type="checkbox" data-marketing-consent>
+                <p><label for="contact-marketing-consent"><span data-i18n="contact.form.marketing_consent">Sutinku gauti checkauto.lt naujienas, patarimus ir pasiūlymus el. paštu. Suprantu, kad sutikimą galėsiu bet kada atšaukti.</span></label></p>
+              </div>
+            </fieldset>
 
             <div class="contact-form-actions">
-              <p class="contact-form-status" data-contact-form-status role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
+              <div class="contact-form-status" data-contact-form-status role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></div>
               <div class="contact-submit-control">
-                <div class="btn btn-primary is-disabled" role="button" tabindex="0" aria-disabled="true" data-contact-form-submit>
+                <button class="btn btn-primary" type="submit" disabled aria-disabled="true" data-contact-form-submit>
                   <span data-contact-submit-label data-i18n="contact.form.submit">Rezervuoti laiką</span>
-                </div>
-                <button type="submit" hidden aria-hidden="true" tabindex="-1" data-contact-native-submit></button>
+                </button>
               </div>
             </div>
           </form>
 
-          <div class="contact-cards">
+          <aside class="booking-support" aria-labelledby="booking-support-title">
+            <header>
+              <h2 id="booking-support-title" data-i18n="contact.info.title">Reikia pagalbos?</h2>
+              <p data-i18n="contact.info.text">Jei nerandate tinkamo laiko, susisiekite tiesiogiai.</p>
+            </header>
+            <div class="contact-cards">
             <a href="tel:+37060945238" class="contact-card">
               <div class="contact-card-icon" aria-hidden="true">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
@@ -319,7 +307,9 @@
                 <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
               </button>
             </div>
-          </div>
+            </div>
+            <p class="booking-support-note" data-i18n="contact.info.response_note">Atsakome darbo metu.</p>
+          </aside>
 
         </div>
       </div>
@@ -370,9 +360,9 @@
   }
   </script>
 
-  <script src="/js/components.js?v=20260813f"></script>
-  <script src="/js/i18n.js"></script>
-  <script src="/js/main.js"></script>
-  <script src="/js/contact-form.js?v=20260816a"></script>
+  <script src="/js/components.js?v=20260823-7"></script>
+  <script src="/js/i18n.js?v=20260823-6"></script>
+  <script src="/js/main.js?v=20260823-6"></script>
+  <script src="/js/contact-form.js?v=20260823-6"></script>
 </body>
 </html>

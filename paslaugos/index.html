@@ -33,7 +33,7 @@
   <link rel="preload" href="/assets/fonts/Inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="/css/styles.css?v=20260814i">
+  <link rel="stylesheet" href="/css/styles.css?v=20260823-8">
 
   <script>
     (function(){var l=localStorage.getItem('checkauto-lang');if(l&&l!=='lt'){document.documentElement.lang=l;document.documentElement.classList.add('i18n-loading');}})();
@@ -49,210 +49,120 @@
   <div id="site-header"></div>
 
   <main>
+    <section class="page-intro">
+      <div class="container page-intro-grid">
+        <span class="section-label" data-i18n="services.hero.label">Paslaugos</span>
+        <h1 data-i18n="services.hero.title">Automobilio patikra prieš pirkimą</h1>
+        <p data-i18n="services.hero.subtitle">Išsami patikra arba kompiuterinė diagnostika.</p>
+      </div>
+    </section>
 
-    <!-- ==================================================================
-         PAGE HERO
-         ================================================================== -->
+    <section class="section section--alt">
+      <div class="container services-offer-grid">
+        <article class="service-offer service-offer--primary">
+          <header class="service-offer-header">
+            <div class="service-offer-title">
+              <span class="booking-service-option-icon services-visual-icon" data-service-icon="full_inspection" aria-hidden="true"></span>
+              <h2 data-i18n="services.s1.title">Išsami patikra prieš pirkimą</h2>
+            </div>
+            <p class="service-price"><strong>100 €</strong><span data-i18n="services.price_once">už patikrą</span></p>
+          </header>
+          <p data-i18n="services.s1.text">Atvykstame į automobilio vietą ir nuosekliai įvertiname jo būklę.</p>
+          <ul class="service-scope">
+            <li data-i18n="services.s1.item1">Kėbulas, dažų storis ir remonto pėdsakai</li>
+            <li data-i18n="services.s1.item2">Variklis, transmisija, važiuoklė ir stabdžiai</li>
+            <li data-i18n="services.s1.item3">OBD diagnostika, elektronika ir ridos neatitikimai</li>
+            <li data-i18n="services.s1.item4">Bandomasis važiavimas, nuotraukos ir aiški išvada</li>
+          </ul>
+          <a href="/kontaktai/?service=full_inspection#booking-form" class="btn btn-primary" data-i18n="services.s1.cta">Rezervuoti išsamią patikrą</a>
+        </article>
+
+        <article class="service-offer">
+          <header class="service-offer-header">
+            <div class="service-offer-title">
+              <span class="booking-service-option-icon services-visual-icon" data-service-icon="computer_diagnostics" aria-hidden="true"></span>
+              <h2 data-i18n="services.s2.title">Kompiuterinė diagnostika</h2>
+            </div>
+            <p class="service-price"><strong>20 €</strong><span data-i18n="services.price_once">už patikrą</span></p>
+          </header>
+          <p data-i18n="services.s2.text">Atskira elektroninių sistemų patikra, kai visos automobilio apžiūros nereikia.</p>
+          <ul class="service-scope">
+            <li data-i18n="services.s2.item1">Variklio ir transmisijos valdymo blokai</li>
+            <li data-i18n="services.s2.item2">Saugos ir komforto sistemų klaidos</li>
+            <li data-i18n="services.s2.item3">Gyvi duomenys ir pagrindiniai parametrai</li>
+            <li data-i18n="services.s2.item4">Trumpas rezultatų paaiškinimas</li>
+          </ul>
+          <a href="/kontaktai/?service=computer_diagnostics#booking-form" class="btn btn-secondary" data-i18n="services.s2.cta">Rezervuoti diagnostiką</a>
+        </article>
+
+        <aside class="travel-note services-travel-note" aria-labelledby="services-travel-title">
+          <span class="booking-service-option-icon services-visual-icon" data-service-icon="computer_diagnostics" aria-hidden="true"></span>
+          <div class="travel-note-content">
+            <h2 id="services-travel-title" data-i18n="services.travel.title">Kelionės mokestis</h2>
+            <p data-i18n="services.travel.text">Kaune ir iki 20 km nuo miesto ribos kelionės mokesčio nėra. Toliau gali būti taikoma 0,50 €/km kelionei į abi puses; galutinę kainą suderiname prieš vizitą.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
     <section class="section">
       <div class="container">
-        <div class="section-header" style="margin-bottom: 0;">
-          <span class="section-label" data-i18n="services.hero.label">Paslaugos</span>
-          <h1 data-i18n="services.hero.title">Automobilio patikra, diagnostika ir ekspertizė</h1>
-          <p data-i18n="services.hero.subtitle">Naudoto automobilio apžiūra, kompiuterinė OBD diagnostika, ridos ir kėbulo patikra – kad jūsų sprendimas remtųsi faktais.</p>
+        <header class="section-header">
+          <h2 data-i18n="services.checklist.title">Išsamios patikros apimtis</h2>
+        </header>
+        <div class="scope-groups scope-groups--visual">
+          <section>
+            <h3 data-i18n="services.checklist.group1_title">Techninė būklė</h3>
+            <ul>
+              <li><span class="scope-item-icon" data-scope-icon="engine" aria-hidden="true"></span><span data-i18n="services.checklist.item2">Variklis, transmisija ir aušinimas</span></li>
+              <li><span class="scope-item-icon" data-scope-icon="car-suspension" aria-hidden="true"></span><span data-i18n="services.checklist.item3">Pakaba, stabdžiai ir vairavimas</span></li>
+              <li><span class="scope-item-icon" data-scope-icon="wheel" aria-hidden="true"></span><span data-i18n="services.checklist.item7">Padangos, skysčiai ir nusidėvėjimas</span></li>
+            </ul>
+          </section>
+          <section>
+            <h3 data-i18n="services.checklist.group2_title">Kėbulas ir elektronika</h3>
+            <ul>
+              <li><span class="scope-item-icon" data-scope-icon="car" aria-hidden="true"></span><span data-i18n="services.checklist.item1">Kėbulas, dažų storis ir korozija</span></li>
+              <li><span class="scope-item-icon" data-scope-icon="cpu" aria-hidden="true"></span><span data-i18n="services.checklist.item4">Elektros sistemos ir OBD diagnostika</span></li>
+              <li><span class="scope-item-icon" data-scope-icon="gauge" aria-hidden="true"></span><span data-i18n="services.checklist.item8">Ridos bei istorijos neatitikimų požymiai</span></li>
+            </ul>
+          </section>
+          <section>
+            <h3 data-i18n="services.checklist.group3_title">Ką gaunate</h3>
+            <ul>
+              <li><span class="scope-item-icon" data-scope-icon="armchair-2" aria-hidden="true"></span><span data-i18n="services.checklist.item5">Salono ir jo funkcijų patikra</span></li>
+              <li><span class="scope-item-icon" data-scope-icon="steering-wheel" aria-hidden="true"></span><span data-i18n="services.checklist.item9">Bandomasis važiavimas, kai saugu</span></li>
+              <li><span class="scope-item-icon" data-scope-icon="report-search" aria-hidden="true"></span><span data-i18n="services.checklist.item10">Ataskaita su nuotraukomis ir išvada</span></li>
+            </ul>
+          </section>
         </div>
       </div>
     </section>
 
-    <!-- ==================================================================
-         SERVICE CARDS
-         ================================================================== -->
     <section class="section section--alt">
       <div class="container">
-
-        <!-- Service 1: Full inspection -->
-        <article class="service-card">
-          <div class="service-icon" aria-hidden="true">
-            <!-- Clipboard + checkmark: full inspection -->
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="m9 14 2 2 4-4"/></svg>
-          </div>
-          <div class="service-card-content">
-            <h3 data-i18n="services.s1.title">Išsami patikra prieš pirkimą</h3>
-            <p data-i18n="services.s1.text">Atvykstame ir tikriname automobilį vietoje – kėbulą, variklį, greičių dėžę, pakabą, elektros sistemą, saloną. Viską, ką pardavėjas gali nutylėti. Rezultatas – ataskaita su nuotraukomis ir aiškia rekomendacija.</p>
-          </div>
-        </article>
-
-        <!-- Service 2: Computer diagnostics -->
-        <article class="service-card">
-          <div class="service-icon" aria-hidden="true">
-            <!-- Monitor/chip: computer diagnostics -->
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 8h2M7 12h2M13 8h4M13 12h4"/></svg>
-          </div>
-          <div class="service-card-content">
-            <h3 data-i18n="services.s2.title">Kompiuterinė diagnostika</h3>
-            <p data-i18n="services.s2.text">Profesionaliu OBD skaitytuvu nuskaitome klaidų kodus, tikriname sistemų būklę ir analizuojame duomenis. Diagnostika apima variklio valdymo bloką, saugos, komforto ir transmisijos sistemas.</p>
-          </div>
-        </article>
-
-        <!-- Service 3: Consultation -->
-        <article class="service-card">
-          <div class="service-icon" aria-hidden="true">
-            <!-- Chat bubble: consultation -->
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></svg>
-          </div>
-          <div class="service-card-content">
-            <h3 data-i18n="services.s3.title">Konsultacija prieš apžiūrą</h3>
-            <p data-i18n="services.s3.text">Prieš važiuojant žiūrėti automobilio – galime įvertinti skelbimą. Peržvelgiame nuotraukas, kainą, specifikacijas ir pasakome, ar verta skirti laiką apžiūrai.</p>
-          </div>
-        </article>
-
-        <!-- Service 4: Buy/Sell -->
-        <article class="service-card">
-          <div class="service-icon" aria-hidden="true">
-            <!-- Arrows exchange: buy/sell -->
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-          </div>
-          <div class="service-card-content">
-            <h3 data-i18n="services.s4.title">Pagalba perkant ar parduodant</h3>
-            <p data-i18n="services.s4.text">Padedame surasti patikimą automobilį arba tinkamai parduoti turimą. Procesas skaidrus – be tarpininkų schemų ir paslėptų interesų.</p>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- ==================================================================
-         INSPECTION CHECKLIST
-         ================================================================== -->
-    <section class="section">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label" data-i18n="services.checklist.label">Patikros apimtis</span>
-          <h2 data-i18n="services.checklist.title">Ką tikriname kiekvieno vizito metu</h2>
-        </div>
-
-        <ul class="checklist-grid">
-          <li data-i18n="services.checklist.item1">Kėbulo būklė, dažo storis, korozijos požymiai</li>
-          <li data-i18n="services.checklist.item2">Variklis, greičių dėžė, aušinimo sistema</li>
-          <li data-i18n="services.checklist.item3">Pakaba, stabdžiai, vairo mechanizmas</li>
-          <li data-i18n="services.checklist.item4">Elektros sistema ir kompiuterinė diagnostika (OBD)</li>
-          <li data-i18n="services.checklist.item5">Salono būklė ir elektronikos veikimas</li>
-          <li data-i18n="services.checklist.item6">Skysičų lygis ir jų būklė</li>
-          <li data-i18n="services.checklist.item7">Padangų būklė ir nusidėvėjimo tolygumas</li>
-          <li data-i18n="services.checklist.item8">Ridos analizė ir istorijos patikra</li>
-          <li data-i18n="services.checklist.item9">Bandomasis važiavimas</li>
-          <li data-i18n="services.checklist.item10">Dokumentuota ataskaita su nuotraukomis ir rekomendacija</li>
-        </ul>
-
-      </div>
-    </section>
-
-    <!-- ==================================================================
-         PROCESS TIMELINE
-         ================================================================== -->
-    <section class="section section--alt">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label" data-i18n="process.hero.label">Procesas</span>
-          <h2 data-i18n="process.hero.title">Aiški eiga nuo pradžios iki galo</h2>
-        </div>
-
-        <div class="timeline">
-          <div class="timeline-step">
-            <div class="timeline-dot"></div>
-            <span class="timeline-step-number" data-i18n="process.step1.number">Etapas 01</span>
-            <h3 data-i18n="process.step1.title">Užklausa</h3>
-            <p data-i18n="process.step1.text">Paskambinate, parašote el. paštu arba užpildote formą. Nurodote, kokį automobilį ir kur reikia patikrinti.</p>
-          </div>
-          <div class="timeline-step">
-            <div class="timeline-dot"></div>
-            <span class="timeline-step-number" data-i18n="process.step2.number">Etapas 02</span>
-            <h3 data-i18n="process.step2.title">Laiko suderinimas</h3>
-            <p data-i18n="process.step2.text">Suderiname patikros laiką pagal jūsų galimybes – dirbame ir vakarais, ir savaitgaliais.</p>
-          </div>
-          <div class="timeline-step">
-            <div class="timeline-dot"></div>
-            <span class="timeline-step-number" data-i18n="process.step3.number">Etapas 03</span>
-            <h3 data-i18n="process.step3.title">Atvykimas</h3>
-            <p data-i18n="process.step3.text">Atvykstame ten, kur yra automobilis – pas pardavėją, į aikštelę ar servisą.</p>
-          </div>
-          <div class="timeline-step">
-            <div class="timeline-dot"></div>
-            <span class="timeline-step-number" data-i18n="process.step4.number">Etapas 04</span>
-            <h3 data-i18n="process.step4.title">Patikra ir diagnostika</h3>
-            <p data-i18n="process.step4.text">Atliekame vizualinę apžiūrą, kompiuterinę diagnostiką ir bandomąjį važiavimą. Kiekvieną elementą tikriname pagal nustatytą metodiką.</p>
-          </div>
-          <div class="timeline-step">
-            <div class="timeline-dot"></div>
-            <span class="timeline-step-number" data-i18n="process.step5.number">Etapas 05</span>
-            <h3 data-i18n="process.step5.title">Ataskaita</h3>
-            <p data-i18n="process.step5.text">Pateikiame aiškią ataskaitą su nuotraukomis, rastais defektais ir rekomendacija. Be dviprasmybių.</p>
-          </div>
-          <div class="timeline-step">
-            <div class="timeline-dot"></div>
-            <span class="timeline-step-number" data-i18n="process.step6.number">Etapas 06</span>
-            <h3 data-i18n="process.step6.title">Jūsų sprendimas</h3>
-            <p data-i18n="process.step6.text">Visa informacija – jūsų rankose. Pirkti, derėtis ar atsisakyti – sprendžiate turėdami faktus.</p>
-          </div>
+        <header class="section-header">
+          <h2 data-i18n="process.hero.title">Kaip vyksta patikra</h2>
+        </header>
+        <ol class="process-steps process-steps--visual">
+          <li><span class="booking-service-option-icon services-visual-icon services-visual-icon--selected" data-service-icon="selected" aria-hidden="true"></span><div><strong data-i18n="process.step1.title">Rezervuojate</strong><p data-i18n="process.step1.text">Pasirenkate paslaugą, laiką ir automobilio vietą.</p></div></li>
+          <li><span class="booking-service-option-icon services-visual-icon" data-service-icon="computer_diagnostics" aria-hidden="true"></span><div><strong data-i18n="process.step2.title">Patikriname</strong><p data-i18n="process.step2.text">Atvykstame, atliekame patikrą ir, kai galima, bandomąjį važiavimą.</p></div></li>
+          <li><span class="booking-service-option-icon services-visual-icon" data-service-icon="full_inspection" aria-hidden="true"></span><div><strong data-i18n="process.step3.title">Gaunate išvadą</strong><p data-i18n="process.step3.text">Gaunate nuotraukas, rastus trūkumus ir aiškią išvadą.</p></div></li>
+        </ol>
+        <div class="process-actions">
+          <a href="/duk/" class="btn btn-ghost" data-i18n="services.faq.more">Dažniausi klausimai</a>
         </div>
       </div>
     </section>
 
-    <!-- ==================================================================
-         FAQ (short)
-         ================================================================== -->
-    <section class="section">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label" data-i18n="services.faq.label">D.U.K.</span>
-          <h2 data-i18n="services.faq.title">Klausimai, kuriuos užduoda visi</h2>
-        </div>
-
-        <div class="faq-list">
-          <details class="faq-item">
-            <summary data-i18n="services.faq.q1">Ar tikrai verta mokėti už patikrą?</summary>
-            <div class="faq-answer">
-              <p data-i18n="services.faq.a1">Galite ir nemokėti. Tada mokėsite serviso sąskaitą, kuri bus kelis kartus didesnė. Patikra – tai ne išlaidos, o draudimas nuo brangių staigmenų.</p>
-            </div>
-          </details>
-          <details class="faq-item">
-            <summary data-i18n="services.faq.q2">Kiek laiko užtrunka patikra?</summary>
-            <div class="faq-answer">
-              <p data-i18n="services.faq.a2">Vidutiniškai 1,5–2 valandos. Priklauso nuo automobilio ir jo būklės. Neskubame – geriau rasti problemą dabar nei gailėtis paskui.</p>
-            </div>
-          </details>
-          <details class="faq-item">
-            <summary data-i18n="services.faq.q3">Ar atvykstate į bet kurį miestą?</summary>
-            <div class="faq-answer">
-              <p data-i18n="services.faq.a3">Taip. Atvykstame ten, kur stovi automobilis – pas pardavėją, į aikštelę, į servisą. Kauno mieste ir rajone – be papildomo mokesčio. Už Kauno ribų taikomas kelionės mokestis, suderinamas iš anksto.</p>
-            </div>
-          </details>
-          <details class="faq-item">
-            <summary data-i18n="services.faq.q4">Ką gaunu po patikros?</summary>
-            <div class="faq-answer">
-              <p data-i18n="services.faq.a4">Dokumentuotą ataskaitą su nuotraukomis, rastais defektais ir aiškia rekomendacija – pirkti, derėtis ar bėgti.</p>
-            </div>
-          </details>
-        </div>
-
-        <div class="faq-more" style="margin-top: var(--space-lg); text-align: center;">
-          <a href="/duk/" class="btn btn-ghost" data-i18n="services.faq.more">Visi klausimai ir atsakymai</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================================================================
-         CTA
-         ================================================================== -->
     <section class="section section--dark">
       <div class="container">
         <div class="cta-band">
-          <h2 data-i18n="services.cta.title">Reikia individualaus sprendimo?</h2>
-          <p data-i18n="services.cta.text">Parašykite – pritaikysime paslaugą jūsų situacijai.</p>
-          <a href="/kontaktai/" class="btn btn-primary" data-i18n="services.cta.button">Susisiekti</a>
+          <div><h2 data-i18n="services.cta.title">Turite konkretų automobilį?</h2><p data-i18n="services.cta.text">Pasirinkite paslaugą ir laisvą laiką internetu.</p></div>
+          <a href="/kontaktai/#booking-form" class="btn btn-primary" data-i18n="services.cta.button">Rezervuoti laiką</a>
         </div>
       </div>
     </section>
-
   </main>
 
   <div id="site-footer"></div>
@@ -275,6 +185,7 @@
         "provider": { "@type": "AutoRepair", "@id": "https://checkauto.lt/#business" },
         "name": "Išsami naudoto automobilio patikra prieš pirkimą",
         "description": "Vizualinė kėbulo apžiūra, dažų storio matavimas, variklio ir važiuoklės tikrinimas, kompiuterinė OBD diagnostika, ridos patikrinimas, automatinės dėžės patikra, bandomasis važiavimas ir dokumentuota ataskaita su nuotraukomis. Tikrinami BMW, Volkswagen, Audi, Mercedes, Toyota, Volvo ir kitų markių automobiliai.",
+        "offers": { "@type": "Offer", "price": "100", "priceCurrency": "EUR" },
         "areaServed": [
           { "@type": "Country", "name": "Lithuania" },
           { "@type": "City", "name": "Vilnius" },
@@ -287,59 +198,25 @@
         "serviceType": "Kompiuterinė automobilio diagnostika",
         "provider": { "@type": "AutoRepair", "@id": "https://checkauto.lt/#business" },
         "name": "Kompiuterinė auto diagnostika (OBD)",
-        "description": "OBD klaidų kodų nuskaitymas, variklio valdymo bloko diagnostika, saugos sistemų, komforto ir transmisijos sistemų tikrinimas ir duomenų analizė. Tinka dyzeliniams, benzininiams, hibridiniams ir elektriniams automobiliams."
-      },
-      {
-        "@type": "Service",
-        "serviceType": "Automobilio pirkimo konsultacija",
-        "provider": { "@type": "AutoRepair", "@id": "https://checkauto.lt/#business" },
-        "name": "Konsultacija prieš apžiūrą ir pagalba perkant automobilį",
-        "description": "Skelbimo įvertinimas prieš važiuojant žiūrėti automobilio – nuotraukų, kainos ir specifikacijų analizė. Pagalba perkant naudotą automobilį iš Autoplius, Autogidas ar kitų platformų."
+        "description": "OBD klaidų kodų nuskaitymas, variklio valdymo bloko diagnostika, saugos sistemų, komforto ir transmisijos sistemų tikrinimas ir duomenų analizė.",
+        "offers": { "@type": "Offer", "price": "20", "priceCurrency": "EUR" }
       },
       {
         "@type": "HowTo",
         "name": "Kaip vyksta automobilio patikra",
-        "description": "6 etapų procesas nuo užklausos iki dokumentuotos ataskaitos su nuotraukomis ir rekomendacija.",
+        "description": "Procesas nuo rezervacijos iki dokumentuotos ataskaitos su nuotraukomis ir išvada.",
         "step": [
-          { "@type": "HowToStep", "position": 1, "name": "Užklausa", "text": "Paskambinate, parašote el. paštu arba užpildote formą. Nurodote, kokį automobilį ir kur reikia patikrinti." },
-          { "@type": "HowToStep", "position": 2, "name": "Laiko suderinimas", "text": "Suderiname patikros laiką pagal jūsų galimybes – dirbame ir vakarais, ir savaitgaliais." },
-          { "@type": "HowToStep", "position": 3, "name": "Atvykimas", "text": "Atvykstame ten, kur yra automobilis – pas pardavėją, į aikštelę ar servisą." },
-          { "@type": "HowToStep", "position": 4, "name": "Patikra ir diagnostika", "text": "Atliekame vizualinę apžiūrą, kompiuterinę diagnostiką ir bandomąjį važiavimą." },
-          { "@type": "HowToStep", "position": 5, "name": "Ataskaita", "text": "Pateikiame aiškią ataskaitą su nuotraukomis, rastais defektais ir rekomendacija." },
-          { "@type": "HowToStep", "position": 6, "name": "Jūsų sprendimas", "text": "Visa informacija – jūsų rankose. Pirkti, derėtis ar atsisakyti – sprendžiate turėdami faktus." }
-        ]
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Ar tikrai verta mokėti už patikrą?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Galite ir nemokėti. Tada mokėsite serviso sąskaitą, kuri bus kelis kartus didesnė. Patikra – tai ne išlaidos, o draudimas nuo brangių staigmenų." }
-          },
-          {
-            "@type": "Question",
-            "name": "Kiek laiko užtrunka patikra?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Vidutiniškai 1,5–2 valandos. Priklauso nuo automobilio ir jo būklės." }
-          },
-          {
-            "@type": "Question",
-            "name": "Ar atvykstate į bet kurį miestą?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Taip. Atvykstame ten, kur stovi automobilis – pas pardavėją, į aikštelę, į servisą." }
-          },
-          {
-            "@type": "Question",
-            "name": "Ką gaunu po patikros?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Dokumentuotą ataskaitą su nuotraukomis, rastais defektais ir aiškia rekomendacija – pirkti, derėtis ar bėgti." }
-          }
+          { "@type": "HowToStep", "position": 1, "name": "Rezervacija", "text": "Pasirenkate paslaugą, laiką ir automobilio vietą." },
+          { "@type": "HowToStep", "position": 2, "name": "Patikra", "text": "Atvykstame, atliekame patikrą ir, kai galima, bandomąjį važiavimą." },
+          { "@type": "HowToStep", "position": 3, "name": "Išvada", "text": "Gaunate nuotraukas, rastus trūkumus ir aiškią išvadą." }
         ]
       }
     ]
   }
   </script>
 
-  <script src="/js/components.js?v=20260813f"></script>
-  <script src="/js/i18n.js"></script>
-  <script src="/js/main.js"></script>
+  <script src="/js/components.js?v=20260823-7"></script>
+  <script src="/js/i18n.js?v=20260823-6"></script>
+  <script src="/js/main.js?v=20260823-6"></script>
 </body>
 </html>

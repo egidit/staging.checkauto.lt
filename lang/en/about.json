@@ -1,38 +1,33 @@
 {
   "about": {
     "hero": {
-      "label": "About checkauto.lt",
-      "title": "Independent. Objective. On your side.",
-      "title1": "Independent.",
-      "title2": "Objective.",
-      "title3": "On your side.",
-      "subtitle": "Professional car inspection service in Lithuania. Independent, objective, on your side."
-    },
-    "intro": {
-      "p1": "We are an independent car inspection service operating across Lithuania: Kaunas, Vilnius, Klaipėda, Šiauliai, Panevėžys and beyond. No partnerships with dealerships, sellers, or other platforms. Our only interest is making sure you don't pay for someone else's problems.",
-      "p2": "In every inspection, we uncover what the seller keeps quiet about: tampered mileage, hidden accident traces, cleared OBD error codes. We inspect all brands. The goal is simple – to help you make purchase decisions based on facts.",
-      "p3": "We work without any rush, following a clear methodology. Every car is evaluated as if we were buying it ourselves."
+      "label": "About us",
+      "title": "We assess the car, not the seller's interests",
+      "subtitle": "checkauto.lt is an independent vehicle-inspection service. We do not work for dealerships, sellers, or listing platforms."
     },
     "values": {
-      "label": "Principles",
-      "heading": "The foundation of every inspection",
-      "v1_title": "Independence",
-      "v1_text": "No partnerships with dealerships or sellers. The assessment is objective and unbiased.",
-      "v2_title": "Transparency",
-      "v2_text": "The report is clear and understandable. No hidden lines or ambiguous wording.",
-      "v3_title": "Thoroughness",
-      "v3_text": "Every inspection follows an established methodology. No compromises on time."
+      "heading": "What an independent assessment means to us",
+      "v1_title": "No seller incentives",
+      "v1_text": "Our fee does not depend on whether you buy the vehicle.",
+      "v2_title": "Findings are documented",
+      "v2_text": "We explain defects in plain language and include them in a photo report.",
+      "v3_title": "A consistent inspection method",
+      "v3_text": "We assess every car consistently, regardless of make, price, or seller."
     },
-    "quote": "Every car is evaluated as if we were buying it ourselves.",
-    "philosophy": {
-      "quote": "Every car is evaluated as if we were buying it ourselves.",
-      "author": "— the checkauto.lt team",
-      "context": "This isn't a slogan, it's a working principle. Every inspection is performed without compromise, so your decision is based on facts."
+    "method": {
+      "kicker": "How we work",
+      "title": "You make the decision. Our job is to show you the car's real condition.",
+      "item1_title": "We inspect on site",
+      "item1_text": "We travel to the seller, car lot, or service centre.",
+      "item2_title": "We assess the whole vehicle",
+      "item2_text": "Mechanical, body, electronic, and usage signals are considered together.",
+      "item3_title": "We speak plainly",
+      "item3_text": "We separate minor issues from risks that matter to price and safety."
     },
     "cta": {
-      "title": "An inspection you can trust",
-      "text": "Get in touch, and there will be no need to guess about the vehicle's condition.",
-      "button": "Contact"
+      "title": "Have a car you want inspected?",
+      "text": "Book online or contact us by phone.",
+      "button": "Book an inspection"
     }
   }
 }

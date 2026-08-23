@@ -14,8 +14,6 @@
   var SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_E-TFw7kuSofnw-xDmBk54w_0Ld0HTyC';
   var TERMS_TEXT_VERSION = 'terms-2026-07-03';
   var PRIVACY_TEXT_VERSION = 'privacy-2026-07-03';
-  var EARLY_SERVICE_CONSENT_VERSION = 'early-service-consent-2026-08-12';
-  var VEHICLE_ACCESS_TEXT_VERSION = 'vehicle-access-via-terms-2026-07-03';
   var MARKETING_CONSENT_TEXT_VERSION = 'booking-form-2026-07-02';
 
   var MESSAGES = {
@@ -24,12 +22,13 @@
       loadingSlots: 'Kraunami galimi laikai...',
       chooseService: 'Pirmiausia pasirinkite patikros tipą.',
       chooseSlot: 'Pasirinkite vieną iš galimų laikų.',
-      chooseLegal: 'Norint rezervuoti laiką reikia patvirtinti taisykles, privatumo politiką ir paslaugos pradėjimo sąlygą.',
+      chooseLegal: 'Sutikite su taisyklėmis ir privatumo politika.',
       serviceRequiredHint: 'Privaloma paslauga',
-      slotsAvailable: 'Laisvų laikų: {count}. Pasirinkite vieną.',
+      slotsAvailable: 'Pasirinkite laiką.',
       formNeedsAttention: 'Patikrinkite pažymėtus laukus. Perkelta į pirmą nebaigtą lauką.',
       nameRequired: 'Įveskite vardą ir pavardę.',
       phoneRequired: 'Įveskite telefono numerį.',
+      phoneInvalid: 'Įveskite tinkamą telefono numerį.',
       emailRequired: 'Įveskite el. pašto adresą.',
       emailInvalid: 'Įveskite tinkamą el. pašto adresą.',
       vehicleRequired: 'Įveskite automobilio duomenis.',
@@ -42,7 +41,11 @@
       slotUnavailable: 'Pasirinktas laikas nebėra prieinamas. Pasirinkite kitą laiką.',
       duplicateRequest: 'Šiam laikui rezervacijos užklausa jau pateikta. Patikrinkite el. paštą dėl jos numerio.',
       requestRejected: 'Rezervacijos duomenų nepavyko priimti. Patikrinkite laukus ir bandykite dar kartą.',
-      success: 'Užklausa gauta. Pasirinktas laikas laikinai rezervuotas, patvirtinimą atsiųsime el. paštu.',
+      successTitle: 'Rezervacijos užklausa gauta',
+      success: 'Laikas laikinai rezervuotas. Patvirtinimą atsiųsime el. paštu.',
+      successReference: 'Užklausos numeris',
+      successTime: 'Pasirinktas laikas',
+      emailWarning: 'Užklausa išsaugota, tačiau patvirtinimo el. laiško pristatyti nepavyko. Jei jo negaunate, susisiekite ir nurodykite užklausos numerį.',
       rateLimited: 'Išsiųsta per daug užklausų. Bandykite dar kartą vėliau.',
       bookingError: 'Rezervacijos užklausos nepavyko išsiųsti dėl techninės klaidos. Bandykite dar kartą arba rašykite info@checkauto.lt.'
     },
@@ -51,12 +54,13 @@
       loadingSlots: 'Loading available times...',
       chooseService: 'Select an inspection type first.',
       chooseSlot: 'Choose one available time.',
-      chooseLegal: 'To reserve a time, confirm the terms, privacy policy, and early service condition.',
+      chooseLegal: 'Accept the Terms and Conditions and acknowledge the Privacy Policy.',
       serviceRequiredHint: 'Required service',
-      slotsAvailable: 'Available times: {count}. Choose one.',
+      slotsAvailable: 'Choose a time.',
       formNeedsAttention: 'Review the highlighted fields. Focus moved to the first incomplete field.',
       nameRequired: 'Enter your full name.',
       phoneRequired: 'Enter your phone number.',
+      phoneInvalid: 'Enter a valid phone number.',
       emailRequired: 'Enter your email address.',
       emailInvalid: 'Enter a valid email address.',
       vehicleRequired: 'Enter the car details.',
@@ -69,7 +73,11 @@
       slotUnavailable: 'The selected time is no longer available. Please choose another time.',
       duplicateRequest: 'A booking request for this time has already been submitted. Check your email for its reference.',
       requestRejected: 'The booking details could not be accepted. Review the form and try again.',
-      success: 'Request received. The selected time is temporarily reserved; we will send confirmation by email.',
+      successTitle: 'Booking request received',
+      success: 'The time is temporarily reserved. We will send confirmation by email.',
+      successReference: 'Request reference',
+      successTime: 'Selected time',
+      emailWarning: 'Your request was saved, but the confirmation email could not be delivered. If it does not arrive, contact us and quote the request reference.',
       rateLimited: 'Too many requests were sent. Please try again later.',
       bookingError: 'The booking request could not be sent because of a technical error. Please try again or email info@checkauto.lt.'
     }
@@ -85,10 +93,6 @@
   function message(key) {
     var lang = getActiveLang();
     return MESSAGES[lang][key] || MESSAGES.lt[key];
-  }
-
-  function slotsAvailableMessage(count) {
-    return message('slotsAvailable').replace('{count}', String(count));
   }
 
   function formatDate(value) {
@@ -130,9 +134,11 @@
 
   function setFormStatus(statusEl, type, text, messageKey) {
     if (!statusEl) return;
+    clearElement(statusEl);
     statusEl.textContent = text || '';
     statusEl.dataset.messageKey = messageKey || '';
     statusEl.dataset.statusType = type || '';
+    delete statusEl.dataset.statusKind;
     statusEl.classList.toggle('is-success', type === 'success');
     statusEl.classList.toggle('is-error', type === 'error');
   }
@@ -141,9 +147,62 @@
     if (!statusEl) return;
     statusEl.dataset.messageKey = messageKey || '';
     statusEl.dataset.count = typeof count === 'number' ? String(count) : '';
-    statusEl.textContent = messageKey === 'slotsAvailable'
-      ? slotsAvailableMessage(count)
-      : message(messageKey);
+    statusEl.textContent = message(messageKey);
+  }
+
+  function setAvailabilityRetry(slotsEl, isVisible) {
+    var retryButton = slotsEl ? slotsEl.querySelector('[data-booking-slot-retry]') : null;
+    if (retryButton) retryButton.hidden = !isVisible;
+  }
+
+  function appendDefinitionRow(list, labelText, valueText) {
+    if (!list || !valueText) return;
+    var row = document.createElement('div');
+    var term = document.createElement('dt');
+    var description = document.createElement('dd');
+    term.textContent = labelText;
+    description.textContent = valueText;
+    row.appendChild(term);
+    row.appendChild(description);
+    list.appendChild(row);
+  }
+
+  function renderBookingSuccess(statusEl, data) {
+    if (!statusEl) return;
+    clearElement(statusEl);
+    statusEl.dataset.messageKey = '';
+    statusEl.dataset.statusType = 'success';
+    statusEl.dataset.statusKind = 'bookingSuccess';
+    statusEl.classList.add('is-success');
+    statusEl.classList.remove('is-error');
+
+    var title = document.createElement('strong');
+    title.className = 'contact-form-status-title';
+    title.textContent = message('successTitle');
+    statusEl.appendChild(title);
+
+    var summary = document.createElement('p');
+    summary.textContent = message('success');
+    statusEl.appendChild(summary);
+
+    var details = document.createElement('dl');
+    details.className = 'contact-form-status-details';
+    appendDefinitionRow(details, message('successReference'), data && data.reference ? String(data.reference) : '');
+    appendDefinitionRow(
+      details,
+      message('successTime'),
+      data && data.requestedStartAt
+        ? formatDate(data.requestedStartAt) + ', ' + formatTime(data.requestedStartAt)
+        : ''
+    );
+    if (details.childElementCount) statusEl.appendChild(details);
+
+    if (data && data.emailDelivery && data.emailDelivery.warning) {
+      var warning = document.createElement('p');
+      warning.className = 'contact-form-status-warning';
+      warning.textContent = message('emailWarning');
+      statusEl.appendChild(warning);
+    }
   }
 
   function toggleDescription(control, descriptionId, shouldInclude) {
@@ -215,52 +274,6 @@
     [100, 500, 1500].forEach(function (delay) {
       setTimeout(syncAllFields, delay);
     });
-  }
-
-  function initProxyCheckbox(form, checkbox, trigger) {
-    if (!checkbox || !trigger) return null;
-
-    var wrapper = trigger.closest('.form-checkbox');
-
-    function update() {
-      var isDisabled = checkbox.disabled;
-      trigger.setAttribute('aria-checked', String(checkbox.checked));
-      trigger.setAttribute('aria-disabled', String(isDisabled));
-      trigger.tabIndex = isDisabled ? -1 : 0;
-      if (wrapper) wrapper.classList.toggle('is-checked', checkbox.checked);
-    }
-
-    function activate() {
-      if (checkbox.disabled) return;
-      trigger.focus();
-      checkbox.click();
-    }
-
-    trigger.addEventListener('click', activate);
-    trigger.addEventListener('keydown', function (event) {
-      if (event.key !== ' ') return;
-      event.preventDefault();
-      activate();
-    });
-
-    checkbox.addEventListener('input', update);
-    checkbox.addEventListener('change', update);
-    form.addEventListener('reset', function () {
-      setTimeout(update, 0);
-    });
-    window.addEventListener('pageshow', update);
-
-    if (typeof MutationObserver === 'function') {
-      var disabledObserver = new MutationObserver(update);
-      disabledObserver.observe(checkbox, { attributes: true, attributeFilter: ['disabled'] });
-    }
-
-    update();
-
-    return {
-      trigger: trigger,
-      update: update
-    };
   }
 
   function initServiceSelect(form, serviceSelect) {
@@ -589,6 +602,7 @@
     slots = uniqueAvailabilityTimes(slots);
     clearElement(slotOptionsEl);
     selectedSlotInput.value = '';
+    setAvailabilityRetry(slotsEl, false);
 
     if (!slots.length) {
       setSlotStatus(slotStatusEl, 'noSlots');
@@ -716,6 +730,7 @@
     clearElement(slotOptionsEl);
     selectedSlotInput.value = '';
     currentAvailabilitySlots = [];
+    setAvailabilityRetry(slotsEl, false);
     slotsEl.removeAttribute('aria-invalid');
     slotsEl.classList.remove('is-invalid');
 
@@ -756,7 +771,7 @@
       clearElement(slotOptionsEl);
       slotsEl.setAttribute('tabindex', '0');
       setSlotStatus(slotStatusEl, key);
-      setFormStatus(statusEl, 'error', message(key), key);
+      setAvailabilityRetry(slotsEl, true);
       return 0;
     } finally {
       if (availabilityController === controller) {
@@ -776,17 +791,30 @@
     var slotErrorEl = document.getElementById('contact-slot-error');
     var selectedSlotInput = form.querySelector('[data-booking-slot-id]');
     var submitButton = form.querySelector('[data-contact-form-submit]');
-    var nativeSubmitButton = form.querySelector('[data-contact-native-submit]');
     var submitLabel = form.querySelector('[data-contact-submit-label]');
     var statusEl = form.querySelector('[data-contact-form-status]');
-    var legalConsent = form.querySelector('[data-legal-consent]');
+    var retryButton = form.querySelector('[data-booking-slot-retry]');
+    var consentGroup = form.querySelector('[data-legal-consents]');
+    var termsConsent = form.querySelector('[data-terms-consent]');
+    var requiredConsents = [termsConsent].filter(Boolean);
     var marketingConsent = form.querySelector('[data-marketing-consent]');
     var textControls = Array.prototype.slice.call(form.querySelectorAll('.floating-field input, .floating-field textarea'));
     var isSubmitting = false;
     var hasAttemptedSubmit = false;
-    var observedServiceValue = serviceSelect ? serviceSelect.value : '';
+    var lastSuccessData = null;
+    var observedServiceValue = '';
 
     if (!serviceSelect || !slotsEl || !slotOptionsEl || !slotStatusEl || !selectedSlotInput) return;
+
+    try {
+      var requestedService = new URL(window.location.href).searchParams.get('service');
+      if (requestedService === 'full_inspection' || requestedService === 'computer_diagnostics') {
+        serviceSelect.value = requestedService;
+      }
+    } catch (_) {
+      // Keep the default selection when the current URL cannot be parsed.
+    }
+    observedServiceValue = serviceSelect.value;
 
     function isControlValid(control) {
       if (!control || !control.willValidate) return true;
@@ -817,10 +845,9 @@
       var isReady = !isSubmitting && canSubmitForm();
       submitButton.setAttribute('aria-disabled', String(!isReady));
       submitButton.setAttribute('aria-busy', String(isSubmitting));
-      submitButton.tabIndex = 0;
+      submitButton.disabled = !isReady;
       submitButton.classList.toggle('is-disabled', !isReady && !isSubmitting);
       submitButton.classList.toggle('is-submitting', isSubmitting);
-      if (nativeSubmitButton) nativeSubmitButton.disabled = !isReady;
     }
 
     function setBookingSubmitting(nextState, idleLabel) {
@@ -831,80 +858,6 @@
 
     initFloatingFields(form);
     var serviceWidget = initServiceSelect(form, serviceSelect);
-    var legalWidget = initProxyCheckbox(
-      form,
-      legalConsent,
-      form.querySelector('[data-legal-checkbox]')
-    );
-    var marketingWidget = initProxyCheckbox(
-      form,
-      marketingConsent,
-      form.querySelector('[data-marketing-checkbox]')
-    );
-    var legalLinks = legalWidget
-      ? Array.prototype.slice.call(legalWidget.trigger.closest('.form-checkbox').querySelectorAll('a[href]'))
-      : [];
-    var marketingLinks = marketingWidget
-      ? Array.prototype.slice.call(marketingWidget.trigger.closest('.form-checkbox').querySelectorAll('a[href]'))
-      : [];
-    var endFormTabStops = [];
-
-    if (legalWidget) endFormTabStops.push(legalWidget.trigger);
-    endFormTabStops = endFormTabStops.concat(legalLinks);
-    if (marketingWidget) endFormTabStops.push(marketingWidget.trigger);
-    endFormTabStops = endFormTabStops.concat(marketingLinks);
-    if (submitButton) endFormTabStops.push(submitButton);
-
-    endFormTabStops.forEach(function (control, index) {
-      control.addEventListener('keydown', function (event) {
-        if (
-          event.key !== 'Tab' ||
-          event.defaultPrevented ||
-          event.altKey ||
-          event.ctrlKey ||
-          event.metaKey
-        ) {
-          return;
-        }
-
-        var nextIndex = index + (event.shiftKey ? -1 : 1);
-        if (nextIndex < 0 || nextIndex >= endFormTabStops.length) return;
-
-        event.preventDefault();
-        endFormTabStops[nextIndex].focus();
-      });
-    });
-
-    function requestBookingSubmit() {
-      var isReady = !isSubmitting && canSubmitForm();
-      if (nativeSubmitButton) nativeSubmitButton.disabled = !isReady;
-      if (!isReady) {
-        syncSubmitButton();
-        return;
-      }
-
-      if (typeof form.requestSubmit === 'function') {
-        if (nativeSubmitButton) {
-          form.requestSubmit(nativeSubmitButton);
-        } else {
-          form.requestSubmit();
-        }
-      } else if (nativeSubmitButton) {
-        nativeSubmitButton.click();
-      }
-    }
-
-    if (submitButton) {
-      submitButton.addEventListener('click', function () {
-        submitButton.focus();
-        requestBookingSubmit();
-      });
-      submitButton.addEventListener('keydown', function (event) {
-        if (event.key !== 'Enter' && event.key !== ' ') return;
-        event.preventDefault();
-        if (!event.repeat) requestBookingSubmit();
-      });
-    }
 
     function setInlineError(errorEl, key, isVisible) {
       if (!errorEl) return;
@@ -915,7 +868,9 @@
 
     function controlErrorKey(control) {
       if (control.id === 'contact-name') return 'nameRequired';
-      if (control.id === 'contact-phone') return 'phoneRequired';
+      if (control.id === 'contact-phone') {
+        return !String(control.value || '').trim() ? 'phoneRequired' : 'phoneInvalid';
+      }
       if (control.id === 'contact-email') {
         return !String(control.value || '').trim() ? 'emailRequired' : 'emailInvalid';
       }
@@ -953,18 +908,14 @@
     }
 
     function setLegalError(isInvalid) {
-      if (!legalConsent) return;
-      var wrapper = legalConsent.closest('.form-checkbox');
+      if (!consentGroup || !requiredConsents.length) return;
       var errorEl = document.getElementById('contact-legal-error');
-      var legalControl = legalWidget ? legalWidget.trigger : legalConsent;
-      if (wrapper) wrapper.classList.toggle('is-invalid', isInvalid);
-      if (isInvalid) {
-        legalControl.setAttribute('aria-invalid', 'true');
-      } else {
-        legalControl.removeAttribute('aria-invalid');
-      }
+      consentGroup.classList.toggle('is-invalid', isInvalid);
+      requiredConsents.forEach(function (consent) {
+        if (isInvalid && !consent.checked) consent.setAttribute('aria-invalid', 'true');
+        else consent.removeAttribute('aria-invalid');
+      });
       setInlineError(errorEl, 'chooseLegal', isInvalid);
-      if (errorEl) toggleDescription(legalControl, errorEl.id, isInvalid);
     }
 
     function focusInvalidTarget(target) {
@@ -999,9 +950,11 @@
         if (!setControlError(control, true)) invalidTargets.push(control);
       });
 
-      var legalInvalid = Boolean(legalConsent && !legalConsent.checked);
+      var legalInvalid = requiredConsents.some(function (consent) { return !consent.checked; });
       setLegalError(legalInvalid);
-      if (legalInvalid) invalidTargets.push(legalWidget ? legalWidget.trigger : legalConsent);
+      if (legalInvalid) {
+        invalidTargets.push(requiredConsents.find(function (consent) { return !consent.checked; }));
+      }
 
       var isValid = invalidTargets.length === 0 && canSubmitForm();
       if (!isValid && shouldAnnounce) {
@@ -1039,6 +992,8 @@
           message(statusEl.dataset.messageKey),
           statusEl.dataset.messageKey
         );
+      } else if (statusEl && statusEl.dataset.statusKind === 'bookingSuccess' && lastSuccessData) {
+        renderBookingSuccess(statusEl, lastSuccessData);
       }
     }
 
@@ -1061,13 +1016,38 @@
       if (hasAttemptedSubmit) {
         if (textControls.indexOf(event.target) !== -1) setControlError(event.target, true);
         if (event.target === selectedSlotInput) setSlotError(!selectedSlotInput.value);
-        if (event.target === legalConsent) setLegalError(!legalConsent.checked);
+        if (requiredConsents.indexOf(event.target) !== -1) {
+          setLegalError(requiredConsents.some(function (consent) { return !consent.checked; }));
+        }
 
         if (validateForm(false, false)) setFormStatus(statusEl, '', '');
       }
 
       syncSubmitButton();
     });
+
+    textControls.forEach(function (control) {
+      control.addEventListener('blur', function () {
+        setControlError(control, true);
+      });
+    });
+
+    if (consentGroup) {
+      consentGroup.addEventListener('focusout', function () {
+        setTimeout(function () {
+          if (!consentGroup.contains(document.activeElement)) {
+            setLegalError(requiredConsents.some(function (consent) { return !consent.checked; }));
+          }
+        }, 0);
+      });
+    }
+
+    if (retryButton) {
+      retryButton.addEventListener('click', function () {
+        setFormStatus(statusEl, '', '');
+        loadAvailability(serviceSelect, slotsEl, slotOptionsEl, slotStatusEl, selectedSlotInput, statusEl, true);
+      });
+    }
 
     form.addEventListener('change', syncSubmitButton);
     form.addEventListener('reset', function () {
@@ -1080,18 +1060,15 @@
         slotsEl.setAttribute('aria-busy', 'false');
         slotsEl.setAttribute('tabindex', '0');
         setSlotStatus(slotStatusEl, 'chooseService');
+        setAvailabilityRetry(slotsEl, false);
         clearValidationErrors();
         if (serviceWidget) serviceWidget.update();
-        if (legalWidget) legalWidget.update();
-        if (marketingWidget) marketingWidget.update();
         syncSubmitButton();
       }, 0);
     });
 
     window.addEventListener('pageshow', function () {
       if (serviceWidget) serviceWidget.update();
-      if (legalWidget) legalWidget.update();
-      if (marketingWidget) marketingWidget.update();
       if (serviceSelect.value !== observedServiceValue) {
         observedServiceValue = serviceSelect.value;
         loadAvailability(serviceSelect, slotsEl, slotOptionsEl, slotStatusEl, selectedSlotInput, statusEl, false);
@@ -1119,8 +1096,6 @@
     [100, 500, 1500].forEach(function (delay) {
       setTimeout(function () {
         if (serviceWidget) serviceWidget.update();
-        if (legalWidget) legalWidget.update();
-        if (marketingWidget) marketingWidget.update();
         if (serviceSelect.value !== observedServiceValue) {
           observedServiceValue = serviceSelect.value;
           loadAvailability(serviceSelect, slotsEl, slotOptionsEl, slotStatusEl, selectedSlotInput, statusEl, false);
@@ -1143,7 +1118,7 @@
 
       var idleLabel = submitLabel ? submitLabel.textContent : '';
       var formData = new FormData(form);
-      var legalAccepted = formData.get('legalConsent') === 'on';
+      var termsAccepted = formData.get('termsConsent') === 'on';
       var marketingAccepted = formData.get('marketingConsent') === 'on';
       var payload = {
         slotId: selectedSlotInput.value,
@@ -1158,14 +1133,10 @@
         website: String(formData.get('website') || '').trim(),
         pageUrl: window.location.href,
         language: getActiveLang(),
-        termsAccepted: legalAccepted,
+        termsAccepted: termsAccepted,
         termsTextVersion: TERMS_TEXT_VERSION,
-        privacyAccepted: legalAccepted,
+        privacyAccepted: termsAccepted,
         privacyTextVersion: PRIVACY_TEXT_VERSION,
-        earlyServiceConsent: legalAccepted,
-        earlyServiceConsentTextVersion: EARLY_SERVICE_CONSENT_VERSION,
-        vehicleAccessConfirmed: legalAccepted,
-        vehicleAccessTextVersion: VEHICLE_ACCESS_TEXT_VERSION,
         marketingConsent: marketingAccepted,
         marketingConsentTextVersion: MARKETING_CONSENT_TEXT_VERSION
       };
@@ -1180,29 +1151,37 @@
           body: JSON.stringify(payload)
         });
 
-        if (!response.ok) {
-          var responseBody = null;
-          try {
-            responseBody = await response.json();
-          } catch (_) {
-            responseBody = null;
-          }
+        var responseBody = null;
+        try {
+          responseBody = await response.json();
+        } catch (_) {
+          responseBody = null;
+        }
 
+        if (!response.ok) {
           if (response.status === 429) throw new Error('rateLimited');
           if (response.status === 409) {
+            var responseCode = responseBody && typeof responseBody.code === 'string'
+              ? responseBody.code
+              : '';
             var responseMessage = responseBody && typeof responseBody.error === 'string'
               ? responseBody.error
               : '';
-            throw new Error(responseMessage.indexOf('already submitted') !== -1
+            throw new Error(
+              responseCode === 'duplicate_booking_request' ||
+              responseCode === 'duplicate_request' ||
+              responseMessage === 'A booking request for this time was already submitted. Check your email for its reference.'
               ? 'duplicateRequest'
-              : 'slotUnavailable');
+              : 'slotUnavailable'
+            );
           }
           if (response.status >= 400 && response.status < 500) throw new Error('requestRejected');
           throw new Error('bookingError');
         }
 
+        lastSuccessData = responseBody || {};
         form.reset();
-        setFormStatus(statusEl, 'success', message('success'), 'success');
+        renderBookingSuccess(statusEl, lastSuccessData);
         setTimeout(function () {
           if (statusEl) statusEl.focus();
         }, 0);

@@ -1,36 +1,34 @@
 {
   "pricing": {
     "hero": {
-      "label": "Pricing",
-      "title": "Car inspection cost",
-      "subtitle": "How much does a car inspection cost in Lithuania? See service prices and travel fee rules before booking."
+      "label": "Prices",
+      "title": "Clear prices before you book",
+      "subtitle": "The service price does not vary by car make. Any travel fee is agreed before the appointment is confirmed."
     },
     "card1": {
-      "title": "OBD computer diagnostics",
+      "title": "Computer diagnostics",
       "price": "20",
       "currency": "€",
-      "text": "OBD error code reading, engine and system condition check. Suitable for diesel, petrol, hybrid and electric vehicles.",
-      "cta": "Order diagnostics"
+      "item1": "Control-unit fault scan",
+      "item2": "Key parameter checks",
+      "item3": "A concise explanation of the results",
+      "cta": "Book diagnostics"
     },
     "card2": {
-      "title": "Full pre-purchase car inspection",
+      "title": "Full pre-purchase inspection",
       "price": "100",
       "currency": "€",
-      "text": "Comprehensive vehicle inspection: body with paint thickness measurement, engine, suspension, OBD diagnostics, mileage analysis, test drive. Documented report with photos.",
-      "cta": "Order inspection"
+      "item1": "Body and mechanical-condition checks",
+      "item2": "Computer diagnostics and a test drive",
+      "item3": "A photo report and clear conclusion",
+      "cta": "Book a full inspection"
     },
     "travel": {
       "title": "Travel fee",
-      "text": "Travel pricing depends on the car location and is always stated or agreed before the appointment is confirmed.",
-      "free_zone": "No travel fee applies within Kaunas city and up to 20 km from the Kaunas city boundary.",
-      "rate": "Outside this zone, a travel fee of €0.50/km may apply.",
-      "calculation": "The fee is calculated for a round trip from the Kaunas city boundary or another base location agreed in advance.",
-      "custom": "For long distances or non-standard locations, travel pricing is agreed individually before appointment confirmation."
-    },
-    "cta": {
-      "title": "Ready to book?",
-      "text": "Get in touch and we'll arrange the time and place.",
-      "button": "Contact"
+      "text": "You will see or agree the final travel price before the appointment is confirmed.",
+      "free_zone": "There is no travel fee in Kaunas or within 20 km of the Kaunas city boundary.",
+      "rate": "Beyond that area, a €0.50/km round-trip fee may apply.",
+      "custom": "For long distances or unusual locations, the price is agreed individually."
     }
   }
 }

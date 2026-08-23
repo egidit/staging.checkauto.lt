@@ -3,21 +3,23 @@
     "hero": {
       "label": "Booking",
       "title": "Book a car inspection",
-      "subtitle": "Choose a service and available time, enter the car details, and we will confirm the appointment."
+      "subtitle": "Choose a service and available time. We will confirm the appointment by email."
     },
     "info": {
-      "title": "Direct contact",
+      "title": "Need help?",
+      "text": "If no suitable time is available, contact us directly.",
       "phone_label": "Phone",
       "phone": "+370 609 45 238",
       "email_label": "Email",
-      "email": "info@checkauto.lt"
+      "email": "info@checkauto.lt",
+      "response_note": "We reply during business hours."
     },
     "form": {
       "accessible_title": "Car inspection booking form",
       "step_time_title": "Service and time",
       "step_personal_title": "Your details",
       "step_vehicle_title": "Car details",
-      "name_label": "Name",
+      "name_label": "Full name",
       "name_placeholder": "Full name",
       "email_label": "Email",
       "email_placeholder": "name@example.com",
@@ -27,10 +29,13 @@
       "inspection_type_placeholder": "Select service",
       "inspection_type_full": "Full pre-purchase car inspection",
       "inspection_type_full_meta": "Bodywork, diagnostics, test drive, and a clear conclusion.",
+      "inspection_type_full_price": "€100",
       "inspection_type_diagnostics": "OBD computer diagnostics",
       "inspection_type_diagnostics_meta": "OBD faults, live data, and a short explanation.",
+      "inspection_type_diagnostics_price": "€20",
       "slot_label": "Choose a time",
       "slot_placeholder": "Select an inspection type first.",
+      "retry_availability": "Try again",
       "vehicle_label": "Car",
       "vehicle_placeholder": "Make, model, year, engine",
       "location_label": "Car location / address",
@@ -43,7 +48,7 @@
       "terms_link": "Terms and Conditions",
       "legal_consent_middle": "and have read the",
       "privacy_link": "Privacy Policy",
-      "early_service_consent_inline": "If the appointment is within 14 days after the booking is confirmed, I request the service at the selected time. Once fully performed, I can no longer withdraw from the contract.",
+      "confirmations_title": "Consents",
       "marketing_consent": "I agree to receive checkauto.lt news, tips, and offers by email. I understand that I can withdraw this consent at any time.",
       "submit": "Reserve time",
       "sending": "Reserving...",

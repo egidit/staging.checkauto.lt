@@ -33,7 +33,7 @@
   <link rel="preload" href="/assets/fonts/Inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="/css/styles.css?v=20260814i">
+  <link rel="stylesheet" href="/css/styles.css?v=20260823-8">
 
   <script>
     (function(){var l=localStorage.getItem('checkauto-lang');if(l&&l!=='lt'){document.documentElement.lang=l;document.documentElement.classList.add('i18n-loading');}})();
@@ -49,95 +49,61 @@
   <div id="site-header"></div>
 
   <main>
-
-    <!-- ==================================================================
-         PAGE HERO
-         ================================================================== -->
-    <section class="section">
-      <div class="container">
-        <div class="section-header" style="margin-bottom: var(--space-lg);">
-          <span class="section-label" data-i18n="about.hero.label">Apie mus</span>
-          <h1 class="hero-title-multiline">
-            <span data-i18n="about.hero.title1">Nepriklausomi.</span><br>
-            <span data-i18n="about.hero.title2">Objektyvūs.</span><br>
-            <span data-i18n="about.hero.title3">Jūsų pusėje.</span>
-          </h1>
-          <p data-i18n="about.hero.subtitle">Profesionali automobilio patikros paslauga su vienu tikslu: objektyviai įvertinti naudoto automobilio būklę ir apsaugoti jus nuo paslėptų defektų.</p>
-        </div>
+    <section class="page-intro page-intro--statement">
+      <div class="container page-intro-grid">
+        <span class="section-label" data-i18n="about.hero.label">Apie mus</span>
+        <h1 data-i18n="about.hero.title">Vertiname automobilį, o ne pardavėjo interesą</h1>
+        <p data-i18n="about.hero.subtitle">checkauto.lt yra nepriklausoma automobilio patikros paslauga. Nedirbame salonams, pardavėjams ar skelbimų platformoms.</p>
       </div>
     </section>
 
-    <!-- ==================================================================
-         ABOUT CONTENT
-         ================================================================== -->
     <section class="section section--alt">
-      <div class="container">
-        <div class="about-content">
-          <div class="about-logo" aria-hidden="true">check<span>auto</span>.lt</div>
-          <p data-i18n="about.intro.p1">Esame nepriklausoma automobilių patikros paslauga. Nedirbame su salonais, pardavėjais ar platformomis. Vienintelis mūsų interesas – kad jūs nepermokėtumėte už svetimas problemas.</p>
-          <p data-i18n="about.intro.p2">Kiekvienoje patikroje randame tai, ką pardavėjas nutyli: suktą ridą, paslėptų avarijų pėdsakus, išvalytus klaidų kodus. Mūsų tikslas – padėti apsispręsti remiantis faktais, ne pardavėjo žodžiais.</p>
-          <p data-i18n="about.intro.p3">Dirbame be skubėjimo, pagal aiškią metodiką. Kiekvieną automobilį vertiname taip, lyg pirktume patys.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================================================================
-         PHILOSOPHY BANNER
-         ================================================================== -->
-    <section class="section philosophy-banner">
-      <div class="container">
-        <div class="philosophy-card">
-          <div class="philosophy-deco" aria-hidden="true">“</div>
-          <blockquote class="philosophy-quote" data-i18n="about.philosophy.quote">
-            Kiekvieną automobilį vertiname taip, lyg pirktume patys.
-          </blockquote>
-          <p class="philosophy-author" data-i18n="about.philosophy.author">— checkauto.lt komanda</p>
-          <div class="philosophy-divider" aria-hidden="true"></div>
-          <p class="philosophy-context" data-i18n="about.philosophy.context">Tai ne šūkis, o darbo principas. Kiekviena patikra atliekama be kompromisų, kad jūsų sprendimas būtų paremtas faktais.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================================================================
-         VALUES
-         ================================================================== -->
-    <section class="section section--alt">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label" data-i18n="about.values.label">Principai</span>
-          <h2 data-i18n="about.values.heading">Kuo remiamės kiekvienoje patikroje</h2>
-        </div>
-
+      <div class="container about-principles-layout">
+        <header class="section-header section-header--aside">
+          <h2 data-i18n="about.values.heading">Ką mums reiškia nepriklausomas vertinimas</h2>
+        </header>
         <div class="about-values-grid">
-          <div class="about-value">
-            <h3 data-i18n="about.values.v1_title">Nepriklausomumas</h3>
-            <p data-i18n="about.values.v1_text">Jokių ryšių su salonais ar pardavėjais. Vertinimas visada objektyvus ir nešališkas.</p>
-          </div>
-          <div class="about-value">
-            <h3 data-i18n="about.values.v2_title">Skaidrumas</h3>
-            <p data-i18n="about.values.v2_text">Ataskaita suprantama be specialių žinių. Jokių paslėptų eilučių ar dviprasmybių.</p>
-          </div>
-          <div class="about-value">
-            <h3 data-i18n="about.values.v3_title">Kruopštumas</h3>
-            <p data-i18n="about.values.v3_text">Kiekviena patikra atliekama iki galo, pagal tą pačią metodiką. Netrumpiname dėl laiko.</p>
-          </div>
+          <article class="about-value">
+            <span class="feature-index" aria-hidden="true">01</span>
+            <h3 data-i18n="about.values.v1_title">Jokių pardavėjo paskatų</h3>
+            <p data-i18n="about.values.v1_text">Mūsų atlygis nepriklauso nuo to, ar automobilį nupirksite.</p>
+          </article>
+          <article class="about-value">
+            <span class="feature-index" aria-hidden="true">02</span>
+            <h3 data-i18n="about.values.v2_title">Faktai užfiksuojami</h3>
+            <p data-i18n="about.values.v2_text">Rastus trūkumus paaiškiname suprantamai ir pateikiame ataskaitoje su nuotraukomis.</p>
+          </article>
+          <article class="about-value">
+            <span class="feature-index" aria-hidden="true">03</span>
+            <h3 data-i18n="about.values.v3_title">Ta pati patikros logika</h3>
+            <p data-i18n="about.values.v3_text">Automobilį vertiname nuosekliai, nepriklausomai nuo markės, kainos ar pardavėjo.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- ==================================================================
-         CTA
-         ================================================================== -->
+    <section class="section">
+      <div class="container method-layout">
+        <div class="method-statement">
+          <p class="service-kicker" data-i18n="about.method.kicker">Darbo principas</p>
+          <h2 data-i18n="about.method.title">Sprendimą priimate jūs. Mūsų darbas yra parodyti tikrą būklę.</h2>
+        </div>
+        <ul class="method-list">
+          <li><strong data-i18n="about.method.item1_title">Tikriname vietoje</strong><span data-i18n="about.method.item1_text">Atvykstame pas pardavėją, į aikštelę ar servisą.</span></li>
+          <li><strong data-i18n="about.method.item2_title">Vertiname visumą</strong><span data-i18n="about.method.item2_text">Techninius, kėbulo, elektronikos ir naudojimo požymius vertiname kartu.</span></li>
+          <li><strong data-i18n="about.method.item3_title">Kalbame aiškiai</strong><span data-i18n="about.method.item3_text">Atskiriame smulkius trūkumus nuo rizikų, kurios svarbios kainai ir saugumui.</span></li>
+        </ul>
+      </div>
+    </section>
+
     <section class="section section--dark">
       <div class="container">
         <div class="cta-band">
-          <h2 data-i18n="about.cta.title">Patikra, kuria galite pasikliauti</h2>
-          <p data-i18n="about.cta.text">Susisiekite ir jums nereikės spėlioti dėl automobilio būklės.</p>
-          <a href="/kontaktai/" class="btn btn-primary" data-i18n="about.cta.button">Susisiekti</a>
+          <div><h2 data-i18n="about.cta.title">Turite automobilį, kurį norite patikrinti?</h2><p data-i18n="about.cta.text">Rezervuokite laiką internetu arba susisiekite telefonu.</p></div>
+          <a href="/kontaktai/#booking-form" class="btn btn-primary" data-i18n="about.cta.button">Rezervuoti laiką</a>
         </div>
       </div>
     </section>
-
   </main>
 
   <div id="site-footer"></div>
@@ -175,8 +141,7 @@
           "Kėbulo apžiūra ir dažų storio matavimas",
           "Ridos sukčiavimo atpažinimas",
           "OBD kompiuterinė diagnostika",
-          "Variklio ir važiuoklės tikrinimas",
-          "Elektromobilių baterijos patikra"
+          "Variklio ir važiuoklės tikrinimas"
         ],
         "foundingDate": "2026"
       }
@@ -184,8 +149,8 @@
   }
   </script>
 
-  <script src="/js/components.js?v=20260813f"></script>
-  <script src="/js/i18n.js"></script>
-  <script src="/js/main.js"></script>
+  <script src="/js/components.js?v=20260823-7"></script>
+  <script src="/js/i18n.js?v=20260823-6"></script>
+  <script src="/js/main.js?v=20260823-6"></script>
 </body>
 </html>

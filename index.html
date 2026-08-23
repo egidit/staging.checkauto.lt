@@ -33,7 +33,8 @@
   <link rel="preload" href="/assets/fonts/Inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="/css/styles.css?v=20260814i">
+  <link rel="preload" href="/assets/images/hero-car.jpg" as="image" type="image/jpeg" fetchpriority="high">
+  <link rel="stylesheet" href="/css/styles.css?v=20260823-8">
 
   <!-- Early language detection to prevent flash of wrong language -->
   <script>
@@ -51,10 +52,6 @@
   <div id="site-header"></div>
 
   <main>
-
-    <!-- ==================================================================
-         HERO
-         ================================================================== -->
     <section class="hero section">
       <div class="container">
         <div class="hero-layout">
@@ -62,16 +59,18 @@
             <span class="hero-label" data-i18n="home.hero.label">Automobilio patikra prieš pirkimą</span>
             <h1 data-i18n="home.hero.title">Pigiau sužinoti dabar nei mokėti vėliau</h1>
             <p data-i18n="home.hero.subtitle">Profesionali naudoto automobilio diagnostika, kėbulo apžiūra ir variklio tikrinimas. Dokumentuota ataskaita su nuotraukomis, dar prieš perkant.</p>
-            <a href="/kontaktai/" class="btn btn-primary" data-i18n="home.hero.cta">Užsakyti patikrą</a>
+            <a href="/kontaktai/#booking-form" class="btn btn-primary" data-i18n="home.hero.cta">Užsakyti patikrą</a>
           </div>
           <div class="hero-image">
-            <img 
-              src="/assets/images/hero-car.jpg" 
-              alt="Profesionali automobilio patikra prieš pirkimą – naudoto auto diagnostika ir kėbulo apžiūra Lietuvoje" 
+            <img
+              src="/assets/images/hero-car.jpg"
+              alt="Geltonas Mercedes-Benz sportinis automobilis kelyje"
+              data-i18n-aria="home.hero.image_alt"
               loading="eager"
+              fetchpriority="high"
               decoding="async"
-              width="640" 
-              height="800"
+              width="1280"
+              height="1600"
             >
           </div>
         </div>
@@ -82,16 +81,13 @@
       </div>
     </section>
 
-    <!-- ==================================================================
-         PROBLEM / RISK
-         ================================================================== -->
     <section class="section">
       <div class="container">
         <div class="risk-block">
           <span class="section-label" data-i18n="home.problem.label">Rizika</span>
           <h2 data-i18n="home.problem.title">Pirkti automobilį be patikros – brangus eksperimentas</h2>
           <p data-i18n="home.problem.text">Dauguma naudotų automobilių Lietuvoje slepia defektus. Pardavėjui naudinga nutylėti. Problemas atskleidžia tik nepriklausoma patikra.</p>
-          
+
           <div class="risk-stats">
             <div class="risk-stat">
               <span class="risk-stat-number" data-i18n="home.problem.stat1_number">63%</span>
@@ -110,9 +106,6 @@
       </div>
     </section>
 
-    <!-- ==================================================================
-         WHY INSPECT?
-         ================================================================== -->
     <section class="section section--alt">
       <div class="container">
         <div class="section-header">
@@ -123,7 +116,6 @@
         <div class="benefits-list">
           <div class="benefit-item">
             <div class="benefit-icon" aria-hidden="true">
-              <!-- Magnifying glass icon (inline SVG for performance) -->
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             </div>
             <h3 data-i18n="home.why.item1_title">Techniniai defektai</h3>
@@ -157,9 +149,6 @@
       </div>
     </section>
 
-    <!-- ==================================================================
-         WITH vs WITHOUT - Comparison
-         ================================================================== -->
     <section class="section">
       <div class="container">
         <div class="section-header">
@@ -169,20 +158,18 @@
         </div>
 
         <div class="compare-grid">
-          <!-- WITHOUT column -->
           <div class="compare-col compare-col--without">
             <h3 class="compare-heading compare-heading--without" data-i18n="home.compare.without">Be patikros</h3>
             <ul class="compare-list">
               <li class="compare-item compare-item--no" data-i18n="home.compare.no1">Sprendžiate pagal pardavėjo žodžius ir skelbimo nuotraukas</li>
               <li class="compare-item compare-item--no" data-i18n="home.compare.no2">Sukta rida ar ištrinti klaidų kodai – be įrangos to nepastebėsite</li>
               <li class="compare-item compare-item--no" data-i18n="home.compare.no3">Po avarijos perdažyti elementai lieka neatpažinti</li>
-              <li class="compare-item compare-item--no" data-i18n="home.compare.no4">„Viskas tvarkinga“ – o po mėnesio serviso sąskaita viršija €1 500</li>
+              <li class="compare-item compare-item--no" data-i18n="home.compare.no4">„Viskas tvarkinga“ – o po mėnesio serviso sąskaita viršija €1 500</li>
               <li class="compare-item compare-item--no" data-i18n="home.compare.no5">Derėtis tenka iš nuojautos, ne iš faktų</li>
               <li class="compare-item compare-item--no" data-i18n="home.compare.no6">Spaudžia nuspręsti vietoje – „rytoj jau parduotas“</li>
             </ul>
           </div>
 
-          <!-- WITH column -->
           <div class="compare-col compare-col--with">
             <h3 class="compare-heading compare-heading--with" data-i18n="home.compare.with">Su check<span class="logo-accent">auto</span>.lt</h3>
             <ul class="compare-list">
@@ -198,19 +185,15 @@
       </div>
     </section>
 
-    <!-- ==================================================================
-         CTA BAND
-         ================================================================== -->
     <section class="section section--dark">
       <div class="container">
         <div class="cta-band">
           <h2 data-i18n="home.cta.title">Geras sprendimas prasideda nuo faktų</h2>
           <p data-i18n="home.cta.text">Patikra užtrunka porą valandų. Netikėtas remontas – mėnesius.</p>
-          <a href="/kontaktai/" class="btn btn-primary" data-i18n="home.cta.button">Susisiekti</a>
+          <a href="/kontaktai/#booking-form" class="btn btn-primary" data-i18n="home.cta.button">Susisiekti</a>
         </div>
       </div>
     </section>
-
   </main>
 
   <div id="site-footer"></div>
@@ -263,14 +246,10 @@
           "Naudoto automobilio diagnostika",
           "Kėbulo patikra",
           "Dažų storio matavimas",
-          "Ridos sukčiavimo atpažinimas",
+          "Ridos neatitikimų atpažinimas",
           "Variklio diagnostika",
-          "Automatinės dėžės patikra",
           "Važiuoklės tikrinimas",
-          "OBD diagnostika",
-          "VIN patikra",
-          "Elektromobilio baterijos patikra",
-          "DPF filtro patikra"
+          "OBD diagnostika"
         ],
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
@@ -283,7 +262,7 @@
                 "name": "Išsami automobilio patikra prieš pirkimą",
                 "description": "Vizualinė kėbulo apžiūra, dažų storio matavimas, variklio ir važiuoklės tikrinimas, kompiuterinė OBD diagnostika, ridos patikrinimas, bandomasis važiavimas ir dokumentuota ataskaita su nuotraukomis."
               },
-              "price": "80",
+              "price": "100",
               "priceCurrency": "EUR"
             },
             {
@@ -295,14 +274,6 @@
               },
               "price": "20",
               "priceCurrency": "EUR"
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Pagalba perkant automobilį",
-                "description": "Konsultacija prieš apžiūrą, skelbimo įvertinimas, pagalba renkantis naudotą automobilį."
-              }
             }
           ]
         },
@@ -324,8 +295,8 @@
   </script>
 
   <!-- Scripts loaded at end of body for performance -->
-  <script src="/js/components.js?v=20260813f"></script>
-  <script src="/js/i18n.js"></script>
-  <script src="/js/main.js"></script>
+  <script src="/js/components.js?v=20260823-7"></script>
+  <script src="/js/i18n.js?v=20260823-6"></script>
+  <script src="/js/main.js?v=20260823-6"></script>
 </body>
 </html>
