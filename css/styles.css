@@ -3585,6 +3585,7 @@ p {
 
 .page-intro h1 {
   max-width: 900px;
+  margin-inline: auto;
 }
 
 .page-intro p {
