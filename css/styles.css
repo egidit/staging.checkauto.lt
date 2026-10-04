@@ -4752,3 +4752,7 @@ p {
   font-weight: 700;
   line-height: 1;
 }
+
+.booking-contact-fallback { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+.booking-contact-fallback a { color: #066bd9; text-decoration: underline; text-underline-offset: 3px; font-weight: 600; }
+.booking-contact-fallback a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }

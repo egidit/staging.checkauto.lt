@@ -42,7 +42,7 @@
       duplicateRequest: 'Šiam laikui rezervacijos užklausa jau pateikta. Patikrinkite el. paštą dėl jos numerio.',
       requestRejected: 'Rezervacijos duomenų nepavyko priimti. Patikrinkite laukus ir bandykite dar kartą.',
       successTitle: 'Rezervacijos užklausa gauta',
-      success: 'Laikas laikinai rezervuotas. Patvirtinimą atsiųsime el. paštu.',
+      success: 'Užklausa išsaugota, laikas laikinai rezervuotas. Laiškas perduotas siuntimo eilei; rezervaciją dar turi patvirtinti darbuotojas.',
       successReference: 'Užklausos numeris',
       successTime: 'Pasirinktas laikas',
       emailWarning: 'Užklausa išsaugota, tačiau patvirtinimo el. laiško pristatyti nepavyko. Jei jo negaunate, susisiekite ir nurodykite užklausos numerį.',
@@ -74,7 +74,7 @@
       duplicateRequest: 'A booking request for this time has already been submitted. Check your email for its reference.',
       requestRejected: 'The booking details could not be accepted. Review the form and try again.',
       successTitle: 'Booking request received',
-      success: 'The time is temporarily reserved. We will send confirmation by email.',
+      success: 'Your request is saved and the time is temporarily reserved. Email is queued; a staff member still needs to confirm the booking.',
       successReference: 'Request reference',
       successTime: 'Selected time',
       emailWarning: 'Your request was saved, but the confirmation email could not be delivered. If it does not arrive, contact us and quote the request reference.',
@@ -606,6 +606,10 @@
 
     if (!slots.length) {
       setSlotStatus(slotStatusEl, 'noSlots');
+      var fallback=document.createElement('p');fallback.className='booking-contact-fallback';
+      var phone=document.createElement('a');phone.href='tel:+37060945238';phone.textContent='+370 609 45238';
+      var email=document.createElement('a');email.href='mailto:info@checkauto.lt';email.textContent='info@checkauto.lt';
+      fallback.append(phone,document.createTextNode(' · '),email);slotOptionsEl.append(fallback);
       slotsEl.setAttribute('tabindex', '0');
       if (hadSlotFocus || focusFirst) slotsEl.focus();
       return 0;
@@ -672,6 +676,10 @@
         time.id = timeId;
         time.className = 'booking-slot-time';
         time.textContent = formatTime(slot.start_at);
+        if(slots.filter(function(other){return formatDate(other.start_at)===formatDate(slot.start_at)&&formatTime(other.start_at)===formatTime(slot.start_at);}).length>1) {
+          var offset=new Intl.DateTimeFormat('en',{timeZone:'Europe/Vilnius',timeZoneName:'shortOffset'}).formatToParts(new Date(slot.start_at)).find(function(p){return p.type==='timeZoneName';});
+          time.textContent+=' ('+(offset && offset.value || '')+')';
+        }
         option.appendChild(time);
 
         option.addEventListener('click', function () {
@@ -1141,6 +1149,13 @@
         marketingConsentTextVersion: MARKETING_CONSENT_TEXT_VERSION
       };
 
+      var fingerprint=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify(payload)))),function(byte){return byte.toString(16).padStart(2,'0');}).join('');
+      var operation=null;
+      try {operation=JSON.parse(sessionStorage.getItem('checkauto-booking-operation') || 'null');} catch(_) {}
+      if(!operation || operation.fingerprint!==fingerprint) operation={id:crypto.randomUUID(),fingerprint:fingerprint};
+      payload.operationId=operation.id;
+      try {sessionStorage.setItem('checkauto-booking-operation',JSON.stringify(operation));} catch(_) {}
+
       setFormStatus(statusEl, '', '', '');
       setBookingSubmitting(true, idleLabel);
 
@@ -1179,6 +1194,8 @@
           throw new Error('bookingError');
         }
 
+        if (!responseBody || responseBody.ok !== true || !responseBody.reference) throw new Error('connectionError');
+        try {sessionStorage.removeItem('checkauto-booking-operation');} catch(_) {}
         lastSuccessData = responseBody || {};
         form.reset();
         renderBookingSuccess(statusEl, lastSuccessData);
@@ -1198,6 +1215,7 @@
           : 'connectionError';
         setFormStatus(statusEl, 'error', message(key), key);
 
+        if (['slotUnavailable','requestRejected'].includes(key)) {try{sessionStorage.removeItem('checkauto-booking-operation');}catch(_){}}
         if (key === 'slotUnavailable') {
           await loadAvailability(
             serviceSelect,
@@ -1215,6 +1233,15 @@
     });
 
     syncSubmitButton();
+    (async function(){
+      try {
+        var operation=JSON.parse(sessionStorage.getItem('checkauto-booking-operation') || 'null');
+        if(!operation?.id) return;
+        var response=await fetch(BOOKING_ENDPOINT+'?operationId='+encodeURIComponent(operation.id),{headers:getHeaders(),cache:'no-store'});
+        var result=await response.json();
+        if(response.ok && result.booking?.reference){lastSuccessData=result.booking;renderBookingSuccess(statusEl,lastSuccessData);sessionStorage.removeItem('checkauto-booking-operation');}
+      } catch(_) { /* Keep the capability so a later retry can recover the saved request. */ }
+    })();
     loadAvailability(serviceSelect, slotsEl, slotOptionsEl, slotStatusEl, selectedSlotInput, statusEl, false);
   }
 
