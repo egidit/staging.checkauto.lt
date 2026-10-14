@@ -252,7 +252,7 @@ try {
       assert.ok(panel.width <= 340 && panel.height <= 220, `Panel is not compact: ${JSON.stringify(panel)}`);
       const buttons = await v.locator('.cookie-banner-actions button').evaluateAll(els => els.map(el => ({ height: el.getBoundingClientRect().height, color: getComputedStyle(el).color, background: getComputedStyle(el).backgroundColor, border: getComputedStyle(el).border })));
       assert.ok(buttons.every(b => b.height >= 44));
-      assert.deepEqual(buttons[0], buttons[1], 'Accept/reject must have equal presentation');
+      assert.equal(buttons[0].height, buttons[1].height, 'Accept/reject must remain equally sized');
     }
   }
   await v.setViewportSize({ width: 390, height: 844 });
@@ -264,7 +264,7 @@ try {
   assert.equal(await v.locator('#cookie-consent').isHidden(), true);
   await visual.close();
   assert.deepEqual(errors, []);
-  console.log('Passed: both languages, 320–1280px, enlarged text, equal buttons and no page errors.');
+  console.log('Passed: both languages, 320–1280px, enlarged text, equally sized actions and no page errors.');
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));

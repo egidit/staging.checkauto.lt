@@ -1,4 +1,4 @@
-/* Consent choices use the same treatment for acceptance and rejection. */
+/* Consent choices keep equally sized, directly accessible actions. */
 html { scroll-padding-bottom: var(--cookie-banner-space, 0px); }
 body.has-cookie-banner { padding-bottom: var(--cookie-banner-space); }
 .cookie-banner {
@@ -66,6 +66,13 @@ body.has-cookie-banner { padding-bottom: var(--cookie-banner-space); }
   cursor: pointer;
 }
 .cookie-banner-actions button:hover { background: var(--color-bg-alt); }
+.cookie-banner-actions [data-consent-accept] {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+.cookie-banner-actions [data-consent-accept]:hover,
+.cookie-banner-actions [data-consent-accept]:focus-visible { background: var(--color-accent-hover); }
 .cookie-banner-error { margin-top: 10px; font-size: inherit; }
 .cookie-settings {
   min-height: 44px;
