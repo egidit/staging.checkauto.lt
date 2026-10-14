@@ -1224,6 +1224,7 @@ p {
    Clean, minimal, professional.
    -------------------------------------------------------------------------- */
 .faq-list {
+  width: 100%;
   max-width: 680px;
   margin-inline: auto;
 }
@@ -3097,12 +3098,21 @@ p {
 
 .footer-inner {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "logo" "links" "copy";
   gap: var(--space-sm);
-  align-items: center;
-  text-align: center;
+  align-items: start;
+  text-align: left;
+  container-type: inline-size;
+  container-name: site-footer;
 }
 
 .footer-logo {
+  grid-area: logo;
+  justify-self: start;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
   font-size: 1.125rem;
   font-weight: 700;
   letter-spacing: -0.03em;
@@ -3113,17 +3123,27 @@ p {
 }
 
 .footer-links {
-  display: flex;
-  align-items: center;
+  grid-area: links;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  width: 100%;
   max-width: 100%;
-  gap: 0.45rem var(--space-md);
-  flex-wrap: wrap;
-  justify-content: center;
+  gap: 0 var(--space-md);
 }
 
-.footer-links a {
+.footer-links a,
+.footer-links .cookie-settings {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding-block: 6px;
   font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
   color: var(--color-text-secondary);
+  text-align: left;
+  white-space: normal;
+  overflow-wrap: anywhere;
   transition: color var(--duration-fast) var(--ease-out);
 }
 
@@ -3132,6 +3152,8 @@ p {
 }
 
 .footer-copy {
+  grid-area: copy;
+  margin: 0;
   font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
   white-space: normal;
@@ -3139,9 +3161,10 @@ p {
 
 @media (min-width: 768px) {
   .footer-inner {
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-columns: auto minmax(0, 1fr);
     grid-template-areas:
-      "logo links copy";
+      "logo links"
+      "copy copy";
     column-gap: var(--space-lg);
     text-align: left;
   }
@@ -3152,21 +3175,21 @@ p {
   }
 
   .footer-links {
-    grid-area: links;
-    justify-self: center;
-  }
-
-  .footer-copy {
-    grid-area: copy;
-    text-align: right;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
-@media (min-width: 1120px) {
+@container site-footer (min-width: 60rem) {
   .footer-links {
-    flex-wrap: wrap;
-    gap: var(--space-md);
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--space-sm);
     align-items: center;
+    justify-content: flex-end;
+  }
+
+  .footer-links > * {
+    flex: 0 0 auto;
     white-space: nowrap;
   }
 }
