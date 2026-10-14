@@ -55,6 +55,9 @@ try {
     await page.locator('#cookie-consent').waitFor({ state: 'visible' });
     assert.equal(await page.locator('[data-consent-accept]').isVisible(), true);
     assert.equal(await page.locator('[data-consent-reject]').isVisible(), true);
+    assert.equal(await page.locator('#cookie-necessary').isChecked(), true);
+    assert.equal(await page.locator('#cookie-necessary').isDisabled(), true);
+    assert.equal(await page.locator('#cookie-optional').isChecked(), false);
     assert.equal(await page.evaluate(() => localStorage.length), 0);
     await noOptionalAccess(page);
     await ctx.close();
@@ -65,7 +68,7 @@ try {
   const page = await ctx.newPage();
   await page.goto(base + '/');
   await language(page, 'en');
-  assert.equal(await page.locator('#cookie-consent-title').textContent(), 'Cookie choices');
+  assert.equal(await page.locator('#cookie-consent-title').textContent(), 'Cookies');
   await noOptionalAccess(page);
   await page.getByRole('button', { name: 'Reject optional', exact: true }).click();
   assert.equal(await page.locator('#cookie-consent').isHidden(), true);
@@ -78,7 +81,7 @@ try {
   assert.equal(await page.locator('html').getAttribute('lang'), 'lt');
   assert.equal(await page.locator('#cookie-consent').isHidden(), true);
   await page.locator('[data-cookie-settings]').click();
-  assert.equal(await page.locator('[data-consent-status]').textContent(), 'Atmesti');
+  assert.equal(await page.locator('#cookie-optional').isChecked(), false);
   assert.equal(await page.locator('[data-consent-reject]').evaluate(el => el === document.activeElement), true);
   await page.keyboard.press('Tab');
   await page.keyboard.press('Enter');
@@ -103,6 +106,48 @@ try {
   await other.reload();
   assert.equal(await other.locator('html').getAttribute('lang'), 'lt');
   console.log('Passed: reject, language switching, saved acceptance, keyboard controls, withdrawal and cross-tab enforcement.');
+
+  const toggles = await context();
+  const togglePage = await toggles.newPage();
+  await togglePage.goto(base + '/');
+  await language(togglePage, 'en');
+  assert.equal(await togglePage.locator('#cookie-optional-info').isHidden(), true);
+  await togglePage.locator('[data-consent-info="optionalInfo"]').hover();
+  assert.equal(await togglePage.locator('#cookie-optional-info').isVisible(), true);
+  await togglePage.locator('#cookie-optional-info').hover();
+  assert.equal(await togglePage.locator('#cookie-optional-info').isVisible(), true, 'The info must stay open while hovered');
+  await togglePage.locator('[data-consent-reject]').hover();
+  assert.equal(await togglePage.locator('#cookie-optional-info').isHidden(), true);
+  await togglePage.locator('[data-consent-info="optionalInfo"]').focus();
+  assert.equal(await togglePage.locator('#cookie-optional-info').isVisible(), true);
+  await togglePage.keyboard.press('Escape');
+  assert.equal(await togglePage.locator('#cookie-optional-info').isHidden(), true);
+  assert.equal(await togglePage.locator('#cookie-consent').isVisible(), true);
+  await togglePage.locator('#cookie-optional').check();
+  assert.equal(await togglePage.evaluate(() => window.checkautoConsent.preferencesAllowed()), true);
+  assert.equal(await togglePage.evaluate(() => localStorage.getItem('checkauto-lang')), 'en');
+  assert.equal(await togglePage.locator('#cookie-consent').isVisible(), true, 'The toggle applies without dismissing the panel');
+  await togglePage.locator('#cookie-optional').uncheck();
+  assert.equal(await togglePage.evaluate(() => window.checkautoConsent.preferencesAllowed()), false);
+  assert.equal(await togglePage.evaluate(() => localStorage.getItem('checkauto-lang')), null);
+  await togglePage.getByRole('button', { name: 'Accept', exact: true }).click();
+  assert.equal(await togglePage.evaluate(() => window.checkautoConsent.preferencesAllowed()), true, 'Accept must override an off optional toggle');
+  await togglePage.locator('[data-cookie-settings]').click();
+  assert.equal(await togglePage.locator('#cookie-optional').isChecked(), true);
+  await togglePage.getByRole('button', { name: 'Reject optional', exact: true }).click();
+  assert.equal(await togglePage.evaluate(() => window.checkautoConsent.preferencesAllowed()), false, 'Reject must override an on optional toggle');
+  await toggles.close();
+  const touch = await context({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true });
+  const touchPage = await touch.newPage();
+  await touchPage.goto(base + '/');
+  await touchPage.locator('[data-consent-info="optionalInfo"]').tap();
+  assert.equal(await touchPage.locator('#cookie-optional-info').isVisible(), true);
+  await touchPage.locator('[data-consent-info="optionalInfo"]').tap();
+  assert.equal(await touchPage.locator('#cookie-optional-info').isHidden(), true);
+  await touchPage.locator('#cookie-optional').tap();
+  assert.equal(await touchPage.evaluate(() => window.checkautoConsent.preferencesAllowed()), true);
+  await touch.close();
+  console.log('Passed: always-on essential toggle, immediate optional toggle, button overrides and hover/focus/touch info.');
 
   // Rejection must not remove the necessary booking recovery capability.
   await page.goto(base + '/kontaktai/');
@@ -202,6 +247,9 @@ try {
       await language(v, lang);
       const overflow = await v.evaluate(() => ({ width: innerWidth, scrollWidth: document.documentElement.scrollWidth, elements: Array.from(document.querySelectorAll('body *')).filter(el => el.getBoundingClientRect().right > innerWidth + 1).slice(0, 6).map(el => ({ tag: el.tagName, className: el.className, right: el.getBoundingClientRect().right })) }));
       assert.ok(overflow.scrollWidth <= overflow.width, `Overflow at ${width}px in ${lang}: ${JSON.stringify(overflow)}`);
+      const panel = await v.locator('#cookie-consent').boundingBox();
+      assert.equal(Math.round(panel.x), 12, 'The panel must sit at the bottom-left');
+      assert.ok(panel.width <= 340 && panel.height <= 220, `Panel is not compact: ${JSON.stringify(panel)}`);
       const buttons = await v.locator('.cookie-banner-actions button').evaluateAll(els => els.map(el => ({ height: el.getBoundingClientRect().height, color: getComputedStyle(el).color, background: getComputedStyle(el).backgroundColor, border: getComputedStyle(el).border })));
       assert.ok(buttons.every(b => b.height >= 44));
       assert.deepEqual(buttons[0], buttons[1], 'Accept/reject must have equal presentation');
@@ -209,6 +257,7 @@ try {
   }
   await v.setViewportSize({ width: 390, height: 844 });
   await v.screenshot({ path: '/private/tmp/checkauto-cookie-mobile.png' });
+  await v.locator('#cookie-consent').screenshot({ path: '/private/tmp/checkauto-cookie-panel.png' });
   await v.evaluate(() => document.documentElement.style.fontSize = '200%');
   assert.equal(await v.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
   await v.locator('[data-consent-reject]').click();

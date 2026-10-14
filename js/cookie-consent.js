@@ -12,35 +12,35 @@
   var forcedOff = false;
   var labels = {
     lt: {
-      title: 'Slapukų pasirinkimai',
-      necessary: 'Būtinieji',
-      active: 'Visada aktyvūs',
-      necessaryText: 'Sutikimo pasirinkimui ir rezervacijos pateikimui.',
-      optional: 'Pasirenkamieji',
-      optionalText: 'Pasirinktos kalbos įsiminimas.',
-      pending: 'Tik su sutikimu',
-      allowed: 'Leidžiami',
-      rejected: 'Atmesti',
-      reject: 'Atmesti pasirenkamuosius',
-      accept: 'Priimti pasirenkamuosius',
+      title: 'Slapukai',
+      necessary: 'Svetainės veikimas',
+      active: 'Visada įjungta',
+      necessaryText: 'Padeda pateikti rezervaciją ir išsaugo jūsų slapukų pasirinkimą.',
+      necessaryInfo: 'Apie svetainės veikimo slapukus',
+      optional: 'Patogumo funkcijos',
+      optionalNote: 'Pasirenkama',
+      optionalText: 'Įsimena jūsų pasirinktą kalbą.',
+      optionalInfo: 'Apie patogumo funkcijas',
+      reject: 'Atmesti nebūtinus',
+      accept: 'Priimti',
       settings: 'Slapukų nustatymai',
-      privacy: 'Privatumo politika',
+      privacy: 'Privatumas',
       error: 'Pasirinkimo išsaugoti nepavyko. Pasirenkamoji saugykla išjungta.'
     },
     en: {
-      title: 'Cookie choices',
-      necessary: 'Strictly necessary',
-      active: 'Always active',
+      title: 'Cookies',
+      necessary: 'Site operation',
+      active: 'Always on',
       necessaryText: 'Your consent choice and booking submission.',
-      optional: 'Optional',
+      necessaryInfo: 'About site operation cookies',
+      optional: 'Quality of life',
+      optionalNote: 'Optional',
       optionalText: 'Remembering your selected language.',
-      pending: 'Only with consent',
-      allowed: 'Allowed',
-      rejected: 'Rejected',
+      optionalInfo: 'About quality of life features',
       reject: 'Reject optional',
-      accept: 'Accept optional',
+      accept: 'Accept',
       settings: 'Cookie settings',
-      privacy: 'Privacy Policy',
+      privacy: 'Privacy',
       error: 'Your choice could not be saved. Optional storage stays off.'
     }
   };
@@ -95,8 +95,10 @@
     banner.querySelectorAll('[data-consent-copy]').forEach(function (element) {
       element.textContent = copy[element.dataset.consentCopy];
     });
-    banner.querySelector('[data-consent-status]').textContent =
-      !record ? copy.pending : record.preferences ? copy.allowed : copy.rejected;
+    banner.querySelector('[data-consent-optional]').checked = Boolean(record && record.preferences);
+    banner.querySelectorAll('[data-consent-info]').forEach(function (button) {
+      button.setAttribute('aria-label', copy[button.dataset.consentInfo]);
+    });
     banner.querySelector('[data-consent-error]').hidden = !saveFailed;
     document.querySelectorAll('[data-cookie-settings]').forEach(function (button) {
       button.textContent = copy.settings;
@@ -114,6 +116,7 @@
   function closeBanner() {
     var hasFocus = banner.contains(document.activeElement);
     banner.hidden = true;
+    closeInfo();
     updateLabels();
     measureBanner();
     if (hasFocus) {
@@ -131,12 +134,13 @@
     saveFailed = false;
     returnFocus = trigger || document.activeElement;
     banner.hidden = false;
+    closeInfo();
     updateLabels();
     measureBanner();
     banner.querySelector('[data-consent-reject]').focus({ preventScroll: true });
   }
 
-  function choose(preferences) {
+  function choose(preferences, dismiss) {
     var now = Date.now();
     var next = { version: VERSION, preferences: preferences, savedAt: now, expiresAt: now + LIFETIME };
     // If the necessary consent record cannot be saved, fail closed for optional storage.
@@ -161,7 +165,50 @@
       clearLanguage();
     }
     window.dispatchEvent(new CustomEvent('checkauto:consentchange', { detail: { preferences: preferences } }));
-    closeBanner();
+    if (dismiss !== false) closeBanner();
+    else { updateLabels(); measureBanner(); }
+  }
+
+  function closeInfo(except) {
+    if (!banner) return;
+    banner.querySelectorAll('.cookie-info').forEach(function (info) {
+      if (info === except) return;
+      info.dataset.pinned = 'false';
+      info.querySelector('[data-consent-info]').setAttribute('aria-expanded', 'false');
+      info.querySelector('[role="tooltip"]').hidden = true;
+    });
+  }
+
+  function initInfo() {
+    banner.querySelectorAll('.cookie-info').forEach(function (info) {
+      var button = info.querySelector('[data-consent-info]');
+      var tooltip = info.querySelector('[role="tooltip"]');
+      function show() {
+        closeInfo(info);
+        button.setAttribute('aria-expanded', 'true');
+        tooltip.hidden = false;
+      }
+      function hide() {
+        info.dataset.pinned = 'false';
+        button.setAttribute('aria-expanded', 'false');
+        tooltip.hidden = true;
+      }
+      info.addEventListener('mouseenter', show);
+      info.addEventListener('mouseleave', function () {
+        if (info.dataset.pinned !== 'true' && !info.contains(document.activeElement)) hide();
+      });
+      button.addEventListener('focus', show);
+      info.addEventListener('focusout', function (event) {
+        if (!info.contains(event.relatedTarget) && !info.matches(':hover')) hide();
+      });
+      button.addEventListener('click', function () {
+        if (info.dataset.pinned === 'true') hide();
+        else { info.dataset.pinned = 'true'; show(); }
+      });
+      info.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') { hide(); event.stopPropagation(); }
+      });
+    });
   }
 
   function init() {
@@ -172,20 +219,33 @@
     banner.setAttribute('aria-labelledby', 'cookie-consent-title');
     banner.innerHTML = '<div class="cookie-banner-heading"><h2 id="cookie-consent-title" data-consent-copy="title"></h2>' +
       '<a href="/privatumo-politika/#cookies" data-consent-copy="privacy"></a></div>' +
-      '<div class="cookie-category"><p><strong data-consent-copy="necessary"></strong>' +
-      '<span data-consent-copy="active"></span></p><p data-consent-copy="necessaryText"></p></div>' +
-      '<div class="cookie-category"><p><strong data-consent-copy="optional"></strong>' +
-      '<span data-consent-status></span></p><p data-consent-copy="optionalText"></p></div>' +
+      '<div class="cookie-category"><label class="cookie-category-label" for="cookie-necessary">' +
+      '<span id="cookie-necessary-label" data-consent-copy="necessary"></span>' +
+      '<span class="cookie-category-note" id="cookie-necessary-note" data-consent-copy="active"></span></label>' +
+      '<span class="cookie-info"><button type="button" class="cookie-info-button" data-consent-info="necessaryInfo" aria-expanded="false" aria-controls="cookie-necessary-info">' +
+      '<span aria-hidden="true">i</span></button><span class="cookie-info-popover" id="cookie-necessary-info" role="tooltip" data-consent-copy="necessaryText" hidden></span></span>' +
+      '<label class="cookie-switch"><input id="cookie-necessary" type="checkbox" role="switch" checked disabled aria-labelledby="cookie-necessary-label" aria-describedby="cookie-necessary-note cookie-necessary-info">' +
+      '<span class="cookie-switch-track" aria-hidden="true"></span></label></div>' +
+      '<div class="cookie-category"><label class="cookie-category-label" for="cookie-optional">' +
+      '<span id="cookie-optional-label" data-consent-copy="optional"></span>' +
+      '<span class="cookie-category-note" id="cookie-optional-note" data-consent-copy="optionalNote"></span></label>' +
+      '<span class="cookie-info"><button type="button" class="cookie-info-button" data-consent-info="optionalInfo" aria-expanded="false" aria-controls="cookie-optional-info">' +
+      '<span aria-hidden="true">i</span></button><span class="cookie-info-popover" id="cookie-optional-info" role="tooltip" data-consent-copy="optionalText" hidden></span></span>' +
+      '<label class="cookie-switch"><input id="cookie-optional" type="checkbox" role="switch" data-consent-optional aria-labelledby="cookie-optional-label" aria-describedby="cookie-optional-note cookie-optional-info">' +
+      '<span class="cookie-switch-track" aria-hidden="true"></span></label></div>' +
       '<div class="cookie-banner-actions"><button type="button" data-consent-reject data-consent-copy="reject"></button>' +
       '<button type="button" data-consent-accept data-consent-copy="accept"></button></div>' +
       '<p class="cookie-banner-error" role="status" data-consent-error data-consent-copy="error" hidden></p>';
     banner.hidden = Boolean(refreshRecord());
     document.body.insertBefore(banner, document.body.firstChild);
+    initInfo();
+    banner.querySelector('[data-consent-optional]').addEventListener('change', function (event) { choose(event.target.checked, false); });
     banner.querySelector('[data-consent-reject]').addEventListener('click', function () { choose(false); });
     banner.querySelector('[data-consent-accept]').addEventListener('click', function () { choose(true); });
     document.addEventListener('click', function (event) {
       var trigger = event.target.closest('[data-cookie-settings]');
       if (trigger) openSettings(trigger);
+      if (!event.target.closest('.cookie-info')) closeInfo();
     });
     banner.addEventListener('keydown', function (event) {
       if (event.key === 'Escape' && record) closeBanner();
