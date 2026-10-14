@@ -259,83 +259,12 @@
     });
   }
 
-  function initLegalNavigation() {
-    var article = document.querySelector('.legal-document');
-    if (!article || !article.parentElement) return;
-
-    var container = article.parentElement;
-    var details = container.querySelector('[data-legal-toc]');
-    var desktopMedia = window.matchMedia('(min-width: 980px)');
-
-    if (!details) {
-      details = document.createElement('details');
-      details.className = 'legal-toc';
-      details.dataset.legalToc = '';
-
-      var summary = document.createElement('summary');
-      summary.dataset.legalTocSummary = '';
-      details.appendChild(summary);
-
-      var nav = document.createElement('nav');
-      nav.dataset.legalTocNav = '';
-      details.appendChild(nav);
-
-      container.insertBefore(details, article);
-      container.classList.add('has-legal-navigation');
-
-      var syncingOpenState = true;
-      details.open = desktopMedia.matches;
-      syncingOpenState = false;
-      details.addEventListener('toggle', function () {
-        if (!syncingOpenState) details.dataset.userToggled = 'true';
-      });
-
-      function syncAtBreakpoint(event) {
-        if (details.dataset.userToggled === 'true') return;
-        syncingOpenState = true;
-        details.open = event.matches;
-        syncingOpenState = false;
-      }
-
-      if (typeof desktopMedia.addEventListener === 'function') {
-        desktopMedia.addEventListener('change', syncAtBreakpoint);
-      } else if (typeof desktopMedia.addListener === 'function') {
-        desktopMedia.addListener(syncAtBreakpoint);
-      }
-    }
-
-    var summaryEl = details.querySelector('[data-legal-toc-summary]');
-    var navEl = details.querySelector('[data-legal-toc-nav]');
-    if (!summaryEl || !navEl) return;
-
-    summaryEl.textContent = t('legal.contents', 'Turinys');
-    navEl.setAttribute('aria-label', t('legal.contents_label', 'Dokumento skyriai'));
-    var list = document.createElement('ol');
-
-    article.querySelectorAll('h2').forEach(function (heading, index) {
-      heading.id = 'legal-section-' + (index + 1);
-      var item = document.createElement('li');
-      var link = document.createElement('a');
-      link.href = '#' + heading.id;
-      link.textContent = heading.textContent;
-      link.addEventListener('click', function () {
-        if (!desktopMedia.matches) details.open = false;
-      });
-      item.appendChild(link);
-      list.appendChild(item);
-    });
-
-    navEl.replaceChildren(list);
-  }
-
   function init() {
     initMobileNav();
     initCopyButtons();
     initLegalLinkTargets();
-    initLegalNavigation();
     window.addEventListener('checkauto:languagechange', function () {
       initLegalLinkTargets();
-      initLegalNavigation();
     });
   }
 
