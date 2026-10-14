@@ -4245,18 +4245,20 @@ p {
 
 .faq-groups {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-xl);
 }
 
 .faq-group {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+  max-width: 680px;
+  margin-inline: auto;
   gap: var(--space-md);
 }
 
 .faq-group > h2 {
-  max-width: 680px;
-  width: 100%;
-  margin-inline: auto;
   font-size: var(--font-size-lg);
 }
 
