@@ -46,6 +46,26 @@ async function language(page, lang) {
 async function noOptionalAccess(page) {
   assert.deepEqual(await page.evaluate(() => window.optionalAccess.filter(item => !item.consent)), []);
 }
+async function pageLayout(page) {
+  return page.evaluate(async () => {
+    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    const box = selector => {
+      const element = document.querySelector(selector);
+      if (!element) return null;
+      const { x, y, width, height } = element.getBoundingClientRect();
+      return { x, y, width, height };
+    };
+    return {
+      pageHeight: document.documentElement.scrollHeight,
+      pageWidth: document.documentElement.scrollWidth,
+      scrollX, scrollY,
+      bodyPadding: getComputedStyle(document.body).paddingBottom,
+      header: box('.site-header'),
+      main: box('main'),
+      footer: box('.site-footer'),
+    };
+  });
+}
 try {
   // Direct entry on every public route must ask, with optional reads and writes blocked.
   for (const route of pages) {
@@ -63,6 +83,39 @@ try {
     await ctx.close();
   }
   console.log('Passed: fresh entry on all 11 public routes; no optional storage access.');
+
+  // Opening a floating overlay must not resize or scroll the page behind it.
+  const layoutContext = await context();
+  const layoutPage = await layoutContext.newPage();
+  for (const width of [320, 768, 1280]) {
+    await layoutPage.setViewportSize({ width, height: 800 });
+    for (const lang of ['lt', 'en']) {
+      for (const route of pages) {
+        if (route === '/unsubscribe/' && lang === 'en') continue; // This standalone page is Lithuanian-only.
+        await layoutPage.goto(base + route);
+        await layoutPage.locator('[data-cookie-settings]').waitFor();
+        if (route !== '/unsubscribe/') {
+          await layoutPage.waitForFunction(() => window.checkautoI18n);
+          await language(layoutPage, lang);
+        }
+        await layoutPage.evaluate(() => document.fonts.ready);
+        if (await layoutPage.locator('#cookie-consent').isVisible()) await layoutPage.locator('[data-consent-reject]').click();
+        await layoutPage.evaluate(() => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' }));
+        const settings = layoutPage.locator('[data-cookie-settings]');
+        await settings.focus();
+        const before = await pageLayout(layoutPage);
+        if (width === 768) await layoutPage.keyboard.press('Enter'); else await settings.click();
+        assert.equal(await layoutPage.locator('#cookie-consent').isVisible(), true);
+        assert.deepEqual(await pageLayout(layoutPage), before, `${route} ${width}px/${lang}: opening settings changed layout`);
+        await layoutPage.keyboard.press('Escape');
+        assert.equal(await layoutPage.locator('#cookie-consent').isHidden(), true);
+        assert.deepEqual(await pageLayout(layoutPage), before, `${route} ${width}px/${lang}: closing settings changed layout`);
+        assert.equal(await settings.evaluate(el => el === document.activeElement), true, 'Restore focus without scrolling');
+      }
+    }
+  }
+  await layoutContext.close();
+  console.log('Passed: cookie overlay opens/closes without page or footer resizing or scrolling, every route, LT/EN, 320–1280px.');
 
   const ctx = await context();
   const page = await ctx.newPage();

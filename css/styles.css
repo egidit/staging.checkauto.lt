@@ -1,6 +1,4 @@
 /* Consent choices keep equally sized, directly accessible actions. */
-html { scroll-padding-bottom: var(--cookie-banner-space, 0px); }
-body.has-cookie-banner { padding-bottom: var(--cookie-banner-space); }
 .cookie-banner {
   position: fixed;
   inset: auto auto max(12px, env(safe-area-inset-bottom)) 12px;
@@ -85,7 +83,7 @@ body.has-cookie-banner { padding-bottom: var(--cookie-banner-space); }
   cursor: pointer;
 }
 .cookie-settings:hover { color: var(--color-text); text-decoration: underline; }
-@media print { .cookie-banner, .cookie-settings { display: none; } body.has-cookie-banner { padding-bottom: 0; } }
+@media print { .cookie-banner, .cookie-settings { display: none; } }
 
 /* Inter — Variable (400–700) */
 @font-face {

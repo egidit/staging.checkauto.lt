@@ -107,18 +107,11 @@
     });
   }
 
-  function measureBanner() {
-    document.body.classList.toggle('has-cookie-banner', Boolean(banner && !banner.hidden));
-    document.documentElement.style.setProperty('--cookie-banner-space',
-      banner && !banner.hidden ? Math.ceil(banner.getBoundingClientRect().height + 24) + 'px' : '0px');
-  }
-
   function closeBanner() {
     var hasFocus = banner.contains(document.activeElement);
     banner.hidden = true;
     closeInfo();
     updateLabels();
-    measureBanner();
     if (hasFocus) {
       var target = returnFocus && returnFocus.isConnected ? returnFocus : document.querySelector('main');
       if (target) {
@@ -136,7 +129,6 @@
     banner.hidden = false;
     closeInfo();
     updateLabels();
-    measureBanner();
     banner.querySelector('[data-consent-reject]').focus({ preventScroll: true });
   }
 
@@ -156,7 +148,6 @@
       try { localStorage.removeItem(KEY); } catch (_) {}
       clearLanguage();
       updateLabels();
-      measureBanner();
       return;
     }
     if (preferences) {
@@ -166,7 +157,7 @@
     }
     window.dispatchEvent(new CustomEvent('checkauto:consentchange', { detail: { preferences: preferences } }));
     if (dismiss !== false) closeBanner();
-    else { updateLabels(); measureBanner(); }
+    else updateLabels();
   }
 
   function closeInfo(except) {
@@ -256,17 +247,13 @@
       refreshRecord();
       saveFailed = false;
       if (record) closeBanner();
-      else { banner.hidden = false; updateLabels(); measureBanner(); }
+      else { banner.hidden = false; updateLabels(); }
     });
     window.addEventListener('pageshow', function () {
       if (!refreshRecord()) banner.hidden = false;
       updateLabels();
-      measureBanner();
     });
-    if (typeof ResizeObserver === 'function') new ResizeObserver(measureBanner).observe(banner);
-    window.addEventListener('resize', measureBanner);
     updateLabels();
-    measureBanner();
   }
 
   // Runs in the head, before every early language read and before page scripts.
