@@ -3,7 +3,7 @@
    
    Lithuanian (lt) is the default language, hardcoded in HTML.
    English translations are loaded from /lang/en/common.json + per-page JSON.
-   Language switcher persists the choice to localStorage.
+   Language preference is stored only with optional-storage consent.
    
    No dependencies. No build step. Pure vanilla JS.
    ========================================================================== */
@@ -83,20 +83,11 @@
   }
 
   function getStoredLanguage() {
-    try {
-      const value = localStorage.getItem('checkauto-lang');
-      return SUPPORTED_LANGS.indexOf(value) !== -1 ? value : DEFAULT_LANG;
-    } catch (_) {
-      return DEFAULT_LANG;
-    }
+    return window.checkautoConsent ? window.checkautoConsent.getLanguage() : DEFAULT_LANG;
   }
 
   function storeLanguage(lang) {
-    try {
-      localStorage.setItem('checkauto-lang', lang);
-    } catch (_) {
-      // Language switching still works when storage is unavailable.
-    }
+    if (window.checkautoConsent) window.checkautoConsent.rememberLanguage(lang);
   }
 
   function normalizeTranslation(value) {
@@ -266,7 +257,7 @@
     const timeout = controller
       ? window.setTimeout(function () { controller.abort(); }, TRANSLATION_TIMEOUT_MS)
       : 0;
-    return fetch('/lang/' + lang + '/' + name + '.json', controller ? { signal: controller.signal } : undefined)
+    return fetch('/lang/' + lang + '/' + name + '.json?v=20261014-2', controller ? { signal: controller.signal } : undefined)
       .then(function (res) {
         if (!res.ok) throw new Error('Translation request failed: ' + res.status);
         return res.json();
@@ -302,7 +293,7 @@
   }
 
   /**
-   * Set the active language, persist to localStorage, and re-render all text.
+   * Set the active language, remember it only with consent, and re-render text.
    * Lithuanian is restored from the original DOM snapshot (no JSON needed).
    * Other languages are fetched from /lang/{lang}/ JSON files.
    */

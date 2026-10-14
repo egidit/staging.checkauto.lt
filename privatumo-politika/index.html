@@ -20,10 +20,11 @@
 
   <link rel="preload" href="/assets/fonts/Inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/css/styles.css?v=20260823-9">
+  <link rel="stylesheet" href="/css/styles.css?v=20261014-2">
+  <script src="/js/cookie-consent.js?v=20261014-2"></script>
 
   <script>
-    (function(){var l=localStorage.getItem('checkauto-lang');if(l&&l!=='lt'){document.documentElement.lang=l;document.documentElement.classList.add('i18n-loading');}})();
+    (function(){var l=window.checkautoConsent ? window.checkautoConsent.getLanguage() : 'lt';if(l&&l!=='lt'){document.documentElement.lang=l;document.documentElement.classList.add('i18n-loading');}})();
   </script>
 
   <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
@@ -39,7 +40,7 @@
       <div class="container">
         <article class="legal-document" data-i18n-html="privacy.document">
           <h1>Privatumo politika</h1>
-          <p class="legal-meta">Galioja nuo 2026-10-01. Dokumento versija: privacy-2026-10-01.</p>
+          <p class="legal-meta">Galioja nuo 2026-10-14. Dokumento versija: privacy-2026-10-14.</p>
 
           <h2>1. Duomenų valdytojas</h2>
           <p>Duomenų valdytojas yra Antanas Varnas („checkauto.lt“). Privatumo klausimais galite kreiptis el. paštu <a href="mailto:info@checkauto.lt">info@checkauto.lt</a> arba telefonu <a href="tel:+37060945238">+370 609 45 238</a>.</p>
@@ -109,9 +110,9 @@
           <h2>7. Tarptautiniai duomenų perdavimai</h2>
           <p>Dalies tiekėjų infrastruktūra, subrangovai arba techninės paslaugos gali būti už Europos ekonominės erdvės ribų. Kai toks perdavimas taikomas, naudojamos atitinkamos sutartinės, organizacinės ir teisės aktuose numatytos apsaugos priemonės, pavyzdžiui, duomenų tvarkymo sutartys, standartinės sutarčių sąlygos ar kiti teisėti perdavimo mechanizmai.</p>
 
-          <h2>8. Slapukai, techniniai įrašai ir vietinė saugykla</h2>
-          <p>Svetainė gali naudoti būtinuosius techninius slapukus, naršyklės vietinę saugyklą arba kitus techninius įrašus, kai jie reikalingi svetainės veikimui, kalbos pasirinkimui, saugumui, formų apsaugai ar rezervacijos procesui. Tokie įrašai nėra naudojami elgsenos reklamai.</p>
-          <p>Svetainėje šiuo metu nenaudojama Google Analytics ar Meta Pixel, nebent tai ateityje būtų aiškiai įdiegta ir atitinkamai atnaujinta ši politika bei, jei reikia, sutikimų mechanizmas.</p>
+          <h2 id="cookies">8. Slapukai ir naršyklės saugykla</h2>
+          <p>Naudojame būtinąją ir pasirenkamąją naršyklės saugyklą. Būtinasis įrašas <code>checkauto-cookie-consent</code> vietinėje saugykloje išsaugo jūsų sutikimą arba atsisakymą 180 dienų. Sesijos įrašas <code>checkauto-booking-operation</code> padeda užbaigti rezervaciją po ryšio sutrikimo ir išvengti pakartotinio pateikimo; jis pašalinamas užbaigus rezervaciją arba pasibaigus kortelės sesijai.</p>
+          <p>Pasirenkamasis įrašas <code>checkauto-lang</code> išsaugo pasirinktą kalbą tik jums sutikus ir ne ilgiau nei galioja sutikimas. Atmetus ar atšaukus sutikimą, šis įrašas pašalinamas, o kalba nebeįsimenama kitam puslapiui. Kalbą vis tiek galite keisti. Pasirinkimą bet kada galite pakeisti paspaudę „Slapukų nustatymai“ puslapio apačioje. Analitikos ir reklamos sekimo priemonių nenaudojame.</p>
 
           <h2>9. Rinkodara ir sutikimo atšaukimas</h2>
           <p>Rinkodaros pranešimai, naujienos, patarimai ar pasiūlymai siunčiami tik turint atskirą sutikimą. Sutikimą galite bet kada atšaukti paspausdami laiške esančią atsisakymo nuorodą arba parašydami el. paštu <a href="mailto:info@checkauto.lt">info@checkauto.lt</a>.</p>
@@ -155,8 +156,8 @@
 
   <div id="site-footer"></div>
 
-  <script src="/js/components.js?v=20260823-7"></script>
-  <script src="/js/i18n.js?v=20260823-6"></script>
-  <script src="/js/main.js?v=20261014-1"></script>
+  <script src="/js/components.js?v=20261014-2"></script>
+  <script src="/js/i18n.js?v=20261014-2"></script>
+  <script src="/js/main.js?v=20261014-2"></script>
 </body>
 </html>

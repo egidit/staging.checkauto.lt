@@ -103,6 +103,7 @@
         '</a>' +
         '<nav class="footer-links" aria-label="Poraštės navigacija" data-i18n-aria="a11y.footer_navigation">' +
           footerLinks +
+          '<button type="button" class="cookie-settings" data-cookie-settings>Slapukų nustatymai</button>' +
         '</nav>' +
         '<p class="footer-copy" data-i18n="footer.copy">© 2026 checkauto.lt. Visos teisės saugomos.</p>' +
       '</div>' +

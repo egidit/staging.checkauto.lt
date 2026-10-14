@@ -13,7 +13,7 @@
   var BOOKING_ENDPOINT = 'https://ddhhhieitupjixynjrry.supabase.co/functions/v1/public-booking';
   var SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_E-TFw7kuSofnw-xDmBk54w_0Ld0HTyC';
   var TERMS_TEXT_VERSION = 'terms-2026-10-14';
-  var PRIVACY_TEXT_VERSION = 'privacy-2026-10-01';
+  var PRIVACY_TEXT_VERSION = 'privacy-2026-10-14';
   var MARKETING_CONSENT_TEXT_VERSION = 'booking-form-2026-07-02';
 
   var MESSAGES = {
