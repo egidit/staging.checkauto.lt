@@ -4411,6 +4411,7 @@ p {
   gap: 0.7rem;
   align-items: start;
   padding: 0.8rem 0;
+  overflow-wrap: anywhere;
 }
 
 .consent-row + .consent-row {

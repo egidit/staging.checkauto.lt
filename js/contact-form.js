@@ -12,8 +12,10 @@
 
   var BOOKING_ENDPOINT = 'https://ddhhhieitupjixynjrry.supabase.co/functions/v1/public-booking';
   var SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_E-TFw7kuSofnw-xDmBk54w_0Ld0HTyC';
-  var TERMS_TEXT_VERSION = 'terms-2026-10-14';
-  var PRIVACY_TEXT_VERSION = 'privacy-2026-10-14';
+  var TERMS_TEXT_VERSION = 'terms-2026-10-19';
+  var PRIVACY_TEXT_VERSION = 'privacy-2026-10-19';
+  // Keep published wording versions in /data/legal-consents.json for consent evidence.
+  var EARLY_SERVICE_CONSENT_TEXT_VERSION = 'early-service-consent-2026-10-19';
   var MARKETING_CONSENT_TEXT_VERSION = 'booking-form-2026-07-02';
 
   var MESSAGES = {
@@ -22,7 +24,7 @@
       loadingSlots: 'Kraunami galimi laikai...',
       chooseService: 'Pirmiausia pasirinkite patikros tipą.',
       chooseSlot: 'Pasirinkite vieną iš galimų laikų.',
-      chooseLegal: 'Sutikite su taisyklėmis ir privatumo politika.',
+      chooseLegal: 'Patvirtinkite taisykles ir paslaugos pradžios sutikimą.',
       serviceRequiredHint: 'Privaloma paslauga',
       slotsAvailable: 'Pasirinkite laiką.',
       formNeedsAttention: 'Patikrinkite pažymėtus laukus. Perkelta į pirmą nebaigtą lauką.',
@@ -54,7 +56,7 @@
       loadingSlots: 'Loading available times...',
       chooseService: 'Select an inspection type first.',
       chooseSlot: 'Choose one available time.',
-      chooseLegal: 'Accept the Terms and Conditions and acknowledge the Privacy Policy.',
+      chooseLegal: 'Accept the terms and confirm the service-start request.',
       serviceRequiredHint: 'Required service',
       slotsAvailable: 'Choose a time.',
       formNeedsAttention: 'Review the highlighted fields. Focus moved to the first incomplete field.',
@@ -804,7 +806,8 @@
     var retryButton = form.querySelector('[data-booking-slot-retry]');
     var consentGroup = form.querySelector('[data-legal-consents]');
     var termsConsent = form.querySelector('[data-terms-consent]');
-    var requiredConsents = [termsConsent].filter(Boolean);
+    var earlyServiceConsent = form.querySelector('[data-early-service-consent]');
+    var requiredConsents = [termsConsent, earlyServiceConsent].filter(Boolean);
     var marketingConsent = form.querySelector('[data-marketing-consent]');
     var textControls = Array.prototype.slice.call(form.querySelectorAll('.floating-field input, .floating-field textarea'));
     var isSubmitting = false;
@@ -1127,6 +1130,7 @@
       var idleLabel = submitLabel ? submitLabel.textContent : '';
       var formData = new FormData(form);
       var termsAccepted = formData.get('termsConsent') === 'on';
+      var earlyServiceAccepted = formData.get('earlyServiceConsent') === 'on';
       var marketingAccepted = formData.get('marketingConsent') === 'on';
       var payload = {
         slotId: selectedSlotInput.value,
@@ -1145,6 +1149,8 @@
         termsTextVersion: TERMS_TEXT_VERSION,
         privacyAccepted: termsAccepted,
         privacyTextVersion: PRIVACY_TEXT_VERSION,
+        earlyServiceConsent: earlyServiceAccepted,
+        earlyServiceConsentTextVersion: earlyServiceAccepted ? EARLY_SERVICE_CONSENT_TEXT_VERSION : null,
         marketingConsent: marketingAccepted,
         marketingConsentTextVersion: MARKETING_CONSENT_TEXT_VERSION
       };

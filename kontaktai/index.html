@@ -33,7 +33,7 @@
   <link rel="preload" href="/assets/fonts/Inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="/css/styles.css?v=20261014-7">
+  <link rel="stylesheet" href="/css/styles.css?v=20261019-1">
   <script src="/js/cookie-consent.js?v=20261014-4"></script>
 
   <script>
@@ -257,7 +257,15 @@
                 </p>
               </div>
 
-              <p id="contact-legal-error" class="form-error" data-error-key="chooseLegal" hidden>Sutikite su taisyklėmis ir privatumo politika.</p>
+              <div class="consent-row">
+                <input id="contact-early-service-consent" name="earlyServiceConsent" type="checkbox" required autocomplete="off" data-early-service-consent aria-labelledby="contact-early-service-consent-copy" aria-describedby="contact-legal-error">
+                <p id="contact-early-service-consent-copy">
+                  <label for="contact-early-service-consent"><span data-i18n="contact.form.early_service_consent">Prašau teikti paslaugą pasirinktu vizito laiku, net jei 14 dienų sutarties atsisakymo terminas dar nepasibaigęs. Suprantu, kad visiškai suteikus paslaugą neteksiu teisės atsisakyti sutarties.</span></label>
+                  <span class="required-mark" aria-hidden="true">*</span>
+                </p>
+              </div>
+
+              <p id="contact-legal-error" class="form-error" data-error-key="chooseLegal" hidden>Patvirtinkite taisykles ir paslaugos pradžios sutikimą.</p>
 
               <div class="consent-row consent-row--optional">
                 <input id="contact-marketing-consent" name="marketingConsent" type="checkbox" data-marketing-consent>
@@ -360,8 +368,8 @@
   </script>
 
   <script src="/js/components.js?v=20261014-2"></script>
-  <script src="/js/i18n.js?v=20261014-2"></script>
+  <script src="/js/i18n.js?v=20261019-1"></script>
   <script src="/js/main.js?v=20261014-2"></script>
-  <script src="/js/contact-form.js?v=20261014-2"></script>
+  <script src="/js/contact-form.js?v=20261019-1"></script>
 </body>
 </html>

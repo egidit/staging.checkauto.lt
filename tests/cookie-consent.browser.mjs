@@ -234,10 +234,13 @@ try {
   await bookingPage.locator('[data-booking-slot-options] [role="radio"]').first().click();
   for (const [selector, value] of Object.entries({ '#contact-name': 'Consent test', '#contact-phone': '+37060000000', '#contact-email': 'consent@example.invalid', '#contact-vehicle': 'Fixture vehicle', '#contact-location': 'Fixture location' })) await bookingPage.locator(selector).fill(value);
   await bookingPage.locator('[data-terms-consent]').check();
+  await bookingPage.locator('[data-early-service-consent]').check();
   await bookingPage.locator('[data-contact-form-submit]').click();
   await bookingPage.locator('[data-contact-form-status]').getByText('COOKIE-TEST', { exact: true }).waitFor();
-  assert.equal(submitted.privacyTextVersion, 'privacy-2026-10-14');
-  assert.equal(submitted.termsTextVersion, 'terms-2026-10-14');
+  assert.equal(submitted.privacyTextVersion, 'privacy-2026-10-19');
+  assert.equal(submitted.termsTextVersion, 'terms-2026-10-19');
+  assert.equal(submitted.earlyServiceConsent, true);
+  assert.equal(submitted.earlyServiceConsentTextVersion, 'early-service-consent-2026-10-19');
   assert.equal(JSON.parse(operationAtSubmission).id, submitted.operationId);
   assert.equal(await bookingPage.evaluate(() => sessionStorage.getItem('checkauto-booking-operation')), null);
   await noOptionalAccess(bookingPage);
