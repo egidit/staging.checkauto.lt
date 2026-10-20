@@ -4327,6 +4327,10 @@ html[lang="en"] .service-offer-body h2 {
   min-width: 0;
 }
 
+.services-travel-note > .services-visual-icon {
+  flex: 0 0 42px;
+}
+
 .services-travel-note .travel-note-content h2 {
   margin-bottom: 0.2rem;
 }
