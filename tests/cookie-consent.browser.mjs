@@ -238,7 +238,7 @@ try {
   await bookingPage.locator('[data-contact-form-submit]').click();
   await bookingPage.locator('[data-contact-form-status]').getByText('COOKIE-TEST', { exact: true }).waitFor();
   assert.equal(submitted.privacyTextVersion, 'privacy-2026-10-20');
-  assert.equal(submitted.termsTextVersion, 'terms-2026-10-20');
+  assert.equal(submitted.termsTextVersion, 'terms-2026-10-20.2');
   assert.equal(submitted.earlyServiceConsent, undefined);
   assert.equal(submitted.earlyServiceConsentTextVersion, undefined);
   assert.equal(JSON.parse(operationAtSubmission).id, submitted.operationId);
