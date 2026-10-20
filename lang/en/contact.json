@@ -11,8 +11,7 @@
       "phone_label": "Phone",
       "phone": "+370 609 45 238",
       "email_label": "Email",
-      "email": "info@checkauto.lt",
-      "response_note": "We reply during business hours."
+      "email": "info@checkauto.lt"
     },
     "form": {
       "accessible_title": "Car inspection booking form",
@@ -49,7 +48,6 @@
       "legal_consent_middle": "and have read the",
       "privacy_link": "Privacy Policy",
       "confirmations_title": "Consents",
-      "early_service_consent": "I request the service at the selected appointment time, even if the 14-day withdrawal period has not ended. I understand that I will lose the right to withdraw once the service is fully performed.",
       "marketing_consent": "I agree to receive checkauto.lt news, tips, and offers by email. I understand that I can withdraw this consent at any time.",
       "submit": "Reserve time",
       "sending": "Reserving...",

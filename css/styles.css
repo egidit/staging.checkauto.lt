@@ -4734,6 +4734,22 @@ p {
   background: #0066cc;
 }
 
+.nav-mobile a.nav-cta[aria-current="page"] {
+  min-height: 52px;
+  padding: 0.65rem 1.5rem;
+  color: #fff;
+  background: var(--color-accent);
+  border-radius: 999px;
+  font-size: var(--font-size-lg);
+  line-height: normal;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(0, 71, 143, 0.18);
+}
+
+.nav-mobile a.nav-cta[aria-current="page"]::after {
+  display: none;
+}
+
 .booking-layout {
   max-width: 920px;
   grid-template-columns: minmax(0, 1fr);
