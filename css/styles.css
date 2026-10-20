@@ -3856,101 +3856,131 @@ p {
 /* Services and pricing additions. */
 .services-offer-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-lg);
+  align-items: start;
 }
 
 .service-offer {
-  position: relative;
-  display: flex;
-  flex-direction: column;
   min-width: 0;
-  overflow: hidden;
-  padding-top: clamp(14rem, 27vw, 18rem);
-  background: var(--color-bg);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 520px;
+  justify-self: center;
 }
 
-.service-offer--primary {
-  border-color: var(--color-accent);
+.service-offer-visual {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-width: 0;
+  overflow: hidden;
+  padding-top: 66%;
+  background: #f5f5f6;
+  border-radius: clamp(28px, 3.5vw, 40px);
+  box-shadow: 0 16px 36px -18px rgb(29 29 31 / 0.26);
 }
 
 .service-offer-media {
   position: absolute;
-  inset: 0;
+  z-index: -2;
+  inset: 0 0 auto;
   overflow: hidden;
-  background: var(--color-border-light);
+}
+
+.service-offer-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgb(255 255 255 / 0.65);
+  border-radius: inherit;
+  pointer-events: none;
 }
 
 .service-offer-media img {
   display: block;
   width: 100%;
-  height: calc(100% + 100px);
-  object-fit: cover;
-  object-position: center 47%;
-  transform: translateY(-100px);
-}
-
-.service-offer--primary .service-offer-media img {
-  object-position: center 45%;
+  height: auto;
 }
 
 .service-offer-badge {
-  position: absolute;
-  top: var(--space-sm);
-  right: var(--space-sm);
-  z-index: 1;
-  padding: 0.45rem 0.8rem;
-  border: 1px solid rgb(255 255 255 / 0.7);
+  padding: 0.65rem 0.85rem;
+  border: 1px solid rgb(255 255 255 / 0.72);
   border-radius: 999px;
-  background: rgb(255 255 255 / 0.92);
+  background: rgb(255 255 255 / 0.58);
   color: #0059b3;
   font-size: var(--font-size-xs);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2;
 }
 
 .service-offer-body {
   position: relative;
   display: flex;
-  flex: 1;
   flex-direction: column;
+  flex-shrink: 0;
+  gap: 1rem;
   min-width: 0;
-  padding: clamp(1.25rem, 2.5vw, 1.75rem);
-  border-top: 1px solid rgb(255 255 255 / 0.8);
-  background: linear-gradient(180deg, rgb(255 255 255 / 0.9), rgb(255 255 255 / 0.98));
-  -webkit-backdrop-filter: blur(22px) saturate(120%);
-  backdrop-filter: blur(22px) saturate(120%);
+  padding: 0 clamp(1.25rem, 3vw, 2rem) clamp(1.5rem, 3vw, 2rem);
+}
+
+/* Fade the material in above the copy, without a separate panel edge. */
+.service-offer-body::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -7rem 0 -1px;
+  pointer-events: none;
+  background: linear-gradient(to bottom,
+    rgb(255 255 255 / 0),
+    rgb(255 255 255 / 0.28) 12%,
+    rgb(255 255 255 / 0.76) 28%,
+    rgb(255 255 255 / 0.83) 52%,
+    rgb(255 255 255 / 0.96));
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 7rem);
+  mask-image: linear-gradient(to bottom, transparent, #000 7rem);
 }
 
 @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  .service-offer-body {
-    background: rgb(255 255 255 / 0.97);
+  .service-offer-body::before {
+    background: linear-gradient(to bottom, transparent, #fff 6rem);
   }
 }
 
 @media (prefers-reduced-transparency: reduce) {
-  .service-offer-body {
+  .service-offer-body::before {
     background: #fff;
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
 }
 
-.service-offer-header {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: var(--space-sm);
-  align-items: start;
-  padding-bottom: var(--space-sm);
-  border-bottom: 1px solid var(--color-border-light);
+.service-offer-body h2 {
+  margin: 0;
+  max-width: 14ch;
+  font-size: clamp(1.55rem, 2.5vw, 1.875rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+  hyphens: none;
+  overflow-wrap: anywhere;
 }
 
-.service-offer-header h2 {
-  margin: 0;
-  font-size: clamp(1.35rem, 2vw, 1.65rem);
-  line-height: var(--line-height-snug);
+html[lang="en"] .service-offer-body h2 {
+  text-wrap: wrap;
+}
+
+.service-offer-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  min-height: 2.5rem;
+  margin-block: 0.25rem;
 }
 
 .services-visual-icon[data-service-icon="selected"]::before {
@@ -3968,33 +3998,69 @@ p {
 }
 
 .service-price {
-  display: grid;
-  gap: 0.2rem;
-  justify-items: end;
-  text-align: right;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.4rem;
   white-space: nowrap;
 }
 
 .service-price strong {
   color: var(--color-text);
-  font-size: clamp(1.7rem, 2.5vw, 2rem);
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
   line-height: 1;
 }
 
 .service-price span {
-  color: var(--color-text-secondary);
+  color: #4d4d53;
   font-size: var(--font-size-xs);
 }
 
 .service-offer-body > p {
-  margin-top: var(--space-sm);
-  color: #55555b;
-  font-size: var(--font-size-sm);
+  margin: 0;
+  color: #424249;
+  font-size: 0.9375rem;
+  line-height: 1.55;
 }
 
-.service-offer .service-price span,
-.service-offer .service-scope li {
+.service-offer-details {
+  padding-inline: clamp(1.25rem, 3vw, 2rem);
+  margin-top: 0.5rem;
+}
+
+.service-offer-details summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 48px;
   color: #55555b;
+  font-size: var(--font-size-sm);
+  list-style: none;
+  cursor: pointer;
+}
+
+.service-offer-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.service-offer-details summary::after {
+  content: "+";
+  font-size: 1.25rem;
+}
+
+.service-offer-details[open] summary::after {
+  content: "\2212";
+}
+
+.service-offer-details summary:hover {
+  color: var(--color-text);
+}
+
+.service-offer-details .service-scope {
+  margin-top: 0.5rem;
 }
 
 .service-scope,
@@ -4027,17 +4093,20 @@ p {
 
 .service-offer-body > .btn {
   width: 100%;
-  margin-top: auto;
+  min-height: 52px;
+  margin: 0;
+  font-size: 0.9375rem;
+  white-space: normal;
 }
 
-@media (max-width: 400px) {
-  .service-offer-header {
-    grid-template-columns: 1fr;
+@media (min-width: 900px) {
+  .services-offer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 3rem;
   }
 
-  .service-price {
-    justify-items: start;
-    text-align: left;
+  .service-offer-body h2 {
+    min-height: 2.3em;
   }
 }
 
@@ -4645,10 +4714,6 @@ p {
   .trust-strip li + li {
     border-top: 0;
     border-left: 1px solid var(--color-border-light);
-  }
-
-  .services-offer-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .scope-groups {
