@@ -8,6 +8,7 @@
     "price_once": "per inspection",
     "s1": {
       "title": "Full pre-purchase inspection",
+      "image_alt": "Inspector measuring the vehicle's paint thickness",
       "text": "We travel to the vehicle and assess its condition systematically.",
       "item1": "Body, paint depth, and repair traces",
       "item2": "Engine, transmission, suspension, and brakes",
@@ -17,6 +18,7 @@
     },
     "s2": {
       "title": "Computer diagnostics",
+      "image_alt": "Inspector checking the vehicle's electronic systems",
       "text": "A focused electronic-systems check when a full vehicle inspection is not required.",
       "item1": "Engine and transmission control units",
       "item2": "Safety and comfort-system faults",

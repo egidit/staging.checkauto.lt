@@ -3864,7 +3864,7 @@ p {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  padding: var(--space-lg);
+  overflow: hidden;
   background: var(--color-bg);
   border: 1px solid var(--color-border-light);
   border-radius: var(--radius-lg);
@@ -3872,29 +3872,47 @@ p {
 
 .service-offer--primary {
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 1px var(--color-accent);
 }
 
-.service-offer > header {
+.service-offer-media {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--color-border-light);
+}
+
+.service-offer-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 47%;
+}
+
+.service-offer--primary .service-offer-media img {
+  object-position: center 45%;
+}
+
+.service-offer-body {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: var(--space-md);
-  align-items: flex-start;
-  padding-bottom: var(--space-md);
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.service-offer-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-sm);
+  align-items: start;
+  padding-bottom: var(--space-sm);
   border-bottom: 1px solid var(--color-border-light);
 }
 
-.service-offer-title {
-  display: grid;
-  grid-template-columns: 42px minmax(0, 1fr);
-  gap: var(--space-sm);
-  align-items: center;
-  min-width: 0;
-}
-
-.service-offer-title h2 {
+.service-offer-header h2 {
   margin: 0;
+  font-size: clamp(1.35rem, 2vw, 1.65rem);
+  line-height: var(--line-height-snug);
 }
 
 .services-visual-icon[data-service-icon="selected"]::before {
@@ -3911,21 +3929,17 @@ p {
   text-transform: uppercase;
 }
 
-.service-offer h2 {
-  font-size: var(--font-size-lg);
-}
-
 .service-price {
   display: grid;
-  flex: 0 0 auto;
-  gap: 0.15rem;
-  justify-items: start;
-  text-align: left;
+  gap: 0.2rem;
+  justify-items: end;
+  text-align: right;
+  white-space: nowrap;
 }
 
 .service-price strong {
   color: var(--color-text);
-  font-size: var(--font-size-lg);
+  font-size: clamp(1.7rem, 2.5vw, 2rem);
   line-height: 1;
 }
 
@@ -3934,8 +3948,10 @@ p {
   font-size: var(--font-size-xs);
 }
 
-.service-offer > p {
-  margin-top: var(--space-md);
+.service-offer-body > p {
+  margin-top: var(--space-sm);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
 }
 
 .service-scope,
@@ -3966,9 +3982,20 @@ p {
   font-weight: 700;
 }
 
-.service-offer > .btn {
+.service-offer-body > .btn {
   width: 100%;
   margin-top: auto;
+}
+
+@media (max-width: 400px) {
+  .service-offer-header {
+    grid-template-columns: 1fr;
+  }
+
+  .service-price {
+    justify-items: start;
+    text-align: left;
+  }
 }
 
 .scope-groups {
