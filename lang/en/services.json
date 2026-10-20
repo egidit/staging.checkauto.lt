@@ -8,6 +8,7 @@
     "price_once": "per inspection",
     "s1": {
       "title": "Full pre-purchase inspection",
+      "recommended": "Recommended",
       "image_alt": "Inspector measuring the vehicle's paint thickness",
       "text": "We travel to the vehicle and assess its condition systematically.",
       "item1": "Body, paint depth, and repair traces",
