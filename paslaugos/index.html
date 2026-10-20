@@ -33,7 +33,7 @@
   <link rel="preload" href="/assets/fonts/Inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="/css/styles.css?v=20261020-5">
+  <link rel="stylesheet" href="/css/styles.css?v=20261020-6">
   <script src="/js/cookie-consent.js?v=20261014-4"></script>
 
   <script>
@@ -49,21 +49,15 @@
 
   <div id="site-header"></div>
 
-  <main>
-    <section class="page-intro">
-      <div class="container page-intro-grid">
-        <span class="section-label" data-i18n="services.hero.label">Paslaugos</span>
-        <h1 data-i18n="services.hero.title">Automobilio patikra prieš pirkimą</h1>
-        <p data-i18n="services.hero.subtitle">Išsami patikra arba kompiuterinė diagnostika.</p>
-      </div>
-    </section>
+  <main class="page-main--direct">
+    <h1 class="visually-hidden" data-i18n="services.hero.title">Automobilio patikra prieš pirkimą</h1>
 
     <section class="section section--alt">
       <div class="container services-offer-grid">
         <article class="service-offer service-offer--primary">
           <div class="service-offer-visual">
             <div class="service-offer-media">
-              <img src="/assets/images/full_inspection.png" width="1122" height="1402" loading="lazy" decoding="async" alt="Specialistas matuoja automobilio kėbulo dažų storį" data-i18n-aria="services.s1.image_alt">
+              <img src="/assets/images/full_inspection.png" width="1122" height="1402" fetchpriority="high" decoding="async" alt="Specialistas matuoja automobilio kėbulo dažų storį" data-i18n-aria="services.s1.image_alt">
             </div>
             <div class="service-offer-body">
               <h2 data-i18n="services.s1.title">Išsami patikra prieš pirkimą</h2>
@@ -86,10 +80,10 @@
           </details>
         </article>
 
-        <article class="service-offer">
+        <article class="service-offer service-offer--diagnostics">
           <div class="service-offer-visual">
             <div class="service-offer-media">
-              <img src="/assets/images/diagnostics.png" width="1122" height="1402" loading="lazy" decoding="async" alt="Specialistas atlieka automobilio elektronikos diagnostiką" data-i18n-aria="services.s2.image_alt">
+              <img src="/assets/images/diagnostics.png" width="1122" height="1402" decoding="async" alt="Specialistas atlieka automobilio elektronikos diagnostiką" data-i18n-aria="services.s2.image_alt">
             </div>
             <div class="service-offer-body">
               <h2 data-i18n="services.s2.title">Kompiuterinė diagnostika</h2>
@@ -232,7 +226,7 @@
   </script>
 
   <script src="/js/components.js?v=20261014-2"></script>
-  <script src="/js/i18n.js?v=20261020-5"></script>
+  <script src="/js/i18n.js?v=20261020-6"></script>
   <script src="/js/main.js?v=20261014-2"></script>
 </body>
 </html>

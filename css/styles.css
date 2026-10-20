@@ -3706,6 +3706,10 @@ p {
   font-size: var(--font-size-md);
 }
 
+.page-main--direct > .section:first-of-type {
+  padding-top: clamp(1.5rem, 4vw, 3rem);
+}
+
 /* Homepage additions. */
 .hero-actions {
   display: flex;
@@ -3862,10 +3866,15 @@ p {
 }
 
 .service-offer {
+  --service-image-offset: -22%;
   min-width: 0;
   width: 100%;
   max-width: 520px;
   justify-self: center;
+}
+
+.service-offer--diagnostics {
+  --service-image-offset: -32%;
 }
 
 .service-offer-visual {
@@ -3887,6 +3896,9 @@ p {
   z-index: -2;
   inset: 0 0 auto;
   overflow: hidden;
+  /* Fade before the shifted photo ends, including on narrow cards. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 47%, transparent 66%);
+  mask-image: linear-gradient(to bottom, #000 47%, transparent 66%);
 }
 
 .service-offer-visual::after {
@@ -3902,6 +3914,7 @@ p {
   display: block;
   width: 100%;
   height: auto;
+  transform: translateY(var(--service-image-offset));
 }
 
 .service-offer-badge {
@@ -3930,7 +3943,8 @@ p {
   content: "";
   position: absolute;
   z-index: -1;
-  inset: -7rem 0 -1px;
+  /* Overscan fractional pixel boundaries; the card clips the material. */
+  inset: -7rem -4px -4px;
   pointer-events: none;
   background: linear-gradient(to bottom,
     rgb(255 255 255 / 0),
@@ -4596,6 +4610,38 @@ html[lang="en"] .service-offer-body h2 {
 .booking-consents.is-invalid {
   border-color: rgba(255, 59, 48, 0.55);
   background: #fff7f7;
+}
+
+.booking-flow {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.booking-flow ol {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+}
+
+.booking-flow strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+
+.booking-flow p {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  line-height: 1.5;
+}
+
+@media (min-width: 640px) {
+  .booking-flow ol {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 1.5rem;
+  }
 }
 
 .contact-form-status {
