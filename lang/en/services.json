@@ -58,19 +58,25 @@
   },
   "process": {
     "hero": {
-      "title": "How the inspection works"
+      "kicker": "From listing to decision",
+      "title": "How the inspection works",
+      "text": "From the listing link to findings about the car's condition."
     },
+    "finish": "The decision stayed in my hands.",
     "step1": {
-      "title": "Book",
-      "text": "Choose a service, a time, and the vehicle location."
+      "label": "Before the visit",
+      "title": "I sent the listing link.",
+      "text": "I chose a service and time and shared the car's location. I received the visit confirmation by email."
     },
     "step2": {
-      "title": "We inspect",
-      "text": "We travel to the car, complete the inspection, and test drive it when possible."
+      "label": "At the vehicle",
+      "title": "The car was checked where it stood.",
+      "text": "The specialist came to the car and performed the service I chose. A full inspection includes a test drive when conditions allow."
     },
     "step3": {
-      "title": "Receive the conclusion",
-      "text": "You receive photos, the findings, and a clear conclusion."
+      "label": "After the inspection",
+      "title": "I got a clear explanation.",
+      "text": "After a full inspection, I received photos, the issues found, and a conclusion. Diagnostic results are explained briefly."
     }
   }
 }
