@@ -48,6 +48,9 @@
     },
     "compare": {
       "title": "Compare what each service includes",
+      "scroll_hint": "Swipe the table sideways to compare both services",
+      "full_short": "Full",
+      "diagnostics_short": "Diagnostics",
       "feature": "Scope",
       "yes": "Included",
       "no": "Not included",

@@ -33,7 +33,7 @@
   <link rel="preload" href="/assets/fonts/Inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="/css/styles.css?v=20261021-4">
+  <link rel="stylesheet" href="/css/styles.css?v=20261021-6">
   <script src="/js/cookie-consent.js?v=20261014-4"></script>
 
   <script>
@@ -161,18 +161,19 @@
         <header class="section-header">
           <h2 id="service-comparison-title" data-i18n="services.compare.title">Paslaugų apimties palyginimas</h2>
         </header>
-        <div class="service-comparison-frame">
+        <p class="service-comparison-scroll-hint"><span aria-hidden="true">↔</span><span data-i18n="services.compare.scroll_hint">Braukite lentelę į šoną, kad palygintumėte abi paslaugas</span></p>
+        <div class="service-comparison-frame" role="region" aria-labelledby="service-comparison-title" tabindex="0">
           <table class="service-comparison-table">
             <caption class="visually-hidden" data-i18n="services.compare.title">Paslaugų apimties palyginimas</caption>
             <thead>
               <tr>
                 <th scope="col" data-i18n="services.compare.feature">Apimtis</th>
-                <th scope="col" class="service-comparison-full"><span data-i18n="services.s1.title">Išsami patikra prieš pirkimą</span><strong>100 €</strong></th>
-                <th scope="col" class="service-comparison-diagnostics"><span data-i18n="services.s2.title">Kompiuterinė diagnostika</span><strong>20 €</strong></th>
+                <th scope="col" class="service-comparison-full"><span class="service-comparison-title-full" data-i18n="services.s1.title">Išsami patikra prieš pirkimą</span><span class="service-comparison-title-short" aria-hidden="true" data-i18n="services.compare.full_short">Išsami</span><strong>100 €</strong></th>
+                <th scope="col" class="service-comparison-diagnostics"><span class="service-comparison-title-full" data-i18n="services.s2.title">Kompiuterinė diagnostika</span><span class="service-comparison-title-short" aria-hidden="true" data-i18n="services.compare.diagnostics_short">Diagnostika</span><strong>20 €</strong></th>
               </tr>
             </thead>
             <tbody>
-              <tr class="service-comparison-group"><th scope="rowgroup" colspan="3" data-i18n="services.checklist.group1_title">Techninė būklė</th></tr>
+              <tr class="service-comparison-group"><th scope="rowgroup" colspan="3"><span data-i18n="services.checklist.group1_title">Techninė būklė</span></th></tr>
               <tr>
                 <th scope="row"><span class="scope-item-icon" data-scope-icon="engine" aria-hidden="true"></span><span data-i18n="services.checklist.item2">Fizinė variklio, transmisijos ir aušinimo patikra</span></th>
                 <td class="service-comparison-full service-comparison-yes"><span aria-hidden="true">✓</span><span class="visually-hidden" data-i18n="services.compare.yes">Įskaičiuota</span></td>
@@ -190,7 +191,7 @@
               </tr>
             </tbody>
             <tbody>
-              <tr class="service-comparison-group"><th scope="rowgroup" colspan="3" data-i18n="services.checklist.group2_title">Kėbulas ir elektronika</th></tr>
+              <tr class="service-comparison-group"><th scope="rowgroup" colspan="3"><span data-i18n="services.checklist.group2_title">Kėbulas ir elektronika</span></th></tr>
               <tr>
                 <th scope="row"><span class="scope-item-icon" data-scope-icon="car" aria-hidden="true"></span><span data-i18n="services.checklist.item1">Kėbulas, dažų storis ir korozija</span></th>
                 <td class="service-comparison-full service-comparison-yes"><span aria-hidden="true">✓</span><span class="visually-hidden" data-i18n="services.compare.yes">Įskaičiuota</span></td>
@@ -218,7 +219,7 @@
               </tr>
             </tbody>
             <tbody>
-              <tr class="service-comparison-group"><th scope="rowgroup" colspan="3" data-i18n="services.checklist.group3_title">Ką gaunate</th></tr>
+              <tr class="service-comparison-group"><th scope="rowgroup" colspan="3"><span data-i18n="services.checklist.group3_title">Ką gaunate</span></th></tr>
               <tr>
                 <th scope="row"><span class="scope-item-icon" data-scope-icon="armchair-2" aria-hidden="true"></span><span data-i18n="services.checklist.item5">Fizinė salono ir jo funkcijų patikra</span></th>
                 <td class="service-comparison-full service-comparison-yes"><span aria-hidden="true">✓</span><span class="visually-hidden" data-i18n="services.compare.yes">Įskaičiuota</span></td>
@@ -306,7 +307,7 @@
   </script>
 
   <script src="/js/components.js?v=20261014-2"></script>
-  <script src="/js/i18n.js?v=20261021-4"></script>
+  <script src="/js/i18n.js?v=20261021-6"></script>
   <script src="/js/main.js?v=20261014-2"></script>
 </body>
 </html>
