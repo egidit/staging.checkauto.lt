@@ -33,19 +33,27 @@
       "text": "There is no travel fee in Kaunas or within 20 km of the city boundary. Beyond that area, a €0.50/km round-trip fee may apply; we agree the final price before the visit."
     },
     "checklist": {
-      "title": "What the full inspection covers",
       "group1_title": "Mechanical condition",
       "group2_title": "Body and electronics",
       "group3_title": "What you receive",
       "item1": "Body, paint depth, and corrosion",
-      "item2": "Engine, transmission, and cooling",
+      "item2": "Physical checks of engine, transmission, and cooling",
       "item3": "Suspension, brakes, and steering",
       "item4": "Electrical systems and OBD diagnostics",
-      "item5": "Interior and feature checks",
+      "item5": "Physical checks of the interior and its features",
       "item7": "Tyres, fluids, and wear",
       "item8": "Signs of mileage or history discrepancies",
       "item9": "A test drive when safe",
       "item10": "A photo report and clear conclusion"
+    },
+    "compare": {
+      "title": "Compare what each service includes",
+      "feature": "Scope",
+      "yes": "Included",
+      "no": "Not included",
+      "safety": "Safety and comfort system faults",
+      "live": "Live data and key parameters",
+      "explanation": "Explanation of the results"
     },
     "faq": {
       "more": "Frequently asked questions"

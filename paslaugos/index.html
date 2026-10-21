@@ -33,7 +33,7 @@
   <link rel="preload" href="/assets/fonts/Inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="/css/styles.css?v=20261021-3">
+  <link rel="stylesheet" href="/css/styles.css?v=20261021-4">
   <script src="/js/cookie-consent.js?v=20261014-4"></script>
 
   <script>
@@ -115,41 +115,7 @@
       </div>
     </section>
 
-    <section class="section">
-      <div class="container">
-        <header class="section-header">
-          <h2 data-i18n="services.checklist.title">Išsamios patikros apimtis</h2>
-        </header>
-        <div class="scope-groups scope-groups--visual">
-          <section>
-            <h3 data-i18n="services.checklist.group1_title">Techninė būklė</h3>
-            <ul>
-              <li><span class="scope-item-icon" data-scope-icon="engine" aria-hidden="true"></span><span data-i18n="services.checklist.item2">Variklis, transmisija ir aušinimas</span></li>
-              <li><span class="scope-item-icon" data-scope-icon="car-suspension" aria-hidden="true"></span><span data-i18n="services.checklist.item3">Pakaba, stabdžiai ir vairavimas</span></li>
-              <li><span class="scope-item-icon" data-scope-icon="wheel" aria-hidden="true"></span><span data-i18n="services.checklist.item7">Padangos, skysčiai ir nusidėvėjimas</span></li>
-            </ul>
-          </section>
-          <section>
-            <h3 data-i18n="services.checklist.group2_title">Kėbulas ir elektronika</h3>
-            <ul>
-              <li><span class="scope-item-icon" data-scope-icon="car" aria-hidden="true"></span><span data-i18n="services.checklist.item1">Kėbulas, dažų storis ir korozija</span></li>
-              <li><span class="scope-item-icon" data-scope-icon="cpu" aria-hidden="true"></span><span data-i18n="services.checklist.item4">Elektros sistemos ir OBD diagnostika</span></li>
-              <li><span class="scope-item-icon" data-scope-icon="gauge" aria-hidden="true"></span><span data-i18n="services.checklist.item8">Ridos bei istorijos neatitikimų požymiai</span></li>
-            </ul>
-          </section>
-          <section>
-            <h3 data-i18n="services.checklist.group3_title">Ką gaunate</h3>
-            <ul>
-              <li><span class="scope-item-icon" data-scope-icon="armchair-2" aria-hidden="true"></span><span data-i18n="services.checklist.item5">Salono ir jo funkcijų patikra</span></li>
-              <li><span class="scope-item-icon" data-scope-icon="steering-wheel" aria-hidden="true"></span><span data-i18n="services.checklist.item9">Bandomasis važiavimas, kai saugu</span></li>
-              <li><span class="scope-item-icon" data-scope-icon="report-search" aria-hidden="true"></span><span data-i18n="services.checklist.item10">Ataskaita su nuotraukomis ir išvada</span></li>
-            </ul>
-          </section>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--alt inspection-journey-section" aria-labelledby="inspection-journey-title">
+    <section class="section inspection-journey-section" aria-labelledby="inspection-journey-title">
       <div class="container">
         <header class="section-header inspection-journey-header">
           <h2 id="inspection-journey-title" data-i18n="process.hero.title">Kaip vyksta patikra</h2>
@@ -186,6 +152,95 @@
               </div>
             </li>
           </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt service-comparison-section" aria-labelledby="service-comparison-title">
+      <div class="container">
+        <header class="section-header">
+          <h2 id="service-comparison-title" data-i18n="services.compare.title">Paslaugų apimties palyginimas</h2>
+        </header>
+        <div class="service-comparison-frame">
+          <table class="service-comparison-table">
+            <caption class="visually-hidden" data-i18n="services.compare.title">Paslaugų apimties palyginimas</caption>
+            <thead>
+              <tr>
+                <th scope="col" data-i18n="services.compare.feature">Apimtis</th>
+                <th scope="col" class="service-comparison-full"><span data-i18n="services.s1.title">Išsami patikra prieš pirkimą</span><strong>100 €</strong></th>
+                <th scope="col" class="service-comparison-diagnostics"><span data-i18n="services.s2.title">Kompiuterinė diagnostika</span><strong>20 €</strong></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="service-comparison-group"><th scope="rowgroup" colspan="3" data-i18n="services.checklist.group1_title">Techninė būklė</th></tr>
+              <tr>
+                <th scope="row"><span class="scope-item-icon" data-scope-icon="engine" aria-hidden="true"></span><span data-i18n="services.checklist.item2">Fizinė variklio, transmisijos ir aušinimo patikra</span></th>
+                <td class="service-comparison-full service-comparison-yes"><span aria-hidden="true">✓</span><span class="visually-hidden" data-i18n="services.compare.yes">Įskaičiuota</span></td>
+                <td class="service-comparison-diagnostics service-comparison-no"><span aria-hidden="true">✕</span><span class="visually-hidden" data-i18n="services.compare.no">Neįskaičiuota</span></td>
+              </tr>
+              <tr>
+                <th scope="row"><span class="scope-item-icon" data-scope-icon="car-suspension" aria-hidden="true"></span><span data-i18n="services.checklist.item3">Pakaba, stabdžiai ir vairavimas</span></th>
+                <td class="service-comparison-full service-comparison-yes"><span aria-hidden="true">✓</span><span class="visually-hidden" data-i18n="services.compare.yes">Įskaičiuota</span></td>
+                <td class="service-comparison-diagnostics service-comparison-no"><span aria-hidden="true">✕</span><span class="visually-hidden" data-i18n="services.compare.no">Neįskaičiuota</span></td>
+              </tr>
+              <tr>
+                <th scope="row"><span class="scope-item-icon" data-scope-icon="wheel" aria-hidden="true"></span><span data-i18n="services.checklist.item7">Padangos, skysčiai ir nusidėvėjimas</span></th>
+                <td class="service-comparison-full service-comparison-yes"><span aria-hidden="true">✓</span><span class="visually-hidden" data-i18n="services.compare.yes">Įskaičiuota</span></td>
+                <td class="service-comparison-diagnostics service-comparison-no"><span aria-hidden="true">✕</span><span class="visually-hidden" data-i18n="services.compare.no">Neįskaičiuota</span></td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr class="service-comparison-group"><th scope="rowgroup" colspan="3" data-i18n="services.checklist.group2_title">Kėbulas ir elektronika</th></tr>
+              <tr>
+                <th scope="row"><span class="scope-item-icon" data-scope-icon="car" aria-hidden="true"></span><span data-i18n="services.checklist.item1">Kėbulas, dažų storis ir korozija</span></th>
+                <td class="service-comparison-full service-comparison-yes"><span aria-hidden="true">✓</span><span class="visually-hidden" data-i18n="services.compare.yes">Įskaičiuota</span></td>
+                <td class="service-comparison-diagnostics service-comparison-no"><span aria-hidden="true">✕</span><span class="visually-hidden" data-i18n="services.compare.no">Neįskaičiuota</span></td>
+              </tr>
+              <tr>
+                <th scope="row"><span class="scope-item-icon" data-scope-icon="cpu" aria-hidden="true"></span><span data-i18n="services.checklist.item4">Elektros sistemos ir OBD diagnostika</span></th>
+                <td class="service-comparison-full service-comparison-yes"><span aria-hidden="true">✓</span><span class="visually-hidden" data-i18n="services.compare.yes">Įskaičiuota</span></td>
+                <td class="service-comparison-diagnostics service-comparison-yes"><span aria-hidden="true">✓</span><span class="visually-hidden" data-i18n="services.compare.yes">Įskaičiuota</span></td>
+              </tr>
+              <tr>
+                <th scope="row"><span class="scope-item-icon" data-scope-icon="shield" aria-hidden="true"></span><span data-i18n="services.compare.safety">Saugos ir komforto sistemų klaidos</span></th>
+                <td class="service-comparison-full service-comparison-yes"><span aria-hidden="true">✓</span><span class="visually-hidden" data-i18n="services.compare.yes">Įskaičiuota</span></td>
+                <td class="service-comparison-diagnostics service-comparison-yes"><span aria-hidden="true">✓</span><span class="visually-hidden" data-i18n="services.compare.yes">Įskaičiuota</span></td>
+              </tr>
+              <tr>
+                <th scope="row"><span class="scope-item-icon" data-scope-icon="activity" aria-hidden="true"></span><span data-i18n="services.compare.live">Gyvi duomenys ir pagrindiniai parametrai</span></th>
+                <td class="service-comparison-full service-comparison-yes"><span aria-hidden="true">✓</span><span class="visually-hidden" data-i18n="services.compare.yes">Įskaičiuota</span></td>
+                <td class="service-comparison-diagnostics service-comparison-yes"><span aria-hidden="true">✓</span><span class="visually-hidden" data-i18n="services.compare.yes">Įskaičiuota</span></td>
+              </tr>
+              <tr>
+                <th scope="row"><span class="scope-item-icon" data-scope-icon="gauge" aria-hidden="true"></span><span data-i18n="services.checklist.item8">Ridos bei istorijos neatitikimų požymiai</span></th>
+                <td class="service-comparison-full service-comparison-yes"><span aria-hidden="true">✓</span><span class="visually-hidden" data-i18n="services.compare.yes">Įskaičiuota</span></td>
+                <td class="service-comparison-diagnostics service-comparison-no"><span aria-hidden="true">✕</span><span class="visually-hidden" data-i18n="services.compare.no">Neįskaičiuota</span></td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr class="service-comparison-group"><th scope="rowgroup" colspan="3" data-i18n="services.checklist.group3_title">Ką gaunate</th></tr>
+              <tr>
+                <th scope="row"><span class="scope-item-icon" data-scope-icon="armchair-2" aria-hidden="true"></span><span data-i18n="services.checklist.item5">Fizinė salono ir jo funkcijų patikra</span></th>
+                <td class="service-comparison-full service-comparison-yes"><span aria-hidden="true">✓</span><span class="visually-hidden" data-i18n="services.compare.yes">Įskaičiuota</span></td>
+                <td class="service-comparison-diagnostics service-comparison-no"><span aria-hidden="true">✕</span><span class="visually-hidden" data-i18n="services.compare.no">Neįskaičiuota</span></td>
+              </tr>
+              <tr>
+                <th scope="row"><span class="scope-item-icon" data-scope-icon="steering-wheel" aria-hidden="true"></span><span data-i18n="services.checklist.item9">Bandomasis važiavimas, kai saugu</span></th>
+                <td class="service-comparison-full service-comparison-yes"><span aria-hidden="true">✓</span><span class="visually-hidden" data-i18n="services.compare.yes">Įskaičiuota</span></td>
+                <td class="service-comparison-diagnostics service-comparison-no"><span aria-hidden="true">✕</span><span class="visually-hidden" data-i18n="services.compare.no">Neįskaičiuota</span></td>
+              </tr>
+              <tr>
+                <th scope="row"><span class="scope-item-icon" data-scope-icon="report-search" aria-hidden="true"></span><span data-i18n="services.checklist.item10">Ataskaita su nuotraukomis ir išvada</span></th>
+                <td class="service-comparison-full service-comparison-yes"><span aria-hidden="true">✓</span><span class="visually-hidden" data-i18n="services.compare.yes">Įskaičiuota</span></td>
+                <td class="service-comparison-diagnostics service-comparison-no"><span aria-hidden="true">✕</span><span class="visually-hidden" data-i18n="services.compare.no">Neįskaičiuota</span></td>
+              </tr>
+              <tr>
+                <th scope="row"><span class="scope-item-icon" data-scope-icon="message" aria-hidden="true"></span><span data-i18n="services.compare.explanation">Rezultatų paaiškinimas</span></th>
+                <td class="service-comparison-full service-comparison-yes"><span aria-hidden="true">✓</span><span class="visually-hidden" data-i18n="services.compare.yes">Įskaičiuota</span></td>
+                <td class="service-comparison-diagnostics service-comparison-yes"><span aria-hidden="true">✓</span><span class="visually-hidden" data-i18n="services.compare.yes">Įskaičiuota</span></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
@@ -251,7 +306,7 @@
   </script>
 
   <script src="/js/components.js?v=20261014-2"></script>
-  <script src="/js/i18n.js?v=20261021-3"></script>
+  <script src="/js/i18n.js?v=20261021-4"></script>
   <script src="/js/main.js?v=20261014-2"></script>
 </body>
 </html>
