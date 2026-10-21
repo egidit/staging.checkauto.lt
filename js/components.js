@@ -68,7 +68,6 @@
 
   var headerHTML =
     '<header class="site-header" role="banner">' +
-      '<a class="skip-link" href="#main-content" data-i18n="nav.skip">Pereiti prie pagrindinio turinio</a>' +
       '<div class="container header-inner">' +
         '<a href="/" class="logo" aria-label="checkauto.lt pradžia" data-i18n-aria="a11y.home">' +
           'check<span>auto</span>.lt' +
@@ -111,12 +110,6 @@
 
   var headerEl = document.getElementById('site-header');
   if (headerEl) headerEl.outerHTML = headerHTML;
-
-  var mainEl = document.querySelector('main');
-  if (mainEl && !mainEl.id) {
-    mainEl.id = 'main-content';
-    mainEl.setAttribute('tabindex', '-1');
-  }
 
   var footerEl = document.getElementById('site-footer');
   if (footerEl) footerEl.outerHTML = footerHTML;
