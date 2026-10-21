@@ -4319,20 +4319,20 @@ html[lang="en"] .service-offer-body h2 {
   margin-inline: auto;
 }
 
-.inspection-journey-stops::before {
-  content: "";
-  position: absolute;
-  top: 210px;
-  bottom: 4rem;
-  left: 17px;
-  width: 10px;
-  background: #d9efff;
-  border-radius: 999px;
-}
-
 .inspection-journey-stops li {
   position: relative;
   min-width: 0;
+}
+
+.inspection-journey-stops li:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: calc(200px + var(--space-sm) + 22px);
+  left: 0;
+  width: 64px;
+  height: calc(100% + var(--space-xl));
+  background: url("/assets/images/journey-mobile-route.svg") center / 100% 100% no-repeat;
+  pointer-events: none;
 }
 
 .inspection-journey-image {
@@ -4351,7 +4351,7 @@ html[lang="en"] .service-offer-body h2 {
 
 .inspection-journey-copy {
   display: grid;
-  grid-template-columns: 44px minmax(0, 1fr);
+  grid-template-columns: 64px minmax(0, 1fr);
   column-gap: var(--space-sm);
   min-width: 0;
   overflow-wrap: anywhere;
@@ -4366,6 +4366,7 @@ html[lang="en"] .service-offer-body h2 {
   grid-row: 1 / 4;
   width: 44px;
   height: 44px;
+  margin-left: 10px;
   color: var(--color-accent);
   background: var(--color-bg);
   border: 2px solid var(--color-accent);
@@ -4856,8 +4857,16 @@ html[lang="en"] .service-offer-body h2 {
     max-width: none;
   }
 
-  .inspection-journey-stops::before {
+  .inspection-journey-stops li::before {
     display: none;
+  }
+
+  .inspection-journey-copy {
+    grid-template-columns: 44px minmax(0, 1fr);
+  }
+
+  .inspection-journey-number {
+    margin-left: 0;
   }
 
   .inspection-journey-stops li {
