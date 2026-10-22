@@ -4,7 +4,8 @@
   document.querySelectorAll('[data-case-image] img').forEach(function (image) {
     function hideUnavailableImage() {
       image.hidden = true;
-      image.parentElement.classList.add('is-unavailable');
+      image.parentElement.classList.add('gallery-card-image--unavailable');
+      image.parentElement.querySelector('.gallery-image-unavailable').hidden = false;
     }
 
     image.addEventListener('error', hideUnavailableImage);

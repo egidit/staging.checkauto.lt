@@ -1,7 +1,6 @@
 {
   "home": {
     "hero": {
-      "label": "Independent pre-purchase car inspection",
       "title": "Check a used car before you buy it.",
       "subtitle": "Make your decision knowing the car's condition, rather than relying only on the listing or the seller's word.",
       "cta": "Book a car inspection",
@@ -14,33 +13,38 @@
       "travel_note": "Any applicable travel fee is agreed before the visit."
     },
     "proof": {
-      "label": "Real inspection cases",
       "title": "Findings, not guesses.",
       "intro": "Sometimes an inspection helps you walk away. Sometimes it helps you buy with a clearer picture of what still needs attention.",
       "case1_alt": "Photo from the Volkswagen Passat inspection",
-      "case1_tag": "Mileage discrepancy",
-      "case1_title": "Volkswagen Passat, 2016",
-      "case1_text": "The seller described the car as being in excellent condition. The control units showed 538,000 km and significant wear.",
+      "case1_tag": "Mileage",
+      "case1_title": "Volkswagen Passat, 2.0 TDI, 2016",
+      "seller": "Seller said",
+      "found": "What we found",
+      "case1_seller": "The car was in perfect condition and used daily.",
+      "case1_found": "The control units recorded as much as 538,000 km and significant overall wear.",
       "case1_verdict": "Not recommended",
       "case2_alt": "Photo from the BMW 520d inspection",
-      "case2_tag": "Issues without a deal-breaker",
-      "case2_title": "BMW 520d, 2015",
-      "case2_text": "We found worn brake discs and tyres. The overall condition was good, so we recommended buying the car.",
+      "case2_tag": "Body",
+      "case2_title": "BMW 5, 520d, 2015",
+      "case2_seller": "The car was well maintained and needed no immediate repairs.",
+      "case2_found": "The front brake discs and tyres were worn, but the car's overall condition was good.",
       "case2_verdict": "Recommended",
+      "image_unavailable": "Photo unavailable",
       "more": "See more real inspections"
     },
     "self_check": {
-      "label": "I can check it myself",
       "title": "Yes. But a visual check cannot tell the whole story.",
       "intro": "Looking over the interior and bodywork and trying the car yourself is worthwhile. Other clues need measurements, diagnostic tools and an experienced reading of the findings together.",
+      "point1_title": "Bodywork",
       "point1": "A paint-thickness gauge helps reveal signs of repairs that listing photos may miss.",
+      "point2_title": "Electronics",
       "point2": "Diagnostics can reveal control-unit faults and inconsistencies in the data.",
-      "point3": "A specialist puts the findings together so you have a clearer picture before deciding."
+      "point3_title": "Mechanical condition",
+      "point3": "We check brake and tyre wear that you cannot judge from a listing."
     },
     "advantage": {
-      "label": "Why checkauto.lt?",
-      "title": "We inspect for your decision, not for the sale.",
-      "intro": "Finding an issue is only part of the job. You also need to know what it means for this particular car.",
+      "title": "The seller wants to sell. You need to know.",
+      "intro": "You pay for an independent assessment, not approval to buy.",
       "item1_title": "Independent of the seller",
       "item1_text": "We don't work for dealers or sellers. Our fee doesn't depend on whether you buy the car.",
       "item2_title": "Where the car is",
@@ -49,8 +53,8 @@
       "item3_text": "We explain the findings in plain language. A full inspection includes a photo report documenting the results."
     },
     "process": {
-      "title": "An inspection without complicated preparation",
-      "intro": "Found a specific car? From booking to the findings, there are just three clear steps.",
+      "title": "From booking to a clear conclusion.",
+      "intro": "All we need is the car listing and its location. We'll take care of the inspection from there.",
       "step1_title": "Choose a time",
       "step1_text": "Tell us about the car and its location when booking. We'll confirm the visit by email.",
       "step2_title": "We come to the car",
@@ -60,7 +64,6 @@
       "more": "See how the inspection works"
     },
     "quiz": {
-      "label": "Not sure where to start?",
       "title": "Find your next step.",
       "intro": "Two quick questions. No account or contact details—just an option that fits your situation.",
       "compare": "Or compare the services",
