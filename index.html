@@ -34,7 +34,7 @@
   <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
   <link rel="preload" href="/assets/images/home-inspection-hero.webp" as="image" type="image/webp" fetchpriority="high">
-  <link rel="stylesheet" href="/css/styles.css?v=20261022-3">
+  <link rel="stylesheet" href="/css/styles.css?v=20261022-4">
   <script src="/js/cookie-consent.js?v=20261014-4"></script>
 
   <!-- Early language detection to prevent flash of wrong language -->
@@ -56,180 +56,218 @@
     <section class="home-hero" aria-labelledby="home-title">
       <div class="container home-hero-layout">
         <div class="home-hero-copy">
-          <h1 id="home-title" data-i18n="home.hero.title">Patikrinkite naudotą automobilį prieš jį pirkdami.</h1>
-          <p class="home-hero-subtitle" data-i18n="home.hero.subtitle">Kad sprendimą priimtumėte žinodami automobilio būklę, o ne vien pasitikėdami skelbimu ar pardavėjo žodžiu.</p>
-          <div class="home-hero-actions">
-            <a href="/kontaktai/?service=full_inspection#booking-form" class="btn btn-primary" data-i18n="home.hero.cta">Rezervuoti automobilio patikrą</a>
-            <a href="#tikri-atvejai" class="home-text-link"><span data-i18n="home.hero.secondary">Pamatyti tikrus atvejus</span><span aria-hidden="true">→</span></a>
+          <h1 id="home-title">
+            <span class="home-hero-kicker" data-i18n="home.hero.kicker">Automobilio patikra prieš pirkimą</span>
+            <span class="home-hero-hook" data-i18n="home.hero.title">Pardavėjas žino, ką slepia automobilis. Po patikros žinosite ir jūs.</span>
+          </h1>
+          <p class="home-hero-subtitle" data-i18n="home.hero.subtitle">Atvykstame ten, kur stovi automobilis, ir per 1,5–2 val. patikriname kėbulą, mechaniką bei elektroniką. Radinius gaunate ataskaitoje su nuotraukomis.</p>
+          <div class="home-hero-actions" data-hero-actions>
+            <a href="/kontaktai/?service=full_inspection#booking-form" class="btn btn-primary" data-i18n="home.cta.book">Rezervuoti patikrą – 100 €</a>
+            <a href="tel:+37060945238" class="btn btn-secondary home-call">
+              <svg class="home-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5-2.5l5 2v4a2 2 0 0 1-2 2a16 16 0 0 1-15-15a2 2 0 0 1 2-2"/></svg>
+              <span class="visually-hidden" data-i18n="home.cta.call_label">Skambinti</span>
+              <span>+370 609 45 238</span>
+            </a>
           </div>
-        </div>
-        <div class="home-hero-art" aria-hidden="true">
-          <img src="/assets/images/home-inspection-hero.webp" alt="" width="1400" height="788" fetchpriority="high" decoding="async">
-        </div>
-        <div class="home-hero-meta">
-          <ul class="home-hero-facts" aria-label="Išsamios patikros faktai" data-i18n-aria="home.hero.facts_label">
-            <li><strong>100 €</strong><span data-i18n="home.hero.fact_price">išsami patikra</span></li>
-            <li><strong>1,5–2 val.</strong><span data-i18n="home.hero.fact_time">įprasta trukmė</span></li>
-            <li><strong data-i18n="home.hero.fact_place_strong">Jūsų vietoje</strong><span data-i18n="home.hero.fact_place">atvykstame prie automobilio</span></li>
+          <ul class="home-hero-trust">
+            <li data-i18n="home.hero.trust_travel">Kaune ir iki 20 km aplink – be kelionės mokesčio</li>
+            <li data-i18n="home.hero.trust_country">Atvykstame visoje Lietuvoje</li>
+            <li data-i18n="home.hero.trust_independent">Nedirbame pardavėjams</li>
           </ul>
-          <p class="home-hero-note" data-i18n="home.hero.travel_note">Kelionės mokestį, jei taikomas, suderiname prieš vizitą.</p>
         </div>
-      </div>
-    </section>
 
-    <section class="home-proof section" id="tikri-atvejai" aria-labelledby="home-proof-title">
-      <div class="container">
-        <div class="home-section-heading home-proof-heading">
-          <div>
-            <h2 id="home-proof-title" data-i18n="home.proof.title">Ne spėjimai. Konkretūs radiniai.</h2>
+        <div class="home-hero-art" data-hero-art>
+          <div class="home-hero-illustration" aria-hidden="true" data-anchor-x="62.9" data-anchor-y="69.3">
+            <img src="/assets/images/home-inspection-hero.webp" alt="" width="1400" height="788" fetchpriority="high" decoding="async">
           </div>
-          <p data-i18n="home.proof.intro">Kartais patikra padeda atsisakyti pirkinio. Kartais – pirkti žinant, į ką dar reikės investuoti.</p>
-        </div>
-        <div class="home-cases gallery-grid">
-          <article class="gallery-card gallery-card--not-recommended">
-            <div class="gallery-card-image" data-case-image>
-              <img src="/assets/images/home-case-passat.webp" width="800" height="500" loading="lazy" decoding="async" alt="Volkswagen Passat automobilio patikros nuotrauka" data-i18n-aria="home.proof.case1_alt">
-              <span class="gallery-tag gallery-tag--mileage" data-i18n="home.proof.case1_tag">Rida</span>
-              <span class="gallery-image-unavailable" data-i18n="home.proof.image_unavailable" hidden>Nuotrauka neprieinama</span>
-            </div>
-            <div class="gallery-card-body">
-              <h3 class="gallery-card-title" data-i18n="home.proof.case1_title">Volkswagen Passat, 2.0 TDI, 2016</h3>
-              <div class="gallery-card-detail"><span class="gallery-detail-label" data-i18n="home.proof.seller">Pardavėjas sakė</span><p data-i18n="home.proof.case1_seller">Automobilis nepriekaištingos būklės ir naudojamas kasdien.</p></div>
-              <div class="gallery-card-detail"><span class="gallery-detail-label gallery-detail-label--found" data-i18n="home.proof.found">Ką radome</span><p data-i18n="home.proof.case1_found">Valdymo blokuose užfiksuota net 538 000 km rida ir stiprus bendras nusidėvėjimas.</p></div>
-              <div class="gallery-verdict" data-i18n="home.proof.case1_verdict">Nerekomenduota pirkti</div>
-            </div>
-          </article>
-          <article class="gallery-card gallery-card--recommended">
-            <div class="gallery-card-image" data-case-image>
-              <img src="/assets/images/home-case-bmw.webp" width="800" height="500" loading="lazy" decoding="async" alt="BMW 520d automobilio patikros nuotrauka" data-i18n-aria="home.proof.case2_alt">
-              <span class="gallery-tag gallery-tag--body" data-i18n="home.proof.case2_tag">Kėbulas</span>
-              <span class="gallery-image-unavailable" data-i18n="home.proof.image_unavailable" hidden>Nuotrauka neprieinama</span>
-            </div>
-            <div class="gallery-card-body">
-              <h3 class="gallery-card-title" data-i18n="home.proof.case2_title">BMW 5, 520d, 2015</h3>
-              <div class="gallery-card-detail"><span class="gallery-detail-label" data-i18n="home.proof.seller">Pardavėjas sakė</span><p data-i18n="home.proof.case2_seller">Automobilis prižiūrėtas ir nereikalauja skubių investicijų.</p></div>
-              <div class="gallery-card-detail"><span class="gallery-detail-label gallery-detail-label--found" data-i18n="home.proof.found">Ką radome</span><p data-i18n="home.proof.case2_found">Priekiniai stabdžių diskai ir padangos nusidėvėję, bet bendra būklė gera.</p></div>
-              <div class="gallery-verdict" data-i18n="home.proof.case2_verdict">Rekomenduota pirkti</div>
-            </div>
-          </article>
-        </div>
-        <a class="home-text-link home-proof-more" href="/galerija/"><span data-i18n="home.proof.more">Daugiau tikrų patikrų</span><span aria-hidden="true">→</span></a>
-      </div>
-    </section>
+          <svg class="home-leader" aria-hidden="true" focusable="false" data-leader><path d=""/><circle r="5"/></svg>
 
-    <section class="home-self-check section section--alt" aria-labelledby="home-self-check-title">
-      <div class="container">
-        <div class="home-section-heading home-self-check-heading">
-          <h2 id="home-self-check-title" data-i18n="home.self_check.title">Taip. Bet akys neparodo viso automobilio.</h2>
-          <p data-i18n="home.self_check.intro">Apžiūrėti saloną, kėbulą ir išbandyti automobilį verta. Tik dalis svarbių požymių paaiškėja matuojant, jungiant diagnostiką ir vertinant radinius kartu.</p>
-        </div>
-        <div class="home-inspection-diagram">
-          <img src="/assets/images/home-inspection-depth.webp" alt="" width="1200" height="800" loading="lazy" decoding="async">
-          <div class="home-inspection-key">
-            <div><span class="scope-item-icon" data-scope-icon="car" aria-hidden="true"></span><h3 data-i18n="home.self_check.point1_title">Kėbulas</h3><p data-i18n="home.self_check.point1">Dažų storio matuoklis padeda pastebėti remonto pėdsakus, kurių nuotraukose nesimato.</p></div>
-            <div><span class="scope-item-icon" data-scope-icon="cpu" aria-hidden="true"></span><h3 data-i18n="home.self_check.point2_title">Elektronika</h3><p data-i18n="home.self_check.point2">Diagnostika gali parodyti valdymo blokų klaidas ir duomenų neatitikimus.</p></div>
-            <div><span class="scope-item-icon" data-scope-icon="wheel" aria-hidden="true"></span><h3 data-i18n="home.self_check.point3_title">Mechanika</h3><p data-i18n="home.self_check.point3">Apžiūrime stabdžių ir padangų nusidėvėjimą, kurio iš skelbimo neįvertinsite.</p></div>
+          <div class="home-evidence" data-evidence>
+            <p class="home-evidence-eyebrow" data-i18n="home.evidence.eyebrow">Tikras atvejis · rida</p>
+            <div class="home-evidence-reading home-evidence-reading--shown">
+              <p class="home-evidence-label" data-i18n="home.evidence.shown_label">Prietaisų skydelis rodė</p>
+              <p class="home-odo home-odo--shown" data-odo="shown">202 000 km</p>
+            </div>
+            <div class="home-evidence-reading">
+              <p class="home-evidence-label" data-i18n="home.evidence.actual_label">Valdymo blokuose užfiksuota</p>
+              <p class="home-odo" data-odo="actual">328 000 km</p>
+            </div>
+            <p class="home-evidence-delta" aria-live="polite"><span data-odo="delta">+126 000 km</span> <span data-i18n="home.evidence.hidden">nuslėpta</span></p>
+            <div class="home-evidence-case" data-evidence-case="9">
+              <p class="home-evidence-car" data-i18n="home.evidence.case9_car">Volkswagen Passat 2.0 TDI, 2015</p>
+              <p class="home-evidence-verdict" data-i18n="home.evidence.not_recommended">Nerekomenduota pirkti</p>
+            </div>
+            <div class="home-evidence-case" data-evidence-case="3" hidden>
+              <p class="home-evidence-car" data-i18n="home.evidence.case3_car">Volkswagen Passat 2.0 TDI, 2015</p>
+              <p class="home-evidence-verdict" data-i18n="home.evidence.not_recommended">Nerekomenduota pirkti</p>
+            </div>
+            <div class="home-evidence-case" data-evidence-case="12" hidden>
+              <p class="home-evidence-car" data-i18n="home.evidence.case12_car">BMW 520d, 2012</p>
+              <p class="home-evidence-verdict" data-i18n="home.evidence.not_recommended">Nerekomenduota pirkti</p>
+            </div>
+            <div class="home-evidence-switch" role="group" aria-labelledby="home-evidence-switch-label">
+              <p id="home-evidence-switch-label" class="home-evidence-switch-label" data-i18n="home.evidence.switch_label">Atsukta rida mūsų patikrose</p>
+              <div class="home-evidence-buttons">
+                <button type="button" aria-pressed="true" data-case="9" data-shown="202000" data-actual="328000" aria-label="Volkswagen Passat, 2015: nuslėpta 126 000 km" data-i18n-aria="home.evidence.case9_aria">+126 000</button>
+                <button type="button" aria-pressed="false" data-case="3" data-shown="215000" data-actual="319000" aria-label="Volkswagen Passat, 2015: nuslėpta 104 000 km" data-i18n-aria="home.evidence.case3_aria">+104 000</button>
+                <button type="button" aria-pressed="false" data-case="12" data-shown="277000" data-actual="315000" aria-label="BMW 520d, 2012: nuslėpta 38 000 km" data-i18n-aria="home.evidence.case12_aria">+38 000</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="home-advantage section" aria-labelledby="home-advantage-title">
+    <section class="home-tally" aria-labelledby="home-tally-title">
       <div class="container">
-        <div class="home-section-heading home-advantage-heading">
-          <div>
-            <h2 id="home-advantage-title" data-i18n="home.advantage.title">Pardavėjui svarbu parduoti. Jums – žinoti.</h2>
+        <h2 id="home-tally-title" class="visually-hidden" data-i18n="home.tally.title">Mūsų paskelbtų patikrų skaičiai</h2>
+        <dl class="home-tally-grid">
+          <div><dt data-i18n="home.tally.total_label">paskelbtų patikrų</dt><dd data-i18n="home.tally.total">16</dd></div>
+          <div><dt data-i18n="home.tally.not_recommended_label">kartus patarėme nepirkti</dt><dd data-i18n="home.tally.not_recommended">8</dd></div>
+          <div><dt data-i18n="home.tally.rollback_label">kartus radome atsuktą ridą</dt><dd data-i18n="home.tally.rollback">4</dd></div>
+          <div><dt data-i18n="home.tally.max_hidden_label">daugiausiai nuslėptos ridos</dt><dd><span data-i18n="home.tally.max_hidden">126 000</span> <span class="home-tally-unit">km</span></dd></div>
+        </dl>
+        <p class="home-tally-note">
+          <span data-i18n="home.tally.note">Skaičiai – iš mūsų galerijoje paskelbtų atvejų.</span>
+          <a href="/galerija/" class="home-text-link"><span data-i18n="home.tally.link">Peržiūrėti atvejus</span><span aria-hidden="true">→</span></a>
+        </p>
+      </div>
+    </section>
+
+    <section class="home-cases section" aria-labelledby="home-cases-title">
+      <div class="container">
+        <header class="home-cases-heading">
+          <h2 id="home-cases-title" data-i18n="home.cases.title">Kartais sakome „nepirkite“. Kartais – „pirkite, bet pakeiskite diskus“.</h2>
+          <p data-i18n="home.cases.intro">Du tikri atvejai: tas pats klausimas, priešingos išvados.</p>
+        </header>
+
+        <article class="home-case home-case--no" aria-labelledby="home-case-passat">
+          <div class="home-case-media" data-case-image>
+            <img src="/assets/images/home-case-passat.webp" width="960" height="540" loading="lazy" decoding="async" alt="Volkswagen Passat ir patikros metu nufotografuoti radiniai" data-i18n-aria="home.cases.passat_alt">
+            <span class="home-case-unavailable" data-i18n="home.cases.image_unavailable" hidden>Nuotrauka neprieinama</span>
           </div>
-          <p data-i18n="home.advantage.intro">Mokate už nepriklausomą įvertinimą – ne už pritarimą pirkiniui.</p>
+          <div class="home-case-body">
+            <h3 id="home-case-passat" class="home-case-car" data-i18n="home.cases.passat_car">Volkswagen Passat 2.0 TDI, 2016</h3>
+            <p class="home-case-label" data-i18n="home.cases.seller">Pardavėjas sakė</p>
+            <blockquote class="home-case-quote"><p data-i18n="home.cases.passat_seller">„Nepriekaištingos būklės, naudojamas kasdien.“</p></blockquote>
+            <p class="home-case-label home-case-label--found" data-i18n="home.cases.found">Ką radome</p>
+            <p class="home-case-found" data-i18n="home.cases.passat_found">Valdymo blokuose užfiksuota 538 000 km rida ir stiprus bendras nusidėvėjimas.</p>
+            <p class="home-case-verdict">
+              <svg class="home-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              <span data-i18n="home.cases.not_recommended">Nerekomenduota pirkti</span>
+            </p>
+          </div>
+        </article>
+
+        <article class="home-case home-case--yes" aria-labelledby="home-case-bmw">
+          <div class="home-case-media" data-case-image>
+            <img src="/assets/images/home-case-bmw.webp" width="960" height="540" loading="lazy" decoding="async" alt="BMW 520d ir patikros metu nufotografuoti radiniai" data-i18n-aria="home.cases.bmw_alt">
+            <span class="home-case-unavailable" data-i18n="home.cases.image_unavailable" hidden>Nuotrauka neprieinama</span>
+          </div>
+          <div class="home-case-body">
+            <h3 id="home-case-bmw" class="home-case-car" data-i18n="home.cases.bmw_car">BMW 520d, 2015</h3>
+            <p class="home-case-label" data-i18n="home.cases.seller">Pardavėjas sakė</p>
+            <blockquote class="home-case-quote"><p data-i18n="home.cases.bmw_seller">„Prižiūrėtas, skubių investicijų nereikia.“</p></blockquote>
+            <p class="home-case-label home-case-label--found" data-i18n="home.cases.found">Ką radome</p>
+            <p class="home-case-found" data-i18n="home.cases.bmw_found">Nusidėvėję priekiniai stabdžių diskai ir padangos, tačiau bendra būklė gera.</p>
+            <p class="home-case-verdict">
+              <svg class="home-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+              <span data-i18n="home.cases.recommended">Rekomenduota pirkti</span>
+            </p>
+            <p class="home-case-note" data-i18n="home.cases.bmw_note">Žinant, ką teks keisti, turite konkretų pagrindą derėtis dėl kainos.</p>
+          </div>
+        </article>
+
+        <a class="home-text-link home-cases-more" href="/galerija/"><span data-i18n="home.cases.more">Visi 16 atvejų galerijoje</span><span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="home-offer section section--alt" aria-labelledby="home-offer-title">
+      <div class="container home-offer-layout">
+        <div class="home-offer-copy">
+          <h2 id="home-offer-title" data-i18n="home.offer.title">Palyginkite 100 € su automobilio kaina.</h2>
+          <div class="home-price" data-price>
+            <div class="home-price-head">
+              <label for="home-price-input" data-i18n="home.offer.slider_label">Automobilio, kurį svarstote, kaina</label>
+              <span class="home-price-value" data-price-value>10 000 €</span>
+            </div>
+            <input id="home-price-input" type="range" min="2000" max="60000" step="500" value="10000" data-price-input>
+            <div class="home-price-scale" aria-hidden="true"><span data-price-min>2 000 €</span><span data-price-max>60 000 €</span></div>
+            <p class="home-price-result">
+              <output for="home-price-input" data-price-share>1,0 %</output>
+              <span data-i18n="home.offer.result">tiek automobilio kainos sudaro išsami patikra</span>
+            </p>
+          </div>
+          <p class="home-offer-text" data-i18n="home.offer.text">Mūsų patikrose vien atsukta rida slėpė iki 126 000 km. Dokumentuoti trūkumai taip pat duoda konkretų pagrindą derėtis dėl kainos.</p>
+          <a href="/kontaktai/?service=full_inspection#booking-form" class="btn btn-primary" data-i18n="home.cta.book">Rezervuoti patikrą – 100 €</a>
+          <ul class="home-offer-links">
+            <li><a href="/kontaktai/?service=computer_diagnostics#booking-form" class="home-text-link"><span data-i18n="home.offer.diagnostics">Tik elektronika? Kompiuterinė diagnostika – 20 €</span><span aria-hidden="true">→</span></a></li>
+            <li><a href="/paslaugos/" class="home-text-link"><span data-i18n="home.offer.compare">Palyginti paslaugas</span><span aria-hidden="true">→</span></a></li>
+          </ul>
         </div>
-        <div class="home-advantage-ledger">
-          <div><span class="scope-item-icon" data-scope-icon="shield" aria-hidden="true"></span><h3 data-i18n="home.advantage.item1_title">Nepriklausomai nuo pardavėjo</h3><p data-i18n="home.advantage.item1_text">Nedirbame salonams ar pardavėjams. Mūsų atlygis nepriklauso nuo to, ar automobilį pirksite.</p></div>
-          <div><span class="scope-item-icon" data-scope-icon="car" aria-hidden="true"></span><h3 data-i18n="home.advantage.item2_title">Ten, kur yra automobilis</h3><p data-i18n="home.advantage.item2_text">Specialistas atvyksta į nurodytą vietą ir tikrina konkretų automobilį, kurį svarstote pirkti.</p></div>
-          <div><span class="scope-item-icon" data-scope-icon="report-search" aria-hidden="true"></span><h3 data-i18n="home.advantage.item3_title">Be miglotų verdiktų</h3><p data-i18n="home.advantage.item3_text">Radinius paaiškiname suprantamai. Išsamios patikros rezultatus užfiksuojame ataskaitoje su nuotraukomis.</p></div>
+
+        <div class="home-scope" data-scope>
+          <h3 class="home-scope-title" data-i18n="home.offer.scope_title">Kas įeina už 100 €</h3>
+          <div class="home-scope-stage">
+            <img src="/assets/images/home-inspection-depth.webp" alt="" width="1200" height="800" loading="lazy" decoding="async">
+            <span class="home-spot" style="--x: 35.6%; --y: 53.2%" data-spot="body" aria-hidden="true">1</span>
+            <span class="home-spot" style="--x: 48.2%; --y: 67.3%" data-spot="mechanics" aria-hidden="true">2</span>
+            <span class="home-spot" style="--x: 49.9%; --y: 38.3%" data-spot="electronics" aria-hidden="true">3</span>
+            <span class="home-spot" style="--x: 75.8%; --y: 51%" data-spot="drive" aria-hidden="true">4</span>
+            <div class="home-scope-report" aria-hidden="true" data-spot="report">
+              <span class="home-spot home-spot--inline">5</span>
+              <svg class="home-icon" width="20" height="20" viewBox="0 0 24 24"><path d="M14 3v4a1 1 0 0 0 1 1h4M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2zM9 13h6M9 17h4"/></svg>
+              <span data-i18n="home.offer.report_chip">Foto ataskaita</span>
+            </div>
+          </div>
+          <ol class="home-scope-list">
+            <li data-spot="body"><span class="home-spot home-spot--inline" aria-hidden="true">1</span><span data-i18n="home.offer.item_body">Kėbulas ir dažų storis</span></li>
+            <li data-spot="mechanics"><span class="home-spot home-spot--inline" aria-hidden="true">2</span><span data-i18n="home.offer.item_mechanics">Variklis, pavarų dėžė, pakaba ir stabdžiai</span></li>
+            <li data-spot="electronics"><span class="home-spot home-spot--inline" aria-hidden="true">3</span><span data-i18n="home.offer.item_electronics">Kompiuterinė diagnostika ir ridos neatitikimai</span></li>
+            <li data-spot="drive"><span class="home-spot home-spot--inline" aria-hidden="true">4</span><span data-i18n="home.offer.item_drive">Bandomasis važiavimas, kai saugu</span></li>
+            <li data-spot="report"><span class="home-spot home-spot--inline" aria-hidden="true">5</span><span data-i18n="home.offer.item_report">Ataskaita su nuotraukomis ir išvada</span></li>
+          </ol>
         </div>
       </div>
     </section>
 
-    <section class="home-process section section--alt" aria-labelledby="home-process-title">
+    <section class="home-final section section--dark" aria-labelledby="home-final-title" data-final-cta>
       <div class="container">
-        <div class="home-section-heading">
-          <div><h2 id="home-process-title" data-i18n="home.process.title">Nuo rezervacijos iki aiškios išvados.</h2></div>
-          <p data-i18n="home.process.intro">Pakanka automobilio nuorodos ir jo vietos. Tolesne patikros eiga pasirūpinsime mes.</p>
+        <div class="home-final-top">
+          <h2 id="home-final-title" data-i18n="home.final.title">Radote automobilį? Patikrinkite jį, kol skelbimas dar aktyvus.</h2>
+          <div class="home-final-actions">
+            <a href="/kontaktai/?service=full_inspection#booking-form" class="btn btn-primary" data-i18n="home.cta.book">Rezervuoti patikrą – 100 €</a>
+            <a href="tel:+37060945238" class="home-final-call">
+              <svg class="home-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5-2.5l5 2v4a2 2 0 0 1-2 2a16 16 0 0 1-15-15a2 2 0 0 1 2-2"/></svg>
+              <span class="visually-hidden" data-i18n="home.cta.call_label">Skambinti</span>
+              <span>+370 609 45 238</span>
+            </a>
+          </div>
         </div>
-        <ol class="home-process-steps">
+        <ol class="home-steps">
           <li>
             <img src="/assets/images/journey-listing.webp" width="640" height="533" loading="lazy" decoding="async" alt="">
-            <div class="home-process-copy">
-              <span aria-hidden="true">01</span>
-              <h3 data-i18n="home.process.step1_title">Pasirinkite laiką</h3>
-              <p data-i18n="home.process.step1_text">Rezervuodami nurodykite automobilį ir jo vietą. Vizitą patvirtinsime el. paštu.</p>
-            </div>
+            <span data-i18n="home.final.step1">Pasirinkite laiką internetu</span>
           </li>
           <li>
             <img src="/assets/images/journey-inspection.webp" width="640" height="533" loading="lazy" decoding="async" alt="">
-            <div class="home-process-copy">
-              <span aria-hidden="true">02</span>
-              <h3 data-i18n="home.process.step2_title">Mes atvykstame</h3>
-              <p data-i18n="home.process.step2_text">Specialistas atlieka pasirinktą patikrą automobilio vietoje.</p>
-            </div>
+            <span data-i18n="home.final.step2">Atvykstame prie automobilio</span>
           </li>
           <li>
             <img src="/assets/images/journey-report.webp" width="640" height="533" loading="lazy" decoding="async" alt="">
-            <div class="home-process-copy">
-              <span aria-hidden="true">03</span>
-              <h3 data-i18n="home.process.step3_title">Sprendžiate žinodami daugiau</h3>
-              <p data-i18n="home.process.step3_text">Paaiškiname radinius. Po išsamios patikros atsiunčiame nuotraukų ataskaitą ir išvadą.</p>
-            </div>
+            <span data-i18n="home.final.step3">Gaunate ataskaitą ir išvadą</span>
           </li>
         </ol>
-        <a href="/paslaugos/#inspection-journey-title" class="home-text-link home-process-more"><span data-i18n="home.process.more">Plačiau apie patikros eigą</span><span aria-hidden="true">→</span></a>
+        <p class="home-final-note" data-i18n="home.final.note">Kelionės mokestį, jei taikomas, suderiname prieš vizitą.</p>
       </div>
     </section>
 
-    <section class="home-quiz-section section" id="nuo-ko-pradeti" aria-labelledby="home-quiz-title">
-      <div class="container home-quiz-layout">
-        <div class="home-quiz-intro">
-          <h2 id="home-quiz-title" data-i18n="home.quiz.title">Raskite tinkamą kitą žingsnį.</h2>
-          <p data-i18n="home.quiz.intro">Du trumpi klausimai. Jokios registracijos ar kontaktų – tik jums aktualus pasirinkimas.</p>
-          <a href="/paslaugos/" class="home-text-link"><span data-i18n="home.quiz.compare">Arba palyginkite paslaugas</span><span aria-hidden="true">→</span></a>
-        </div>
-        <div class="home-quiz" data-home-quiz>
-          <div class="home-quiz-screen" data-quiz-screen="car">
-            <p class="home-quiz-progress" data-i18n="home.quiz.progress1">1 / 2</p>
-            <h3 tabindex="-1" data-quiz-heading data-i18n="home.quiz.question1">Ar jau radote konkretų automobilį?</h3>
-            <div class="home-quiz-options">
-              <button type="button" data-quiz-car="yes" data-i18n="home.quiz.car_yes">Taip, turiu konkretų automobilį</button>
-              <button type="button" data-quiz-car="no" data-i18n="home.quiz.car_no">Dar ieškau</button>
-            </div>
-          </div>
-          <div class="home-quiz-screen" data-quiz-screen="goal" hidden>
-            <p class="home-quiz-progress" data-i18n="home.quiz.progress2">2 / 2</p>
-            <h3 tabindex="-1" data-quiz-heading data-i18n="home.quiz.question2">Ką norite išsiaiškinti?</h3>
-            <div class="home-quiz-options">
-              <button type="button" data-quiz-goal="full" data-i18n="home.quiz.goal_full">Bendrą būklę prieš pirkimą</button>
-              <button type="button" data-quiz-goal="diagnostics" data-i18n="home.quiz.goal_diagnostics">Tik elektronikos klaidas ar parametrus</button>
-              <button type="button" data-quiz-goal="unsure" data-i18n="home.quiz.goal_unsure">Dar nesu tikras</button>
-            </div>
-            <button type="button" class="home-quiz-back" data-quiz-back data-i18n="home.quiz.back">← Atgal</button>
-          </div>
-          <div class="home-quiz-screen home-quiz-result" data-quiz-screen="result" hidden aria-live="polite">
-            <p class="home-quiz-progress" data-i18n="home.quiz.result_label">Jūsų kitas žingsnis</p>
-            <div data-quiz-result="explore" hidden><h3 tabindex="-1" data-quiz-heading data-i18n="home.quiz.explore_title">Pamatykite, ką parodo tikros patikros.</h3><p data-i18n="home.quiz.explore_text">Kol ieškote automobilio, peržiūrėkite realius radinius. Kai turėsite konkretų variantą, galėsite rezervuoti jo patikrą.</p><a href="/galerija/" class="btn btn-primary" data-i18n="home.quiz.explore_cta">Peržiūrėti atvejus</a></div>
-            <div data-quiz-result="full" hidden><h3 tabindex="-1" data-quiz-heading data-i18n="home.quiz.full_title">Rinkitės išsamią patikrą.</h3><p data-i18n="home.quiz.full_text">Jei sprendžiate, ar pirkti konkretų automobilį, verta įvertinti ne tik elektroniką, bet ir kėbulą bei mechaninę būklę.</p><a href="/kontaktai/?service=full_inspection#booking-form" class="btn btn-primary" data-i18n="home.quiz.full_cta">Rezervuoti patikrą – 100 €</a></div>
-            <div data-quiz-result="diagnostics" hidden><h3 tabindex="-1" data-quiz-heading data-i18n="home.quiz.diagnostics_title">Jums gali pakakti diagnostikos.</h3><p data-i18n="home.quiz.diagnostics_text">Jei domina tik valdymo blokų klaidos ir pagrindiniai parametrai, rinkitės kompiuterinę diagnostiką. Ji nepakeičia visos automobilio patikros.</p><a href="/kontaktai/?service=computer_diagnostics#booking-form" class="btn btn-primary" data-i18n="home.quiz.diagnostics_cta">Rezervuoti diagnostiką – 20 €</a></div>
-            <button type="button" class="home-quiz-back" data-quiz-restart data-i18n="home.quiz.restart">Pradėti iš naujo</button>
-          </div>
-          <noscript><p>Jei klausimynas neveikia, paslaugas galite palyginti atskirame puslapyje.</p><a href="/paslaugos/">Palyginkite paslaugas</a></noscript>
-        </div>
-      </div>
-    </section>
-
-    <section class="home-final-cta section section--dark">
-      <div class="container home-final-cta-layout">
-        <div><h2 data-i18n="home.cta.title">Radote automobilį, kurį norite pirkti?</h2><p data-i18n="home.cta.text">Sužinokite jo būklę prieš priimdami sprendimą.</p></div>
-        <a href="/kontaktai/?service=full_inspection#booking-form" class="btn btn-primary" data-i18n="home.cta.button">Rezervuoti patikrą</a>
-      </div>
-    </section>
+    <div class="home-sticky" data-sticky-cta>
+      <a href="/kontaktai/?service=full_inspection#booking-form" class="btn btn-primary" data-i18n="home.cta.book_short">Rezervuoti – 100 €</a>
+      <a href="tel:+37060945238" class="home-sticky-call" aria-label="Skambinti +370 609 45 238" data-i18n-aria="home.cta.call_aria">
+        <svg class="home-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5-2.5l5 2v4a2 2 0 0 1-2 2a16 16 0 0 1-15-15a2 2 0 0 1 2-2"/></svg>
+      </a>
+    </div>
   </main>
 
   <div id="site-footer"></div>
@@ -332,8 +370,8 @@
 
   <!-- Scripts loaded at end of body for performance -->
   <script src="/js/components.js?v=20261021-1"></script>
-  <script src="/js/i18n.js?v=20261022-2"></script>
+  <script src="/js/i18n.js?v=20261022-3"></script>
   <script src="/js/main.js?v=20261014-2"></script>
-  <script src="/js/home.js?v=20261022-2"></script>
+  <script src="/js/home.js?v=20261022-3"></script>
 </body>
 </html>
