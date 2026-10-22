@@ -4193,17 +4193,10 @@ html[lang="en"] .service-offer-body h2 {
   display: none;
 }
 
-.service-comparison-table .service-comparison-full {
-  color: #fff;
-  background: var(--color-bg-dark);
-}
-
+.service-comparison-table .service-comparison-full,
 .service-comparison-table .service-comparison-diagnostics {
-  background: #fafafa;
-}
-
-.service-comparison-table thead .service-comparison-diagnostics {
   color: var(--color-text);
+  background: #fafafa;
 }
 
 .service-comparison-table tbody .service-comparison-group > * {
@@ -4247,10 +4240,6 @@ html[lang="en"] .service-offer-body h2 {
   text-align: center;
 }
 
-.service-comparison-table tbody td.service-comparison-full {
-  border-color: rgba(255, 255, 255, 0.12);
-}
-
 .service-comparison-table tbody td > span[aria-hidden="true"] {
   display: grid;
   place-items: center;
@@ -4266,11 +4255,6 @@ html[lang="en"] .service-offer-body h2 {
 .service-comparison-table .service-comparison-yes > span[aria-hidden="true"] {
   color: #008b69;
   background: #e0f7ed;
-}
-
-.service-comparison-table .service-comparison-full.service-comparison-yes > span[aria-hidden="true"] {
-  color: #63dfaf;
-  background: rgba(0, 184, 148, 0.18);
 }
 
 .service-comparison-table .service-comparison-no > span[aria-hidden="true"] {
