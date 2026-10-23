@@ -5308,32 +5308,6 @@ html[lang="en"] .service-offer-body h2 {
   font-variant-numeric: tabular-nums;
 }
 
-.home-hero-trust {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.25rem;
-  margin-top: 1.5rem;
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-xs);
-  line-height: 1.45;
-}
-
-.home-hero-trust li {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.5rem;
-}
-
-.home-hero-trust li::before {
-  content: "";
-  flex: none;
-  width: 0.65em;
-  height: 0.35em;
-  border-bottom: 2px solid var(--home-success-text);
-  border-left: 2px solid var(--home-success-text);
-  transform: translateY(-0.2em) rotate(-45deg);
-}
-
 .home-hero-art {
   --art-width: 108%;
   position: relative;
@@ -6256,11 +6230,6 @@ html[lang="en"] .service-offer-body h2 {
 @media (max-width: 699px) {
   .home-hero-actions .btn {
     width: 100%;
-  }
-
-  .home-hero-trust {
-    display: grid;
-    gap: 0.45rem;
   }
 
   .home-evidence {
