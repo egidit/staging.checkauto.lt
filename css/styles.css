@@ -5385,7 +5385,7 @@ html[lang="en"] .service-offer-body h2 {
   position: relative;
   z-index: 2;
   width: min(100%, 22.5rem);
-  margin-top: calc(var(--art-width) * -0.112);
+  margin-top: calc(var(--art-width) * -0.125);
   padding: 1.25rem 1.35rem 1.15rem;
   color: var(--color-text-inverse);
   background: var(--color-bg-dark);
