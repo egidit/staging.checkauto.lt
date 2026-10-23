@@ -34,7 +34,7 @@
   <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
   <link rel="preload" href="/assets/images/home-hero.webp" as="image" type="image/webp" imagesrcset="/assets/images/home-hero-960.webp 960w, /assets/images/home-hero.webp 1486w" imagesizes="(min-width: 1000px) 47vw, (min-width: 700px) 692px, 100vw" fetchpriority="high">
-  <link rel="stylesheet" href="/css/styles.css?v=20261023-4">
+  <link rel="stylesheet" href="/css/styles.css?v=20261023-5">
   <script src="/js/cookie-consent.js?v=20261014-4"></script>
 
   <!-- Early language detection to prevent flash of wrong language -->
@@ -135,9 +135,10 @@
         </header>
 
         <article class="home-case home-case--no" aria-labelledby="home-case-passat">
-          <div class="home-case-media" data-case-image>
+          <div class="home-case-media gallery-card-image" data-case-image>
             <img src="/assets/images/home-case-passat.webp" width="960" height="540" loading="lazy" decoding="async" alt="Volkswagen Passat ir patikros metu nufotografuoti radiniai" data-i18n-aria="home.cases.passat_alt">
             <span class="home-case-unavailable" data-i18n="home.cases.image_unavailable" hidden>Nuotrauka neprieinama</span>
+            <button type="button" class="gallery-zoom-btn" data-case-zoom aria-label="Padidinti nuotrauką: Volkswagen Passat 2.0 TDI, 2016" data-i18n-aria="home.cases.passat_zoom"><svg aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.2 10.2 14 14M5 7h4M7 5v4"/></svg></button>
           </div>
           <div class="home-case-body">
             <h3 id="home-case-passat" class="home-case-car" data-i18n="home.cases.passat_car">Volkswagen Passat 2.0 TDI, 2016</h3>
@@ -153,9 +154,10 @@
         </article>
 
         <article class="home-case home-case--yes" aria-labelledby="home-case-bmw">
-          <div class="home-case-media" data-case-image>
+          <div class="home-case-media gallery-card-image" data-case-image>
             <img src="/assets/images/home-case-bmw.webp" width="960" height="540" loading="lazy" decoding="async" alt="BMW 520d ir patikros metu nufotografuoti radiniai" data-i18n-aria="home.cases.bmw_alt">
             <span class="home-case-unavailable" data-i18n="home.cases.image_unavailable" hidden>Nuotrauka neprieinama</span>
+            <button type="button" class="gallery-zoom-btn" data-case-zoom aria-label="Padidinti nuotrauką: BMW 520d, 2015" data-i18n-aria="home.cases.bmw_zoom"><svg aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.2 10.2 14 14M5 7h4M7 5v4"/></svg></button>
           </div>
           <div class="home-case-body">
             <h3 id="home-case-bmw" class="home-case-car" data-i18n="home.cases.bmw_car">BMW 520d, 2015</h3>
@@ -377,6 +379,7 @@
   <script src="/js/components.js?v=20261021-1"></script>
   <script src="/js/i18n.js?v=20261023-1"></script>
   <script src="/js/main.js?v=20261014-2"></script>
-  <script src="/js/home.js?v=20261023-2"></script>
+  <script src="/js/lightbox.js?v=20261023-1"></script>
+  <script src="/js/home.js?v=20261023-3"></script>
 </body>
 </html>

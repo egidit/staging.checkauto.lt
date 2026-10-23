@@ -94,6 +94,22 @@ try {
   assert.equal(text(await page.locator('[data-odo="delta"]').textContent()), '+104,000 km');
   assert.equal(text(await page.locator('[data-case="12"]').textContent()), '+38,000');
 
+  const caseMedia = await page.$$eval('[data-case-image]', items => items.map(item => {
+    const box = item.getBoundingClientRect();
+    return Math.round(box.width / box.height * 100) / 100;
+  }));
+  assert.deepEqual(caseMedia, [1.6, 1.6], 'Case photos use the gallery 8:5 frame');
+  const passatZoom = page.locator('[data-case-zoom]').first();
+  await passatZoom.scrollIntoViewIfNeeded();
+  await page.locator('[data-case-image]').first().hover();
+  await passatZoom.click();
+  const lightbox = page.locator('.gallery-lightbox');
+  assert.equal(await lightbox.isVisible(), true, 'Case photo opens the lightbox');
+  assert.match(await lightbox.locator('img').getAttribute('src'), /home-case-passat\.webp$/);
+  await page.keyboard.press('Escape');
+  assert.equal(await lightbox.isHidden(), true, 'Escape closes the lightbox');
+  assert.equal(await passatZoom.evaluate(el => el === document.activeElement), true, 'Focus returns to the zoom button');
+
   await page.locator('.home-scope-list li[data-spot="electronics"]').hover();
   assert.equal(await page.locator('.home-scope-stage > [data-spot="electronics"]').evaluate(el => el.classList.contains('is-active')), true);
   assert.equal(await page.locator('.home-scope-stage > [data-spot="body"]').evaluate(el => el.classList.contains('is-active')), false);

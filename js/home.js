@@ -22,11 +22,28 @@
   document.querySelectorAll('[data-case-image] img').forEach(function (image) {
     function hideUnavailableImage() {
       image.hidden = true;
+      image.dataset.unavailable = 'true';
       image.parentElement.querySelector('.home-case-unavailable').hidden = false;
+      var zoom = image.parentElement.querySelector('[data-case-zoom]');
+      if (zoom) zoom.remove();
     }
 
     image.addEventListener('error', hideUnavailableImage);
     if (image.complete && image.naturalWidth === 0) hideUnavailableImage();
+  });
+
+  /* Case photos open in the same lightbox as the gallery. */
+  document.querySelectorAll('[data-case-image]').forEach(function (media) {
+    var image = media.querySelector('img');
+    var zoom = media.querySelector('[data-case-zoom]');
+    var title = media.parentElement.querySelector('.home-case-car');
+    if (!window.checkautoLightbox) {
+      zoom.remove();
+      return;
+    }
+    zoom.addEventListener('click', function () {
+      window.checkautoLightbox.open(zoom, image, title.textContent.trim());
+    });
   });
 
   /* Evidence card: odometer drums for the real rollback cases in the gallery. */
