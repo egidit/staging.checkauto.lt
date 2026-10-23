@@ -3972,45 +3972,6 @@ html[lang="en"] .service-offer-body h2 {
   text-wrap: pretty;
 }
 
-.service-offer-details {
-  padding-inline: clamp(1.25rem, 3vw, 2rem);
-  margin-top: 0.5rem;
-}
-
-.service-offer-details summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  min-height: 48px;
-  color: #55555b;
-  font-size: var(--font-size-sm);
-  list-style: none;
-  cursor: pointer;
-}
-
-.service-offer-details summary::-webkit-details-marker {
-  display: none;
-}
-
-.service-offer-details summary::after {
-  content: "+";
-  font-size: 1.25rem;
-}
-
-.service-offer-details[open] summary::after {
-  content: "\2212";
-}
-
-.service-offer-details summary:hover {
-  color: var(--color-text);
-}
-
-.service-offer-details .service-scope {
-  margin-top: 0.5rem;
-}
-
-.service-scope,
 .pricing-includes,
 .method-list {
   display: grid;
@@ -4018,7 +3979,6 @@ html[lang="en"] .service-offer-body h2 {
   margin-block: var(--space-md);
 }
 
-.service-scope li,
 .pricing-includes li {
   position: relative;
   padding-left: 1.55rem;
@@ -4026,7 +3986,6 @@ html[lang="en"] .service-offer-body h2 {
   font-size: var(--font-size-sm);
 }
 
-.service-scope li::before,
 .pricing-includes li::before {
   content: "\2713";
   position: absolute;

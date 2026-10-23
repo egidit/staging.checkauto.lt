@@ -6,26 +6,17 @@
       "subtitle": "A full inspection or computer diagnostics."
     },
     "price_once": "per inspection",
-    "included": "What's included",
     "s1": {
       "title": "Full pre-purchase inspection",
       "recommended": "Recommended",
       "image_alt": "Inspector measuring the vehicle's paint thickness",
       "text": "We travel to the vehicle and assess its condition systematically.",
-      "item1": "Body, paint depth, and repair traces",
-      "item2": "Engine, transmission, suspension, and brakes",
-      "item3": "OBD diagnostics, electronics, and mileage discrepancies",
-      "item4": "Test drive, photos, and a clear conclusion",
       "cta": "Book a full inspection"
     },
     "s2": {
       "title": "Computer diagnostics",
       "image_alt": "Inspector checking the vehicle's electronic systems",
       "text": "A focused electronic-systems check when a full vehicle inspection is not required.",
-      "item1": "Engine and transmission control units",
-      "item2": "Safety and comfort-system faults",
-      "item3": "Live data and key parameters",
-      "item4": "A concise explanation of the results",
       "cta": "Book diagnostics"
     },
     "travel": {
