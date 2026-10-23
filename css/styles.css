@@ -5335,6 +5335,7 @@ html[lang="en"] .service-offer-body h2 {
 }
 
 .home-hero-art {
+  --art-width: 108%;
   position: relative;
   display: grid;
   justify-items: start;
@@ -5344,7 +5345,7 @@ html[lang="en"] .service-offer-body h2 {
 }
 
 .home-hero-illustration {
-  width: 108%;
+  width: var(--art-width);
   margin-inline: -4%;
 }
 
@@ -5384,7 +5385,7 @@ html[lang="en"] .service-offer-body h2 {
   position: relative;
   z-index: 2;
   width: min(100%, 22.5rem);
-  margin-top: -3.5rem;
+  margin-top: calc(var(--art-width) * -0.112);
   padding: 1.25rem 1.35rem 1.15rem;
   color: var(--color-text-inverse);
   background: var(--color-bg-dark);
@@ -5976,8 +5977,8 @@ html[lang="en"] .service-offer-body h2 {
 
 .home-scope-report {
   position: absolute;
+  right: 3%;
   bottom: 4%;
-  left: 3%;
   z-index: 1;
   display: inline-flex;
   align-items: center;
@@ -6172,16 +6173,12 @@ html[lang="en"] .service-offer-body h2 {
   }
 
   .home-hero-art {
+    --art-width: calc(100% + var(--home-bleed));
     max-width: none;
   }
 
   .home-hero-illustration {
-    width: calc(100% + var(--home-bleed));
     margin-inline: 0;
-  }
-
-  .home-evidence {
-    margin-top: -7.5rem;
   }
 
   .home-offer-layout {
@@ -6212,7 +6209,6 @@ html[lang="en"] .service-offer-body h2 {
 
   .home-evidence {
     width: 100%;
-    margin-top: -2.5rem;
   }
 
   .home-odo {

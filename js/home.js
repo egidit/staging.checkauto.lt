@@ -197,14 +197,9 @@
       var cardLeft = cardBox.left - artBox.left;
       var cardRight = cardBox.right - artBox.left;
       var cardTop = cardBox.top - artBox.top;
-      var joinY = Math.max(cardTop + 28, y);
-      var path;
+      var dropX = Math.min(Math.max(x, cardLeft + 14), cardRight - 14);
 
-      if (x > cardRight + 8) path = 'M' + x + ' ' + y + 'V' + joinY + 'H' + cardRight;
-      else if (x < cardLeft - 8) path = 'M' + x + ' ' + y + 'V' + joinY + 'H' + cardLeft;
-      else path = 'M' + x + ' ' + y + 'V' + cardTop;
-
-      leaderPath.setAttribute('d', path);
+      leaderPath.setAttribute('d', 'M' + x + ' ' + y + 'H' + dropX + 'V' + cardTop);
       leaderDot.setAttribute('cx', x);
       leaderDot.setAttribute('cy', y);
       leader.classList.add('is-ready');
