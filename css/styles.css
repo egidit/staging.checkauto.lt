@@ -5265,16 +5265,6 @@ html[lang="en"] .service-offer-body h2 {
   max-width: 40rem;
 }
 
-.home-hero-kicker {
-  display: block;
-  margin-bottom: 1rem;
-  color: var(--color-accent);
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: 1.4;
-}
-
 .home-hero-hook {
   display: block;
   font-size: clamp(2.05rem, 1.3rem + 2vw, 2.75rem);
