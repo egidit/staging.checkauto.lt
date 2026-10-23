@@ -16,7 +16,7 @@
   }
 
   function formatPercent(value) {
-    return new Intl.NumberFormat(locale(), { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(value);
+    return new Intl.NumberFormat(locale(), { style: 'percent', minimumSignificantDigits: 3, maximumSignificantDigits: 3 }).format(value);
   }
 
   document.querySelectorAll('[data-case-image] img').forEach(function (image) {

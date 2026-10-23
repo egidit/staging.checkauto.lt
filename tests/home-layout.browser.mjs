@@ -98,7 +98,11 @@ try {
   assert.equal(await page.locator('.home-scope-stage > [data-spot="body"]').evaluate(el => el.classList.contains('is-active')), false);
 
   await page.locator('[data-price-input]').fill('20000');
-  assert.equal(text(await page.locator('[data-price-share]').textContent()), '0.5%');
+  assert.equal(text(await page.locator('[data-price-share]').textContent()), '0.500%');
+  await page.locator('[data-price-input]').fill('59500');
+  assert.equal(text(await page.locator('[data-price-share]').textContent()), '0.168%');
+  await page.locator('[data-price-input]').fill('60000');
+  assert.equal(text(await page.locator('[data-price-share]').textContent()), '0.167%', 'Share keeps changing at the top of the range');
 
   const road = await page.evaluate(() => {
     const line = document.querySelector('.home-route-line');

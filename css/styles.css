@@ -5886,7 +5886,7 @@ html[lang="en"] .service-offer-body h2 {
 
 .home-price-result output {
   flex: none;
-  min-width: 4.2ch;
+  min-width: 6.5ch;
   color: var(--color-accent);
   font-size: clamp(2rem, 1.6rem + 1.2vw, 2.6rem);
   font-weight: 700;
