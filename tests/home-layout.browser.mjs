@@ -99,6 +99,20 @@ try {
 
   await page.locator('[data-price-input]').fill('20000');
   assert.equal(text(await page.locator('[data-price-share]').textContent()), '0.5%');
+
+  const road = await page.evaluate(() => {
+    const line = document.querySelector('.home-route-line');
+    const box = line.getBoundingClientRect();
+    return {
+      shown: getComputedStyle(line).display !== 'none',
+      onRoad: [...document.querySelectorAll('.home-steps img')].every(img => {
+        const step = img.getBoundingClientRect();
+        return step.top < box.bottom && step.bottom > box.top;
+      }),
+    };
+  });
+  assert.ok(road.shown, 'Desktop: winding road shown');
+  assert.ok(road.onRoad, 'Desktop: every step sits on the road');
   assert.deepEqual(errors, []);
   await context.close();
 
@@ -132,10 +146,12 @@ try {
   await mobile.page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
   await mobile.page.waitForTimeout(100);
   assert.equal(await sticky.evaluate(el => el.classList.contains('is-visible')), false, 'Booking bar hidden in the hero');
+  const mobileRoad = await mobile.page.$$eval('.home-steps li', steps => steps.map(step => getComputedStyle(step, '::before').backgroundImage.includes('journey-mobile-route')));
+  assert.deepEqual(mobileRoad, [true, true, false], 'Mobile: road links each step to the next');
   assert.deepEqual(mobile.errors, []);
   await mobile.context.close();
 
-  console.log('Passed: homepage layout 390–1440px LT/EN, evidence cases, hotspots, price share, reduced motion, booking bar.');
+  console.log('Passed: homepage layout 390–1440px LT/EN, evidence cases, hotspots, price share, step road, reduced motion, booking bar.');
 } finally {
   await browser.close();
   await new Promise(resolve => server.close(resolve));

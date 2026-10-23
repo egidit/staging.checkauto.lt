@@ -75,6 +75,9 @@
       "item_drive": "Test drive, when it is safe",
       "item_report": "Report with photos and a verdict"
     },
+    "route": {
+      "title": "How it works"
+    },
     "final": {
       "title": "Found the car? Get it checked while the listing is still live.",
       "step1": "Pick a time online",

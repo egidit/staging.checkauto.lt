@@ -34,7 +34,7 @@
   <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
   <link rel="preload" href="/assets/images/home-hero.webp" as="image" type="image/webp" imagesrcset="/assets/images/home-hero-960.webp 960w, /assets/images/home-hero.webp 1536w" imagesizes="(min-width: 1000px) 47vw, (min-width: 700px) 692px, 100vw" fetchpriority="high">
-  <link rel="stylesheet" href="/css/styles.css?v=20261023-1">
+  <link rel="stylesheet" href="/css/styles.css?v=20261023-2">
   <script src="/js/cookie-consent.js?v=20261014-4"></script>
 
   <!-- Early language detection to prevent flash of wrong language -->
@@ -231,6 +231,32 @@
       </div>
     </section>
 
+    <section class="home-route" aria-labelledby="home-route-title">
+      <div class="container">
+        <h2 id="home-route-title" class="visually-hidden" data-i18n="home.route.title">Kaip vyksta patikra</h2>
+        <div class="home-route-map">
+          <svg class="home-route-line" viewBox="0 0 1000 220" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path class="home-route-bed" d="M 35 155 C 235 155 245 45 500 45 S 765 155 965 155" />
+            <path class="home-route-dash" d="M 35 155 C 235 155 245 45 500 45 S 765 155 965 155" />
+          </svg>
+          <ol class="home-steps">
+            <li>
+              <img src="/assets/images/journey-listing.webp" width="640" height="533" loading="lazy" decoding="async" alt="">
+              <span data-i18n="home.final.step1">Pasirinkite laiką internetu</span>
+            </li>
+            <li>
+              <img src="/assets/images/journey-inspection.webp" width="640" height="533" loading="lazy" decoding="async" alt="">
+              <span data-i18n="home.final.step2">Atvykstame prie automobilio</span>
+            </li>
+            <li>
+              <img src="/assets/images/journey-report.webp" width="640" height="533" loading="lazy" decoding="async" alt="">
+              <span data-i18n="home.final.step3">Gaunate ataskaitą ir išvadą</span>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
     <section class="home-final section section--dark" aria-labelledby="home-final-title" data-final-cta>
       <div class="container">
         <div class="home-final-top">
@@ -244,20 +270,6 @@
             </a>
           </div>
         </div>
-        <ol class="home-steps">
-          <li>
-            <img src="/assets/images/home-step-book.webp" width="149" height="320" loading="lazy" decoding="async" alt="">
-            <span data-i18n="home.final.step1">Pasirinkite laiką internetu</span>
-          </li>
-          <li>
-            <img src="/assets/images/home-step-visit.webp" width="436" height="320" loading="lazy" decoding="async" alt="">
-            <span data-i18n="home.final.step2">Atvykstame prie automobilio</span>
-          </li>
-          <li>
-            <img src="/assets/images/home-step-report.webp" width="148" height="320" loading="lazy" decoding="async" alt="">
-            <span data-i18n="home.final.step3">Gaunate ataskaitą ir išvadą</span>
-          </li>
-        </ol>
         <p class="home-final-note" data-i18n="home.final.note">Kelionės mokestį, jei taikomas, suderiname prieš vizitą.</p>
       </div>
     </section>
@@ -370,7 +382,7 @@
 
   <!-- Scripts loaded at end of body for performance -->
   <script src="/js/components.js?v=20261021-1"></script>
-  <script src="/js/i18n.js?v=20261022-3"></script>
+  <script src="/js/i18n.js?v=20261023-1"></script>
   <script src="/js/main.js?v=20261014-2"></script>
   <script src="/js/home.js?v=20261023-1"></script>
 </body>

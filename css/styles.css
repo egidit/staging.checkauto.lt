@@ -6066,43 +6066,76 @@ html[lang="en"] .service-offer-body h2 {
   text-decoration-color: currentColor;
 }
 
-.home-steps {
-  --rail-y: 92px;
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+/* Steps strip: the /paslaugos/ journey illustrations joined by the same winding road. */
+.home-route {
+  padding-block: clamp(3rem, 6vw, 4.5rem);
+  background: var(--color-bg);
 }
 
-.home-steps::before {
-  content: "";
-  position: absolute;
-  top: var(--rail-y);
-  right: 0;
-  left: 0;
-  height: 1px;
-  background: rgb(245 245 247 / 0.2);
+.home-route-map {
+  --step-h: clamp(140px, 17vw, 200px);
+  position: relative;
+}
+
+.home-route-line {
+  display: none;
+}
+
+.home-route-line path {
+  fill: none;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.home-route-bed {
+  stroke: #d9efff;
+  stroke-width: 40px;
+}
+
+.home-route-dash {
+  stroke: #fff;
+  stroke-width: 2px;
+  stroke-dasharray: 8 18;
+  opacity: 0.8;
+}
+
+.home-steps {
+  position: relative;
+  display: grid;
+  gap: 1.5rem;
 }
 
 .home-steps li {
+  position: relative;
   display: grid;
-  align-content: start;
+  grid-template-columns: 128px minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: center;
   min-width: 0;
 }
 
+.home-steps li:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: 53px;
+  left: 32px;
+  width: 64px;
+  height: calc(100% + 1.5rem);
+  background: url("/assets/images/journey-mobile-route.svg") center / 100% 100% no-repeat;
+  pointer-events: none;
+}
+
 .home-steps img {
-  width: auto;
-  height: var(--rail-y);
-  max-width: 100%;
+  position: relative;
+  z-index: 1;
+  width: 128px;
+  height: 107px;
   object-fit: contain;
-  object-position: left bottom;
 }
 
 .home-steps span {
-  padding-top: 0.9rem;
-  color: var(--color-text-inverse);
-  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  font-size: var(--font-size-base);
   font-weight: 600;
   line-height: 1.4;
   text-wrap: balance;
@@ -6134,13 +6167,36 @@ html[lang="en"] .service-offer-body h2 {
     border-left: 0;
   }
 
-  .home-steps {
-    --rail-y: 128px;
-    gap: clamp(1.5rem, 4vw, 3rem);
+  .home-route-line {
+    position: absolute;
+    top: calc(var(--step-h) * 0.05);
+    left: 0;
+    display: block;
+    width: 100%;
+    height: calc(var(--step-h) * 1.06);
+    overflow: visible;
+    pointer-events: none;
   }
 
-  .home-steps span {
-    font-size: var(--font-size-base);
+  .home-steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+  }
+
+  .home-steps li {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.9rem;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .home-steps li:not(:last-child)::before {
+    display: none;
+  }
+
+  .home-steps img {
+    width: min(100%, 260px);
+    height: var(--step-h);
   }
 }
 
