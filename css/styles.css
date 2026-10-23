@@ -6218,6 +6218,23 @@ html[lang="en"] .service-offer-body h2 {
 }
 
 @media (max-width: 699px) {
+  /* Phones: the booking buttons follow the odometer evidence. */
+  .home-hero-layout {
+    row-gap: 0;
+  }
+
+  .home-hero-copy {
+    display: contents;
+  }
+
+  .home-hero-art {
+    margin-top: 2.5rem;
+  }
+
+  .home-hero-actions {
+    order: 1;
+  }
+
   .home-hero-actions .btn {
     width: 100%;
   }

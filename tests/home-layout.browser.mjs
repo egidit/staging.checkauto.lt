@@ -61,6 +61,8 @@ try {
           overflow: document.documentElement.scrollWidth > innerWidth,
           titleBottom: document.querySelector('#home-title').getBoundingClientRect().bottom,
           ctaBottom: document.querySelector('[data-hero-actions] .btn-primary').getBoundingClientRect().bottom,
+          ctaTop: document.querySelector('[data-hero-actions]').getBoundingClientRect().top,
+          evidenceBottom: document.querySelector('[data-evidence]').getBoundingClientRect().bottom,
           spotsInside: [...document.querySelectorAll('.home-scope-stage > .home-spot')].every(spot => {
             const box = spot.getBoundingClientRect();
             const x = box.left + box.width / 2;
@@ -72,10 +74,9 @@ try {
       const label = `${width}px/${lang}`;
       assert.equal(layout.overflow, false, `${label}: horizontal overflow`);
       assert.ok(layout.spotsInside, `${label}: hotspots outside the illustration`);
-      if (width !== 768) {
-        assert.ok(layout.titleBottom <= height, `${label}: headline below the first viewport`);
-        assert.ok(layout.ctaBottom <= height, `${label}: booking button below the first viewport`);
-      }
+      if (width !== 768) assert.ok(layout.titleBottom <= height, `${label}: headline below the first viewport`);
+      if (width < 700) assert.ok(layout.ctaTop >= layout.evidenceBottom, `${label}: booking buttons above the odometer evidence`);
+      else if (width !== 768) assert.ok(layout.ctaBottom <= height, `${label}: booking button below the first viewport`);
     }
   }
 
