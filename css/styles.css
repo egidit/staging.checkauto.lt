@@ -5916,8 +5916,13 @@ html[lang="en"] .service-offer-body h2 {
   color: var(--color-accent);
 }
 
+/* "Palyginti paslaugas" sits under the illustration on phones and tablets, under the offer links on desktop. */
 .home-scope-compare {
   margin-top: 1rem;
+}
+
+.home-offer-compare {
+  display: none;
 }
 
 /* Popover next to a hotspot; js/home.js places it and sets data-side and --arrow. */
@@ -6213,6 +6218,14 @@ html[lang="en"] .service-offer-body h2 {
 
   .home-tally-grid > .home-tally-feature {
     grid-column: auto;
+  }
+
+  .home-scope-compare {
+    display: none;
+  }
+
+  .home-offer-compare {
+    display: list-item;
   }
 
   /* The odometer is taller than the plain numbers, so line the labels up along the bottom. */
