@@ -5939,11 +5939,10 @@ html[lang="en"] .service-offer-body h2 {
   color: var(--color-accent);
 }
 
-/* Popover next to a hotspot, below the dots so every dot stays reachable;
-   js/home.js places it and sets data-side and --arrow. */
+/* Popover next to a hotspot; js/home.js places it and sets data-side and --arrow. */
 .home-scope-tip {
   position: absolute;
-  z-index: 4;
+  z-index: 6;
   display: grid;
   grid-template-columns: 72px minmax(0, 1fr);
   gap: 0.85rem;
@@ -5967,6 +5966,11 @@ html[lang="en"] .service-offer-body h2 {
 .home-scope-tip.is-open {
   opacity: 1;
   transform: none;
+}
+
+/* A popover opened by hovering lets the mouse through, so a dot under it can still be hovered. */
+.home-scope-tip.is-peek {
+  pointer-events: none;
 }
 
 .home-scope-tip::before {

@@ -403,10 +403,11 @@
       ].forEach(function (option, order) {
         var box = { left: option.left, top: option.top, right: option.left + width, bottom: option.top + height };
         if (box.left < TIP_EDGE || box.right > viewWidth - TIP_EDGE) return;
-        /* Prefer the side that shows the most of the popover, then the one covering the fewest dots. */
+        /* Covering another dot weighs as much as hiding 150px of the popover, so a side that leaves
+           every dot visible wins whenever one fits. */
         var hidden = Math.max(0, topEdge - box.top) + Math.max(0, box.bottom - bottomEdge);
         var covered = others.filter(function (other) { return overlaps(box, other); }).length;
-        var score = hidden * 2 + covered * 10 + order;
+        var score = hidden * 2 + covered * 300 + order;
         if (!best || score < best.score) best = { side: option.side, left: option.left, top: option.top, score: score };
       });
 
@@ -432,6 +433,7 @@
       window.clearTimeout(closeTimer);
       if (openSpot === button) {
         pinned = pinned || pin;
+        tipFor(button).classList.toggle('is-peek', !pinned);
         return;
       }
       closeTip();
@@ -439,6 +441,7 @@
       openSpot = button;
       pinned = pin;
       tip.hidden = false;
+      tip.classList.toggle('is-peek', !pin);
       placeTip(button, tip);
       button.setAttribute('aria-expanded', 'true');
       scope.classList.add('is-explored');

@@ -172,12 +172,17 @@ try {
   assert.equal(await tip('drive').isVisible(), true, 'A click keeps the popover open');
   await page.keyboard.press('Escape');
   assert.equal(await tip('drive').isHidden(), true, 'Escape closes the popover');
+  await page.locator('#home-spot-body').hover();
+  const driveBox = await page.locator('#home-spot-drive').boundingBox();
+  await page.mouse.move(driveBox.x + driveBox.width / 2, driveBox.y + driveBox.height / 2);
+  assert.equal(await tip('drive').isVisible(), true, 'Hovering a dot under a hover popover switches to it');
+  await page.mouse.move(0, 0);
+  await page.waitForTimeout(250);
   await page.locator('#home-spot-body').click();
-  const reachable = await page.evaluate(() => [...document.querySelectorAll('button[data-spot]')].every(button => {
-    const box = button.getBoundingClientRect();
-    return document.elementFromPoint(box.left + box.width / 2, box.top + box.height / 2).closest('button[data-spot]') === button;
-  }));
-  assert.ok(reachable, 'An open popover never hides another hotspot');
+  await page.mouse.move(0, 0);
+  await page.locator('#home-spot-mechanics').click();
+  assert.equal(await tip('mechanics').isVisible(), true, 'Clicking another hotspot switches the popover');
+  await page.keyboard.press('Escape');
   await page.locator('#home-spot-drive').click();
   assert.equal(await tip('drive').isVisible(), true, 'Clicking another hotspot switches the popover');
   assert.equal(await tip('body').isHidden(), true);
