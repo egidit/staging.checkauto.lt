@@ -59,7 +59,8 @@
       "more_other": "All {count} cases in the gallery"
     },
     "offer": {
-      "title": "Put €100 next to the price of the car.",
+      "title": "Is an inspection worth paying for?",
+      "intro": "An inspection costs only a small share of the car’s price. If you decide not to buy the car after it, you’ll most likely save more than you paid for the inspection.",
       "slider_label": "Price of the car you are considering",
       "result": "of the car’s price is what a full inspection costs",
       "compare": "Compare services",

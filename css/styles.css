@@ -5674,6 +5674,14 @@ html[lang="en"] .service-offer-body h2 {
   max-width: 14ch;
 }
 
+.home-offer-intro {
+  max-width: 46ch;
+  margin-top: 1rem;
+  font-size: var(--font-size-md);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
 .home-offer-copy {
   --price-inset: 1.25rem;
 }
