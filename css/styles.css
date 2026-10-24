@@ -5584,6 +5584,10 @@ html[lang="en"] .service-offer-body h2 {
   text-wrap: balance;
 }
 
+.home-cases-verdict {
+  white-space: nowrap;
+}
+
 .home-cases-verdict--no {
   color: var(--home-danger-text);
 }
