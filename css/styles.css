@@ -5513,7 +5513,7 @@ html[lang="en"] .service-offer-body h2 {
 }
 
 /* Tally strip */
-/* Tally: the largest hidden mileage on an odometer, then each count as a share of all published inspections. */
+/* Tally: the largest hidden mileage on an odometer, then the counts from the published inspections. */
 .home-tally-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -5575,14 +5575,6 @@ html[lang="en"] .service-offer-body h2 {
   color: var(--color-text-secondary);
 }
 
-.home-tally-stat {
-  --bar: var(--color-accent);
-}
-
-.home-tally-stat--warning {
-  --bar: var(--home-danger-text);
-}
-
 .home-tally-stat dd {
   color: var(--color-text);
   font-size: clamp(1.75rem, 1.35rem + 1.5vw, 2.5rem);
@@ -5590,18 +5582,6 @@ html[lang="en"] .service-offer-body h2 {
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.04em;
   line-height: 1;
-}
-
-.home-tally-stat::after {
-  content: "";
-  height: 6px;
-  margin-top: auto;
-  border-radius: 999px;
-  background: linear-gradient(to right, var(--bar) var(--share, 0%), rgb(0 0 0 / 0.08) var(--share, 0%));
-}
-
-.home-tally-stat dt {
-  margin-bottom: 0.6rem;
 }
 
 .home-tally-note {

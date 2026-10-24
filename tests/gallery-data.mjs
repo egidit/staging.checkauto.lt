@@ -64,13 +64,6 @@ for (const [key, value] of Object.entries(expected)) {
   assert.equal(fallback[key], value, `index.html shows ${fallback[key]} for "${key}" but gallery.json gives ${value}; update the number in index.html`);
 }
 
-const fallbackShares = Object.fromEntries([...html.matchAll(/data-gallery-share="(\w+)" style="--share: ([\d.]+)%"/g)]
-  .map(([, key, value]) => [key, Number(value)]));
-for (const [key, value] of Object.entries(fallbackShares)) {
-  const share = Math.round(expected[key] / expected.total * 1000) / 10;
-  assert.equal(value, share, `index.html draws the "${key}" bar at ${value}% but gallery.json gives ${share}%; update --share in index.html`);
-}
-
 const fallbackCases = [...html.matchAll(/data-case="(\d+)" data-shown="(\d+)" data-actual="(\d+)"/g)]
   .map(([, id, shown, actual]) => ({ id: Number(id), shown: Number(shown), actual: Number(actual) }));
 assert.deepEqual(fallbackCases, measured.slice(0, 3).map(({ id, shown, actual }) => ({ id, shown, actual })),

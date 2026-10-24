@@ -434,7 +434,6 @@
 
   var figureElements = Array.prototype.slice.call(document.querySelectorAll('[data-gallery-figure]'));
   var copyElements = Array.prototype.slice.call(document.querySelectorAll('[data-gallery-copy]'));
-  var shareElements = Array.prototype.slice.call(document.querySelectorAll('[data-gallery-share]'));
   var figures = {};
   figureElements.forEach(function (element) {
     figures[element.dataset.galleryFigure] = Number(element.textContent.replace(/\D/g, ''));
@@ -499,10 +498,6 @@
       }
       setOdometer(element, value, false);
       if (tallyIntroPending) parkAtZero(element);
-    });
-    shareElements.forEach(function (element) {
-      var share = figures.total ? figures[element.dataset.galleryShare] / figures.total : 0;
-      element.style.setProperty('--share', Math.round(share * 1000) / 10 + '%');
     });
     copyElements.forEach(function (element) {
       var copy = GALLERY_COPY[element.dataset.galleryCopy];
