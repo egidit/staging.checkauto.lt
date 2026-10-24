@@ -6007,13 +6007,11 @@ html[lang="en"] .service-offer-body h2 {
   border-width: 0 1px 1px 0;
 }
 
-/* Placeholder until each check gets its own illustration. */
 .home-scope-tip-media {
-  display: grid;
-  place-items: center;
+  display: block;
+  width: 100%;
+  height: auto;
   aspect-ratio: 1;
-  color: #8e8e93;
-  background: repeating-linear-gradient(135deg, var(--color-bg-alt) 0 8px, #ececf0 8px 16px);
   border-radius: 8px;
 }
 
