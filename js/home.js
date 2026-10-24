@@ -244,8 +244,6 @@
       var max = Number(priceInput.max);
       price.querySelector('[data-price-value]').textContent = formatMoney(value);
       price.querySelector('[data-price-share]').textContent = formatPercent(INSPECTION_PRICE / value);
-      price.querySelector('[data-price-min]').textContent = formatMoney(min);
-      price.querySelector('[data-price-max]').textContent = formatMoney(max);
       priceInput.setAttribute('aria-valuetext', formatMoney(value));
       priceInput.style.setProperty('--fill', ((value - min) / (max - min) * 100) + '%');
     };

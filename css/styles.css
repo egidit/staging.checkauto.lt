@@ -5770,14 +5770,6 @@ html[lang="en"] .service-offer-body h2 {
   border-radius: 4px;
 }
 
-.home-price-scale {
-  display: flex;
-  justify-content: space-between;
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-xs);
-  font-variant-numeric: tabular-nums;
-}
-
 .home-price-result {
   display: flex;
   align-items: center;
