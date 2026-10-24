@@ -142,7 +142,6 @@
     var visitorPicked = false;
     var shownOdo = evidence.querySelector('[data-odo="shown"]');
     var actualOdo = evidence.querySelector('[data-odo="actual"]');
-    var deltaText = evidence.querySelector('[data-odo="delta"]');
 
     var activeButton = function () {
       return caseButtons.filter(function (button) {
@@ -168,7 +167,6 @@
       }
       setOdometer(shownOdo, shown, rolling);
       setOdometer(actualOdo, actual, rolling);
-      deltaText.textContent = '+' + formatNumber(actual - shown) + ' km';
       if (rolling) {
         window.requestAnimationFrame(function () {
           evidence.classList.remove('is-rolling');

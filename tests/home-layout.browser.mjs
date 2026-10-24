@@ -106,12 +106,12 @@ try {
   assert.equal(await page.locator('[data-case="9"]').getAttribute('aria-pressed'), 'false');
   assert.equal(text(await page.locator('[data-odo="shown"] .visually-hidden').textContent()), '215 000 km');
   assert.equal(text(await page.locator('[data-odo="actual"] .visually-hidden').textContent()), '319 000 km');
-  assert.equal(text(await page.locator('[data-odo="delta"]').textContent()), '+104 000 km');
+  assert.equal(text(await page.locator('[data-case="3"]').textContent()), '+104 000');
   assert.equal(await page.locator('[data-evidence-case="3"]').isVisible(), true);
   assert.equal(await page.locator('[data-evidence-case="9"]').isHidden(), true);
 
   await page.evaluate(() => window.checkautoI18n.setLanguage('en'));
-  assert.equal(text(await page.locator('[data-odo="delta"]').textContent()), '+104,000 km');
+  assert.equal(text(await page.locator('[data-case="3"]').textContent()), '+104,000');
   assert.equal(text(await page.locator('[data-case="12"]').textContent()), '+38,000');
 
   const caseMedia = await page.$$eval('[data-case-image]', items => items.map(item => {

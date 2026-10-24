@@ -5429,19 +5429,6 @@ html[lang="en"] .service-offer-body h2 {
   font-weight: 600;
 }
 
-.home-evidence-delta {
-  display: inline-flex;
-  gap: 0.35em;
-  margin-top: 1rem;
-  padding: 0.35rem 0.75rem;
-  color: #ff8a80;
-  background: rgb(255 59 48 / 0.16);
-  border-radius: 999px;
-  font-size: var(--font-size-sm);
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-}
-
 .home-evidence-case {
   display: flex;
   flex-wrap: wrap;
@@ -6152,7 +6139,7 @@ html[lang="en"] .service-offer-body h2 {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
     grid-template-areas:
-      "eyebrow ."
+      "eyebrow eyebrow"
       "shown actual"
       "case case"
       "switch switch";
@@ -6166,15 +6153,6 @@ html[lang="en"] .service-offer-body h2 {
     grid-area: eyebrow;
     align-self: center;
     margin-bottom: 0;
-  }
-
-  .home-evidence-delta {
-    grid-column: 1 / -1;
-    grid-row: 1;
-    justify-self: end;
-    white-space: nowrap;
-    align-self: center;
-    margin-top: 0;
   }
 
   .home-evidence-reading {
