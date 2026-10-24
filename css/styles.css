@@ -6122,6 +6122,10 @@ html[lang="en"] .service-offer-body h2 {
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   }
 
+  .home-hero-copy {
+    align-self: start;
+  }
+
   .home-hero-art {
     --art-width: calc(100% + var(--home-bleed));
     max-width: none;
