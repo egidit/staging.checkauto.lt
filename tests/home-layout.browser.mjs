@@ -75,6 +75,15 @@ try {
           ctaBottom: document.querySelector('[data-hero-actions] .btn-primary').getBoundingClientRect().bottom,
           ctaTop: document.querySelector('[data-hero-actions]').getBoundingClientRect().top,
           evidenceBottom: document.querySelector('[data-evidence]').getBoundingClientRect().bottom,
+          spotsOnImage: (() => {
+            const image = document.querySelector('.home-scope-stage img').getBoundingClientRect();
+            return [...document.querySelectorAll('.home-scope-stage > .home-spot')].every(spot => {
+              const box = spot.getBoundingClientRect();
+              const x = (box.left + box.width / 2 - image.left) / image.width * 100;
+              const y = (box.top + box.height / 2 - image.top) / image.height * 100;
+              return Math.abs(x - parseFloat(spot.style.getPropertyValue('--x'))) < 0.5 && Math.abs(y - parseFloat(spot.style.getPropertyValue('--y'))) < 0.5;
+            });
+          })(),
           spotsInside: [...document.querySelectorAll('.home-scope-stage > .home-spot')].every(spot => {
             const box = spot.getBoundingClientRect();
             const x = box.left + box.width / 2;
@@ -86,6 +95,7 @@ try {
       const label = `${width}px/${lang}`;
       assert.equal(layout.overflow, false, `${label}: horizontal overflow`);
       assert.ok(layout.spotsInside, `${label}: hotspots outside the illustration`);
+      assert.ok(layout.spotsOnImage, `${label}: hotspots drift from their place on the illustration`);
       if (width !== 768) assert.ok(layout.titleBottom <= height, `${label}: headline below the first viewport`);
       if (width < 700) assert.ok(layout.ctaTop >= layout.evidenceBottom, `${label}: booking buttons above the odometer evidence`);
       else if (width !== 768) assert.ok(layout.ctaBottom <= height, `${label}: booking button below the first viewport`);
@@ -149,9 +159,19 @@ try {
   assert.equal(await lightbox.isHidden(), true, 'Escape closes the lightbox');
   assert.equal(await passatZoom.evaluate(el => el === document.activeElement), true, 'Focus returns to the zoom button');
 
-  await page.locator('.home-scope-list li[data-spot="electronics"]').hover();
-  assert.equal(await page.locator('.home-scope-stage > [data-spot="electronics"]').evaluate(el => el.classList.contains('is-active')), true);
-  assert.equal(await page.locator('.home-scope-stage > [data-spot="body"]').evaluate(el => el.classList.contains('is-active')), false);
+  const tip = id => page.locator(`#home-scope-tip-${id}`);
+  await page.locator('#home-spot-electronics').hover();
+  assert.equal(await tip('electronics').isVisible(), true, 'Hovering a hotspot opens its popover');
+  assert.equal(await page.locator('#home-spot-electronics').getAttribute('aria-expanded'), 'true');
+  await page.mouse.move(0, 0);
+  await page.waitForTimeout(250);
+  assert.equal(await tip('electronics').isHidden(), true, 'Moving the mouse away closes the popover');
+  await page.locator('#home-spot-drive').click();
+  await page.mouse.move(0, 0);
+  await page.waitForTimeout(250);
+  assert.equal(await tip('drive').isVisible(), true, 'A click keeps the popover open');
+  await page.keyboard.press('Escape');
+  assert.equal(await tip('drive').isHidden(), true, 'Escape closes the popover');
 
   await page.locator('[data-price-input]').fill('20000');
   assert.equal(text(await page.locator('[data-price-share]').textContent()), '0.500%');
@@ -254,6 +274,26 @@ try {
   const unavailable = await figuresFor(null, 'en');
   assert.deepEqual(unavailable.tally, ['126,000 km | the most mileage hidden', '16 | published inspections', '8 | times we advised not to buy', '4 | rolled-back odometers found'], 'HTML figures remain when gallery.json cannot load');
   assert.deepEqual(unavailable.buttons, ['+126,000', '+104,000', '+38,000']);
+
+  const touch = await openHome({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true });
+  await touch.page.locator('[data-consent-reject]').click();
+  const touchTip = touch.page.locator('#home-scope-tip-mechanics');
+  const isOpen = () => touchTip.evaluate(el => !el.hidden);
+  await touch.page.locator('#home-spot-mechanics').tap();
+  assert.equal(await isOpen(), true, 'Tapping a hotspot opens its popover');
+  const tipBox = await touchTip.boundingBox();
+  assert.ok(tipBox.x >= 0 && tipBox.x + tipBox.width <= 390, 'Popover stays on screen');
+  await touch.page.touchscreen.tap(tipBox.x + tipBox.width / 2, tipBox.y + tipBox.height / 2);
+  assert.equal(await isOpen(), true, 'Tapping inside the popover keeps it open');
+  const cdp = await touch.context.newCDPSession(touch.page);
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: tipBox.x + 20, y: tipBox.y + 20 }] });
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: 4, y: tipBox.y + 20 }] });
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+  assert.equal(await isOpen(), true, 'Pressing inside and releasing outside keeps the popover open');
+  await touch.page.touchscreen.tap(4, tipBox.y + tipBox.height + 40);
+  assert.equal(await isOpen(), false, 'Tapping outside closes the popover');
+  assert.deepEqual(touch.errors, []);
+  await touch.context.close();
 
   const mobile = await openHome({ viewport: { width: 390, height: 844 } });
   const sticky = mobile.page.locator('[data-sticky-cta]');

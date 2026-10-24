@@ -334,24 +334,164 @@
     renderPrice();
   }
 
-  /* Scope: checklist lines and illustration hotspots highlight each other. */
+  /* Scope: each numbered hotspot opens a popover about that part of the inspection.
+     A mouse opens it on hover; a click or tap keeps it open until a press and its release
+     both land outside it, so a press that starts inside or a scroll never closes it. */
   var scope = document.querySelector('[data-scope]');
   if (scope) {
-    var spotTargets = Array.prototype.slice.call(scope.querySelectorAll('[data-spot]'));
+    var stage = scope.querySelector('.home-scope-stage');
+    var header = document.querySelector('.site-header');
+    var openSpot = null;
+    var pinned = false;
+    var closeTimer = 0;
+    var pressStartedOutside = false;
+    var usingKeyboard = false;
+    var TIP_GAP = 12;
+    var TIP_EDGE = 8;
+    var SPOT_SELECTOR = 'button[data-spot]';
+    var INSIDE_SELECTOR = 'button[data-spot], .home-scope-tip';
 
-    var activateSpot = function (id) {
-      spotTargets.forEach(function (target) {
-        target.classList.toggle('is-active', target.dataset.spot === id);
+    var tipFor = function (button) {
+      return document.getElementById(button.getAttribute('aria-controls'));
+    };
+
+    var isInside = function (element) {
+      return Boolean(element && element.closest && element.closest(INSIDE_SELECTOR));
+    };
+
+    var overlaps = function (a, b) {
+      return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+    };
+
+    /* Try each side of the hotspot and keep the first that fits the screen without hiding another dot. */
+    var placeTip = function (button, tip) {
+      var stageBox = stage.getBoundingClientRect();
+      var spotBox = button.getBoundingClientRect();
+      var width = tip.offsetWidth;
+      var height = tip.offsetHeight;
+      var viewWidth = document.documentElement.clientWidth;
+      var topEdge = Math.max(header ? header.getBoundingClientRect().bottom : 0, 0) + TIP_EDGE;
+      var bottomEdge = window.innerHeight - TIP_EDGE;
+      var centerX = spotBox.left + spotBox.width / 2;
+      var centerY = spotBox.top + spotBox.height / 2;
+      var centredLeft = Math.min(Math.max(centerX - width / 2, TIP_EDGE), viewWidth - TIP_EDGE - width);
+      var others = Array.prototype.slice.call(scope.querySelectorAll(SPOT_SELECTOR)).filter(function (other) {
+        return other !== button;
+      }).map(function (other) {
+        return other.getBoundingClientRect();
       });
+
+      var best = null;
+      [
+        { side: 'right', left: spotBox.right + TIP_GAP, top: centerY - height / 2 },
+        { side: 'left', left: spotBox.left - TIP_GAP - width, top: centerY - height / 2 },
+        { side: 'bottom', left: centredLeft, top: spotBox.bottom + TIP_GAP },
+        { side: 'top', left: centredLeft, top: spotBox.top - TIP_GAP - height }
+      ].forEach(function (option, order) {
+        var box = { left: option.left, top: option.top, right: option.left + width, bottom: option.top + height };
+        if (box.left < TIP_EDGE || box.right > viewWidth - TIP_EDGE) return;
+        var offScreen = box.top < topEdge || box.bottom > bottomEdge ? 1 : 0;
+        var covered = others.filter(function (other) { return overlaps(box, other); }).length;
+        var score = offScreen * 100 + covered * 10 + order;
+        if (!best || score < best.score) best = { side: option.side, left: option.left, top: option.top, score: score };
+      });
+
+      if (!best) best = { side: 'bottom', left: Math.max(centredLeft, TIP_EDGE), top: spotBox.bottom + TIP_GAP };
+      tip.dataset.side = best.side;
+      tip.style.left = (best.left - stageBox.left) + 'px';
+      tip.style.top = (best.top - stageBox.top) + 'px';
+      tip.style.setProperty('--arrow', (best.side === 'left' || best.side === 'right' ? centerY - best.top : centerX - best.left) + 'px');
+    };
+
+    var closeTip = function () {
+      window.clearTimeout(closeTimer);
+      if (!openSpot) return;
+      var tip = tipFor(openSpot);
+      tip.classList.remove('is-open');
+      tip.hidden = true;
+      openSpot.setAttribute('aria-expanded', 'false');
+      openSpot = null;
+      pinned = false;
+    };
+
+    var openTip = function (button, pin) {
+      window.clearTimeout(closeTimer);
+      if (openSpot === button) {
+        pinned = pinned || pin;
+        return;
+      }
+      closeTip();
+      var tip = tipFor(button);
+      openSpot = button;
+      pinned = pin;
+      tip.hidden = false;
+      placeTip(button, tip);
+      button.setAttribute('aria-expanded', 'true');
+      scope.classList.add('is-explored');
+      void tip.offsetWidth;
+      tip.classList.add('is-open');
+    };
+
+    var closeSoon = function () {
+      if (pinned) return;
+      window.clearTimeout(closeTimer);
+      closeTimer = window.setTimeout(closeTip, 150);
     };
 
     scope.addEventListener('pointerover', function (event) {
-      var target = event.target.closest('[data-spot]');
-      activateSpot(target ? target.dataset.spot : null);
+      if (event.pointerType !== 'mouse') return;
+      var button = event.target.closest(SPOT_SELECTOR);
+      if (button) openTip(button, false);
+      else if (event.target.closest('.home-scope-tip')) window.clearTimeout(closeTimer);
     });
-    scope.addEventListener('pointerleave', function () {
-      activateSpot(null);
+
+    scope.addEventListener('pointerout', function (event) {
+      if (event.pointerType !== 'mouse' || !openSpot) return;
+      var from = event.target.closest(INSIDE_SELECTOR);
+      var to = event.relatedTarget && event.relatedTarget.closest ? event.relatedTarget.closest(INSIDE_SELECTOR) : null;
+      if (from && from !== to) closeSoon();
     });
+
+    scope.addEventListener('click', function (event) {
+      var button = event.target.closest(SPOT_SELECTOR);
+      if (!button) return;
+      if (openSpot === button && pinned) closeTip();
+      else openTip(button, true);
+    });
+
+    /* Touch keeps the pointer captured on the element first pressed, so read the release point instead. */
+    document.addEventListener('pointerdown', function (event) {
+      usingKeyboard = false;
+      pressStartedOutside = Boolean(openSpot) && !isInside(event.target);
+    });
+    document.addEventListener('pointerup', function (event) {
+      var released = document.elementFromPoint(event.clientX, event.clientY);
+      if (pressStartedOutside && openSpot && !isInside(released)) closeTip();
+      pressStartedOutside = false;
+    });
+    document.addEventListener('pointercancel', function () {
+      pressStartedOutside = false;
+    });
+
+    document.addEventListener('keydown', function (event) {
+      usingKeyboard = true;
+      if (event.key !== 'Escape' || !openSpot) return;
+      var button = openSpot;
+      var hadFocus = scope.contains(document.activeElement);
+      closeTip();
+      if (hadFocus) button.focus();
+    });
+
+    /* Tabbing away closes the popover. A press moves focus too (even onto <main>), but presses are handled above. */
+    scope.addEventListener('focusout', function (event) {
+      if (usingKeyboard && openSpot && event.relatedTarget && !scope.contains(event.relatedTarget)) closeTip();
+    });
+
+    var repositionTip = function () {
+      if (openSpot) placeTip(openSpot, tipFor(openSpot));
+    };
+    window.addEventListener('resize', repositionTip);
+    window.addEventListener('checkauto:languagechange', repositionTip);
   }
 
   /* Mobile booking bar: visible between the hero actions and the final call to action. */

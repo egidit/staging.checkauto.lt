@@ -66,10 +66,15 @@
       "compare": "Compare services",
       "report_chip": "Photo report",
       "item_body": "Body and paint thickness",
+      "item_body_text": "We measure paint thickness and look for repainted panels, filler, corrosion and other signs of repair.",
       "item_mechanics": "Engine, gearbox, suspension and brakes",
+      "item_mechanics_text": "We inspect the engine, gearbox and cooling system, then check the suspension, brakes, steering, tyres and fluids.",
       "item_electronics": "Computer diagnostics and mileage discrepancies",
+      "item_electronics_text": "We read fault codes and live data from the control units and compare the mileage stored in them with the dashboard.",
       "item_drive": "Test drive, when it is safe",
-      "item_report": "Report with photos and a verdict"
+      "item_drive_text": "When conditions are safe, we take the car on the road to see how the engine, gearbox, brakes and steering behave while driving.",
+      "item_report": "Report with photos and a verdict",
+      "item_report_text": "After the inspection we send photos, a description of what we found and a clear verdict on whether the car is worth buying."
     },
     "route": {
       "title": "How it works"
