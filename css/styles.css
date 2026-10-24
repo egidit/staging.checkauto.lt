@@ -5916,6 +5916,10 @@ html[lang="en"] .service-offer-body h2 {
   color: var(--color-accent);
 }
 
+.home-scope-compare {
+  margin-top: 1rem;
+}
+
 /* Popover next to a hotspot; js/home.js places it and sets data-side and --arrow. */
 .home-scope-tip {
   position: absolute;
