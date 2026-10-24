@@ -5483,12 +5483,16 @@ html[lang="en"] .service-offer-body h2 {
   gap: 0.625rem;
 }
 
+.home-tally {
+  --tally-inset: 1rem;
+}
+
 .home-tally-grid > div {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
   min-width: 0;
-  padding: 1rem 1rem 1.1rem;
+  padding: 1rem var(--tally-inset) 1.1rem;
   border-radius: var(--radius-lg);
   background: var(--color-bg-alt);
 }
@@ -5526,12 +5530,14 @@ html[lang="en"] .service-offer-body h2 {
   line-height: 1;
 }
 
+/* Links under a card line up with the text inside it, not with its edge, so they look aligned. */
 .home-tally-note {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.35rem 1rem;
   margin-top: 1rem;
+  padding-left: var(--tally-inset);
   font-size: var(--font-size-xs);
   line-height: 1.5;
 }
@@ -5668,9 +5674,13 @@ html[lang="en"] .service-offer-body h2 {
   max-width: 14ch;
 }
 
+.home-offer-copy {
+  --price-inset: 1.25rem;
+}
+
 .home-price {
   margin-block: 2rem 1.5rem;
-  padding: 1.25rem 1.25rem 1.1rem;
+  padding: 1.25rem var(--price-inset) 1.1rem;
   background: var(--color-bg);
   border: 1px solid var(--home-rule);
   border-radius: var(--radius-lg);
@@ -5789,6 +5799,7 @@ html[lang="en"] .service-offer-body h2 {
   justify-items: start;
   gap: 0.6rem;
   margin-top: 1.4rem;
+  padding-left: var(--price-inset);
 }
 
 .home-scope {
@@ -6134,8 +6145,12 @@ html[lang="en"] .service-offer-body h2 {
     gap: 0.875rem;
   }
 
+  .home-tally {
+    --tally-inset: 1.35rem;
+  }
+
   .home-tally-grid > div {
-    padding: 1.25rem 1.35rem 1.35rem;
+    padding: 1.25rem var(--tally-inset) 1.35rem;
   }
 
   .home-tally dt {
