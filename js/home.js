@@ -422,11 +422,6 @@
       figure: 'total',
       key: 'home.cases.more',
       lt: { one: '{count} atvejis galerijoje', few: 'Visi {count} atvejai galerijoje', other: 'Visi {count} atvejų galerijoje' }
-    },
-    offer: {
-      figure: 'maxHidden',
-      key: 'home.offer.text',
-      lt: 'Mūsų patikrose vien atsukta rida slėpė iki {count} km. Dokumentuoti trūkumai taip pat duoda konkretų pagrindą derėtis dėl kainos.'
     }
   };
 

@@ -2,7 +2,7 @@
   "home": {
     "hero": {
       "title": "The seller knows what the car hides. After our inspection, so will you.",
-      "subtitle": "We come to wherever the car is and spend 1.5–2 hours checking the body, mechanics and electronics. You get the findings in a report with photos."
+      "subtitle": "We come to wherever the car is and check the body, mechanics and electronics. You get the findings in a report with photos."
     },
     "cta": {
       "book": "Book an inspection – €100",
@@ -40,7 +40,6 @@
       "title_yes_lead": "Other times it’s",
       "title_yes": "buy it",
       "title_yes_rest": ", but replace the discs",
-      "intro": "Two real cases: the same question, opposite answers.",
       "seller": "Seller said",
       "found": "What we found",
       "image_unavailable": "Photo unavailable",
@@ -63,8 +62,7 @@
       "title": "Put €100 next to the price of the car.",
       "slider_label": "Price of the car you are considering",
       "result": "of the car’s price is what a full inspection costs",
-      "text": "In our inspections, a rolled-back odometer alone hid up to {count} km. Documented defects also give you concrete grounds to negotiate the price.",
-      "diagnostics": "Only need electronics? Computer diagnostics – €20",
+      "diagnostics": "Computer diagnostics – €20",
       "compare": "Compare services",
       "report_chip": "Photo report",
       "item_body": "Body and paint thickness",
@@ -80,8 +78,7 @@
       "title": "Found the car? Get it checked while the listing is still live.",
       "step1": "Pick a time online",
       "step2": "We come to the car",
-      "step3": "You get the report and verdict",
-      "note": "Any applicable travel fee is agreed before the visit."
+      "step3": "You get the report and verdict"
     }
   }
 }

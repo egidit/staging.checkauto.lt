@@ -5562,21 +5562,16 @@ html[lang="en"] .service-offer-body h2 {
   color: var(--home-success-text);
 }
 
-.home-cases-heading p {
-  margin-top: 1rem;
-  font-size: var(--font-size-md);
-  line-height: 1.6;
-}
-
 .home-case {
   display: grid;
   gap: 1.5rem;
-  padding-block: clamp(2rem, 4vw, 3rem);
-  border-top: 1px solid var(--home-rule);
 }
 
-.home-case:last-of-type {
-  border-bottom: 1px solid var(--home-rule);
+/* A single rule separates the two cases. */
+.home-case + .home-case {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  padding-top: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid var(--home-rule);
 }
 
 .home-case-media {
@@ -5674,7 +5669,7 @@ html[lang="en"] .service-offer-body h2 {
 }
 
 .home-price {
-  margin-top: 2rem;
+  margin-block: 2rem 1.5rem;
   padding: 1.25rem 1.25rem 1.1rem;
   background: var(--color-bg);
   border: 1px solid var(--home-rule);
@@ -5781,14 +5776,6 @@ html[lang="en"] .service-offer-body h2 {
 
 .home-price-result span {
   max-width: 24ch;
-  text-wrap: pretty;
-}
-
-.home-offer-text {
-  max-width: 46ch;
-  margin-block: 1.5rem;
-  font-size: var(--font-size-sm);
-  line-height: 1.7;
   text-wrap: pretty;
 }
 
@@ -5997,12 +5984,6 @@ html[lang="en"] .service-offer-body h2 {
   font-weight: 600;
   line-height: 1.4;
   text-wrap: balance;
-}
-
-.home-final-note {
-  margin-top: 1.75rem;
-  font-size: var(--font-size-xs);
-  line-height: 1.5;
 }
 
 /* Mobile booking bar, shown between the hero and the final call to action. */

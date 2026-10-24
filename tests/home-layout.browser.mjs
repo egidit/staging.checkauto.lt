@@ -227,7 +227,6 @@ try {
           return clean(value.textContent) + ' | ' + clean(item.querySelector('dt').textContent);
         }),
         link: clean(document.querySelector('[data-gallery-copy="casesLink"]').textContent),
-        offer: clean(document.querySelector('[data-gallery-copy="offer"]').textContent),
         buttons: [...document.querySelectorAll('.home-evidence-buttons [data-case]')].map(button => clean(button.textContent)),
         pressed: document.querySelector('.home-evidence-buttons [aria-pressed="true"]').dataset.case,
         car: clean(document.querySelector('.home-evidence-case:not([hidden]) .home-evidence-car').textContent),
@@ -242,7 +241,6 @@ try {
   const grown = await figuresFor([...gallery.items, ...extra], 'lt');
   assert.deepEqual(grown.tally, ['180 000 km | daugiausiai nuslėptos ridos', '21 | paskelbta patikra', '9 | kartus patarėme nepirkti', '5 | kartus radome atsuktą ridą'], 'Tally follows gallery.json with Lithuanian plural forms');
   assert.equal(grown.link, '21 atvejis galerijoje');
-  assert.match(grown.offer, /iki 180 000 km\./);
   assert.deepEqual(grown.buttons, ['+180 000', '+126 000', '+104 000'], 'Hero shows the three largest rollbacks');
   assert.equal(grown.pressed, '101');
   assert.equal(grown.car, template.lt.title);
@@ -251,7 +249,6 @@ try {
   const grownEnglish = await figuresFor([...gallery.items, ...extra], 'en');
   assert.deepEqual(grownEnglish.tally, ['180,000 km | the most mileage hidden', '21 | published inspections', '9 | times we advised not to buy', '5 | rolled-back odometers found']);
   assert.equal(grownEnglish.link, 'All 21 cases in the gallery');
-  assert.match(grownEnglish.offer, /up to 180,000 km\./);
   assert.equal(grownEnglish.label, `${template.en.title}: 180,000 km hidden`);
 
   const unavailable = await figuresFor(null, 'en');
