@@ -5673,13 +5673,6 @@ html[lang="en"] .service-offer-body h2 {
   stroke-width: 2.5;
 }
 
-.home-case-note {
-  max-width: 44ch;
-  margin-top: 0.6rem;
-  font-size: var(--font-size-sm);
-  line-height: 1.6;
-}
-
 .home-cases-more {
   margin-top: 1.75rem;
 }
