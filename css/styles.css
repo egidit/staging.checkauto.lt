@@ -5325,24 +5325,6 @@ html[lang="en"] .service-offer-body h2 {
   line-height: 1.35;
 }
 
-.home-evidence-eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  color: rgb(245 245 247 / 0.62);
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-}
-
-.home-evidence-eyebrow::before {
-  content: "";
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  background: var(--color-danger);
-}
-
 .home-evidence-reading + .home-evidence-reading {
   margin-top: 0.9rem;
 }
@@ -5458,12 +5440,6 @@ html[lang="en"] .service-offer-body h2 {
 
 .home-evidence-switch {
   margin-top: 0.9rem;
-}
-
-.home-evidence-switch-label {
-  margin-bottom: 0.5rem;
-  color: rgb(245 245 247 / 0.55);
-  font-size: var(--font-size-xs);
 }
 
 .home-evidence-buttons {
@@ -6139,7 +6115,6 @@ html[lang="en"] .service-offer-body h2 {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
     grid-template-areas:
-      "eyebrow eyebrow"
       "shown actual"
       "case case"
       "switch switch";
@@ -6149,17 +6124,10 @@ html[lang="en"] .service-offer-body h2 {
     margin-top: calc(var(--art-width) * -0.18);
   }
 
-  .home-evidence-eyebrow {
-    grid-area: eyebrow;
-    align-self: center;
-    margin-bottom: 0;
-  }
-
   .home-evidence-reading {
     display: flex;
     flex-direction: column;
     align-self: stretch;
-    margin-top: 1rem;
   }
 
   .home-evidence-reading .home-odo {
@@ -6172,7 +6140,7 @@ html[lang="en"] .service-offer-body h2 {
 
   .home-evidence-reading + .home-evidence-reading {
     grid-area: actual;
-    margin-top: 1rem;
+    margin-top: 0;
   }
 
   .home-odo {
