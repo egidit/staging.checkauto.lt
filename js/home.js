@@ -403,11 +403,11 @@
       ].forEach(function (option, order) {
         var box = { left: option.left, top: option.top, right: option.left + width, bottom: option.top + height };
         if (box.left < TIP_EDGE || box.right > viewWidth - TIP_EDGE) return;
-        /* Covering another dot weighs as much as hiding 150px of the popover, so a side that leaves
-           every dot visible wins whenever one fits. */
+        /* First keep the whole popover on screen (clear of the header and the booking bar),
+           then leave as many dots visible as possible, then follow the side order. */
         var hidden = Math.max(0, topEdge - box.top) + Math.max(0, box.bottom - bottomEdge);
         var covered = others.filter(function (other) { return overlaps(box, other); }).length;
-        var score = hidden * 2 + covered * 300 + order;
+        var score = Math.round(hidden) * 1000 + covered * 10 + order;
         if (!best || score < best.score) best = { side: option.side, left: option.left, top: option.top, score: score };
       });
 

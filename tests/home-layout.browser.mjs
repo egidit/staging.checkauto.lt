@@ -311,6 +311,25 @@ try {
   assert.equal(await isOpen(), true, 'Pressing inside and releasing outside keeps the popover open');
   await touch.page.touchscreen.tap(4, tipBox.y + tipBox.height + 40);
   assert.equal(await isOpen(), false, 'Tapping outside closes the popover');
+  for (const block of ['start', 'end']) {
+    await touch.page.locator('.home-scope-stage').evaluate((stage, block) => stage.scrollIntoView({ block, behavior: 'instant' }), block);
+    await touch.page.waitForTimeout(100);
+    for (const id of ['body', 'mechanics', 'electronics', 'drive', 'report']) {
+      const clear = await touch.page.evaluate(id => {
+        const button = document.querySelector(`[data-spot="${id}"]`);
+        const headerBottom = document.querySelector('.site-header').getBoundingClientRect().bottom;
+        const bar = document.querySelector('[data-sticky-cta]');
+        const barTop = bar.classList.contains('is-visible') ? bar.getBoundingClientRect().top : innerHeight;
+        const spot = button.getBoundingClientRect();
+        if (spot.top < headerBottom || spot.bottom > barTop) return true;
+        button.click();
+        const box = document.getElementById(`home-scope-tip-${id}`).getBoundingClientRect();
+        document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+        return box.top >= headerBottom - 1 && box.bottom <= barTop + 1;
+      }, id);
+      assert.ok(clear, `Popover ${id} opens clear of the header and booking bar (illustration at ${block})`);
+    }
+  }
   assert.deepEqual(touch.errors, []);
   await touch.context.close();
 
