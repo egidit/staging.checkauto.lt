@@ -55,9 +55,21 @@ try {
     for (const lang of ['lt', 'en']) {
       await page.evaluate(lang => window.checkautoI18n.setLanguage(lang), lang);
       await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+      await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
       const layout = await page.evaluate(() => {
         const stage = document.querySelector('.home-scope-stage').getBoundingClientRect();
+        const copy = document.querySelector('.home-hero-copy').getBoundingClientRect();
+        const art = document.querySelector('[data-hero-art]').getBoundingClientRect();
+        const card = document.querySelector('[data-evidence]').getBoundingClientRect();
+        const leader = document.querySelector('[data-leader]');
         return {
+          heroCopyCentre: (copy.top + copy.bottom) / 2,
+          heroArtCentre: (art.top + art.bottom) / 2,
+          heroGapBelow: art.bottom - copy.bottom,
+          cardTop: card.top - art.top,
+          leaderShown: leader.classList.contains('is-ready'),
+          leaderDotY: Number(leader.querySelector('circle').getAttribute('cy')),
+          leaderEndY: Number(leader.querySelector('path').getAttribute('d').split('V').pop()),
           overflow: document.documentElement.scrollWidth > innerWidth,
           titleBottom: document.querySelector('#home-title').getBoundingClientRect().bottom,
           ctaBottom: document.querySelector('[data-hero-actions] .btn-primary').getBoundingClientRect().bottom,
@@ -77,6 +89,14 @@ try {
       if (width !== 768) assert.ok(layout.titleBottom <= height, `${label}: headline below the first viewport`);
       if (width < 700) assert.ok(layout.ctaTop >= layout.evidenceBottom, `${label}: booking buttons above the odometer evidence`);
       else if (width !== 768) assert.ok(layout.ctaBottom <= height, `${label}: booking button below the first viewport`);
+      if (width >= 1000) {
+        assert.ok(layout.evidenceBottom <= height, `${label}: odometer card below the first viewport`);
+        assert.ok(Math.abs(layout.heroCopyCentre - layout.heroArtCentre) <= 40, `${label}: hero text not centred against the illustration`);
+        assert.ok(layout.heroGapBelow <= 160, `${label}: large empty space under the hero text`);
+        assert.ok(layout.leaderShown, `${label}: connector line hidden`);
+        assert.ok(layout.cardTop - layout.leaderDotY >= 24, `${label}: odometer card covers the connector start`);
+        assert.ok(Math.abs(layout.leaderEndY - layout.cardTop) < 1, `${label}: connector line does not reach the card`);
+      }
     }
   }
 

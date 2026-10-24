@@ -6122,8 +6122,13 @@ html[lang="en"] .service-offer-body h2 {
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   }
 
+  .home-hero-hook {
+    font-size: clamp(2.75rem, 1.6rem + 1.9vw, 3.25rem);
+  }
+
+  /* Centred against the art column, nudged up towards the navigation. */
   .home-hero-copy {
-    align-self: start;
+    margin-bottom: clamp(2.5rem, 4vw, 4.5rem);
   }
 
   .home-hero-art {
@@ -6133,6 +6138,73 @@ html[lang="en"] .service-offer-body h2 {
 
   .home-hero-illustration {
     margin-inline: clamp(-3.5rem, -3vw, -1.5rem) 0;
+  }
+
+  /* Desktop: a wider, shorter evidence card that keeps the hero columns balanced. */
+  .home-evidence {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "eyebrow ."
+      "shown actual"
+      "case case"
+      "switch switch";
+    column-gap: clamp(1.25rem, 2vw, 1.75rem);
+    align-items: end;
+    width: min(100%, 29rem);
+    margin-top: calc(var(--art-width) * -0.18);
+  }
+
+  .home-evidence-eyebrow {
+    grid-area: eyebrow;
+    align-self: center;
+    margin-bottom: 0;
+  }
+
+  .home-evidence-delta {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    justify-self: end;
+    white-space: nowrap;
+    align-self: center;
+    margin-top: 0;
+  }
+
+  .home-evidence-reading {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    margin-top: 1rem;
+  }
+
+  .home-evidence-reading .home-odo {
+    margin-block: auto;
+  }
+
+  .home-evidence-reading--shown {
+    grid-area: shown;
+  }
+
+  .home-evidence-reading + .home-evidence-reading {
+    grid-area: actual;
+    margin-top: 1rem;
+  }
+
+  .home-odo {
+    font-size: 1.9rem;
+  }
+
+  .home-odo--shown {
+    font-size: 1.2rem;
+  }
+
+  .home-evidence-case {
+    grid-area: case;
+    flex-wrap: nowrap;
+  }
+
+  .home-evidence-switch {
+    grid-area: switch;
   }
 
   .home-offer-layout {
