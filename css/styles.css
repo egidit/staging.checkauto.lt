@@ -6310,9 +6310,39 @@ html[lang="en"] .service-offer-body h2 {
   .home-evidence {
     justify-self: center;
   }
+
+  /* Single column: the slider leads straight into what the inspection covers,
+     and the booking button and compare link follow the illustration. */
+  .home-offer-layout {
+    row-gap: 0;
+  }
+
+  .home-offer-copy {
+    display: contents;
+  }
+
+  .home-offer-copy .btn {
+    order: 1;
+    justify-self: start;
+    margin-top: 1.75rem;
+  }
+
+  .home-offer-links {
+    order: 2;
+  }
 }
 
 @media (max-width: 699px) {
+  .home-offer-copy .btn {
+    justify-self: stretch;
+  }
+
+  /* Under the full-width button the link centres on its label. */
+  .home-offer-links {
+    justify-items: center;
+    padding-left: 0;
+  }
+
   /* Phones: the booking buttons follow the odometer evidence. */
   .home-hero-layout {
     row-gap: 0;
