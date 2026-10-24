@@ -5597,67 +5597,49 @@ html[lang="en"] .service-offer-body h2 {
   display: none;
 }
 
-.home-case-car {
-  margin-bottom: 1.25rem;
-  font-size: var(--font-size-md);
-  font-weight: 600;
-  letter-spacing: -0.01em;
+/* The seller's claim as a chat bubble; labels and the verdict reuse the gallery card styles. */
+.home-case-said {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+  margin-bottom: 1.4rem;
 }
 
-.home-case-label {
-  margin-bottom: 0.4rem;
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  line-height: 1.4;
-  text-transform: uppercase;
+.home-case-avatar {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  color: #fff;
+  background: var(--color-accent);
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgb(0 113 227 / 0.25);
 }
 
-.home-case-label--found {
-  margin-top: 1.4rem;
-}
-
-.home-case--no .home-case-label--found,
-.home-case--no .home-case-verdict {
-  color: var(--home-danger-text);
-}
-
-.home-case--yes .home-case-label--found,
-.home-case--yes .home-case-verdict {
-  color: var(--home-success-text);
+/* The pale blue of the road in the illustrations. */
+.home-case-quote {
+  padding: 0.8rem 1.1rem;
+  background: #eaf5ff;
+  border: 1px solid #d9efff;
+  border-radius: 20px 20px 20px 6px;
 }
 
 .home-case-quote p {
-  color: var(--color-text-secondary);
-  font-size: clamp(1.35rem, 1rem + 1.1vw, 1.85rem);
+  color: var(--color-text);
+  font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.3rem);
   font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.3;
+  line-height: 1.4;
   text-wrap: balance;
 }
 
 .home-case-found {
+  margin-bottom: 1rem;
   color: var(--color-text);
   font-size: var(--font-size-md);
   font-weight: 500;
   line-height: 1.55;
   text-wrap: pretty;
-}
-
-.home-case-verdict {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 1.5rem;
-  font-size: var(--font-size-lg);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-}
-
-.home-case-verdict .home-icon {
-  stroke-width: 2.5;
 }
 
 .home-cases-more {

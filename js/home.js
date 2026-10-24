@@ -116,13 +116,12 @@
   document.querySelectorAll('[data-case-image]').forEach(function (media) {
     var image = media.querySelector('img');
     var zoom = media.querySelector('[data-case-zoom]');
-    var title = media.parentElement.querySelector('.home-case-car');
     if (!window.checkautoLightbox) {
       zoom.remove();
       return;
     }
     zoom.addEventListener('click', function () {
-      window.checkautoLightbox.open(zoom, image, title.textContent.trim());
+      window.checkautoLightbox.open(zoom, image, image.alt);
     });
   });
 
