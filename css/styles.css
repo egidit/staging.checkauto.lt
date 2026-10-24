@@ -5822,10 +5822,6 @@ html[lang="en"] .service-offer-body h2 {
   min-width: 0;
 }
 
-.home-scope-title {
-  font-size: var(--font-size-lg);
-}
-
 .home-scope-stage {
   position: relative;
   margin: 0.5rem -3% 0;
