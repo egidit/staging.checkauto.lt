@@ -6438,6 +6438,12 @@ html[lang="en"] .service-offer-body h2 {
 }
 
 @media (max-width: 699px) {
+  .home-cases-more {
+    display: flex;
+    width: fit-content;
+    margin-inline: auto;
+  }
+
   .home-offer-copy .btn {
     justify-self: stretch;
   }
