@@ -6128,7 +6128,7 @@ html[lang="en"] .service-offer-body h2 {
   }
 
   .home-hero-illustration {
-    margin-inline: 0;
+    margin-inline: clamp(-3.5rem, -3vw, -1.5rem) 0;
   }
 
   .home-offer-layout {
