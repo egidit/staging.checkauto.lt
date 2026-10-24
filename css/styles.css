@@ -5880,7 +5880,8 @@ html[lang="en"] .service-offer-body h2 {
   transform: none;
 }
 
-.home-spot--inline::before {
+.home-spot--inline::before,
+.home-spot--inline::after {
   content: none;
 }
 
