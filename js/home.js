@@ -19,6 +19,20 @@
     return new Intl.NumberFormat(locale(), { style: 'percent', minimumSignificantDigits: 3, maximumSignificantDigits: 3 }).format(value);
   }
 
+  function translate(key, fallback) {
+    return window.checkautoI18n ? window.checkautoI18n.translate(key, fallback) : fallback;
+  }
+
+  function currentLanguage() {
+    return window.checkautoI18n ? window.checkautoI18n.getLanguage() : 'lt';
+  }
+
+  /* Lithuanian needs three noun forms (1 patikra, 2 patikros, 16 patikrų); English needs two. */
+  function pluralForm(count) {
+    var form = new Intl.PluralRules(locale()).select(count);
+    return form === 'one' || form === 'few' ? form : 'other';
+  }
+
   document.querySelectorAll('[data-case-image] img').forEach(function (image) {
     function hideUnavailableImage() {
       image.hidden = true;
@@ -50,10 +64,16 @@
   var evidence = document.querySelector('[data-evidence]');
   var art = document.querySelector('[data-hero-art]');
   var positionLeader = function () {};
+  var useGalleryCases = function () {};
 
   if (evidence) {
-    var caseButtons = Array.prototype.slice.call(evidence.querySelectorAll('[data-case]'));
+    var buttonGroup = evidence.querySelector('.home-evidence-buttons');
+    var switchGroup = evidence.querySelector('.home-evidence-switch');
+    var caseButtons = Array.prototype.slice.call(buttonGroup.querySelectorAll('[data-case]'));
     var caseDetails = Array.prototype.slice.call(evidence.querySelectorAll('[data-evidence-case]'));
+    var galleryCases = null;
+    var introPending = false;
+    var visitorPicked = false;
     var shownOdo = evidence.querySelector('[data-odo="shown"]');
     var actualOdo = evidence.querySelector('[data-odo="actual"]');
     var deltaText = evidence.querySelector('[data-odo="delta"]');
@@ -162,28 +182,90 @@
       });
     };
 
-    caseButtons.forEach(function (button) {
-      button.addEventListener('click', function () {
-        if (button.getAttribute('aria-pressed') !== 'true') renderCase(button, true);
+    /* Car names, verdicts and spoken labels of the gallery cases in the current language. */
+    var renderCaseCopy = function () {
+      if (!galleryCases) return;
+      galleryCases.forEach(function (entry, index) {
+        var content = entry.item[currentLanguage()] || entry.item.lt;
+        caseDetails[index].querySelector('.home-evidence-car').textContent = content.title;
+        caseDetails[index].querySelector('.home-evidence-verdict').textContent = content.verdict;
+        caseButtons[index].setAttribute('aria-label', translate('home.evidence.case_aria', '{car}: nuslėpta {km} km')
+          .replace('{car}', content.title)
+          .replace('{km}', formatNumber(entry.hidden)));
       });
+    };
+
+    /* Replace the cases written in the HTML with the largest rollbacks from the gallery data. */
+    useGalleryCases = function (cases) {
+      if (!cases.length) return;
+      /* Start on the largest rollback unless the visitor already picked a case that is still listed. */
+      var selected = activeButton().dataset.case;
+      var keepSelection = visitorPicked && cases.some(function (entry) { return String(entry.item.id) === selected; });
+
+      galleryCases = cases;
+      caseDetails.forEach(function (detail) { detail.remove(); });
+      buttonGroup.textContent = '';
+
+      caseDetails = cases.map(function (entry) {
+        var detail = document.createElement('div');
+        var car = document.createElement('p');
+        var verdict = document.createElement('p');
+        detail.className = 'home-evidence-case';
+        detail.dataset.evidenceCase = entry.item.id;
+        car.className = 'home-evidence-car';
+        verdict.className = 'home-evidence-verdict' + (entry.item.recommended ? ' home-evidence-verdict--recommended' : '');
+        detail.appendChild(car);
+        detail.appendChild(verdict);
+        evidence.insertBefore(detail, switchGroup);
+        return detail;
+      });
+
+      caseButtons = cases.map(function (entry, index) {
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.dataset.case = entry.item.id;
+        button.dataset.shown = entry.shown;
+        button.dataset.actual = entry.actual;
+        button.setAttribute('aria-pressed', String(keepSelection ? String(entry.item.id) === selected : index === 0));
+        buttonGroup.appendChild(button);
+        return button;
+      });
+
+      renderCaseCopy();
+      renderButtonLabels();
+      renderCase(activeButton(), false);
+      if (introPending) {
+        parkAtZero(shownOdo);
+        parkAtZero(actualOdo);
+      }
+    };
+
+    buttonGroup.addEventListener('click', function (event) {
+      var button = event.target.closest('[data-case]');
+      if (!button || button.getAttribute('aria-pressed') === 'true') return;
+      visitorPicked = true;
+      renderCase(button, true);
     });
 
     renderButtonLabels();
     renderCase(activeButton(), false);
 
     if ('IntersectionObserver' in window && !reduceMotion.matches) {
+      introPending = true;
       evidence.classList.add('is-rolling');
       parkAtZero(shownOdo);
       parkAtZero(actualOdo);
       var introObserver = new IntersectionObserver(function (entries) {
         if (!entries.some(function (entry) { return entry.isIntersecting; })) return;
         introObserver.disconnect();
+        introPending = false;
         renderCase(activeButton(), true);
       }, { threshold: 0.4 });
       introObserver.observe(evidence);
     }
 
     window.addEventListener('checkauto:languagechange', function () {
+      renderCaseCopy();
       renderButtonLabels();
       renderCase(activeButton(), false);
     });
@@ -316,5 +398,117 @@
     window.addEventListener('resize', requestSticky);
     watchBanner();
     requestSticky();
+  }
+
+  /* Gallery figures: counts and odometer rollbacks computed from the published cases.
+     The numbers written in the HTML are the fallback until /data/gallery.json loads. */
+  var GALLERY_DATA_URL = '/data/gallery.json';
+  var GALLERY_COPY = {
+    totalLabel: {
+      figure: 'total',
+      key: 'home.tally.total_label',
+      lt: { one: 'paskelbta patikra', few: 'paskelbtos patikros', other: 'paskelbtų patikrų' }
+    },
+    notRecommendedLabel: {
+      figure: 'notRecommended',
+      key: 'home.tally.not_recommended_label',
+      lt: { one: 'kartą patarėme nepirkti', few: 'kartus patarėme nepirkti', other: 'kartų patarėme nepirkti' }
+    },
+    rollbacksLabel: {
+      figure: 'rollbacks',
+      key: 'home.tally.rollback_label',
+      lt: { one: 'kartą radome atsuktą ridą', few: 'kartus radome atsuktą ridą', other: 'kartų radome atsuktą ridą' }
+    },
+    casesLink: {
+      figure: 'total',
+      key: 'home.cases.more',
+      lt: { one: '{count} atvejis galerijoje', few: 'Visi {count} atvejai galerijoje', other: 'Visi {count} atvejų galerijoje' }
+    },
+    offer: {
+      figure: 'maxHidden',
+      key: 'home.offer.text',
+      lt: 'Mūsų patikrose vien atsukta rida slėpė iki {count} km. Dokumentuoti trūkumai taip pat duoda konkretų pagrindą derėtis dėl kainos.'
+    }
+  };
+
+  var figureElements = Array.prototype.slice.call(document.querySelectorAll('[data-gallery-figure]'));
+  var copyElements = Array.prototype.slice.call(document.querySelectorAll('[data-gallery-copy]'));
+  var figures = {};
+  figureElements.forEach(function (element) {
+    figures[element.dataset.galleryFigure] = Number(element.textContent.replace(/\D/g, ''));
+  });
+
+  /* Odometer readings are whole kilometres; tolerate "202 000" typed as text. */
+  function readKilometres(value) {
+    if (value === null || value === undefined || value === '') return null;
+    var number = typeof value === 'number' ? value : Number(String(value).replace(/\D/g, ''));
+    return number > 0 ? Math.round(number) : null;
+  }
+
+  function galleryFigures(items) {
+    var rollbacks = items.filter(function (item) {
+      return item.category === 'mileage' || Boolean(item.odometer);
+    });
+    /* Only cases with both readings show how much was hidden; a missing dashboard reading is left out. */
+    var measured = rollbacks.map(function (item) {
+      var odometer = item.odometer || {};
+      var shown = readKilometres(odometer.shown);
+      var actual = readKilometres(odometer.actual);
+      return { item: item, shown: shown, actual: actual, hidden: shown && actual ? actual - shown : 0 };
+    }).filter(function (entry) {
+      return entry.hidden > 0;
+    }).sort(function (a, b) {
+      return b.hidden - a.hidden || a.item.id - b.item.id;
+    });
+
+    return {
+      total: items.length,
+      notRecommended: items.filter(function (item) { return item.recommended === false; }).length,
+      rollbacks: rollbacks.length,
+      maxHidden: measured.length ? measured[0].hidden : figures.maxHidden,
+      cases: measured.slice(0, 3)
+    };
+  }
+
+  function renderGalleryFigures() {
+    figureElements.forEach(function (element) {
+      element.textContent = formatNumber(figures[element.dataset.galleryFigure]);
+    });
+    copyElements.forEach(function (element) {
+      var copy = GALLERY_COPY[element.dataset.galleryCopy];
+      var count = figures[copy.figure];
+      var template;
+      if (typeof copy.lt === 'string') {
+        template = translate(copy.key, copy.lt);
+      } else {
+        var form = pluralForm(count);
+        template = translate(copy.key + '_' + form, copy.lt[form]);
+      }
+      element.textContent = template.replace('{count}', formatNumber(count));
+    });
+  }
+
+  if (figureElements.length || copyElements.length || evidence) {
+    window.addEventListener('checkauto:languagechange', renderGalleryFigures);
+    fetch(GALLERY_DATA_URL, { cache: 'no-cache', credentials: 'same-origin' })
+      .then(function (response) {
+        if (!response.ok) throw new Error('Gallery request failed: ' + response.status);
+        return response.json();
+      })
+      .then(function (data) {
+        if (!data || !Array.isArray(data.items) || !data.items.length) return;
+        var result = galleryFigures(data.items);
+        figures = {
+          total: result.total,
+          notRecommended: result.notRecommended,
+          rollbacks: result.rollbacks,
+          maxHidden: result.maxHidden
+        };
+        renderGalleryFigures();
+        useGalleryCases(result.cases);
+      })
+      .catch(function () {
+        /* Keep the figures written in the HTML. */
+      });
   }
 })();

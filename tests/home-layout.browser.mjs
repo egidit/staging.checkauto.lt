@@ -192,6 +192,61 @@ try {
   assert.deepEqual(reduced.errors, []);
   await reduced.context.close();
 
+  const gallery = JSON.parse(await fs.readFile(path.join(root, 'data/gallery.json'), 'utf8'));
+  const template = gallery.items.find(item => item.id === 9);
+  const extra = [
+    { ...template, id: 101, odometer: { shown: 150000, actual: 330000 } },
+    ...[102, 103, 104, 105].map(id => ({ ...gallery.items.find(item => item.id === 1), id, recommended: true })),
+  ];
+  const figuresFor = async (items, lang) => {
+    const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const page = await context.newPage();
+    const errors = [];
+    page.on('pageerror', error => errors.push(error.message));
+    await page.route('**/data/gallery.json*', route => items
+      ? route.fulfill({ contentType: 'application/json', body: JSON.stringify({ ...gallery, items }) })
+      : route.abort());
+    const loaded = page.waitForResponse('**/data/gallery.json*').catch(() => null);
+    await page.goto(base + '/');
+    await loaded;
+    await page.evaluate(lang => window.checkautoI18n.setLanguage(lang), lang);
+    await page.waitForTimeout(50);
+    const figures = await page.evaluate(() => {
+      const clean = value => value.replace(/\s+/g, ' ').trim();
+      return {
+        tally: [...document.querySelectorAll('.home-tally-grid > div')].map(item => clean(item.querySelector('dd').textContent) + ' | ' + clean(item.querySelector('dt').textContent)),
+        link: clean(document.querySelector('[data-gallery-copy="casesLink"]').textContent),
+        offer: clean(document.querySelector('[data-gallery-copy="offer"]').textContent),
+        buttons: [...document.querySelectorAll('.home-evidence-buttons [data-case]')].map(button => clean(button.textContent)),
+        pressed: document.querySelector('.home-evidence-buttons [aria-pressed="true"]').dataset.case,
+        car: clean(document.querySelector('.home-evidence-case:not([hidden]) .home-evidence-car').textContent),
+        label: clean(document.querySelector('.home-evidence-buttons [data-case]').getAttribute('aria-label')),
+      };
+    });
+    await context.close();
+    assert.deepEqual(errors, []);
+    return figures;
+  };
+
+  const grown = await figuresFor([...gallery.items, ...extra], 'lt');
+  assert.deepEqual(grown.tally, ['21 | paskelbta patikra', '9 | kartus patarėme nepirkti', '5 | kartus radome atsuktą ridą', '180 000 km | daugiausiai nuslėptos ridos'], 'Tally follows gallery.json with Lithuanian plural forms');
+  assert.equal(grown.link, '21 atvejis galerijoje');
+  assert.match(grown.offer, /iki 180 000 km\./);
+  assert.deepEqual(grown.buttons, ['+180 000', '+126 000', '+104 000'], 'Hero shows the three largest rollbacks');
+  assert.equal(grown.pressed, '101');
+  assert.equal(grown.car, template.lt.title);
+  assert.equal(grown.label, `${template.lt.title}: nuslėpta 180 000 km`);
+
+  const grownEnglish = await figuresFor([...gallery.items, ...extra], 'en');
+  assert.deepEqual(grownEnglish.tally, ['21 | published inspections', '9 | times we advised not to buy', '5 | rolled-back odometers found', '180,000 km | the most mileage hidden']);
+  assert.equal(grownEnglish.link, 'All 21 cases in the gallery');
+  assert.match(grownEnglish.offer, /up to 180,000 km\./);
+  assert.equal(grownEnglish.label, `${template.en.title}: 180,000 km hidden`);
+
+  const unavailable = await figuresFor(null, 'en');
+  assert.deepEqual(unavailable.tally, ['16 | published inspections', '8 | times we advised not to buy', '4 | rolled-back odometers found', '126,000 km | the most mileage hidden'], 'HTML figures remain when gallery.json cannot load');
+  assert.deepEqual(unavailable.buttons, ['+126,000', '+104,000', '+38,000']);
+
   const mobile = await openHome({ viewport: { width: 390, height: 844 } });
   const sticky = mobile.page.locator('[data-sticky-cta]');
   await mobile.page.locator('.home-cases').scrollIntoViewIfNeeded();

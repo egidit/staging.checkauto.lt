@@ -5492,6 +5492,10 @@ html[lang="en"] .service-offer-body h2 {
   color: #ff8a80;
 }
 
+.home-evidence-verdict--recommended {
+  color: var(--color-success);
+}
+
 .home-evidence-switch {
   margin-top: 0.9rem;
 }
