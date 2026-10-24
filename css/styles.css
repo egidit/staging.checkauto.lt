@@ -4960,7 +4960,7 @@ html[lang="en"] .service-offer-body h2 {
     left: 50%;
     width: calc(100% + var(--journey-gap));
     height: 120px;
-    background-image: url("/assets/images/journey-desktop-route.svg");
+    background-image: url("/assets/images/journey-desktop-route.svg?v=2");
   }
 
   .inspection-journey-copy {
@@ -6066,7 +6066,7 @@ html[lang="en"] .service-offer-body h2 {
     left: 50%;
     width: calc(100% + var(--steps-gap));
     height: 120px;
-    background-image: url("/assets/images/journey-desktop-route.svg");
+    background-image: url("/assets/images/journey-desktop-route.svg?v=2");
   }
 
   .home-steps img {
