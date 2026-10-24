@@ -133,6 +133,9 @@
   --color-success:     #34c759;
   --color-warning:     #ff9f0a;
   --color-danger:      #ff3b30;
+  /* Darker tones of the status colours for text, readable on white and on their pale tints. */
+  --color-danger-text: #c9251c;
+  --color-success-text: #1d7a36;
 
   /* - Typography - */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -3480,7 +3483,7 @@ p {
 }
 
 .gallery-detail-label--found {
-  color: var(--color-danger);
+  color: var(--color-danger-text);
 }
 
 .gallery-card-detail p {
@@ -3497,7 +3500,7 @@ p {
   border-radius: var(--radius-sm);
   font-size: var(--font-size-xs);
   font-weight: 600;
-  color: var(--color-danger);
+  color: var(--color-danger-text);
   background: rgba(255, 59, 48, 0.08);
 }
 
@@ -3507,12 +3510,12 @@ p {
 }
 
 .gallery-card--not-recommended .gallery-verdict {
-  color: var(--color-danger);
+  color: var(--color-danger-text);
   background: rgba(255, 59, 48, 0.08);
 }
 
 .gallery-card--not-recommended .gallery-detail-label--found {
-  color: var(--color-danger);
+  color: var(--color-danger-text);
 }
 
 .gallery-card--recommended {
@@ -3520,12 +3523,12 @@ p {
 }
 
 .gallery-card--recommended .gallery-verdict {
-  color: var(--color-success);
+  color: var(--color-success-text);
   background: rgba(52, 199, 89, 0.08);
 }
 
 .gallery-card--recommended .gallery-detail-label--found {
-  color: var(--color-success);
+  color: var(--color-success-text);
 }
 
 /* ---------- Lightbox ---------- */
@@ -5172,8 +5175,6 @@ html[lang="en"] .service-offer-body h2 {
 /* Homepage: an evidence-led sales page. Scope, process and principles live on the inner pages. */
 .home-page {
   --home-rule: var(--color-border-light);
-  --home-danger-text: #c9251c;
-  --home-success-text: #1d7a36;
   --home-bleed: 0px;
 }
 
@@ -5561,11 +5562,11 @@ html[lang="en"] .service-offer-body h2 {
 }
 
 .home-cases-verdict--no {
-  color: var(--home-danger-text);
+  color: var(--color-danger-text);
 }
 
 .home-cases-verdict--yes {
-  color: var(--home-success-text);
+  color: var(--color-success-text);
 }
 
 .home-case {
