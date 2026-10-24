@@ -346,6 +346,8 @@
     var closeTimer = 0;
     var pressStartedOutside = false;
     var usingKeyboard = false;
+    var lastPointer = '';
+    var layoutWidth = document.documentElement.clientWidth;
     var TIP_GAP = 12;
     var TIP_EDGE = 8;
     var SPOT_SELECTOR = 'button[data-spot]';
@@ -359,11 +361,22 @@
       return Boolean(element && element.closest && element.closest(INSIDE_SELECTOR));
     };
 
+    /* The mobile booking bar and the cookie banner sit fixed over the bottom of the screen. */
+    var coveredFromBelow = function () {
+      var bottom = window.innerHeight;
+      document.querySelectorAll('[data-sticky-cta].is-visible, .cookie-banner:not([hidden])').forEach(function (element) {
+        if (getComputedStyle(element).position !== 'fixed') return;
+        var top = element.getBoundingClientRect().top;
+        if (top > 0) bottom = Math.min(bottom, top);
+      });
+      return bottom;
+    };
+
     var overlaps = function (a, b) {
       return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
     };
 
-    /* Try each side of the hotspot and keep the first that fits the screen without hiding another dot. */
+    /* Try each side of the hotspot and keep the one that fits the screen best. */
     var placeTip = function (button, tip) {
       var stageBox = stage.getBoundingClientRect();
       var spotBox = button.getBoundingClientRect();
@@ -371,7 +384,7 @@
       var height = tip.offsetHeight;
       var viewWidth = document.documentElement.clientWidth;
       var topEdge = Math.max(header ? header.getBoundingClientRect().bottom : 0, 0) + TIP_EDGE;
-      var bottomEdge = window.innerHeight - TIP_EDGE;
+      var bottomEdge = coveredFromBelow() - TIP_EDGE;
       var centerX = spotBox.left + spotBox.width / 2;
       var centerY = spotBox.top + spotBox.height / 2;
       var centredLeft = Math.min(Math.max(centerX - width / 2, TIP_EDGE), viewWidth - TIP_EDGE - width);
@@ -390,9 +403,10 @@
       ].forEach(function (option, order) {
         var box = { left: option.left, top: option.top, right: option.left + width, bottom: option.top + height };
         if (box.left < TIP_EDGE || box.right > viewWidth - TIP_EDGE) return;
-        var offScreen = box.top < topEdge || box.bottom > bottomEdge ? 1 : 0;
+        /* Prefer the side that shows the most of the popover, then the one covering the fewest dots. */
+        var hidden = Math.max(0, topEdge - box.top) + Math.max(0, box.bottom - bottomEdge);
         var covered = others.filter(function (other) { return overlaps(box, other); }).length;
-        var score = offScreen * 100 + covered * 10 + order;
+        var score = hidden * 2 + covered * 10 + order;
         if (!best || score < best.score) best = { side: option.side, left: option.left, top: option.top, score: score };
       });
 
@@ -441,8 +455,12 @@
     scope.addEventListener('pointerover', function (event) {
       if (event.pointerType !== 'mouse') return;
       var button = event.target.closest(SPOT_SELECTOR);
-      if (button) openTip(button, false);
-      else if (event.target.closest('.home-scope-tip')) window.clearTimeout(closeTimer);
+      if (button) {
+        /* A popover pinned with a click stays until another dot is clicked. */
+        if (!(pinned && openSpot && openSpot !== button)) openTip(button, false);
+      } else if (event.target.closest('.home-scope-tip')) {
+        window.clearTimeout(closeTimer);
+      }
     });
 
     scope.addEventListener('pointerout', function (event) {
@@ -455,13 +473,18 @@
     scope.addEventListener('click', function (event) {
       var button = event.target.closest(SPOT_SELECTOR);
       if (!button) return;
-      if (openSpot === button && pinned) closeTip();
-      else openTip(button, true);
+      /* On touch only a press and release outside closes it, so tapping the open dot again keeps it. */
+      if (openSpot === button && pinned) {
+        if (lastPointer !== 'touch') closeTip();
+      } else {
+        openTip(button, true);
+      }
     });
 
     /* Touch keeps the pointer captured on the element first pressed, so read the release point instead. */
     document.addEventListener('pointerdown', function (event) {
       usingKeyboard = false;
+      lastPointer = event.pointerType;
       pressStartedOutside = Boolean(openSpot) && !isInside(event.target);
     });
     document.addEventListener('pointerup', function (event) {
@@ -475,22 +498,31 @@
 
     document.addEventListener('keydown', function (event) {
       usingKeyboard = true;
+      lastPointer = '';
       if (event.key !== 'Escape' || !openSpot) return;
       var button = openSpot;
-      var hadFocus = scope.contains(document.activeElement);
+      var hadFocus = document.activeElement === button || tipFor(button).contains(document.activeElement);
       closeTip();
       if (hadFocus) button.focus();
     });
 
-    /* Tabbing away closes the popover. A press moves focus too (even onto <main>), but presses are handled above. */
+    /* Tabbing to anything else, another dot included, closes the popover.
+       A press moves focus too (even onto <main>), but presses are handled above. */
     scope.addEventListener('focusout', function (event) {
-      if (usingKeyboard && openSpot && event.relatedTarget && !scope.contains(event.relatedTarget)) closeTip();
+      var next = event.relatedTarget;
+      if (usingKeyboard && openSpot && next && next !== openSpot && !tipFor(openSpot).contains(next)) closeTip();
     });
 
     var repositionTip = function () {
       if (openSpot) placeTip(openSpot, tipFor(openSpot));
     };
-    window.addEventListener('resize', repositionTip);
+    /* Phones resize the viewport height while scrolling (address bar); only a new width moves the popover. */
+    window.addEventListener('resize', function () {
+      var width = document.documentElement.clientWidth;
+      if (width === layoutWidth) return;
+      layoutWidth = width;
+      repositionTip();
+    });
     window.addEventListener('checkauto:languagechange', repositionTip);
   }
 

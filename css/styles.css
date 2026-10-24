@@ -5809,7 +5809,7 @@ html[lang="en"] .service-offer-body h2 {
   position: absolute;
   top: var(--y);
   left: var(--x);
-  z-index: 1;
+  z-index: 5;
   display: grid;
   place-items: center;
   width: 28px;
@@ -5825,6 +5825,7 @@ html[lang="en"] .service-offer-body h2 {
   font-weight: 700;
   line-height: 1;
   cursor: pointer;
+  touch-action: manipulation;
   transform: translate(-50%, -50%);
   transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
 }
@@ -5862,10 +5863,21 @@ html[lang="en"] .service-offer-body h2 {
   animation: none;
 }
 
-.home-spot:hover,
 .home-spot[aria-expanded="true"] {
   box-shadow: 0 0 0 6px rgb(0 113 227 / 0.2), 0 4px 10px rgb(0 0 0 / 0.15);
   transform: translate(-50%, -50%) scale(1.12);
+}
+
+@media (hover: hover) {
+  .home-spot:hover {
+    box-shadow: 0 0 0 6px rgb(0 113 227 / 0.2), 0 4px 10px rgb(0 0 0 / 0.15);
+    transform: translate(-50%, -50%) scale(1.12);
+  }
+
+  .home-scope-report:hover .home-spot {
+    box-shadow: 0 0 0 6px rgb(0 113 227 / 0.2);
+    transform: scale(1.12);
+  }
 }
 
 .home-spot:focus-visible,
@@ -5885,7 +5897,6 @@ html[lang="en"] .service-offer-body h2 {
   content: none;
 }
 
-.home-scope-report:hover .home-spot,
 .home-scope-report[aria-expanded="true"] .home-spot {
   box-shadow: 0 0 0 6px rgb(0 113 227 / 0.2);
   transform: scale(1.12);
@@ -5895,7 +5906,7 @@ html[lang="en"] .service-offer-body h2 {
   position: absolute;
   right: 3%;
   bottom: 4%;
-  z-index: 1;
+  z-index: 5;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -5910,16 +5921,18 @@ html[lang="en"] .service-offer-body h2 {
   font-weight: 600;
   line-height: 1.2;
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 .home-scope-report .home-icon {
   color: var(--color-accent);
 }
 
-/* Popover next to a hotspot; js/home.js places it and sets data-side and --arrow. */
+/* Popover next to a hotspot, below the dots so every dot stays reachable;
+   js/home.js places it and sets data-side and --arrow. */
 .home-scope-tip {
   position: absolute;
-  z-index: 5;
+  z-index: 4;
   display: grid;
   grid-template-columns: 72px minmax(0, 1fr);
   gap: 0.85rem;

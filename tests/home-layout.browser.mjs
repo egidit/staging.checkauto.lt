@@ -172,6 +172,18 @@ try {
   assert.equal(await tip('drive').isVisible(), true, 'A click keeps the popover open');
   await page.keyboard.press('Escape');
   assert.equal(await tip('drive').isHidden(), true, 'Escape closes the popover');
+  await page.locator('#home-spot-body').click();
+  const reachable = await page.evaluate(() => [...document.querySelectorAll('button[data-spot]')].every(button => {
+    const box = button.getBoundingClientRect();
+    return document.elementFromPoint(box.left + box.width / 2, box.top + box.height / 2).closest('button[data-spot]') === button;
+  }));
+  assert.ok(reachable, 'An open popover never hides another hotspot');
+  await page.locator('#home-spot-drive').click();
+  assert.equal(await tip('drive').isVisible(), true, 'Clicking another hotspot switches the popover');
+  assert.equal(await tip('body').isHidden(), true);
+  await page.locator('#home-spot-drive').focus();
+  await page.keyboard.press('Tab');
+  assert.equal(await tip('drive').isHidden(), true, 'Tabbing to the next hotspot closes the popover');
 
   await page.locator('[data-price-input]').fill('20000');
   assert.equal(text(await page.locator('[data-price-share]').textContent()), '0.500%');
@@ -285,6 +297,8 @@ try {
   assert.ok(tipBox.x >= 0 && tipBox.x + tipBox.width <= 390, 'Popover stays on screen');
   await touch.page.touchscreen.tap(tipBox.x + tipBox.width / 2, tipBox.y + tipBox.height / 2);
   assert.equal(await isOpen(), true, 'Tapping inside the popover keeps it open');
+  await touch.page.locator('#home-spot-mechanics').tap();
+  assert.equal(await isOpen(), true, 'Tapping the open hotspot again keeps the popover open');
   const cdp = await touch.context.newCDPSession(touch.page);
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: tipBox.x + 20, y: tipBox.y + 20 }] });
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: 4, y: tipBox.y + 20 }] });
