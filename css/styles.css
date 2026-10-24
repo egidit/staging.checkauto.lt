@@ -5569,20 +5569,32 @@ html[lang="en"] .service-offer-body h2 {
   color: var(--color-success-text);
 }
 
-.home-case {
-  display: grid;
-  gap: 1.5rem;
+/* Each case is one soft surface, like the platforms in the illustrations: the photo is the scene,
+   the seller speaks from its edge, and our finding and verdict answer beside it.
+   Labels, the verdict and the status colours come from the gallery cards. */
+.home-cases {
+  --case-inset: 0.5rem;
+  --case-radius: 1.75rem;
+  --case-avatar: 2.5rem;
+  --case-hang: 1rem;
 }
 
-/* A single rule separates the two cases. */
-.home-case + .home-case {
-  margin-top: clamp(2rem, 4vw, 3rem);
-  padding-top: clamp(2rem, 4vw, 3rem);
-  border-top: 1px solid var(--home-rule);
+.home-cases-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.home-case {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding: var(--case-inset);
+  background: var(--color-bg-alt);
+  border-radius: var(--case-radius);
 }
 
 .home-case-media {
-  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+  border-radius: calc(var(--case-radius) - var(--case-inset));
 }
 
 .home-case-unavailable {
@@ -5598,53 +5610,90 @@ html[lang="en"] .service-offer-body h2 {
   display: none;
 }
 
-/* The seller's claim as a chat bubble; labels and the verdict reuse the gallery card styles. */
-.home-case-said {
+.home-case-body {
   display: flex;
-  align-items: flex-end;
-  gap: 0.6rem;
-  margin-bottom: 1.4rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 0 1rem 1.25rem;
+}
+
+/* The seller's avatar sits on the edge of the photo and the bubble comes out of it. */
+.home-case-said {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: flex-start;
+  align-self: stretch;
+  gap: 0.75rem;
+  margin-top: calc(var(--case-avatar) / -2);
 }
 
 .home-case-avatar {
   display: grid;
   flex: none;
   place-items: center;
-  width: 36px;
-  height: 36px;
+  width: var(--case-avatar);
+  height: var(--case-avatar);
   color: #fff;
   background: var(--color-accent);
+  border: 3px solid #fff;
   border-radius: 50%;
-  box-shadow: 0 4px 10px rgb(0 113 227 / 0.25);
+  box-shadow: 0 4px 10px rgb(0 0 0 / 0.15);
 }
 
-/* The pale blue of the road in the illustrations. */
-.home-case-quote {
-  padding: 0.8rem 1.1rem;
-  background: #eaf5ff;
-  border: 1px solid #d9efff;
-  border-radius: 20px 20px 20px 6px;
+.home-case-bubble {
+  flex: 1;
+  padding: 0.75rem var(--case-hang) 0.85rem;
+  background: var(--color-bg);
+  border-radius: 6px 20px 20px 20px;
+  box-shadow: 0 8px 20px rgb(0 0 0 / 0.08);
+}
+
+.home-case-bubble .gallery-detail-label {
+  margin-bottom: 0.2rem;
 }
 
 .home-case-quote p {
   color: var(--color-text);
-  font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.3rem);
+  font-size: clamp(1.0625rem, 0.6rem + 0.9vw, 1.3rem);
   font-weight: 500;
   line-height: 1.4;
-  text-wrap: balance;
+  text-wrap: pretty;
+}
+
+/* Our finding reads like a note in the margin of the report. */
+.home-case-note {
+  align-self: stretch;
+  padding-left: calc(var(--case-hang) - 2px);
+  border-left: 2px solid var(--color-danger-text);
+}
+
+.gallery-card--recommended .home-case-note {
+  border-left-color: var(--color-success-text);
 }
 
 .home-case-found {
-  margin-bottom: 1rem;
   color: var(--color-text);
-  font-size: var(--font-size-md);
+  font-size: clamp(1rem, 0.55rem + 0.85vw, 1.25rem);
   font-weight: 500;
-  line-height: 1.55;
+  line-height: 1.5;
   text-wrap: pretty;
+}
+
+/* The verdict closes the case at the bottom, level across cards of equal height. */
+.home-case-verdict {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding: 0.55rem 1rem 0.55rem var(--case-hang);
+  font-size: var(--font-size-sm);
 }
 
 .home-cases-more {
   margin-top: 1.75rem;
+  margin-left: var(--case-inset);
 }
 
 /* Offer: price anchor plus what the inspection covers */
@@ -6178,15 +6227,10 @@ html[lang="en"] .service-offer-body h2 {
   }
 }
 
-@media (min-width: 800px) {
-  .home-case {
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-    gap: clamp(2rem, 5vw, 4.5rem);
-    align-items: center;
-  }
-
-  .home-case--yes .home-case-media {
-    order: 2;
+/* Tablets: the two cases side by side, like the gallery grid. */
+@media (min-width: 700px) and (max-width: 959px) {
+  .home-cases-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -6194,6 +6238,67 @@ html[lang="en"] .service-offer-body h2 {
   .home-final-top {
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: end;
+  }
+}
+
+@media (min-width: 960px) {
+  /* One case per row: the text column spans the photo from its top edge to its bottom edge.
+     The avatar sits on the photo's edge and every line of text starts at the same place,
+     with the bubble, rule and verdict hanging into the gutter by the same amount. */
+  .home-case {
+    --case-gap: calc(var(--case-avatar) / 2 + 0.75rem + var(--case-hang));
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    grid-template-rows: none;
+    column-gap: var(--case-gap);
+  }
+
+  .home-case-media {
+    align-self: start;
+  }
+
+  .home-case-body {
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding: 0 1.75rem 0 0;
+  }
+
+  .home-case-said {
+    align-items: flex-end;
+    margin: 0 0 0 calc(-1 * var(--case-gap) - var(--case-avatar) / 2);
+  }
+
+  .home-case-bubble {
+    border-radius: 20px 20px 20px 6px;
+  }
+
+  .home-case-note {
+    margin-left: calc(-1 * var(--case-hang));
+  }
+
+  .home-case-verdict {
+    margin: 0 0 0 calc(-1 * var(--case-hang));
+  }
+
+  /* Every other case is mirrored: the photo moves right and the seller speaks from its left edge. */
+  .home-case:nth-child(even) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  }
+
+  .home-case:nth-child(even) .home-case-media {
+    order: 2;
+  }
+
+  .home-case:nth-child(even) .home-case-body {
+    padding: 0 0 0 calc(1.75rem + var(--case-hang));
+  }
+
+  .home-case:nth-child(even) .home-case-said {
+    flex-direction: row-reverse;
+    margin: 0 calc(-1 * var(--case-gap) - var(--case-avatar) / 2) 0 calc(-1 * var(--case-hang));
+  }
+
+  .home-case:nth-child(even) .home-case-bubble {
+    border-radius: 20px 20px 6px 20px;
   }
 }
 

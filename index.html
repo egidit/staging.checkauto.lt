@@ -34,7 +34,7 @@
   <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
   <link rel="preload" href="/assets/images/home-hero.webp" as="image" type="image/webp" imagesrcset="/assets/images/home-hero-960.webp 960w, /assets/images/home-hero.webp 1486w" imagesizes="(min-width: 1000px) 47vw, (min-width: 700px) 692px, 100vw" fetchpriority="high">
-  <link rel="stylesheet" href="/css/styles.css?v=20261024-37">
+  <link rel="stylesheet" href="/css/styles.css?v=20261024-38">
   <script src="/js/cookie-consent.js?v=20261014-4"></script>
 
   <!-- Early language detection to prevent flash of wrong language -->
@@ -130,41 +130,51 @@
           <h2 id="home-cases-title"><span data-i18n="home.cases.title_no_lead">Kartais sakome</span> <span class="home-cases-verdict home-cases-verdict--no" data-i18n="home.cases.title_no">nepirkite</span>. <span data-i18n="home.cases.title_yes_lead">Kitąkart&nbsp;–</span> <span class="home-cases-verdict home-cases-verdict--yes" data-i18n="home.cases.title_yes">pirkite</span><span data-i18n="home.cases.title_yes_rest">, bet pakeiskite diskus</span>.</h2>
         </header>
 
-        <article class="home-case home-case--no gallery-card--not-recommended">
-          <div class="home-case-media gallery-card-image" data-case-image>
-            <img src="/assets/images/home-case-passat.webp" srcset="/assets/images/home-case-passat.webp 960w, /assets/images/home-case-passat-1920.webp 1920w" sizes="(min-width: 800px) 560px, 100vw" width="960" height="540" loading="lazy" decoding="async" alt="Volkswagen Passat ir patikros metu nufotografuoti radiniai" data-i18n-aria="home.cases.passat_alt">
-            <span class="home-case-unavailable" data-i18n="home.cases.image_unavailable" hidden>Nuotrauka neprieinama</span>
-            <button type="button" class="gallery-zoom-btn" data-case-zoom aria-label="Padidinti nuotrauką: Volkswagen Passat 2.0 TDI, 2016" data-i18n-aria="home.cases.passat_zoom"><svg aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.2 10.2 14 14M5 7h4M7 5v4"/></svg></button>
-          </div>
-          <div class="home-case-body">
-            <p class="gallery-detail-label" data-i18n="home.cases.seller">Pardavėjas sakė</p>
-            <div class="home-case-said">
-              <span class="home-case-avatar" aria-hidden="true"><svg class="home-icon" width="18" height="18" viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM5 20a7 7 0 0 1 14 0"/></svg></span>
-              <blockquote class="home-case-quote"><p data-i18n="home.cases.passat_seller">Nepriekaištingos būklės, naudojamas kasdien.</p></blockquote>
+        <div class="home-cases-list">
+          <article class="home-case gallery-card--not-recommended">
+            <div class="home-case-media gallery-card-image" data-case-image>
+              <img src="/assets/images/home-case-passat.webp" srcset="/assets/images/home-case-passat.webp 960w, /assets/images/home-case-passat-1920.webp 1920w" sizes="(min-width: 960px) 560px, (min-width: 700px) 50vw, 100vw" width="960" height="540" loading="lazy" decoding="async" alt="Volkswagen Passat ir patikros metu nufotografuoti radiniai" data-i18n-aria="home.cases.passat_alt">
+              <span class="home-case-unavailable" data-i18n="home.cases.image_unavailable" hidden>Nuotrauka neprieinama</span>
+              <button type="button" class="gallery-zoom-btn" data-case-zoom aria-label="Padidinti nuotrauką: Volkswagen Passat 2.0 TDI, 2016" data-i18n-aria="home.cases.passat_zoom"><svg aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.2 10.2 14 14M5 7h4M7 5v4"/></svg></button>
             </div>
-            <p class="gallery-detail-label gallery-detail-label--found" data-i18n="home.cases.found">Ką radome</p>
-            <p class="home-case-found" data-i18n="home.cases.passat_found">Valdymo blokuose užfiksuota 538 000 km rida ir stiprus bendras nusidėvėjimas.</p>
-            <p class="gallery-verdict" data-i18n="home.cases.not_recommended">Nerekomenduota pirkti</p>
-          </div>
-        </article>
+            <div class="home-case-body">
+              <div class="home-case-said">
+                <span class="home-case-avatar" aria-hidden="true"><svg class="home-icon" width="18" height="18" viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM5 20a7 7 0 0 1 14 0"/></svg></span>
+                <div class="home-case-bubble">
+                  <p class="gallery-detail-label" data-i18n="home.cases.seller">Pardavėjas sakė</p>
+                  <blockquote class="home-case-quote"><p data-i18n="home.cases.passat_seller">Nepriekaištingos būklės, naudojamas kasdien.</p></blockquote>
+                </div>
+              </div>
+              <div class="home-case-note">
+                <p class="gallery-detail-label gallery-detail-label--found" data-i18n="home.cases.found">Ką radome</p>
+                <p class="home-case-found" data-i18n="home.cases.passat_found">Valdymo blokuose užfiksuota 538&nbsp;000&nbsp;km rida ir stiprus bendras nusidėvėjimas.</p>
+              </div>
+              <p class="gallery-verdict home-case-verdict"><svg class="home-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6m0-6-6 6"/></svg><span data-i18n="home.cases.not_recommended">Nerekomenduota pirkti</span></p>
+            </div>
+          </article>
 
-        <article class="home-case home-case--yes gallery-card--recommended">
-          <div class="home-case-media gallery-card-image" data-case-image>
-            <img src="/assets/images/home-case-bmw.webp" srcset="/assets/images/home-case-bmw.webp 960w, /assets/images/home-case-bmw-1920.webp 1920w" sizes="(min-width: 800px) 560px, 100vw" width="960" height="540" loading="lazy" decoding="async" alt="BMW 520d ir patikros metu nufotografuoti radiniai" data-i18n-aria="home.cases.bmw_alt">
-            <span class="home-case-unavailable" data-i18n="home.cases.image_unavailable" hidden>Nuotrauka neprieinama</span>
-            <button type="button" class="gallery-zoom-btn" data-case-zoom aria-label="Padidinti nuotrauką: BMW 520d, 2015" data-i18n-aria="home.cases.bmw_zoom"><svg aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.2 10.2 14 14M5 7h4M7 5v4"/></svg></button>
-          </div>
-          <div class="home-case-body">
-            <p class="gallery-detail-label" data-i18n="home.cases.seller">Pardavėjas sakė</p>
-            <div class="home-case-said">
-              <span class="home-case-avatar" aria-hidden="true"><svg class="home-icon" width="18" height="18" viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM5 20a7 7 0 0 1 14 0"/></svg></span>
-              <blockquote class="home-case-quote"><p data-i18n="home.cases.bmw_seller">Prižiūrėtas, skubių investicijų nereikia.</p></blockquote>
+          <article class="home-case gallery-card--recommended">
+            <div class="home-case-media gallery-card-image" data-case-image>
+              <img src="/assets/images/home-case-bmw.webp" srcset="/assets/images/home-case-bmw.webp 960w, /assets/images/home-case-bmw-1920.webp 1920w" sizes="(min-width: 960px) 560px, (min-width: 700px) 50vw, 100vw" width="960" height="540" loading="lazy" decoding="async" alt="BMW 520d ir patikros metu nufotografuoti radiniai" data-i18n-aria="home.cases.bmw_alt">
+              <span class="home-case-unavailable" data-i18n="home.cases.image_unavailable" hidden>Nuotrauka neprieinama</span>
+              <button type="button" class="gallery-zoom-btn" data-case-zoom aria-label="Padidinti nuotrauką: BMW 520d, 2015" data-i18n-aria="home.cases.bmw_zoom"><svg aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.2 10.2 14 14M5 7h4M7 5v4"/></svg></button>
             </div>
-            <p class="gallery-detail-label gallery-detail-label--found" data-i18n="home.cases.found">Ką radome</p>
-            <p class="home-case-found" data-i18n="home.cases.bmw_found">Nusidėvėję priekiniai stabdžių diskai ir padangos, tačiau bendra būklė gera.</p>
-            <p class="gallery-verdict" data-i18n="home.cases.recommended">Rekomenduota pirkti</p>
-          </div>
-        </article>
+            <div class="home-case-body">
+              <div class="home-case-said">
+                <span class="home-case-avatar" aria-hidden="true"><svg class="home-icon" width="18" height="18" viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM5 20a7 7 0 0 1 14 0"/></svg></span>
+                <div class="home-case-bubble">
+                  <p class="gallery-detail-label" data-i18n="home.cases.seller">Pardavėjas sakė</p>
+                  <blockquote class="home-case-quote"><p data-i18n="home.cases.bmw_seller">Prižiūrėtas, skubių investicijų nereikia.</p></blockquote>
+                </div>
+              </div>
+              <div class="home-case-note">
+                <p class="gallery-detail-label gallery-detail-label--found" data-i18n="home.cases.found">Ką radome</p>
+                <p class="home-case-found" data-i18n="home.cases.bmw_found">Nusidėvėję priekiniai stabdžių diskai ir padangos, tačiau bendra būklė gera.</p>
+              </div>
+              <p class="gallery-verdict home-case-verdict"><svg class="home-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></svg><span data-i18n="home.cases.recommended">Rekomenduota pirkti</span></p>
+            </div>
+          </article>
+        </div>
 
         <a class="home-text-link home-cases-more" href="/galerija/"><span data-gallery-copy="casesLink">Visi 27 atvejai galerijoje</span><span aria-hidden="true">→</span></a>
       </div>
