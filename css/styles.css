@@ -6227,6 +6227,15 @@ html[lang="en"] .service-offer-body h2 {
   }
 }
 
+/* Until the cases go side by side the seller's bubble overlaps the photo's bottom edge,
+   so the zoom button moves to the top corner. */
+@media (max-width: 959px) {
+  .home-case-media .gallery-zoom-btn {
+    top: 0.75rem;
+    bottom: auto;
+  }
+}
+
 /* Tablets: the two cases side by side, like the gallery grid. */
 @media (min-width: 700px) and (max-width: 959px) {
   .home-cases-list {
