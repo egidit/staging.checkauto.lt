@@ -222,7 +222,11 @@ try {
     const figures = await page.evaluate(() => {
       const clean = value => value.replace(/\s+/g, ' ').trim();
       return {
-        tally: [...document.querySelectorAll('.home-tally-grid > div')].map(item => clean(item.querySelector('dd').textContent) + ' | ' + clean(item.querySelector('dt').textContent)),
+        tally: [...document.querySelectorAll('.home-tally-grid > div')].map(item => {
+          const value = item.querySelector('dd .visually-hidden') || item.querySelector('dd');
+          return clean(value.textContent) + ' | ' + clean(item.querySelector('dt').textContent);
+        }),
+        shares: [...document.querySelectorAll('[data-gallery-share]')].map(item => item.style.getPropertyValue('--share')),
         link: clean(document.querySelector('[data-gallery-copy="casesLink"]').textContent),
         offer: clean(document.querySelector('[data-gallery-copy="offer"]').textContent),
         buttons: [...document.querySelectorAll('.home-evidence-buttons [data-case]')].map(button => clean(button.textContent)),
@@ -237,7 +241,8 @@ try {
   };
 
   const grown = await figuresFor([...gallery.items, ...extra], 'lt');
-  assert.deepEqual(grown.tally, ['21 | paskelbta patikra', '9 | kartus patarėme nepirkti', '5 | kartus radome atsuktą ridą', '180 000 km | daugiausiai nuslėptos ridos'], 'Tally follows gallery.json with Lithuanian plural forms');
+  assert.deepEqual(grown.tally, ['180 000 km | daugiausiai nuslėptos ridos', '21 | paskelbta patikra', '9 | kartus patarėme nepirkti', '5 | kartus radome atsuktą ridą'], 'Tally follows gallery.json with Lithuanian plural forms');
+  assert.deepEqual(grown.shares, ['100%', '42.9%', '23.8%'], 'Tally bars show each count as a share of all inspections');
   assert.equal(grown.link, '21 atvejis galerijoje');
   assert.match(grown.offer, /iki 180 000 km\./);
   assert.deepEqual(grown.buttons, ['+180 000', '+126 000', '+104 000'], 'Hero shows the three largest rollbacks');
@@ -246,13 +251,14 @@ try {
   assert.equal(grown.label, `${template.lt.title}: nuslėpta 180 000 km`);
 
   const grownEnglish = await figuresFor([...gallery.items, ...extra], 'en');
-  assert.deepEqual(grownEnglish.tally, ['21 | published inspections', '9 | times we advised not to buy', '5 | rolled-back odometers found', '180,000 km | the most mileage hidden']);
+  assert.deepEqual(grownEnglish.tally, ['180,000 km | the most mileage hidden', '21 | published inspections', '9 | times we advised not to buy', '5 | rolled-back odometers found']);
   assert.equal(grownEnglish.link, 'All 21 cases in the gallery');
   assert.match(grownEnglish.offer, /up to 180,000 km\./);
   assert.equal(grownEnglish.label, `${template.en.title}: 180,000 km hidden`);
 
   const unavailable = await figuresFor(null, 'en');
-  assert.deepEqual(unavailable.tally, ['16 | published inspections', '8 | times we advised not to buy', '4 | rolled-back odometers found', '126,000 km | the most mileage hidden'], 'HTML figures remain when gallery.json cannot load');
+  assert.deepEqual(unavailable.tally, ['126,000 km | the most mileage hidden', '16 | published inspections', '8 | times we advised not to buy', '4 | rolled-back odometers found'], 'HTML figures remain when gallery.json cannot load');
+  assert.deepEqual(unavailable.shares, ['100%', '50%', '25%']);
   assert.deepEqual(unavailable.buttons, ['+126,000', '+104,000', '+38,000']);
 
   const mobile = await openHome({ viewport: { width: 390, height: 844 } });

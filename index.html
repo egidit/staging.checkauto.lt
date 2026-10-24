@@ -34,7 +34,7 @@
   <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
   <link rel="preload" href="/assets/images/home-hero.webp" as="image" type="image/webp" imagesrcset="/assets/images/home-hero-960.webp 960w, /assets/images/home-hero.webp 1486w" imagesizes="(min-width: 1000px) 47vw, (min-width: 700px) 692px, 100vw" fetchpriority="high">
-  <link rel="stylesheet" href="/css/styles.css?v=20261024-13">
+  <link rel="stylesheet" href="/css/styles.css?v=20261024-14">
   <script src="/js/cookie-consent.js?v=20261014-4"></script>
 
   <!-- Early language detection to prevent flash of wrong language -->
@@ -116,10 +116,10 @@
       <div class="container">
         <h2 id="home-tally-title" class="visually-hidden" data-i18n="home.tally.title">Mūsų paskelbtų patikrų skaičiai</h2>
         <dl class="home-tally-grid">
-          <div><dt data-gallery-copy="totalLabel">paskelbtų patikrų</dt><dd data-gallery-figure="total">16</dd></div>
-          <div><dt data-gallery-copy="notRecommendedLabel">kartus patarėme nepirkti</dt><dd data-gallery-figure="notRecommended">8</dd></div>
-          <div><dt data-gallery-copy="rollbacksLabel">kartus radome atsuktą ridą</dt><dd data-gallery-figure="rollbacks">4</dd></div>
-          <div><dt data-i18n="home.tally.max_hidden_label">daugiausiai nuslėptos ridos</dt><dd><span data-gallery-figure="maxHidden">126 000</span> <span class="home-tally-unit">km</span></dd></div>
+          <div class="home-tally-feature"><dt data-i18n="home.tally.max_hidden_label">daugiausiai nuslėptos ridos</dt><dd><span class="home-odo home-tally-odo" data-gallery-figure="maxHidden">126 000 km</span></dd></div>
+          <div class="home-tally-stat" data-gallery-share="total" style="--share: 100%"><dt data-gallery-copy="totalLabel">paskelbtų patikrų</dt><dd data-gallery-figure="total">16</dd></div>
+          <div class="home-tally-stat home-tally-stat--warning" data-gallery-share="notRecommended" style="--share: 50%"><dt data-gallery-copy="notRecommendedLabel">kartus patarėme nepirkti</dt><dd data-gallery-figure="notRecommended">8</dd></div>
+          <div class="home-tally-stat home-tally-stat--warning" data-gallery-share="rollbacks" style="--share: 25%"><dt data-gallery-copy="rollbacksLabel">kartus radome atsuktą ridą</dt><dd data-gallery-figure="rollbacks">4</dd></div>
         </dl>
         <p class="home-tally-note">
           <a href="/galerija/" class="home-text-link"><span data-i18n="home.tally.link">Peržiūrėti atvejus</span><span aria-hidden="true">→</span></a>
@@ -373,6 +373,6 @@
   <script src="/js/i18n.js?v=20261024-1"></script>
   <script src="/js/main.js?v=20261014-2"></script>
   <script src="/js/lightbox.js?v=20261024-1"></script>
-  <script src="/js/home.js?v=20261024-2"></script>
+  <script src="/js/home.js?v=20261024-3"></script>
 </body>
 </html>

@@ -5513,51 +5513,95 @@ html[lang="en"] .service-offer-body h2 {
 }
 
 /* Tally strip */
-.home-tally {
-  padding-block: clamp(1.75rem, 3.5vw, 2.5rem);
-  background: var(--color-bg-alt);
-}
-
+/* Tally: the largest hidden mileage on an odometer, then each count as a share of all published inspections. */
 .home-tally-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.5rem 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.625rem;
 }
 
 .home-tally-grid > div {
   display: flex;
-  flex-direction: column-reverse;
-  justify-content: flex-end;
+  flex-direction: column;
   gap: 0.4rem;
   min-width: 0;
-  padding-inline: clamp(1rem, 2.5vw, 1.75rem) 0.5rem;
-  border-left: 1px solid var(--color-border);
-}
-
-.home-tally-grid > div:nth-child(odd) {
-  padding-left: 0;
-  border-left: 0;
+  padding: 1rem 1rem 1.1rem;
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-alt);
 }
 
 .home-tally dd {
-  color: var(--color-text);
-  font-size: clamp(2rem, 1.5rem + 1.8vw, 3rem);
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.04em;
-  line-height: 1;
-  white-space: nowrap;
-}
-
-.home-tally-unit {
-  font-size: 0.55em;
-  letter-spacing: -0.01em;
+  order: -1;
 }
 
 .home-tally dt {
   color: var(--color-text-secondary);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
   line-height: 1.35;
+  text-wrap: balance;
+}
+
+.home-tally-grid > .home-tally-feature {
+  grid-column: 1 / -1;
+}
+
+.home-tally-feature dd {
+  order: 0;
+}
+
+.home-tally-feature dt {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.home-tally-feature dt::before {
+  content: "";
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--color-danger);
+}
+
+.home-tally .home-tally-odo {
+  margin-top: 0.35rem;
+  color: var(--color-text-inverse);
+  font-size: clamp(2rem, 1.6rem + 1.4vw, 2.6rem);
+}
+
+.home-tally-odo .home-odo-unit {
+  color: var(--color-text-secondary);
+}
+
+.home-tally-stat {
+  --bar: var(--color-accent);
+}
+
+.home-tally-stat--warning {
+  --bar: var(--home-danger-text);
+}
+
+.home-tally-stat dd {
+  color: var(--color-text);
+  font-size: clamp(1.75rem, 1.35rem + 1.5vw, 2.5rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.home-tally-stat::after {
+  content: "";
+  height: 6px;
+  margin-top: auto;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--bar) var(--share, 0%), rgb(0 0 0 / 0.08) var(--share, 0%));
+}
+
+.home-tally-stat dt {
+  margin-bottom: 0.6rem;
 }
 
 .home-tally-note {
@@ -5565,7 +5609,7 @@ html[lang="en"] .service-offer-body h2 {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.35rem 1rem;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   font-size: var(--font-size-xs);
   line-height: 1.5;
 }
@@ -6046,17 +6090,15 @@ html[lang="en"] .service-offer-body h2 {
 
 @media (min-width: 700px) {
   .home-tally-grid {
-    grid-template-columns: repeat(3, minmax(0, 0.8fr)) minmax(0, 1.2fr);
+    gap: 0.875rem;
   }
 
-  .home-tally-grid > div:nth-child(odd) {
-    padding-left: clamp(1rem, 2.5vw, 1.75rem);
-    border-left: 1px solid var(--color-border);
+  .home-tally-grid > div {
+    padding: 1.25rem 1.35rem 1.35rem;
   }
 
-  .home-tally-grid > div:first-child {
-    padding-left: 0;
-    border-left: 0;
+  .home-tally dt {
+    font-size: var(--font-size-sm);
   }
 
   .home-steps {
@@ -6131,6 +6173,15 @@ html[lang="en"] .service-offer-body h2 {
 
   .home-hero-illustration {
     margin-inline: clamp(-3.5rem, -3vw, -1.5rem) 0;
+  }
+
+  .home-tally-grid {
+    grid-template-columns: minmax(0, 1.45fr) repeat(3, minmax(0, 1fr));
+  }
+
+  .home-tally-grid > .home-tally-feature {
+    grid-column: auto;
+    justify-content: space-between;
   }
 
   /* Desktop: a wider, shorter evidence card that keeps the hero columns balanced. */

@@ -27,6 +27,72 @@
     return window.checkautoI18n ? window.checkautoI18n.getLanguage() : 'lt';
   }
 
+  /* Odometer drums: one rolling strip of digits per figure, used by the hero card and the tally. */
+  function buildOdometer(element, text) {
+    var digits = document.createElement('span');
+    digits.className = 'home-odo-digits';
+    digits.setAttribute('aria-hidden', 'true');
+
+    text.split('').forEach(function (character) {
+      if (/\d/.test(character)) {
+        var cell = document.createElement('span');
+        var strip = document.createElement('span');
+        cell.className = 'home-odo-cell';
+        strip.className = 'home-odo-strip';
+        for (var digit = 0; digit < 10; digit++) {
+          var face = document.createElement('span');
+          face.textContent = digit;
+          strip.appendChild(face);
+        }
+        cell.appendChild(strip);
+        digits.appendChild(cell);
+      } else {
+        var separator = document.createElement('span');
+        separator.className = 'home-odo-sep';
+        separator.textContent = character === ',' ? ',' : '';
+        digits.appendChild(separator);
+      }
+    });
+
+    var unit = document.createElement('span');
+    unit.className = 'home-odo-unit';
+    unit.setAttribute('aria-hidden', 'true');
+    unit.textContent = 'km';
+
+    var spoken = document.createElement('span');
+    spoken.className = 'visually-hidden';
+
+    element.textContent = '';
+    element.appendChild(digits);
+    element.appendChild(unit);
+    element.appendChild(spoken);
+    element.dataset.layout = text.replace(/\d/g, '0');
+  }
+
+  function parkAtZero(element) {
+    var strips = element.querySelectorAll('.home-odo-strip');
+    strips.forEach(function (strip) {
+      strip.style.transition = 'none';
+      strip.style.setProperty('--digit', 0);
+    });
+    void element.offsetWidth;
+    strips.forEach(function (strip) { strip.style.transition = ''; });
+  }
+
+  function setOdometer(element, value, startFromZero) {
+    var text = formatNumber(value);
+    if (element.dataset.layout !== text.replace(/\d/g, '0')) buildOdometer(element, text);
+
+    var strips = element.querySelectorAll('.home-odo-strip');
+    var digits = text.replace(/\D/g, '');
+    if (startFromZero) parkAtZero(element);
+    strips.forEach(function (strip, index) {
+      strip.style.setProperty('--digit', digits.charAt(index));
+      strip.style.setProperty('--delay', (index * 0.06) + 's');
+    });
+    element.querySelector('.visually-hidden').textContent = text + ' km';
+  }
+
   /* Lithuanian needs three noun forms (1 patikra, 2 patikros, 16 patikrų); English needs two. */
   function pluralForm(count) {
     var form = new Intl.PluralRules(locale()).select(count);
@@ -77,71 +143,6 @@
     var shownOdo = evidence.querySelector('[data-odo="shown"]');
     var actualOdo = evidence.querySelector('[data-odo="actual"]');
     var deltaText = evidence.querySelector('[data-odo="delta"]');
-
-    var buildOdometer = function (element, text) {
-      var digits = document.createElement('span');
-      digits.className = 'home-odo-digits';
-      digits.setAttribute('aria-hidden', 'true');
-
-      text.split('').forEach(function (character) {
-        if (/\d/.test(character)) {
-          var cell = document.createElement('span');
-          var strip = document.createElement('span');
-          cell.className = 'home-odo-cell';
-          strip.className = 'home-odo-strip';
-          for (var digit = 0; digit < 10; digit++) {
-            var face = document.createElement('span');
-            face.textContent = digit;
-            strip.appendChild(face);
-          }
-          cell.appendChild(strip);
-          digits.appendChild(cell);
-        } else {
-          var separator = document.createElement('span');
-          separator.className = 'home-odo-sep';
-          separator.textContent = character === ',' ? ',' : '';
-          digits.appendChild(separator);
-        }
-      });
-
-      var unit = document.createElement('span');
-      unit.className = 'home-odo-unit';
-      unit.setAttribute('aria-hidden', 'true');
-      unit.textContent = 'km';
-
-      var spoken = document.createElement('span');
-      spoken.className = 'visually-hidden';
-
-      element.textContent = '';
-      element.appendChild(digits);
-      element.appendChild(unit);
-      element.appendChild(spoken);
-      element.dataset.layout = text.replace(/\d/g, '0');
-    };
-
-    var parkAtZero = function (element) {
-      var strips = element.querySelectorAll('.home-odo-strip');
-      strips.forEach(function (strip) {
-        strip.style.transition = 'none';
-        strip.style.setProperty('--digit', 0);
-      });
-      void element.offsetWidth;
-      strips.forEach(function (strip) { strip.style.transition = ''; });
-    };
-
-    var setOdometer = function (element, value, startFromZero) {
-      var text = formatNumber(value);
-      if (element.dataset.layout !== text.replace(/\d/g, '0')) buildOdometer(element, text);
-
-      var strips = element.querySelectorAll('.home-odo-strip');
-      var digits = text.replace(/\D/g, '');
-      if (startFromZero) parkAtZero(element);
-      strips.forEach(function (strip, index) {
-        strip.style.setProperty('--digit', digits.charAt(index));
-        strip.style.setProperty('--delay', (index * 0.06) + 's');
-      });
-      element.querySelector('.visually-hidden').textContent = text + ' km';
-    };
 
     var activeButton = function () {
       return caseButtons.filter(function (button) {
@@ -433,10 +434,29 @@
 
   var figureElements = Array.prototype.slice.call(document.querySelectorAll('[data-gallery-figure]'));
   var copyElements = Array.prototype.slice.call(document.querySelectorAll('[data-gallery-copy]'));
+  var shareElements = Array.prototype.slice.call(document.querySelectorAll('[data-gallery-share]'));
   var figures = {};
   figureElements.forEach(function (element) {
     figures[element.dataset.galleryFigure] = Number(element.textContent.replace(/\D/g, ''));
   });
+
+  /* The tally odometer rolls up from zero the first time it scrolls into view. */
+  var tallyOdometers = figureElements.filter(function (element) {
+    return element.classList.contains('home-odo');
+  });
+  var tallyIntroPending = false;
+  if (tallyOdometers.length && 'IntersectionObserver' in window && !reduceMotion.matches) {
+    tallyIntroPending = true;
+    var tallyObserver = new IntersectionObserver(function (entries) {
+      if (!entries.some(function (entry) { return entry.isIntersecting; })) return;
+      tallyObserver.disconnect();
+      tallyIntroPending = false;
+      tallyOdometers.forEach(function (element) {
+        setOdometer(element, figures[element.dataset.galleryFigure], true);
+      });
+    }, { threshold: 0.6 });
+    tallyOdometers.forEach(function (element) { tallyObserver.observe(element); });
+  }
 
   /* Odometer readings are whole kilometres; tolerate "202 000" typed as text. */
   function readKilometres(value) {
@@ -472,7 +492,17 @@
 
   function renderGalleryFigures() {
     figureElements.forEach(function (element) {
-      element.textContent = formatNumber(figures[element.dataset.galleryFigure]);
+      var value = figures[element.dataset.galleryFigure];
+      if (!element.classList.contains('home-odo')) {
+        element.textContent = formatNumber(value);
+        return;
+      }
+      setOdometer(element, value, false);
+      if (tallyIntroPending) parkAtZero(element);
+    });
+    shareElements.forEach(function (element) {
+      var share = figures.total ? figures[element.dataset.galleryShare] / figures.total : 0;
+      element.style.setProperty('--share', Math.round(share * 1000) / 10 + '%');
     });
     copyElements.forEach(function (element) {
       var copy = GALLERY_COPY[element.dataset.galleryCopy];
@@ -489,6 +519,7 @@
   }
 
   if (figureElements.length || copyElements.length || evidence) {
+    renderGalleryFigures();
     window.addEventListener('checkauto:languagechange', renderGalleryFigures);
     fetch(GALLERY_DATA_URL, { cache: 'no-cache', credentials: 'same-origin' })
       .then(function (response) {
