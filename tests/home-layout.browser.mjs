@@ -161,18 +161,26 @@ try {
   assert.equal(text(await page.locator('[data-price-share]').textContent()), '0.167%', 'Share keeps changing at the top of the range');
 
   const road = await page.evaluate(() => {
-    const line = document.querySelector('.home-route-line');
-    const box = line.getBoundingClientRect();
-    return {
-      shown: getComputedStyle(line).display !== 'none',
-      onRoad: [...document.querySelectorAll('.home-steps img')].every(img => {
-        const step = img.getBoundingClientRect();
-        return step.top < box.bottom && step.bottom > box.top;
-      }),
-    };
+    const steps = [...document.querySelectorAll('.home-steps li')];
+    const centre = box => box.left + box.width / 2;
+    return steps.slice(0, -1).map((step, index) => {
+      const style = getComputedStyle(step, '::before');
+      const stepBox = step.getBoundingClientRect();
+      const left = stepBox.left + parseFloat(style.left);
+      const top = stepBox.top + parseFloat(style.top);
+      const bottom = top + parseFloat(style.height);
+      const here = step.querySelector('img').getBoundingClientRect();
+      const next = steps[index + 1].querySelector('img').getBoundingClientRect();
+      const labels = Math.min(step.querySelector('span').getBoundingClientRect().top, steps[index + 1].querySelector('span').getBoundingClientRect().top);
+      return {
+        winding: style.backgroundImage.includes('journey-desktop-route'),
+        joinsSteps: Math.abs(left - centre(here)) < 1 && Math.abs(left + parseFloat(style.width) - centre(next)) < 1,
+        atIslands: top > here.top && bottom < here.bottom + 40,
+        clearOfLabels: top + parseFloat(style.height) * 110 / 120 < labels,
+      };
+    });
   });
-  assert.ok(road.shown, 'Desktop: winding road shown');
-  assert.ok(road.onRoad, 'Desktop: every step sits on the road');
+  assert.deepEqual(road, Array(2).fill({ winding: true, joinsSteps: true, atIslands: true, clearOfLabels: true }), 'Desktop: the road winds from each step to the next, clear of the labels');
   assert.deepEqual(errors, []);
   await context.close();
 
