@@ -37,7 +37,10 @@
       "link": "See the cases"
     },
     "cases": {
-      "title": "Sometimes we say “walk away”. Sometimes it’s “buy it, but replace the discs”.",
+      "title_no_lead": "Sometimes we say",
+      "title_no": "walk away",
+      "title_yes_lead": "Sometimes it’s",
+      "title_yes": "buy it, but replace the discs",
       "intro": "Two real cases: the same question, opposite answers.",
       "seller": "Seller said",
       "found": "What we found",

@@ -5584,6 +5584,14 @@ html[lang="en"] .service-offer-body h2 {
   text-wrap: balance;
 }
 
+.home-cases-verdict--no {
+  color: var(--home-danger-text);
+}
+
+.home-cases-verdict--yes {
+  color: var(--home-success-text);
+}
+
 .home-cases-heading p {
   margin-top: 1rem;
   font-size: var(--font-size-md);
