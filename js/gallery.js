@@ -2,7 +2,7 @@
   'use strict';
 
   var PAGE_SIZE = 6;
-  var GALLERY_DATA_URL = '/data/gallery.json?v=20260823-5';
+  var GALLERY_DATA_URL = '/data/gallery.json?v=20261024-1';
   var grid = document.querySelector('.gallery-grid');
   if (!grid) return;
 

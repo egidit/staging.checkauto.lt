@@ -241,7 +241,7 @@ try {
   const template = gallery.items.find(item => item.id === 9);
   const extra = [
     { ...template, id: 101, odometer: { shown: 150000, actual: 330000 } },
-    ...[102, 103, 104, 105].map(id => ({ ...gallery.items.find(item => item.id === 1), id, recommended: true })),
+    ...[102, 103, 104].map(id => ({ ...gallery.items.find(item => item.id === 1), id, recommended: true })),
   ];
   const figuresFor = async (items, lang) => {
     const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
@@ -276,20 +276,20 @@ try {
   };
 
   const grown = await figuresFor([...gallery.items, ...extra], 'lt');
-  assert.deepEqual(grown.tally, ['180 000 km | daugiausiai nuslėptos ridos', '21 | paskelbta patikra', '9 | kartus patarėme nepirkti', '5 | kartus radome atsuktą ridą'], 'Tally follows gallery.json with Lithuanian plural forms');
-  assert.equal(grown.link, '21 atvejis galerijoje');
+  assert.deepEqual(grown.tally, ['180 000 km | daugiausiai nuslėptos ridos', '31 | paskelbta patikra', '16 | kartų patarėme nepirkti', '5 | kartus radome atsuktą ridą'], 'Tally follows gallery.json with Lithuanian plural forms');
+  assert.equal(grown.link, '31 atvejis galerijoje');
   assert.deepEqual(grown.buttons, ['+180 000', '+126 000', '+104 000'], 'Hero shows the three largest rollbacks');
   assert.equal(grown.pressed, '101');
   assert.equal(grown.car, template.lt.title);
   assert.equal(grown.label, `${template.lt.title}: nuslėpta 180 000 km`);
 
   const grownEnglish = await figuresFor([...gallery.items, ...extra], 'en');
-  assert.deepEqual(grownEnglish.tally, ['180,000 km | the most mileage hidden', '21 | published inspections', '9 | times we advised not to buy', '5 | rolled-back odometers found']);
-  assert.equal(grownEnglish.link, 'All 21 cases in the gallery');
+  assert.deepEqual(grownEnglish.tally, ['180,000 km | the most mileage hidden', '31 | published inspections', '16 | times we advised not to buy', '5 | rolled-back odometers found']);
+  assert.equal(grownEnglish.link, 'All 31 cases in the gallery');
   assert.equal(grownEnglish.label, `${template.en.title}: 180,000 km hidden`);
 
   const unavailable = await figuresFor(null, 'en');
-  assert.deepEqual(unavailable.tally, ['126,000 km | the most mileage hidden', '16 | published inspections', '8 | times we advised not to buy', '4 | rolled-back odometers found'], 'HTML figures remain when gallery.json cannot load');
+  assert.deepEqual(unavailable.tally, ['126,000 km | the most mileage hidden', '27 | published inspections', '15 | times we advised not to buy', '4 | rolled-back odometers found'], 'HTML figures remain when gallery.json cannot load');
   assert.deepEqual(unavailable.buttons, ['+126,000', '+104,000', '+38,000']);
 
   const touch = await openHome({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true });

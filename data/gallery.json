@@ -60,7 +60,7 @@
       "id": 1,
       "category": "body",
       "image": "/assets/images/AudiA7_1.jpg",
-      "imageAvailable": false,
+      "imageAvailable": true,
       "recommended": false,
       "lt": {
         "tag": "Kėbulas",
@@ -81,7 +81,7 @@
       "id": 2,
       "category": "mileage",
       "image": "/assets/images/Passat_1.jpg",
-      "imageAvailable": false,
+      "imageAvailable": true,
       "recommended": false,
       "odometer": { "shown": null, "actual": 538000 },
       "lt": {
@@ -103,7 +103,7 @@
       "id": 3,
       "category": "mileage",
       "image": "/assets/images/Passat_2.jpg",
-      "imageAvailable": false,
+      "imageAvailable": true,
       "recommended": false,
       "odometer": { "shown": 215000, "actual": 319000 },
       "lt": {
@@ -125,7 +125,7 @@
       "id": 4,
       "category": "body",
       "image": "/assets/images/x6_1.jpg",
-      "imageAvailable": false,
+      "imageAvailable": true,
       "recommended": true,
       "lt": {
         "tag": "Kėbulas",
@@ -146,7 +146,7 @@
       "id": 5,
       "category": "body",
       "image": "/assets/images/honda_1.jpg",
-      "imageAvailable": false,
+      "imageAvailable": true,
       "recommended": true,
       "lt": {
         "tag": "Kėbulas",
@@ -167,7 +167,7 @@
       "id": 6,
       "category": "engine",
       "image": "/assets/images/6gt_1.jpg",
-      "imageAvailable": false,
+      "imageAvailable": true,
       "recommended": true,
       "lt": {
         "tag": "Variklis",
@@ -188,7 +188,7 @@
       "id": 7,
       "category": "body",
       "image": "/assets/images/f48_1.jpg",
-      "imageAvailable": false,
+      "imageAvailable": true,
       "recommended": true,
       "lt": {
         "tag": "Kėbulas",
@@ -209,7 +209,7 @@
       "id": 8,
       "category": "body",
       "image": "/assets/images/PassatCC_1.jpg",
-      "imageAvailable": false,
+      "imageAvailable": true,
       "recommended": false,
       "lt": {
         "tag": "Kėbulas",
@@ -230,7 +230,7 @@
       "id": 9,
       "category": "mileage",
       "image": "/assets/images/Passat_3.jpg",
-      "imageAvailable": false,
+      "imageAvailable": true,
       "recommended": false,
       "odometer": { "shown": 202000, "actual": 328000 },
       "lt": {
@@ -252,7 +252,7 @@
       "id": 10,
       "category": "body",
       "image": "/assets/images/bmwf11_1.jpg",
-      "imageAvailable": false,
+      "imageAvailable": true,
       "recommended": true,
       "lt": {
         "tag": "Kėbulas",
@@ -273,7 +273,7 @@
       "id": 11,
       "category": "body",
       "image": "/assets/images/Passat_4.jpg",
-      "imageAvailable": false,
+      "imageAvailable": true,
       "recommended": true,
       "lt": {
         "tag": "Kėbulas",
@@ -294,7 +294,7 @@
       "id": 12,
       "category": "mileage",
       "image": "/assets/images/bmwf11_2.jpeg",
-      "imageAvailable": false,
+      "imageAvailable": true,
       "recommended": false,
       "odometer": { "shown": 277000, "actual": 315000 },
       "lt": {
@@ -316,7 +316,7 @@
       "id": 13,
       "category": "engine",
       "image": "/assets/images/hyundai_1.jpeg",
-      "imageAvailable": false,
+      "imageAvailable": true,
       "recommended": false,
       "lt": {
         "tag": "Variklis",
@@ -337,10 +337,10 @@
       "id": 14,
       "category": "electrical",
       "image": "/assets/images/mercedes_1.jpeg",
-      "imageAvailable": false,
+      "imageAvailable": true,
       "recommended": true,
       "lt": {
-        "tag": "Elektra",
+        "tag": "Elektronika",
         "title": "Mercedes-Benz C 180, 1.5 Mild Hybrid, 2022",
         "seller": "Pardavėjas teigė, kad automobilis yra visiškai puikios būklės, neturintis jokių paslėptų defektų ir yra idealiai paruoštas naudojimui.",
         "found": "Patikros metu nustatyti tik smulkūs trūkumai: užfiksuotos klaidos radaro ir kameros blokuose. Automobiliui reikalinga „Distronic“ bei saugumo sistemų asistentų kalibracija, tačiau rimtų techninių ar kėbulo defektų nerasta, todėl transporto priemonė rekomenduojama pirkimui.",
@@ -358,10 +358,10 @@
       "id": 15,
       "category": "electrical",
       "image": "/assets/images/mercedes_2.jpeg",
-      "imageAvailable": false,
+      "imageAvailable": true,
       "recommended": false,
       "lt": {
-        "tag": "Elektra",
+        "tag": "Elektronika",
         "title": "Mercedes-Benz E-Class, 2.0 Petrol/Hybrid, 2018",
         "seller": "Pardavėjas teigė, kad automobilis yra idealiai prižiūrėtas autorizuotame servise, neturi jokių techninių trūkumų, o visi agregatai veikia nepriekaištingai.",
         "found": "Patikros metu nustatytas stiprus priekinių stabdžių diskų nusidėvėjimas ir perkaitimo žymės. Atlikus kompiuterinę diagnostiką užfiksuotos aktyvios variklio klaidos dėl nesandarumo įsiurbimo sistemoje bei alyvos siurblio vožtuvo gedimas. Taip pat aptikta papildomų elektronikos gedimų, pavyzdžiui, „Keyless-Go“ durelių rankenėlėje.",
@@ -379,7 +379,7 @@
       "id": 16,
       "category": "engine",
       "image": "/assets/images/skoda_1.jpeg",
-      "imageAvailable": false,
+      "imageAvailable": true,
       "recommended": true,
       "lt": {
         "tag": "Variklis",
@@ -393,6 +393,237 @@
         "title": "Skoda Superb, 2.0 TDI, 2016",
         "seller": "The seller claimed that the car was in excellent condition and had no hidden defects.",
         "found": "The inspection revealed that the overall condition of the vehicle is good, but oil leaks were found in the engine compartment. A leak was detected near the valve cover, and oil is already visible on the lower engine guard. No major defects were found.",
+        "verdict": "Recommended"
+      }
+    },
+    {
+      "id": 17,
+      "category": "body",
+      "image": "/assets/images/h1.jpg",
+      "imageAvailable": true,
+      "recommended": true,
+      "lt": {
+        "tag": "Kėbulas",
+        "title": "Honda HR-V, 1.6 i-DTEC, 2016",
+        "seller": "Pardavėjas teigė, kad automobilis yra puikios būklės ir jokių defektų neturi.",
+        "found": "Patikros metu nustatyti kosmetiniai kėbulo defektai: užfiksuotas kėbulo skardos įlenkimas bei subraižyta plastikinė sparno apdaila. Taip pat matomi stipriai pageltę, matiniai priekiniai žibintai, kuriems reikalingas poliravimas. Rimtesnių kėbulo struktūros pažeidimų nerasta.",
+        "verdict": "Rekomenduota pirkti"
+      },
+      "en": {
+        "tag": "Body",
+        "title": "Honda HR-V, 1.6 i-DTEC, 2016",
+        "seller": "The seller claimed that the car was in excellent condition with no defects.",
+        "found": "During the inspection, cosmetic body defects were identified: a dent in the body panel and a scratched plastic fender trim were recorded. Heavily yellowed, cloudy headlights requiring polishing were also noted. No severe structural body damage was found.",
+        "verdict": "Recommended"
+      }
+    },
+    {
+      "id": 18,
+      "category": "electrical",
+      "image": "/assets/images/h2.jpg",
+      "imageAvailable": true,
+      "recommended": false,
+      "lt": {
+        "tag": "Elektronika",
+        "title": "Volkswagen T-Roc, 1.5 TSI, 2019",
+        "seller": "Pardavėjas teigė, kad automobilis yra puikios techninės ir vizualinės būklės, be jokių paslėptų defektų.",
+        "found": "Patikros metu nustatyti keli kosmetiniai bei techniniai trūkumai: kėbulo elemento paviršiuje užfiksuoti gilesni dažų dangos įbrėžimai, o variklio skyriuje matomas alyvos nuotėkis. Taip pat atlikus kompiuterinę diagnostiką aptikta aktyvi aušinimo skysčio siurblio valdymo grandinės klaida.",
+        "verdict": "Nerekomenduota pirkti"
+      },
+      "en": {
+        "tag": "Electrical",
+        "title": "Volkswagen T-Roc, 1.5 TSI, 2019",
+        "seller": "The seller claimed that the car was in excellent technical and visual condition with no hidden defects.",
+        "found": "During the inspection, several cosmetic and technical defects were identified: deeper scratches in the paintwork were recorded on a body panel, and oil sweating was visible in the engine compartment. Additionally, computer diagnostics revealed an active coolant pump control circuit fault.",
+        "verdict": "Not recommended"
+      }
+    },
+    {
+      "id": 19,
+      "category": "body",
+      "image": "/assets/images/h3.jpg",
+      "imageAvailable": true,
+      "recommended": false,
+      "lt": {
+        "tag": "Kėbulas",
+        "title": "Volkswagen Passat, 2.0 TDI, 2017",
+        "seller": "Pardavėjas teigė, kad automobilis yra tvarkingas, be eismo įvykių ir jokių gedimų neturi.",
+        "found": "Patikros metu nustatytas labai didelis kėbulo glaisto sluoksnis: matuoklis užfiksavo net iki 1850 µm siekiantį storį, o kai kuriose vietose glaisto sluoksnis yra toks storas, kad prietaisas viršija matavimo ribas. Taip pat prietaisų skydelyje dega pranešimas „Front Assist not available“, rodantis priekinio radaro / avarinio stabdymo sistemos gedimą.",
+        "verdict": "Nerekomenduota pirkti"
+      },
+      "en": {
+        "tag": "Body",
+        "title": "Volkswagen Passat, 2.0 TDI, 2017",
+        "seller": "The seller claimed that the car was in good condition, accident-free, and had no faults.",
+        "found": "During the inspection, a very heavy layer of body filler was identified: the paint depth gauge recorded readings up to 1850 µm, and in certain spots, the filler layer was so thick that the device exceeded its measuring range. Additionally, the instrument cluster displayed a 'Front Assist not available' message, indicating a malfunction or required calibration of the front radar / emergency braking system.",
+        "verdict": "Not recommended"
+      }
+    },
+    {
+      "id": 20,
+      "category": "electrical",
+      "image": "/assets/images/h4.jpg",
+      "imageAvailable": true,
+      "recommended": true,
+      "lt": {
+        "tag": "Elektronika",
+        "title": "Skoda Kodiaq, 2.0 TDI, 2018",
+        "seller": "Pardavėjas teigė, kad automobilis yra puikios būklės, visi elektronikos prietaisai ir sistema veikia be priekaištų.",
+        "found": "Patikros metu nustatyti tik smulkūs techniniai ir kosmetiniai trūkumai: atlikus diagnostiką užfiksuotos vairuotojo durų elektronikos bei centrinio užrakto valdymo bloko klaidos. Taip pat aptiktas nudaužytas ratlankio kraštas bei pažeista sėdynės apdaila. Nustatyti defektai nėra kritiniai.",
+        "verdict": "Rekomenduota pirkti"
+      },
+      "en": {
+        "tag": "Electrical",
+        "title": "Skoda Kodiaq, 2.0 TDI, 2018",
+        "seller": "The seller claimed that the car was in excellent condition and all electronic systems worked flawlessly.",
+        "found": "During the inspection, only minor technical and cosmetic defects were identified: diagnostics revealed faults in the driver's door electronics and central locking control module. Additionally, a chipped alloy rim edge and damaged seat upholstery were noted. The identified defects are not critical.",
+        "verdict": "Recommended"
+      }
+    },
+    {
+      "id": 21,
+      "category": "electrical",
+      "image": "/assets/images/a1.jpg",
+      "imageAvailable": true,
+      "recommended": false,
+      "lt": {
+        "tag": "Elektronika",
+        "title": "BMW X5, 3.0d, 2011",
+        "seller": "Pardavėjas teigė, kad automobilis yra prižiūrėtas, geros būklės ir neturi jokių rimtų variklio ar elektronikos gedimų.",
+        "found": "Patikros metu atlikus kompiuterinę diagnostiką DDE valdymo bloke užfiksuota DDE maitinimo valdymo klaida, kuro filtro šildymo grandinės sutrikimas bei BSD duomenų sąsajos gedimas (trūkstamas alyvos būklės jutiklio signalas). Taip pat variklio skyriuje aptiktas pradurtas / įskilęs žarnos vamzdis bei alyvos pratekėjimas ties sąvarža.",
+        "verdict": "Nerekomenduota pirkti"
+      },
+      "en": {
+        "tag": "Electrical",
+        "title": "BMW X5, 3.0d, 2011",
+        "seller": "The seller claimed that the vehicle was well-maintained, in good condition, and had no serious engine or electronic issues.",
+        "found": "During inspection, computer diagnostics on the DDE control unit revealed power management errors, a fuel filter heating circuit fault, and a BSD data interface failure (missing oil condition sensor signal). Additionally, a cracked/punctured intake pipe and oil leaks around hose clamps were identified in the engine bay.",
+        "verdict": "Not recommended"
+      }
+    },
+    {
+      "id": 22,
+      "category": "body",
+      "image": "/assets/images/a2.jpg",
+      "imageAvailable": true,
+      "recommended": false,
+      "lt": {
+        "tag": "Kėbulas",
+        "title": "Peugeot 508, 2.0 BlueHDi, 2019",
+        "seller": "Pardavėjas teigė, kad automobilis pirktas iš Prancūzijos, buvo naudojamas asmeniniams tikslams ir yra puikios būklės.",
+        "found": "Patikros metu nustatyta nuslėpta transporto priemonės praeitis – dokumentuose užfiksuota, jog Prancūzijoje automobilis buvo eksploatuojamas kaip komercinis taksi („Armance Taxi Services“). Taip pat aptikti atšokę kėbulo elementai ties sparnu, buferio nesutapimai bei stipresnis porankio ir salono dėvėjimasis.",
+        "verdict": "Nerekomenduota pirkti"
+      },
+      "en": {
+        "tag": "Body",
+        "title": "Peugeot 508, 2.0 BlueHDi, 2019",
+        "seller": "The seller claimed that the car was imported from France, used strictly for personal needs, and was in excellent condition.",
+        "found": "The inspection uncovered hidden vehicle history—official documentation confirmed it was previously operated as a commercial taxi in France ('Armance Taxi Services'). Popped body trim gaps near the fender, bumper misalignment, and heavy wear on the armrest and interior trim were also noted.",
+        "verdict": "Not recommended"
+      }
+    },
+    {
+      "id": 23,
+      "category": "engine",
+      "image": "/assets/images/a3.jpg",
+      "imageAvailable": true,
+      "recommended": false,
+      "lt": {
+        "tag": "Variklis",
+        "title": "BMW 5, 520d (G30), 2020",
+        "seller": "Pardavėjas teigė, kad automobilis yra idealios techninės būklės, pilnai aptarnautas ir nereikalauja jokių investicijų.",
+        "found": "Atlikus diagnostiką užfiksuota DDE aktyvi 2 cilindro purkštuko užterštumo / adatos jutiklio klaida (315C00), nustatyta akumuliatoriaus nusidėvėjimo bei žemos įtampos klaidos DSC bloke, bei išsekusios padangų slėgio jutiklių (RDCI) baterijos. Taip pat ant automobilio sumontuotos pigios biudžetinės gumbuotos kiniškos padangos.",
+        "verdict": "Nerekomenduota pirkti"
+      },
+      "en": {
+        "tag": "Engine",
+        "title": "BMW 5, 520d (G30), 2020",
+        "seller": "The seller claimed that the car was in ideal mechanical condition, fully serviced, and required no investments.",
+        "found": "Diagnostics revealed an active DDE error code for cylinder 2 injector contamination / needle sensor fault (315C00), battery aging/undervoltage codes in the DSC system, and depleted tire pressure sensor (RDCI) batteries. Cheap budget Chinese tires were also mounted on the vehicle.",
+        "verdict": "Not recommended"
+      }
+    },
+    {
+      "id": 24,
+      "category": "electrical",
+      "image": "/assets/images/a4.jpg",
+      "imageAvailable": true,
+      "recommended": false,
+      "lt": {
+        "tag": "Elektronika",
+        "title": "Audi Q8, 55 TFSI e, 2019",
+        "seller": "Pardavėjas teigė, kad automobilis neturi jokių rimtų techninių trūkumų, yra paruoštas važiavimui ir turi tik smulkių kosmetinių defektų.",
+        "found": "Patikros metu nustatyti kritiniai hibridinės sistemos bei variklio aušinimo defektai: kompiuterinė diagnostika užfiksavo aukštos įtampos baterijos gedimą su nurodymu ją pakeisti („Replace Hybrid/EV Battery Pack“), prietaisų skydelyje dega įspėjimas dėl aušinimo skysčio trūkumo / perkaistamo pavojus, o kėbulo sparnas turi gilius įbrėžimus.",
+        "verdict": "Nerekomenduota pirkti"
+      },
+      "en": {
+        "tag": "Electrical",
+        "title": "Audi Q8, 55 TFSI e, 2019",
+        "seller": "The seller claimed that the car had no serious technical issues, was ready to drive, and only had minor cosmetic flaws.",
+        "found": "Inspection revealed critical hybrid system and engine cooling defects: diagnostics recorded high-voltage battery failure requiring complete battery pack replacement ('Replace Hybrid/EV Battery Pack'), a low coolant warning appeared on the dashboard, and deep paint scrapes were present on the fender.",
+        "verdict": "Not recommended"
+      }
+    },
+    {
+      "id": 25,
+      "category": "electrical",
+      "image": "/assets/images/mercc.jpg",
+      "imageAvailable": true,
+      "recommended": false,
+      "lt": {
+        "tag": "Elektronika",
+        "title": "Mercedes-Benz C-Class, 2.2 CDI, 2012",
+        "seller": "Pardavėjas teigė, kad automobilis yra tvarkingas, o pavarų dėžė ir variklis veikia be jokių priekaištų.",
+        "found": "Patikros metu atlikus kompiuterinę diagnostiką užfiksuotos kritinės pavarų dėžės valdymo bloko (TCM) klaidos (P0894, P0733), rodančios pavarų dėžės slydimą bei trečios pavaros gedimą. Taip pat aptikti priekinio parkavimo daviklio (PTS) ir variklio dangčio jutiklio (SAMF) gedimai, o ant kėbulo detalių matomi gilesni dažų dangos įbrėžimai.",
+        "verdict": "Nerekomenduota pirkti"
+      },
+      "en": {
+        "tag": "Electrical",
+        "title": "Mercedes-Benz C-Class, 2.2 CDI, 2012",
+        "seller": "The seller claimed that the car was in good condition and that the transmission and engine worked flawlessly.",
+        "found": "During the inspection, computer diagnostics revealed critical transmission control unit (TCM) error codes (P0894, P0733) indicating transmission slipping and an implausible third gear. Faults with the front parking sensor (PTS) and engine hood sensor (SAMF) were also detected, along with deeper paint scratches on the body panels.",
+        "verdict": "Not recommended"
+      }
+    },
+    {
+      "id": 26,
+      "category": "body",
+      "image": "/assets/images/vpskibiras.jpg",
+      "imageAvailable": true,
+      "recommended": true,
+      "lt": {
+        "tag": "Kėbulas",
+        "title": "Toyota Corolla, 1.8 Hybrid, 2022",
+        "seller": "Pardavėjas teigė, kad automobilis yra puikios būklės, neturi jokių defektų ir nereikalauja papildomų investicijų.",
+        "found": "Patikros metu nustatyti tik smulkūs išorės trūkumai: pastebėti nežymūs kėbulo detalių tarpų nesutapimai ties sparnu ir buferiu, įskilęs galinio žibinto kampas bei pažeista padangos šoninė sienelė. Rimtų techninių ar struktūrinių pažeidimų neaptikta, todėl bendra automobilio būklė yra gera.",
+        "verdict": "Rekomenduota pirkti"
+      },
+      "en": {
+        "tag": "Body",
+        "title": "Toyota Corolla, 1.8 Hybrid, 2022",
+        "seller": "The seller claimed that the car was in excellent condition, had no defects, and required no additional investment.",
+        "found": "During the inspection, only minor exterior flaws were identified: slight panel gap misalignments near the fender and bumper, a chipped corner on the taillight lens, and damage to the tire sidewall were noted. No serious mechanical or structural issues were found, leaving the vehicle in good overall condition.",
+        "verdict": "Recommended"
+      }
+    },
+    {
+      "id": 27,
+      "category": "body",
+      "image": "/assets/images/skodasudas.jpg",
+      "imageAvailable": true,
+      "recommended": true,
+      "lt": {
+        "tag": "Kėbulas",
+        "title": "Skoda Rapid, 1.6 TDI, 2015",
+        "seller": "Pardavėjas teigė, kad automobilis yra tvarkingas, geros techninės būklės ir turėjęs tik smulkų kosmetinį remontą.",
+        "found": "Patikros metu kėbulo dažų storio matuoklis užfiksavo glaisto sluoksnį (1.15 mm / 1150 µm), ant sparno krašto aptikti smulkūs įbrėžimai. Nepaisant kėbulo remonto pėdsakų, techninė automobilio būklė yra gera.",
+        "verdict": "Rekomenduota pirkti"
+      },
+      "en": {
+        "tag": "Body",
+        "title": "Skoda Rapid, 1.6 TDI, 2015",
+        "seller": "The seller claimed that the car was well-maintained, in good mechanical condition, and had only undergone minor cosmetic repairs.",
+        "found": "During the inspection, a paint thickness gauge detected a layer of body filler (1.15 mm / 1150 µm), minor scratches were noted along the fender edge. Despite signs of previous bodywork repair, the vehicle is in good mechanical condition.",
         "verdict": "Recommended"
       }
     }
