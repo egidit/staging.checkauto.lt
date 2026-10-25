@@ -33,7 +33,7 @@
   <link rel="preload" href="/assets/fonts/Inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="/css/styles.css?v=20261025-2">
+  <link rel="stylesheet" href="/css/styles.css?v=20261025-3">
   <script src="/js/cookie-consent.js?v=20261014-4"></script>
 
   <script>
@@ -49,33 +49,50 @@
 
   <div id="site-header"></div>
 
-  <main>
-    <section class="page-intro">
-      <div class="container page-intro-grid">
-        <span class="section-label" data-i18n="about.hero.label">Apie mus</span>
-        <h1 data-i18n="about.hero.title">Vertiname automobilį, o ne pardavėjo interesą</h1>
-        <p data-i18n="about.hero.subtitle">checkauto.lt yra nepriklausoma automobilio patikros paslauga. Nedirbame salonams, pardavėjams ar skelbimų platformoms.</p>
+  <main class="about-page">
+    <section class="about-hero" aria-labelledby="about-title">
+      <div class="container about-hero-layout">
+        <div class="about-hero-copy">
+          <h1 id="about-title" data-i18n="about.hero.title">Vertiname automobilį, o ne pardavėjo interesą</h1>
+          <p class="about-hero-subtitle" data-i18n="about.hero.subtitle">checkauto.lt yra nepriklausoma automobilio patikros paslauga. Nedirbame salonams, pardavėjams ar skelbimų platformoms.</p>
+        </div>
+        <div class="about-hero-art">
+          <img src="/assets/images/about-hero.webp" width="1600" height="960" fetchpriority="high" decoding="async" alt="">
+        </div>
       </div>
     </section>
 
-    <section class="section section--alt">
-      <div class="container about-principles-layout">
-        <header class="section-header section-header--aside">
-          <h2 data-i18n="about.values.heading">Ką mums reiškia nepriklausomas vertinimas</h2>
-        </header>
+    <section class="section about-proof" aria-labelledby="about-proof-title">
+      <div class="container about-proof-layout">
+        <h2 id="about-proof-title" data-i18n="about.proof.title">Mums sumokate tiek pat, kad ir kokia būtų išvada.</h2>
+        <div class="home-tally about-proof-figures">
+          <dl class="home-tally-grid">
+            <div class="home-tally-stat about-proof-stat--no"><dt data-about-copy="notRecommended">kartų patarėme nepirkti</dt><dd data-about-figure="notRecommended">15</dd></div>
+            <div class="home-tally-stat about-proof-stat--yes"><dt data-about-copy="recommended">kartų patarėme pirkti</dt><dd data-about-figure="recommended">12</dd></div>
+          </dl>
+          <p class="home-tally-note">
+            <a href="/galerija/" class="home-text-link"><span data-i18n="about.proof.link">Peržiūrėti atvejus galerijoje</span><span aria-hidden="true">→</span></a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about-values" aria-labelledby="about-values-title">
+      <div class="container">
+        <h2 id="about-values-title" data-i18n="about.values.heading">Ką mums reiškia nepriklausomas vertinimas</h2>
         <div class="about-values-grid">
-          <article class="about-value">
-            <span class="feature-index" aria-hidden="true">01</span>
+          <article class="case-card about-value">
+            <img src="/assets/images/about-scale.webp" width="640" height="533" loading="lazy" decoding="async" alt="">
             <h3 data-i18n="about.values.v1_title">Jokių pardavėjo paskatų</h3>
             <p data-i18n="about.values.v1_text">Mūsų atlygis nepriklauso nuo to, ar automobilį nupirksite.</p>
           </article>
-          <article class="about-value">
-            <span class="feature-index" aria-hidden="true">02</span>
+          <article class="case-card about-value">
+            <img src="/assets/images/journey-report.webp" width="640" height="533" loading="lazy" decoding="async" alt="">
             <h3 data-i18n="about.values.v2_title">Faktai užfiksuojami</h3>
             <p data-i18n="about.values.v2_text">Rastus trūkumus paaiškiname suprantamai ir pateikiame ataskaitoje su nuotraukomis.</p>
           </article>
-          <article class="about-value">
-            <span class="feature-index" aria-hidden="true">03</span>
+          <article class="case-card about-value">
+            <img src="/assets/images/about-cars.webp" width="640" height="533" loading="lazy" decoding="async" alt="">
             <h3 data-i18n="about.values.v3_title">Ta pati patikros logika</h3>
             <p data-i18n="about.values.v3_text">Automobilį vertiname nuosekliai, nepriklausomai nuo markės, kainos ar pardavėjo.</p>
           </article>
@@ -83,16 +100,25 @@
       </div>
     </section>
 
-    <section class="section">
-      <div class="container method-layout">
-        <div class="method-statement">
-          <p class="service-kicker" data-i18n="about.method.kicker">Darbo principas</p>
-          <h2 data-i18n="about.method.title">Sprendimą priimate jūs. Mūsų darbas yra parodyti tikrą būklę.</h2>
+    <section class="section about-method" aria-labelledby="about-method-title">
+      <div class="container about-method-layout">
+        <h2 id="about-method-title" data-i18n="about.method.title">Sprendimą priimate jūs. Mūsų darbas yra parodyti tikrą būklę.</h2>
+        <div class="about-method-art">
+          <img src="/assets/images/journey-inspection.webp" width="640" height="533" loading="lazy" decoding="async" alt="">
         </div>
-        <ul class="method-list">
-          <li><strong data-i18n="about.method.item1_title">Tikriname vietoje</strong><span data-i18n="about.method.item1_text">Atvykstame pas pardavėją, į aikštelę ar servisą.</span></li>
-          <li><strong data-i18n="about.method.item2_title">Vertiname visumą</strong><span data-i18n="about.method.item2_text">Techninius, kėbulo, elektronikos ir naudojimo požymius vertiname kartu.</span></li>
-          <li><strong data-i18n="about.method.item3_title">Kalbame aiškiai</strong><span data-i18n="about.method.item3_text">Atskiriame smulkius trūkumus nuo rizikų, kurios svarbios kainai ir saugumui.</span></li>
+        <ul class="about-method-list">
+          <li>
+            <span class="about-method-icon"><svg class="home-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+            <div><h3 data-i18n="about.method.item1_title">Tikriname vietoje</h3><p data-i18n="about.method.item1_text">Atvykstame pas pardavėją, į aikštelę ar servisą.</p></div>
+          </li>
+          <li>
+            <span class="about-method-icon"><svg class="home-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5z"/><path d="m3 13 9 5 9-5"/></svg></span>
+            <div><h3 data-i18n="about.method.item2_title">Vertiname visumą</h3><p data-i18n="about.method.item2_text">Techninius, kėbulo, elektronikos ir naudojimo požymius vertiname kartu.</p></div>
+          </li>
+          <li>
+            <span class="about-method-icon"><svg class="home-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4A8 8 0 1 1 20 12z"/><path d="M9 11h6M9 14h4"/></svg></span>
+            <div><h3 data-i18n="about.method.item3_title">Kalbame aiškiai</h3><p data-i18n="about.method.item3_text">Atskiriame smulkius trūkumus nuo rizikų, kurios svarbios kainai ir saugumui.</p></div>
+          </li>
         </ul>
       </div>
     </section>
@@ -160,5 +186,6 @@
   <script src="/js/components.js?v=20261021-1"></script>
   <script src="/js/i18n.js?v=20261025-1"></script>
   <script src="/js/main.js?v=20261014-2"></script>
+  <script src="/js/about.js?v=20261025-1"></script>
 </body>
 </html>

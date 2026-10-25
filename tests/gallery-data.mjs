@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const data = JSON.parse(await fs.readFile(path.join(root, 'data/gallery.json'), 'utf8'));
 const html = await fs.readFile(path.join(root, 'index.html'), 'utf8');
+const aboutHtml = await fs.readFile(path.join(root, 'apie/index.html'), 'utf8');
 
 const CATEGORIES = ['body', 'engine', 'mileage', 'electrical'];
 const TEXT_FIELDS = ['tag', 'title', 'seller', 'found', 'verdict'];
@@ -69,4 +70,11 @@ const fallbackCases = [...html.matchAll(/data-case="(\d+)" data-shown="(\d+)" da
 assert.deepEqual(fallbackCases, measured.slice(0, 3).map(({ id, shown, actual }) => ({ id, shown, actual })),
   'The hero odometer cases in index.html differ from the three largest rollbacks in gallery.json; update the buttons in index.html');
 
-console.log(`Passed: ${data.items.length} gallery entries valid; homepage fallback figures ${JSON.stringify(expected)} and hero cases match gallery.json.`);
+const aboutFallback = Object.fromEntries([...aboutHtml.matchAll(/data-about-figure="(\w+)">([^<]*)</g)]
+  .map(([, key, value]) => [key, Number(value.replace(/\D/g, ''))]));
+assert.deepEqual(aboutFallback, {
+  notRecommended: expected.notRecommended,
+  recommended: data.items.filter(item => item.recommended === true).length,
+}, 'The verdict counts in apie/index.html differ from gallery.json; update the numbers in apie/index.html');
+
+console.log(`Passed: ${data.items.length} gallery entries valid; homepage fallback figures ${JSON.stringify(expected)}, hero cases and about page counts match gallery.json.`);

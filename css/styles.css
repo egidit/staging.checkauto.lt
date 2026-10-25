@@ -1511,137 +1511,6 @@ p {
 }
 
 /* --------------------------------------------------------------------------
-   12. ABOUT / PERSONAL
-   -------------------------------------------------------------------------- */
-.about-content {
-  max-width: 640px;
-  margin-inline: auto;
-  text-align: center;
-}
-
-.about-logo {
-  font-size: var(--font-size-lg);
-  font-weight: 700;
-  letter-spacing: var(--letter-spacing-tight);
-  color: var(--color-text);
-  margin-bottom: var(--space-lg);
-}
-
-.about-logo span {
-  color: var(--color-accent);
-}
-
-.about-content p {
-  font-size: var(--font-size-md);
-  margin-bottom: var(--space-md);
-  line-height: var(--line-height-relaxed);
-  text-align: left;
-}
-
-.about-content p:last-of-type {
-  margin-bottom: 0;
-}
-
-/* Centered pullquote variant */
-.pullquote--centered {
-  text-align: center;
-  border-left: none;
-  padding-left: 0;
-  margin-inline: auto;
-}
-
-/* Philosophy banner — About page */
-.philosophy-banner {
-  background: var(--color-bg-dark);
-  color: var(--color-text-inverse);
-}
-
-.philosophy-card {
-  max-width: 680px;
-  margin-inline: auto;
-  text-align: center;
-  padding: var(--space-xl) 0;
-  position: relative;
-}
-
-.philosophy-deco {
-  font-size: clamp(4rem, 6vw, 7rem);
-  font-weight: 700;
-  line-height: 1;
-  color: var(--color-accent);
-  opacity: 0.5;
-  margin-bottom: calc(-1 * var(--space-sm));
-  user-select: none;
-}
-
-.philosophy-quote {
-  font-size: var(--font-size-xl);
-  font-weight: 600;
-  line-height: var(--line-height-snug);
-  letter-spacing: var(--letter-spacing-tight);
-  color: var(--color-text-inverse);
-  margin: 0 0 var(--space-md);
-  border: none;
-  padding: 0;
-}
-
-.philosophy-author {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  margin-bottom: var(--space-lg);
-}
-
-.philosophy-divider {
-  width: 48px;
-  height: 2px;
-  background: var(--color-accent);
-  margin: 0 auto var(--space-md);
-  border-radius: 1px;
-}
-
-.philosophy-context {
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-relaxed);
-  color: rgba(245, 245, 247, 0.7);
-  max-width: 520px;
-  margin-inline: auto;
-}
-
-/* Values grid — 3 columns on desktop */
-.about-values-grid {
-  display: grid;
-  gap: var(--space-md);
-}
-
-.about-value {
-  padding: var(--space-lg);
-  border-radius: var(--radius-md);
-  background: var(--color-bg);
-  border: 1px solid var(--color-border-light);
-}
-
-.about-value h3 {
-  font-size: var(--font-size-base);
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.about-value p {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-  line-height: var(--line-height-relaxed);
-}
-
-@media (min-width: 768px) {
-  .about-values-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-lg);
-  }
-}
-
-/* --------------------------------------------------------------------------
    13. CONTACT
    -------------------------------------------------------------------------- */
 .contact-cards {
@@ -3822,20 +3691,12 @@ p {
 .feature-layout,
 .decision-layout,
 .inspection-scope-layout,
-.process-layout,
-.about-principles-layout,
-.method-layout {
+.process-layout {
   display: grid;
   gap: var(--space-xl);
   align-items: start;
 }
 
-.section-header--aside {
-  max-width: 720px;
-  margin-inline: auto;
-}
-
-.section-header--aside .btn,
 .decision-copy .btn {
   margin-top: var(--space-md);
 }
@@ -3844,26 +3705,11 @@ p {
   background: var(--color-bg);
 }
 
-.feature-index {
-  grid-row: 1 / -1;
-  width: 48px;
-  height: 48px;
-  display: grid;
-  place-items: center;
-  align-self: center;
-  color: #fff;
-  background: var(--color-accent);
-  border-radius: var(--radius-sm);
-  font-size: var(--font-size-xs);
-  font-weight: 700;
-}
-
 .decision-copy {
   max-width: 560px;
 }
 
-.decision-copy > p,
-.method-statement > p:not(.service-kicker) {
+.decision-copy > p {
   margin-top: var(--space-sm);
   font-size: var(--font-size-md);
 }
@@ -4028,15 +3874,6 @@ html[lang="en"] .service-offer-body h2 {
   mask-image: url("/assets/icons/booking/selected.svg");
 }
 
-.service-kicker {
-  margin-bottom: var(--space-xs);
-  color: var(--color-accent);
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
 .service-price {
   grid-column: 2;
   grid-row: 1;
@@ -4070,8 +3907,7 @@ html[lang="en"] .service-offer-body h2 {
   text-wrap: pretty;
 }
 
-.pricing-includes,
-.method-list {
+.pricing-includes {
   display: grid;
   gap: 0.65rem;
   margin-block: var(--space-md);
@@ -4624,48 +4460,7 @@ html[lang="en"] .service-offer-body h2 {
   font-size: 1rem;
 }
 
-/* About and FAQ additions. */
-.about-values-grid {
-  grid-template-columns: 1fr;
-}
-
-.about-value {
-  display: grid;
-  grid-template-columns: 48px minmax(0, 1fr);
-  grid-template-rows: auto auto;
-  column-gap: var(--space-md);
-}
-
-.about-value h3,
-.about-value p {
-  grid-column: 2;
-}
-
-.method-statement {
-  max-width: 600px;
-}
-
-.method-list {
-  margin: 0;
-}
-
-.method-list li {
-  display: grid;
-  gap: 0.25rem;
-  padding: var(--space-md) 0;
-  border-top: 1px solid var(--color-border-light);
-}
-
-.method-list strong {
-  color: var(--color-text);
-  font-size: var(--font-size-md);
-}
-
-.method-list span {
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-sm);
-}
-
+/* FAQ additions. */
 .faq-groups {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -5058,18 +4853,8 @@ html[lang="en"] .service-offer-body h2 {
   .feature-layout,
   .decision-layout,
   .inspection-scope-layout,
-  .process-layout,
-  .about-principles-layout,
-  .method-layout {
+  .process-layout {
     grid-template-columns: minmax(260px, 0.75fr) minmax(0, 1.25fr);
-  }
-
-  .feature-layout .section-header--aside,
-  .inspection-scope-layout .section-header--aside,
-  .process-layout .section-header--aside,
-  .about-principles-layout .section-header--aside {
-    margin: 0;
-    text-align: left;
   }
 
   .booking-layout {
@@ -5297,7 +5082,8 @@ html[lang="en"] .service-offer-body h2 {
   max-width: 40rem;
 }
 
-.home-hero-hook {
+.home-hero-hook,
+.about-hero h1 {
   display: block;
   font-size: clamp(2.05rem, 1.3rem + 2vw, 2.75rem);
   font-weight: 600;
@@ -5306,7 +5092,8 @@ html[lang="en"] .service-offer-body h2 {
   text-wrap: balance;
 }
 
-.home-hero-subtitle {
+.home-hero-subtitle,
+.about-hero-subtitle {
   max-width: 50ch;
   margin-top: 1.25rem;
   font-size: var(--font-size-md);
@@ -5619,7 +5406,8 @@ html[lang="en"] .service-offer-body h2 {
 
 .home-cases-heading h2,
 .home-offer-copy h2,
-.final-cta h2 {
+.final-cta h2,
+.about-page h2 {
   font-size: clamp(1.9rem, 1.3rem + 2.2vw, 3rem);
   letter-spacing: -0.035em;
   text-wrap: balance;
@@ -6293,7 +6081,8 @@ html[lang="en"] .service-offer-body h2 {
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   }
 
-  .home-hero-hook {
+  .home-hero-hook,
+  .about-hero h1 {
     font-size: clamp(2.75rem, 1.6rem + 1.9vw, 3.25rem);
   }
 
@@ -6507,5 +6296,216 @@ html[lang="en"] .service-offer-body h2 {
     color: var(--color-accent);
     border: 1.5px solid var(--color-accent);
     border-radius: 50%;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   About page: the homepage's type, stat tiles and case-card panels, told as
+   who we work for, the proof, what independence means and how we work.
+   -------------------------------------------------------------------------- */
+.about-page .section:not(.final-cta) {
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+}
+
+.about-page h2 {
+  max-width: 22ch;
+}
+
+.about-hero {
+  overflow: hidden;
+  padding-block: clamp(2.25rem, 4vw, 3rem) 0;
+}
+
+.about-hero-layout {
+  display: grid;
+  gap: 2rem clamp(2rem, 4vw, 4rem);
+  align-items: center;
+}
+
+.about-hero-copy {
+  max-width: 40rem;
+}
+
+.about-hero-art img {
+  width: min(100%, 36rem);
+  margin-inline: auto;
+}
+
+/* Proof: what we advised, counted from the gallery. */
+.about-proof-layout {
+  display: grid;
+  gap: 2rem;
+}
+
+.about-proof .home-tally-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.about-proof .home-tally-stat dd {
+  font-size: clamp(2.5rem, 1.9rem + 2.4vw, 3.75rem);
+}
+
+.about-proof .about-proof-stat--no dd {
+  color: var(--color-danger-text);
+}
+
+.about-proof .about-proof-stat--yes dd {
+  color: var(--color-success-text);
+}
+
+/* Independence: three panels like the gallery cards, each opened by an illustration. */
+.about-values h2 {
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.about-values-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.about-value img {
+  width: min(100%, 22rem);
+  margin-inline: auto;
+}
+
+.about-value h3 {
+  padding: 0.25rem 1rem 0;
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.about-value p {
+  padding: 0.4rem 1rem 1.25rem;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+/* How we work: the inspector on site beside the three points. */
+.about-method-layout {
+  display: grid;
+  gap: 2rem;
+}
+
+.about-method-art img {
+  width: min(100%, 30rem);
+  margin-inline: auto;
+}
+
+.about-method-list {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.about-method-list li {
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+/* The pale blue of the road in the illustrations. */
+.about-method-icon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  color: var(--color-accent);
+  background: #eaf5ff;
+  border-radius: 50%;
+}
+
+.about-method-list h3 {
+  padding-top: 0.55rem;
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.about-method-list p {
+  margin-top: 0.35rem;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+/* Between phone and desktop each panel lays its illustration beside the text. */
+@media (min-width: 600px) and (max-width: 899px) {
+  .about-value {
+    display: grid;
+    grid-template-columns: 13rem minmax(0, 1fr);
+    grid-template-rows: 1fr auto auto 1fr;
+    column-gap: 0.5rem;
+  }
+
+  .about-value img {
+    grid-row: 1 / -1;
+    align-self: center;
+  }
+
+  .about-value h3 {
+    grid-row: 2;
+  }
+
+  .about-value p {
+    grid-row: 3;
+    padding-bottom: 0;
+  }
+}
+
+@media (min-width: 900px) {
+  .about-values-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .about-proof-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(2rem, 5vw, 5rem);
+  }
+
+  .about-method-layout {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    grid-template-areas:
+      "art title"
+      "art list";
+    grid-template-rows: auto 1fr;
+    column-gap: clamp(2rem, 5vw, 5rem);
+    row-gap: 2.25rem;
+    align-items: start;
+  }
+
+  .about-method h2 {
+    grid-area: title;
+    align-self: end;
+  }
+
+  .about-method-art {
+    grid-area: art;
+    align-self: center;
+  }
+
+  .about-method-art img {
+    width: 100%;
+  }
+
+  .about-method-list {
+    grid-area: list;
+  }
+}
+
+@media (min-width: 1000px) {
+  .about-hero-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  }
+
+  .about-hero {
+    padding-bottom: clamp(1rem, 2vw, 2rem);
+  }
+
+  .about-hero-art img {
+    width: 100%;
   }
 }

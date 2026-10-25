@@ -1,9 +1,16 @@
 {
   "about": {
     "hero": {
-      "label": "About us",
       "title": "We assess the car, not the seller's interests",
       "subtitle": "checkauto.lt is an independent vehicle-inspection service. We do not work for dealerships, sellers, or listing platforms."
+    },
+    "proof": {
+      "title": "You pay us the same, whatever the verdict.",
+      "link": "See the cases in the gallery",
+      "not_recommended_label_one": "time we advised not to buy",
+      "not_recommended_label_other": "times we advised not to buy",
+      "recommended_label_one": "time we advised to buy",
+      "recommended_label_other": "times we advised to buy"
     },
     "values": {
       "heading": "What an independent assessment means to us",
@@ -15,7 +22,6 @@
       "v3_text": "We assess every car consistently, regardless of make, price, or seller."
     },
     "method": {
-      "kicker": "How we work",
       "title": "You make the decision. Our job is to show you the car's real condition.",
       "item1_title": "We inspect on site",
       "item1_text": "We travel to the seller, car lot, or service centre.",
