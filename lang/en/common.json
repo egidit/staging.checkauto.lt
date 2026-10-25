@@ -6,7 +6,6 @@
     "about": "About",
     "contact": "Book",
     "faq": "FAQ",
-    "prices": "Prices",
     "privacy": "Privacy Policy",
     "terms": "Terms and Conditions"
   },
@@ -16,8 +15,6 @@
     "main_navigation": "Main navigation",
     "mobile_navigation": "Mobile navigation",
     "footer_navigation": "Footer navigation",
-    "footer_product_navigation": "Service links",
-    "footer_company_navigation": "Information links",
     "open_menu": "Open menu",
     "close_menu": "Close menu",
     "copy_email": "Copy email address",
@@ -25,9 +22,6 @@
     "copy_failed": "Could not copy. Select the email address manually."
   },
   "footer": {
-    "service_area": "Kaunas and all of Lithuania",
-    "product_heading": "Services",
-    "company_heading": "Information",
     "copy": "© 2026 checkauto.lt. All rights reserved."
   },
   "error": {

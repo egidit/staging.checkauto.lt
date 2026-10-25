@@ -23,7 +23,6 @@
       chooseService: 'Pirmiausia pasirinkite patikros tipą.',
       chooseSlot: 'Pasirinkite vieną iš galimų laikų.',
       chooseLegal: 'Sutikite su taisyklėmis ir privatumo politika.',
-      serviceRequiredHint: 'Privaloma paslauga',
       slotsAvailable: 'Pasirinkite laiką.',
       formNeedsAttention: 'Patikrinkite pažymėtus laukus. Perkelta į pirmą nebaigtą lauką.',
       nameRequired: 'Įveskite vardą ir pavardę.',
@@ -55,7 +54,6 @@
       chooseService: 'Select an inspection type first.',
       chooseSlot: 'Choose one available time.',
       chooseLegal: 'Accept the Terms and Conditions and acknowledge the Privacy Policy.',
-      serviceRequiredHint: 'Required service',
       slotsAvailable: 'Choose a time.',
       formNeedsAttention: 'Review the highlighted fields. Focus moved to the first incomplete field.',
       nameRequired: 'Enter your full name.',
@@ -143,10 +141,9 @@
     statusEl.classList.toggle('is-error', type === 'error');
   }
 
-  function setSlotStatus(statusEl, messageKey, count) {
+  function setSlotStatus(statusEl, messageKey) {
     if (!statusEl) return;
     statusEl.dataset.messageKey = messageKey || '';
-    statusEl.dataset.count = typeof count === 'number' ? String(count) : '';
     statusEl.textContent = message(messageKey);
   }
 
@@ -282,49 +279,6 @@
 
     var errorEl = root.querySelector('.form-error');
     var trigger = root.querySelector('[data-booking-service-trigger]');
-
-    if (!trigger) {
-      function setNativeInvalid(isInvalid) {
-        root.classList.toggle('is-invalid', isInvalid);
-        if (isInvalid) {
-          serviceSelect.setAttribute('aria-invalid', 'true');
-        } else {
-          serviceSelect.removeAttribute('aria-invalid');
-        }
-
-        if (errorEl) {
-          errorEl.hidden = !isInvalid;
-          if (isInvalid) errorEl.textContent = message('chooseService');
-          toggleDescription(serviceSelect, errorEl.id, isInvalid);
-        }
-      }
-
-      function updateNativeSelect() {
-        root.classList.toggle('has-value', Boolean(serviceSelect.value));
-        root.classList.toggle('is-disabled', serviceSelect.disabled);
-        if (serviceSelect.value) setNativeInvalid(false);
-      }
-
-      serviceSelect.addEventListener('change', updateNativeSelect);
-      form.addEventListener('reset', function () {
-        setTimeout(updateNativeSelect, 0);
-      });
-      window.addEventListener('checkauto:languagechange', updateNativeSelect);
-
-      if (typeof MutationObserver === 'function') {
-        var nativeDisabledObserver = new MutationObserver(updateNativeSelect);
-        nativeDisabledObserver.observe(serviceSelect, { attributes: true, attributeFilter: ['disabled'] });
-      }
-
-      updateNativeSelect();
-
-      return {
-        root: root,
-        trigger: serviceSelect,
-        update: updateNativeSelect,
-        setInvalid: setNativeInvalid
-      };
-    }
 
     var menu = root.querySelector('[data-booking-service-menu]');
     var valueLabel = root.querySelector('[data-booking-service-label]');
@@ -615,7 +569,7 @@
       return 0;
     }
 
-    setSlotStatus(slotStatusEl, 'slotsAvailable', slots.length);
+    setSlotStatus(slotStatusEl, 'slotsAvailable');
     slotsEl.setAttribute('tabindex', '-1');
 
     var grouped = {};
@@ -989,8 +943,7 @@
       });
 
       if (slotStatusEl.dataset.messageKey) {
-        var slotCount = Number(slotStatusEl.dataset.count || 0);
-        setSlotStatus(slotStatusEl, slotStatusEl.dataset.messageKey, slotCount);
+        setSlotStatus(slotStatusEl, slotStatusEl.dataset.messageKey);
       }
 
       if (statusEl && statusEl.dataset.messageKey) {

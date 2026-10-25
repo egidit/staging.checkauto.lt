@@ -1,11 +1,8 @@
 {
   "services": {
     "hero": {
-      "label": "Services",
-      "title": "Pre-purchase vehicle inspection",
-      "subtitle": "A full inspection or computer diagnostics."
+      "title": "Pre-purchase vehicle inspection"
     },
-    "price_once": "per inspection",
     "s1": {
       "title": "Full pre-purchase inspection",
       "recommended": "Recommended",
@@ -48,9 +45,6 @@
       "safety": "Safety and comfort system faults",
       "live": "Live data and key parameters",
       "explanation": "Explanation of the results"
-    },
-    "faq": {
-      "more": "Frequently asked questions"
     }
   },
   "process": {

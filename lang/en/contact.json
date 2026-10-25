@@ -1,10 +1,5 @@
 {
   "contact": {
-    "hero": {
-      "label": "Booking",
-      "title": "Book a car inspection",
-      "subtitle": "Choose a service and available time. We will confirm the appointment by email."
-    },
     "info": {
       "title": "Need help?",
       "text": "If no suitable time is available, contact us directly.",
@@ -50,18 +45,7 @@
       "confirmations_title": "Consents",
       "marketing_consent": "I agree to receive checkauto.lt news, tips, and offers by email. I understand that I can withdraw this consent at any time.",
       "confirmation_note": "Your booking is valid only after we send the final confirmation by email.",
-      "submit": "Reserve time",
-      "sending": "Reserving...",
-      "success": "Request received. The selected time is temporarily reserved; we will send confirmation by email.",
-      "rate_limited": "Too many requests were sent. Please try again later.",
-      "error": "The booking request could not be sent because of a technical error. Please try again or email info@checkauto.lt."
-    },
-    "help": {
-      "label": "How it works",
-      "title": "Booking without back-and-forth",
-      "item1": "Choose the service and an available time.",
-      "item2": "Enter the car, location, and your contact details.",
-      "item3": "We confirm the appointment or offer the closest alternative."
+      "submit": "Reserve time"
     }
   }
 }

@@ -37,13 +37,11 @@
    */
   const PAGE_MAP = {
     '/':            'home',
-    '/index.html':  'home',
     '/paslaugos/':  'services',
     '/duk/':        'faq',
     '/apie/':       'about',
     '/kontaktai/':  'contact',
     '/galerija/':   'gallery',
-    '/kainos/':     'pricing',
     '/privatumo-politika/': 'privacy',
     '/taisykles-ir-salygos/': 'terms'
   };
@@ -231,9 +229,6 @@
         }
       });
     });
-    document.querySelectorAll('[data-language-select]').forEach(select => {
-      select.value = lang;
-    });
   }
 
   /**
@@ -359,12 +354,6 @@
     const savedLang = getStoredLanguage();
     document.documentElement.setAttribute('lang', savedLang);
     setLanguage(savedLang);
-
-    document.querySelectorAll('[data-language-select]').forEach(select => {
-      select.addEventListener('change', function () {
-        setLanguage(select.value);
-      });
-    });
 
     function closeDropdown(dropdown, restoreFocus) {
       if (!dropdown) return;
