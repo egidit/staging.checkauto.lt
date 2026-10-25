@@ -5,6 +5,10 @@
      The numbers written in the HTML are the fallback until /data/gallery.json loads. */
   var GALLERY_DATA_URL = '/data/gallery.json';
   var COPY = {
+    total: {
+      key: 'about.proof.total_label',
+      lt: { one: 'paskelbta patikra', few: 'paskelbtos patikros', other: 'paskelbtų patikrų' }
+    },
     notRecommended: {
       key: 'about.proof.not_recommended_label',
       lt: { one: 'kartą patarėme nepirkti', few: 'kartus patarėme nepirkti', other: 'kartų patarėme nepirkti' }
@@ -59,6 +63,7 @@
     .then(function (data) {
       if (!data || !Array.isArray(data.items) || !data.items.length) return;
       figures = {
+        total: data.items.length,
         notRecommended: data.items.filter(function (item) { return item.recommended === false; }).length,
         recommended: data.items.filter(function (item) { return item.recommended === true; }).length
       };

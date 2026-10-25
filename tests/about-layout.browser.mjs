@@ -29,7 +29,7 @@ for (const chunk of ['common', 'about']) Object.assign(english, JSON.parse(await
 const resolve = key => key.split('.').reduce((value, part) => value && value[part], english);
 const keys = [...new Set([...html.matchAll(/data-i18n(?:-aria)?="([^"]+)"/g)].map(match => match[1]))];
 assert.deepEqual(keys.filter(key => typeof resolve(key) !== 'string'), [], 'Every about page key has an English translation');
-for (const name of ['not_recommended_label', 'recommended_label']) {
+for (const name of ['total_label', 'not_recommended_label', 'recommended_label']) {
   for (const form of ['one', 'other']) assert.equal(typeof resolve(`about.proof.${name}_${form}`), 'string', `English ${name}_${form}`);
 }
 
@@ -53,10 +53,10 @@ await page.locator('[data-consent-reject]').click();
 const proof = () => page.evaluate(() => [...document.querySelectorAll('.about-proof .home-tally-stat')]
   .map(stat => `${stat.querySelector('dd').textContent} | ${stat.querySelector('dt').textContent}`));
 await page.waitForFunction(() => document.querySelector('[data-about-figure="notRecommended"]').textContent === '21');
-assert.deepEqual(await proof(), ['21 | kartą patarėme nepirkti', '2 | kartus patarėme pirkti']);
+assert.deepEqual(await proof(), ['23 | paskelbtos patikros', '21 | kartą patarėme nepirkti', '2 | kartus patarėme pirkti']);
 await page.evaluate(() => window.checkautoI18n.setLanguage('en'));
 await page.waitForFunction(() => document.documentElement.lang === 'en' && /times/.test(document.querySelector('[data-about-copy="recommended"]').textContent));
-assert.deepEqual(await proof(), ['21 | times we advised not to buy', '2 | times we advised to buy']);
+assert.deepEqual(await proof(), ['23 | published inspections', '21 | times we advised not to buy', '2 | times we advised to buy']);
 
 for (const lang of ['lt', 'en']) {
   await page.evaluate(lang => window.checkautoI18n.setLanguage(lang), lang);

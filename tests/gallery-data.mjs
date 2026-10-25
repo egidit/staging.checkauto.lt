@@ -73,6 +73,7 @@ assert.deepEqual(fallbackCases, measured.slice(0, 3).map(({ id, shown, actual })
 const aboutFallback = Object.fromEntries([...aboutHtml.matchAll(/data-about-figure="(\w+)">([^<]*)</g)]
   .map(([, key, value]) => [key, Number(value.replace(/\D/g, ''))]));
 assert.deepEqual(aboutFallback, {
+  total: expected.total,
   notRecommended: expected.notRecommended,
   recommended: data.items.filter(item => item.recommended === true).length,
 }, 'The verdict counts in apie/index.html differ from gallery.json; update the numbers in apie/index.html');
