@@ -20,8 +20,8 @@
       "cta": "Book diagnostics"
     },
     "travel": {
-      "title": "Travel fee",
-      "text": "There is no travel fee in Kaunas or within 20 km of the city boundary. Beyond that area, a €0.50/km round-trip fee may apply; we agree the final price before the visit."
+      "title": "Travel fee.",
+      "text": "There is no travel fee in Kaunas or within 20 km of the city boundary. Beyond that, a €0.50/km round-trip fee may apply; we agree the final price before the visit."
     },
     "checklist": {
       "group1_title": "Mechanical condition",

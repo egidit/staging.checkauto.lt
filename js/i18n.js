@@ -248,7 +248,7 @@
     const timeout = controller
       ? window.setTimeout(function () { controller.abort(); }, TRANSLATION_TIMEOUT_MS)
       : 0;
-    return fetch('/lang/' + lang + '/' + name + '.json?v=20261025-1', controller ? { signal: controller.signal } : undefined)
+    return fetch('/lang/' + lang + '/' + name + '.json?v=20261025-2', controller ? { signal: controller.signal } : undefined)
       .then(function (res) {
         if (!res.ok) throw new Error('Translation request failed: ' + res.status);
         return res.json();

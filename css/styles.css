@@ -2826,44 +2826,6 @@ p {
   }
 }
 
-/* Travel note */
-.travel-note {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-md);
-  max-width: 560px;
-  margin-inline: auto;
-}
-
-.travel-note-icon {
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-accent);
-}
-
-.travel-note-content h2 {
-  font-size: var(--font-size-md);
-  margin-bottom: var(--space-xs);
-}
-
-.travel-note-content p,
-.travel-note-list li {
-  font-size: var(--font-size-base);
-  color: var(--color-text-secondary);
-}
-
-.travel-note-list {
-  display: grid;
-  gap: 0.4rem;
-  margin-top: var(--space-sm);
-  padding-left: 1.1rem;
-  list-style: disc;
-}
-
 /* --------------------------------------------------------------------------
    14c. LEGAL PAGES
    -------------------------------------------------------------------------- */
@@ -3975,6 +3937,12 @@ html[lang="en"] .service-offer-body h2 {
     column-gap: 3rem;
   }
 
+  /* Centred under both offers. */
+  .services-offer-grid .services-travel-note {
+    width: auto;
+    max-width: 44rem;
+  }
+
   .service-offer-body h2 {
     min-height: 2.3em;
   }
@@ -4287,64 +4255,35 @@ html[lang="en"] .service-offer-body h2 {
   color: var(--color-text-secondary);
 }
 
-.travel-note {
-  display: grid;
-  gap: var(--space-lg);
-  max-width: 840px;
-}
-
-.travel-note header {
-  max-width: 480px;
-}
-
-.travel-note header h2 {
-  margin-bottom: var(--space-xs);
-  font-size: var(--font-size-lg);
-}
-
-.travel-note-list {
-  display: grid;
-  gap: 0;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.travel-note-list li {
-  padding: var(--space-sm) 0;
-  color: var(--color-text-secondary);
-  border-top: 1px solid var(--color-border-light);
-}
-
+/* Travel fee: a quiet footnote under both offers, not a section of its own. */
 .services-travel-note {
   grid-column: 1 / -1;
   display: flex;
-  justify-content: center;
-  gap: var(--space-sm);
-  align-items: start;
+  gap: 0.5rem;
+  align-items: flex-start;
+  justify-self: center;
   width: 100%;
-  max-width: none;
-  margin: 0;
-  padding-top: var(--space-md);
-  border-top: 1px solid var(--color-border-light);
-}
-
-.services-travel-note .travel-note-content {
-  flex: 0 1 760px;
-  min-width: 0;
-}
-
-.services-travel-note > .services-visual-icon {
-  flex: 0 0 42px;
-}
-
-.services-travel-note .travel-note-content h2 {
-  margin-bottom: 0.2rem;
-}
-
-.services-travel-note .travel-note-content p {
-  max-width: 760px;
+  max-width: 520px;
+  margin-top: calc(-1 * var(--space-lg) + 1.5rem);
+  /* Lines up with the text inside the cards, not with their edge. */
+  padding-inline: clamp(1.25rem, 3vw, 2rem);
+  color: var(--color-text-secondary);
   font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+
+.services-travel-note .home-icon {
+  margin-top: 0.2em;
+  color: var(--color-accent);
+}
+
+.services-travel-note strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.services-travel-note p {
+  text-wrap: pretty;
 }
 
 .inspection-journey-section {
@@ -4798,13 +4737,6 @@ html[lang="en"] .service-offer-body h2 {
     border-left: 1px solid var(--color-border-light);
   }
 
-}
-
-@media (min-width: 768px) {
-  .travel-note:not(.services-travel-note) {
-    grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1.3fr);
-    align-items: start;
-  }
 }
 
 @media (min-width: 1024px) {
