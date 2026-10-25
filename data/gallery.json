@@ -22,9 +22,10 @@
     "  Tekstai pateikiami dviem kalbomis – \"lt\" (lietuvių) ir \"en\" (anglų):",
     "",
     "  \"lt\" ir \"en\" skiltyse:",
-    "    \"tag\"     – žyma ant nuotraukos (pvz.: \"Kėbulas\" / \"Body\").",
+    "    \"tag\"     – kategorijos žyma šalia pavadinimo (pvz.: \"Kėbulas\" / \"Body\").",
     "    \"title\"   – automobilio pavadinimas ir metai (pvz.: \"BMW 520d, 2017\").",
-    "    \"seller\"  – ką pardavėjas teigė apie automobilį.",
+    "    \"seller\"  – ką pardavėjas teigė, pardavėjo žodžiais, be įžangos „Pardavėjas teigė, kad…“",
+    "                (pvz.: \"Nepriekaištingos būklės, naudojamas kasdien.\"). Antraštė virš teksto rodoma automatiškai.",
     "    \"found\"   – ką rado patikros specialistas.",
     "    \"verdict\" – trumpas verdiktas (pvz.: \"Sukta rida\" / \"Tampered mileage\").",
     "",
@@ -65,14 +66,14 @@
       "lt": {
         "tag": "Kėbulas",
         "title": "Audi A7, 3.0 TDI, 2012",
-        "seller": "Pardavėjas teigė, kad automobilio būklė gera, dažytos kelios kėbulo detalės.",
+        "seller": "Geros būklės, dažytos kelios kėbulo detalės.",
         "found": "Patikros metu nustatyti dideli automobilio trūkumai bei akivaizdi priežiūros stoka. Kėbulo dažų matuoklis užfiksavo glaisto sluoksnį, o įvairūs gedimai bei kėbulo elementai, tokie kaip galinis žibintas, buvo tvarkyti ūkiškais metodais. Be to, ilgą transporto priemonės stovėjimą išduoda po kėbulo apdailomis rasti širšių lizdai.",
         "verdict": "Nerekomenduota pirkti"
       },
       "en": {
         "tag": "Body",
         "title": "Audi A7, 3.0 TDI, 2012",
-        "seller": "The seller claimed that the car was in good condition, with several body parts repainted.",
+        "seller": "Good condition, a few body panels repainted.",
         "found": "The inspection revealed significant defects in the vehicle and a clear lack of maintenance. A paint thickness gauge detected a layer of body filler, and various defects and body components, such as the taillight, had been repaired using makeshift methods. In addition, wasp nests found under the body trim indicate that the vehicle has been parked for a long time.",
         "verdict": "Not recommended"
       }
@@ -87,14 +88,14 @@
       "lt": {
         "tag": "Rida",
         "title": "Volkswagen Passat, 2.0 TDI, 2016",
-        "seller": "Pardavėjas teigė, kad automobilis nepriekaištingos būklės, yra naudojamas kasdien.",
+        "seller": "Nepriekaištingos būklės, naudojamas kasdien.",
         "found": "Patikros metu paaiškėjo, kad automobilio rida yra akivaizdžiai atsukta – prisijungus prie valdymo blokų užfiksuota reali, net 538 000 km siekianti rida. Taip pat nustatytas stiprus bendras transporto priemonės nusidėvėjimas.",
         "verdict": "Nerekomenduota pirkti"
       },
       "en": {
         "tag": "Mileage",
         "title": "Volkswagen Passat, 2.0 TDI, 2016",
-        "seller": "The seller claimed that the car was in perfect condition and was used daily.",
+        "seller": "Flawless condition, used every day.",
         "found": "During the inspection, it became apparent that the car’s odometer had clearly been tampered with—after connecting to the control units, the actual mileage was recorded as high as 538,000 km. Significant overall wear and tear on the vehicle was also noted.",
         "verdict": "Not recommended"
       }
@@ -109,14 +110,14 @@
       "lt": {
         "tag": "Rida",
         "title": "Volkswagen Passat, 2.0 TDI, 2015",
-        "seller": "Pardavėjas teigė, kad automobilis standartiškai pasidėvėjęs.",
+        "seller": "Standartiškai pasidėvėjęs.",
         "found": "Patikros metu nustatyta akivaizdžiai atsukta rida: prietaisų skydelyje rodoma 215 000 km, tačiau kompiuterinė diagnostika valdymo blokuose užfiksavo realią, 319 000 km siekiančią ridą.",
         "verdict": "Nerekomenduota pirkti"
       },
       "en": {
         "tag": "Mileage",
         "title": "Volkswagen Passat, 2.0 TDI, 2015",
-        "seller": "The seller claimed that the car had normal wear and tear.",
+        "seller": "Normal wear and tear.",
         "found": "During the inspection, it was found that the odometer had clearly been tampered with: the dashboard displayed 215,000 km, but computer diagnostics on the control units revealed the actual mileage to be 319,000 km.",
         "verdict": "Not recommended"
       }
@@ -130,14 +131,14 @@
       "lt": {
         "tag": "Kėbulas",
         "title": "BMW X6, xDrive35i, 2009",
-        "seller": "Pardavėjas teigė, kad automobilis importuotas iš JAV po eismo įvykio.",
+        "seller": "Importuotas iš JAV po eismo įvykio.",
         "found": "Patikros metu nustatyti nežymūs automobilio trūkumai, tokie kaip įskilęs priekinio žibinto stiklas. Kėbulo dažų matuoklis užfiksavo glaisto sluoksnį, tačiau pats kėbulo remontas atliktas gana kokybiškai, vizualiai defektai nekrenta į akis.",
         "verdict": "Rekomenduota pirkti"
       },
       "en": {
         "tag": "Body",
         "title": "BMW X6, xDrive35i, 2009",
-        "seller": "The seller claimed that the car had been imported from the United States after being involved in an accident.",
+        "seller": "Imported from the US after an accident.",
         "found": "During the inspection, minor defects were found on the car, such as a cracked headlight lens. The paint thickness gauge detected a layer of body filler, but the bodywork itself was repaired to a fairly high standard, and there are no visible defects.",
         "verdict": "Recommended"
       }
@@ -151,14 +152,14 @@
       "lt": {
         "tag": "Kėbulas",
         "title": "Honda CR-V, 1.6 i-DTEC, 2015",
-        "seller": "Pardavėjas teigė, kad automobilis yra puikios būklės, tik dažytos pora kėbulo detalių.",
+        "seller": "Puikios būklės, dažytos tik pora kėbulo detalių.",
         "found": "Patikros metu nustatyti šiek tiek didesni kėbulo trūkumai, nei pardavėjas teigė. Techninė būklė, atsižvelgiant į bendrą nusidėvėjimą, yra labai gera.",
         "verdict": "Rekomenduota pirkti"
       },
       "en": {
         "tag": "Body",
         "title": "Honda CR-V, 1.6 i-DTEC, 2015",
-        "seller": "The seller claimed that the car was in excellent condition, with only a couple of body parts having been painted.",
+        "seller": "Excellent condition, only a couple of body panels painted.",
         "found": "The inspection revealed slightly more significant body damage than the seller had claimed. Considering the overall wear and tear, the vehicle is in very good condition.",
         "verdict": "Recommended"
       }
@@ -172,14 +173,14 @@
       "lt": {
         "tag": "Variklis",
         "title": "BMW 6 GT, 630d, 2017",
-        "seller": "Pardavėjas teigė, kad automobilis nepriekaištingos būklės ir puikiai išlaikytas.",
+        "seller": "Nepriekaištingos būklės ir puikiai išlaikytas.",
         "found": "Patikros metu pastebėta alyva ties alsuokliu bei užfiksuotos diagnostikos klaidos, susijusios su sėdynių šildymu ir išsekusiomis padangų slėgio jutiklių baterijomis.",
         "verdict": "Rekomenduota pirkti"
       },
       "en": {
         "tag": "Engine",
         "title": "BMW 6 GT, 630d, 2017",
-        "seller": "The seller claimed that the car was in impeccable condition and had been well maintained.",
+        "seller": "Immaculate and well kept.",
         "found": "During the inspection, oil was noticed near the air intake, and diagnostic errors were recorded related to the seat heating system and dead tire pressure sensor batteries.",
         "verdict": "Recommended"
       }
@@ -193,14 +194,14 @@
       "lt": {
         "tag": "Kėbulas",
         "title": "BMW X1, xDrive20d, 2018",
-        "seller": "Pardavėjas teigė, kad automobilis yra geros techninės būklės, visapusiškai tvarkingas.",
+        "seller": "Geros techninės būklės, visapusiškai tvarkingas.",
         "found": "Patikros metu pastebėti kėbulo defektai. Diagnostika užfiksavo klaidą dėl parkavimo funkcijos aktyvavimo signalo. Nepaisant to, techninė būklė yra gera.",
         "verdict": "Rekomenduota pirkti"
       },
       "en": {
         "tag": "Body",
         "title": "BMW X1, xDrive20d, 2018",
-        "seller": "The seller claimed that the car was in good mechanical condition and fully roadworthy.",
+        "seller": "Mechanically sound, all in order.",
         "found": "Body defects were noted during the inspection. The diagnostic system detected an error related to the parking function activation signal. Nevertheless, the vehicle is in good technical condition.",
         "verdict": "Recommended"
       }
@@ -214,14 +215,14 @@
       "lt": {
         "tag": "Kėbulas",
         "title": "Volkswagen Passat CC, 2.0 TDI, 2010",
-        "seller": "Pardavėjas teigė, kad automobilis yra geros būklės, turi tik minimalius kėbulo defektus.",
+        "seller": "Geros būklės, tik minimalūs kėbulo defektai.",
         "found": "Patikros metu rasta gausi korozija ant kėbulo detalių. Taip pat aptiktas didelis kiekis vandens bagažinės skyriuje, atsarginio rato nišoje. Dėl šių defektų automobilio būklė vertinama neigiamai.",
         "verdict": "Nerekomenduota pirkti"
       },
       "en": {
         "tag": "Body",
         "title": "Volkswagen Passat CC, 2.0 TDI, 2010",
-        "seller": "The seller claimed that the car was in good condition, with only minor body damage.",
+        "seller": "Good condition, only minor body flaws.",
         "found": "During the inspection, extensive corrosion was found on the body parts. A large amount of water was also found in the spare tyre well. Due to these defects, the vehicle’s condition is rated as poor.",
         "verdict": "Not recommended"
       }
@@ -236,14 +237,14 @@
       "lt": {
         "tag": "Rida",
         "title": "Volkswagen Passat, 2.0 TDI, 2015",
-        "seller": "Pardavėjas teigė, kad automobilis yra tvarkingas, prižiūrėtas ir su originalia rida.",
+        "seller": "Tvarkingas, prižiūrėtas, rida originali.",
         "found": "Patikros metu nustatytas akivaizdus ridos atsukimas – prietaisų skydelyje rodoma tik 202 000 km, tačiau kompiuterinė diagnostika kituose valdymo blokuose užfiksavo realią, net 328 000 km siekiančią ridą. Be to, apžiūros metu variklio skyriuje aptikti žymūs alyvos nuotėkiai.",
         "verdict": "Nerekomenduota pirkti"
       },
       "en": {
         "tag": "Mileage",
         "title": "Volkswagen Passat, 2.0 TDI, 2015",
-        "seller": "The seller claimed that the car was in good condition, well-maintained, and had genuine mileage.",
+        "seller": "Tidy, well maintained, genuine mileage.",
         "found": "During the inspection, a clear case of odometer tampering was detected—the dashboard displayed only 202,000 km, but computer diagnostics on other control units revealed the actual mileage to be as high as 328,000 km. In addition, significant oil leaks were detected in the engine compartment during the inspection.",
         "verdict": "Not recommended"
       }
@@ -257,14 +258,14 @@
       "lt": {
         "tag": "Kėbulas",
         "title": "BMW 5, 520d, 2015",
-        "seller": "Pardavėjas teigė, kad automobilis yra prižiūrėtas, nereikalaujantis skubių investicijų ir paruoštas eksploatacijai.",
+        "seller": "Prižiūrėtas, skubių investicijų nereikia, paruoštas važiuoti.",
         "found": "Patikros metu nustatytas didelis priekinių stabdžių diskų nusidėvėjimas bei nudilusios padangos, tačiau bendra automobilio būklė gera, todėl jį rekomenduojama pirkti.",
         "verdict": "Rekomenduota pirkti"
       },
       "en": {
         "tag": "Body",
         "title": "BMW 5, 520d, 2015",
-        "seller": "The seller claimed that the car is well-maintained, requires no immediate repairs, and is ready to drive.",
+        "seller": "Well maintained, needs no urgent work, ready to drive.",
         "found": "The inspection revealed significant wear on the front brake discs and worn tyres, but the overall condition of the car is good, so it is recommended for purchase.",
         "verdict": "Recommended"
       }
@@ -278,14 +279,14 @@
       "lt": {
         "tag": "Kėbulas",
         "title": "Volkswagen Passat, 2.0 TDI, 2017",
-        "seller": "Pardavėjas teigė, kad automobilis yra visiškai gamyklinio dažymo, idealios techninės būklės ir turi pilną serviso istoriją.",
+        "seller": "Visiškai gamyklinis dažymas, ideali techninė būklė, pilna serviso istorija.",
         "found": "Patikros metu nustatytas didelis stabdžių diskų nusidėvėjimas bei nusilpęs automobilio akumuliatorius (11.3V). Taip pat kėbulo dažų matuokliu užfiksuotas kelių detalių kosmetinis perdažymas, tačiau glaisto žymių nerasta.",
         "verdict": "Rekomenduota pirkti"
       },
       "en": {
         "tag": "Body",
         "title": "Volkswagen Passat, 2.0 TDI, 2017",
-        "seller": "The seller claimed that the car is entirely factory-painted, in perfect mechanical condition, and has a complete service history.",
+        "seller": "All original paint, perfect mechanically, full service history.",
         "found": "During the inspection, significant wear on the brake discs (edges) and a low car battery (11.3V) were noted. A paint thickness gauge also revealed that several parts had been repainted for cosmetic reasons, but no signs of body filler were found.",
         "verdict": "Recommended"
       }
@@ -300,14 +301,14 @@
       "lt": {
         "tag": "Rida",
         "title": "BMW 5, 520d, 2012",
-        "seller": "Pardavėjas teigė, kad automobilis yra idealios techninės būklės, visapusiškai tvarkingas ir turi originalią ridą.",
+        "seller": "Ideali techninė būklė, visapusiškai tvarkingas, rida originali.",
         "found": "Patikros metu nustatytas ridos atsukimas: prietaisų skydelyje rodoma 277 000 km, tačiau kompiuterinė diagnostika užfiksavo realią, 315 000 km siekiančią ridą. Taip pat elektronikos patikros metu aptikti pakaitinimo žvakių bei jų valdymo bloko (relės) gedimai.",
         "verdict": "Nerekomenduota pirkti"
       },
       "en": {
         "tag": "Mileage",
         "title": "BMW 5, 520d, 2012",
-        "seller": "The seller claimed that the car is in perfect mechanical condition, fully serviced, and has the original mileage.",
+        "seller": "Perfect mechanically, fully serviced, original mileage.",
         "found": "During the inspection, it was determined that the odometer had been tampered with: the dashboard displayed 277,000 km, but computer diagnostics revealed the actual mileage to be 315,000 km. In addition, the electronic inspection revealed malfunctions in the glow plugs and their control unit.",
         "verdict": "Not recommended"
       }
@@ -321,14 +322,14 @@
       "lt": {
         "tag": "Variklis",
         "title": "Hyundai Tucson, 1.7 CRDi, 2017",
-        "seller": "Pardavėjas teigė, kad automobilis yra idealiai prižiūrėtas.",
+        "seller": "Idealiai prižiūrėtas.",
         "found": "Patikros metu nustatytas kritinis variklio priežiūros trūkumas – po alyvos įpylimo kamščiu matomas tirštas juodas dumblas, rodantis stipriai ignoruojamus alyvos keitimo intervalus. Kėbulo dažų matuoklis taip pat užfiksavo glaisto sluoksnį, o bagažinės skyriuje matomi stiprūs plastiko apdailos nusidėvėjimai bei subraižymai.",
         "verdict": "Nerekomenduota pirkti"
       },
       "en": {
         "tag": "Engine",
         "title": "Hyundai Tucson, 1.7 CRDi, 2017",
-        "seller": "The seller claimed that the car was in perfect condition.",
+        "seller": "Perfectly maintained.",
         "found": "A critical engine maintenance issue was identified during the inspection: thick black sludge was visible through the oil filler cap, indicating that oil change intervals had been severely neglected. The body paint gauge also detected a layer of filler, and the trunk compartment showed significant wear and scratches on the plastic trim.",
         "verdict": "Not recommended"
       }
@@ -342,14 +343,14 @@
       "lt": {
         "tag": "Elektronika",
         "title": "Mercedes-Benz C 180, 1.5 Mild Hybrid, 2022",
-        "seller": "Pardavėjas teigė, kad automobilis yra visiškai puikios būklės, neturintis jokių paslėptų defektų ir yra idealiai paruoštas naudojimui.",
+        "seller": "Puikios būklės, jokių paslėptų defektų, idealiai paruoštas naudojimui.",
         "found": "Patikros metu nustatyti tik smulkūs trūkumai: užfiksuotos klaidos radaro ir kameros blokuose. Automobiliui reikalinga „Distronic“ bei saugumo sistemų asistentų kalibracija, tačiau rimtų techninių ar kėbulo defektų nerasta, todėl transporto priemonė rekomenduojama pirkimui.",
         "verdict": "Rekomenduota pirkti"
       },
       "en": {
         "tag": "Electrical",
         "title": "Mercedes-Benz C 180, 1.5 Mild Hybrid, 2022",
-        "seller": "The seller claimed that the car was in excellent condition, had no hidden defects, and was in perfect working order.",
+        "seller": "Excellent condition, no hidden defects, in perfect working order.",
         "found": "Only minor issues were identified during the inspection. There were errors in the radar and camera units. The vehicle requires calibration of the Distronic and safety assistance systems, but no serious technical or body defects were found; therefore, the vehicle is recommended for purchase.",
         "verdict": "Recommended"
       }
@@ -363,14 +364,14 @@
       "lt": {
         "tag": "Elektronika",
         "title": "Mercedes-Benz E-Class, 2.0 Petrol/Hybrid, 2018",
-        "seller": "Pardavėjas teigė, kad automobilis yra idealiai prižiūrėtas autorizuotame servise, neturi jokių techninių trūkumų, o visi agregatai veikia nepriekaištingai.",
+        "seller": "Prižiūrėtas autorizuotame servise, jokių techninių trūkumų, visi agregatai veikia nepriekaištingai.",
         "found": "Patikros metu nustatytas stiprus priekinių stabdžių diskų nusidėvėjimas ir perkaitimo žymės. Atlikus kompiuterinę diagnostiką užfiksuotos aktyvios variklio klaidos dėl nesandarumo įsiurbimo sistemoje bei alyvos siurblio vožtuvo gedimas. Taip pat aptikta papildomų elektronikos gedimų, pavyzdžiui, „Keyless-Go“ durelių rankenėlėje.",
         "verdict": "Nerekomenduota pirkti"
       },
       "en": {
         "tag": "Electrical",
         "title": "Mercedes-Benz E-Class, 2.0 Petrol/Hybrid, 2018",
-        "seller": "The seller claimed that the car had been meticulously maintained at an authorized service center, had no technical issues, and that all its systems were in perfect working order.",
+        "seller": "Serviced at an authorised dealer, no technical issues, everything works perfectly.",
         "found": "During the inspection, severe wear on the front brake discs and signs of overheating were detected. Computer diagnostics revealed active engine error codes indicating a leak in the intake system and a malfunction in the oil pump valve. Additional electronic faults were also detected, such as issues with the Keyless-Go door handle.",
         "verdict": "Not recommended"
       }
@@ -384,14 +385,14 @@
       "lt": {
         "tag": "Variklis",
         "title": "Skoda Superb, 2.0 TDI, 2016",
-        "seller": "Pardavėjas teigė, kad automobilis yra puikiai prižiūrėtas ir paslėptų defektų nėra.",
+        "seller": "Puikiai prižiūrėtas, paslėptų defektų nėra.",
         "found": "Patikros metu nustatyta, kad bendra automobilio būklė yra tvarkinga, tačiau variklio skyriuje aptikti alyvos nuotėkiai. Užfiksuotas nesandarumas ties vožtuvų dangteliu, o pratekanti alyva jau matoma ir ant apatinės variklio apsaugos. Rimtesnių defektų neaptikta.",
         "verdict": "Rekomenduota pirkti"
       },
       "en": {
         "tag": "Engine",
         "title": "Skoda Superb, 2.0 TDI, 2016",
-        "seller": "The seller claimed that the car was in excellent condition and had no hidden defects.",
+        "seller": "Well maintained, no hidden defects.",
         "found": "The inspection revealed that the overall condition of the vehicle is good, but oil leaks were found in the engine compartment. A leak was detected near the valve cover, and oil is already visible on the lower engine guard. No major defects were found.",
         "verdict": "Recommended"
       }
@@ -405,14 +406,14 @@
       "lt": {
         "tag": "Kėbulas",
         "title": "Honda HR-V, 1.6 i-DTEC, 2016",
-        "seller": "Pardavėjas teigė, kad automobilis yra puikios būklės ir jokių defektų neturi.",
+        "seller": "Puikios būklės, jokių defektų.",
         "found": "Patikros metu nustatyti kosmetiniai kėbulo defektai: užfiksuotas kėbulo skardos įlenkimas bei subraižyta plastikinė sparno apdaila. Taip pat matomi stipriai pageltę, matiniai priekiniai žibintai, kuriems reikalingas poliravimas. Rimtesnių kėbulo struktūros pažeidimų nerasta.",
         "verdict": "Rekomenduota pirkti"
       },
       "en": {
         "tag": "Body",
         "title": "Honda HR-V, 1.6 i-DTEC, 2016",
-        "seller": "The seller claimed that the car was in excellent condition with no defects.",
+        "seller": "Excellent condition, no defects.",
         "found": "During the inspection, cosmetic body defects were identified: a dent in the body panel and a scratched plastic fender trim were recorded. Heavily yellowed, cloudy headlights requiring polishing were also noted. No severe structural body damage was found.",
         "verdict": "Recommended"
       }
@@ -426,14 +427,14 @@
       "lt": {
         "tag": "Elektronika",
         "title": "Volkswagen T-Roc, 1.5 TSI, 2019",
-        "seller": "Pardavėjas teigė, kad automobilis yra puikios techninės ir vizualinės būklės, be jokių paslėptų defektų.",
+        "seller": "Puikios techninės ir vizualinės būklės, be paslėptų defektų.",
         "found": "Patikros metu nustatyti keli kosmetiniai bei techniniai trūkumai: kėbulo elemento paviršiuje užfiksuoti gilesni dažų dangos įbrėžimai, o variklio skyriuje matomas alyvos nuotėkis. Taip pat atlikus kompiuterinę diagnostiką aptikta aktyvi aušinimo skysčio siurblio valdymo grandinės klaida.",
         "verdict": "Nerekomenduota pirkti"
       },
       "en": {
         "tag": "Electrical",
         "title": "Volkswagen T-Roc, 1.5 TSI, 2019",
-        "seller": "The seller claimed that the car was in excellent technical and visual condition with no hidden defects.",
+        "seller": "Excellent inside and out, no hidden defects.",
         "found": "During the inspection, several cosmetic and technical defects were identified: deeper scratches in the paintwork were recorded on a body panel, and oil sweating was visible in the engine compartment. Additionally, computer diagnostics revealed an active coolant pump control circuit fault.",
         "verdict": "Not recommended"
       }
@@ -447,14 +448,14 @@
       "lt": {
         "tag": "Kėbulas",
         "title": "Volkswagen Passat, 2.0 TDI, 2017",
-        "seller": "Pardavėjas teigė, kad automobilis yra tvarkingas, be eismo įvykių ir jokių gedimų neturi.",
+        "seller": "Tvarkingas, be eismo įvykių, jokių gedimų.",
         "found": "Patikros metu nustatytas labai didelis kėbulo glaisto sluoksnis: matuoklis užfiksavo net iki 1850 µm siekiantį storį, o kai kuriose vietose glaisto sluoksnis yra toks storas, kad prietaisas viršija matavimo ribas. Taip pat prietaisų skydelyje dega pranešimas „Front Assist not available“, rodantis priekinio radaro / avarinio stabdymo sistemos gedimą.",
         "verdict": "Nerekomenduota pirkti"
       },
       "en": {
         "tag": "Body",
         "title": "Volkswagen Passat, 2.0 TDI, 2017",
-        "seller": "The seller claimed that the car was in good condition, accident-free, and had no faults.",
+        "seller": "Tidy, accident-free, no faults.",
         "found": "During the inspection, a very heavy layer of body filler was identified: the paint depth gauge recorded readings up to 1850 µm, and in certain spots, the filler layer was so thick that the device exceeded its measuring range. Additionally, the instrument cluster displayed a 'Front Assist not available' message, indicating a malfunction or required calibration of the front radar / emergency braking system.",
         "verdict": "Not recommended"
       }
@@ -468,14 +469,14 @@
       "lt": {
         "tag": "Elektronika",
         "title": "Skoda Kodiaq, 2.0 TDI, 2018",
-        "seller": "Pardavėjas teigė, kad automobilis yra puikios būklės, visi elektronikos prietaisai ir sistema veikia be priekaištų.",
+        "seller": "Puikios būklės, visa elektronika veikia be priekaištų.",
         "found": "Patikros metu nustatyti tik smulkūs techniniai ir kosmetiniai trūkumai: atlikus diagnostiką užfiksuotos vairuotojo durų elektronikos bei centrinio užrakto valdymo bloko klaidos. Taip pat aptiktas nudaužytas ratlankio kraštas bei pažeista sėdynės apdaila. Nustatyti defektai nėra kritiniai.",
         "verdict": "Rekomenduota pirkti"
       },
       "en": {
         "tag": "Electrical",
         "title": "Skoda Kodiaq, 2.0 TDI, 2018",
-        "seller": "The seller claimed that the car was in excellent condition and all electronic systems worked flawlessly.",
+        "seller": "Excellent condition, all the electronics work flawlessly.",
         "found": "During the inspection, only minor technical and cosmetic defects were identified: diagnostics revealed faults in the driver's door electronics and central locking control module. Additionally, a chipped alloy rim edge and damaged seat upholstery were noted. The identified defects are not critical.",
         "verdict": "Recommended"
       }
@@ -489,14 +490,14 @@
       "lt": {
         "tag": "Elektronika",
         "title": "BMW X5, 3.0d, 2011",
-        "seller": "Pardavėjas teigė, kad automobilis yra prižiūrėtas, geros būklės ir neturi jokių rimtų variklio ar elektronikos gedimų.",
+        "seller": "Prižiūrėtas, geros būklės, jokių rimtų variklio ar elektronikos gedimų.",
         "found": "Patikros metu atlikus kompiuterinę diagnostiką DDE valdymo bloke užfiksuota DDE maitinimo valdymo klaida, kuro filtro šildymo grandinės sutrikimas bei BSD duomenų sąsajos gedimas (trūkstamas alyvos būklės jutiklio signalas). Taip pat variklio skyriuje aptiktas pradurtas / įskilęs žarnos vamzdis bei alyvos pratekėjimas ties sąvarža.",
         "verdict": "Nerekomenduota pirkti"
       },
       "en": {
         "tag": "Electrical",
         "title": "BMW X5, 3.0d, 2011",
-        "seller": "The seller claimed that the vehicle was well-maintained, in good condition, and had no serious engine or electronic issues.",
+        "seller": "Well maintained, good condition, no serious engine or electrical faults.",
         "found": "During inspection, computer diagnostics on the DDE control unit revealed power management errors, a fuel filter heating circuit fault, and a BSD data interface failure (missing oil condition sensor signal). Additionally, a cracked/punctured intake pipe and oil leaks around hose clamps were identified in the engine bay.",
         "verdict": "Not recommended"
       }
@@ -510,14 +511,14 @@
       "lt": {
         "tag": "Kėbulas",
         "title": "Peugeot 508, 2.0 BlueHDi, 2019",
-        "seller": "Pardavėjas teigė, kad automobilis pirktas iš Prancūzijos, buvo naudojamas asmeniniams tikslams ir yra puikios būklės.",
+        "seller": "Pirktas iš Prancūzijos, naudotas asmeniniams tikslams, puikios būklės.",
         "found": "Patikros metu nustatyta nuslėpta transporto priemonės praeitis – dokumentuose užfiksuota, jog Prancūzijoje automobilis buvo eksploatuojamas kaip komercinis taksi („Armance Taxi Services“). Taip pat aptikti atšokę kėbulo elementai ties sparnu, buferio nesutapimai bei stipresnis porankio ir salono dėvėjimasis.",
         "verdict": "Nerekomenduota pirkti"
       },
       "en": {
         "tag": "Body",
         "title": "Peugeot 508, 2.0 BlueHDi, 2019",
-        "seller": "The seller claimed that the car was imported from France, used strictly for personal needs, and was in excellent condition.",
+        "seller": "Bought from France, used privately, excellent condition.",
         "found": "The inspection uncovered hidden vehicle history—official documentation confirmed it was previously operated as a commercial taxi in France ('Armance Taxi Services'). Popped body trim gaps near the fender, bumper misalignment, and heavy wear on the armrest and interior trim were also noted.",
         "verdict": "Not recommended"
       }
@@ -531,14 +532,14 @@
       "lt": {
         "tag": "Variklis",
         "title": "BMW 5, 520d (G30), 2020",
-        "seller": "Pardavėjas teigė, kad automobilis yra idealios techninės būklės, pilnai aptarnautas ir nereikalauja jokių investicijų.",
+        "seller": "Ideali techninė būklė, pilnai aptarnautas, investicijų nereikia.",
         "found": "Atlikus diagnostiką užfiksuota DDE aktyvi 2 cilindro purkštuko užterštumo / adatos jutiklio klaida (315C00), nustatyta akumuliatoriaus nusidėvėjimo bei žemos įtampos klaidos DSC bloke, bei išsekusios padangų slėgio jutiklių (RDCI) baterijos. Taip pat ant automobilio sumontuotos pigios biudžetinės gumbuotos kiniškos padangos.",
         "verdict": "Nerekomenduota pirkti"
       },
       "en": {
         "tag": "Engine",
         "title": "BMW 5, 520d (G30), 2020",
-        "seller": "The seller claimed that the car was in ideal mechanical condition, fully serviced, and required no investments.",
+        "seller": "Perfect mechanically, fully serviced, needs nothing.",
         "found": "Diagnostics revealed an active DDE error code for cylinder 2 injector contamination / needle sensor fault (315C00), battery aging/undervoltage codes in the DSC system, and depleted tire pressure sensor (RDCI) batteries. Cheap budget Chinese tires were also mounted on the vehicle.",
         "verdict": "Not recommended"
       }
@@ -552,14 +553,14 @@
       "lt": {
         "tag": "Elektronika",
         "title": "Audi Q8, 55 TFSI e, 2019",
-        "seller": "Pardavėjas teigė, kad automobilis neturi jokių rimtų techninių trūkumų, yra paruoštas važiavimui ir turi tik smulkių kosmetinių defektų.",
+        "seller": "Rimtų techninių trūkumų nėra, paruoštas važiuoti, tik smulkūs kosmetiniai defektai.",
         "found": "Patikros metu nustatyti kritiniai hibridinės sistemos bei variklio aušinimo defektai: kompiuterinė diagnostika užfiksavo aukštos įtampos baterijos gedimą su nurodymu ją pakeisti („Replace Hybrid/EV Battery Pack“), prietaisų skydelyje dega įspėjimas dėl aušinimo skysčio trūkumo / perkaistamo pavojus, o kėbulo sparnas turi gilius įbrėžimus.",
         "verdict": "Nerekomenduota pirkti"
       },
       "en": {
         "tag": "Electrical",
         "title": "Audi Q8, 55 TFSI e, 2019",
-        "seller": "The seller claimed that the car had no serious technical issues, was ready to drive, and only had minor cosmetic flaws.",
+        "seller": "No serious technical issues, ready to drive, only minor cosmetic flaws.",
         "found": "Inspection revealed critical hybrid system and engine cooling defects: diagnostics recorded high-voltage battery failure requiring complete battery pack replacement ('Replace Hybrid/EV Battery Pack'), a low coolant warning appeared on the dashboard, and deep paint scrapes were present on the fender.",
         "verdict": "Not recommended"
       }
@@ -573,14 +574,14 @@
       "lt": {
         "tag": "Elektronika",
         "title": "Mercedes-Benz C-Class, 2.2 CDI, 2012",
-        "seller": "Pardavėjas teigė, kad automobilis yra tvarkingas, o pavarų dėžė ir variklis veikia be jokių priekaištų.",
+        "seller": "Tvarkingas, pavarų dėžė ir variklis veikia be priekaištų.",
         "found": "Patikros metu atlikus kompiuterinę diagnostiką užfiksuotos kritinės pavarų dėžės valdymo bloko (TCM) klaidos (P0894, P0733), rodančios pavarų dėžės slydimą bei trečios pavaros gedimą. Taip pat aptikti priekinio parkavimo daviklio (PTS) ir variklio dangčio jutiklio (SAMF) gedimai, o ant kėbulo detalių matomi gilesni dažų dangos įbrėžimai.",
         "verdict": "Nerekomenduota pirkti"
       },
       "en": {
         "tag": "Electrical",
         "title": "Mercedes-Benz C-Class, 2.2 CDI, 2012",
-        "seller": "The seller claimed that the car was in good condition and that the transmission and engine worked flawlessly.",
+        "seller": "Tidy, gearbox and engine work flawlessly.",
         "found": "During the inspection, computer diagnostics revealed critical transmission control unit (TCM) error codes (P0894, P0733) indicating transmission slipping and an implausible third gear. Faults with the front parking sensor (PTS) and engine hood sensor (SAMF) were also detected, along with deeper paint scratches on the body panels.",
         "verdict": "Not recommended"
       }
@@ -594,14 +595,14 @@
       "lt": {
         "tag": "Kėbulas",
         "title": "Toyota Corolla, 1.8 Hybrid, 2022",
-        "seller": "Pardavėjas teigė, kad automobilis yra puikios būklės, neturi jokių defektų ir nereikalauja papildomų investicijų.",
+        "seller": "Puikios būklės, jokių defektų, papildomų investicijų nereikia.",
         "found": "Patikros metu nustatyti tik smulkūs išorės trūkumai: pastebėti nežymūs kėbulo detalių tarpų nesutapimai ties sparnu ir buferiu, įskilęs galinio žibinto kampas bei pažeista padangos šoninė sienelė. Rimtų techninių ar struktūrinių pažeidimų neaptikta, todėl bendra automobilio būklė yra gera.",
         "verdict": "Rekomenduota pirkti"
       },
       "en": {
         "tag": "Body",
         "title": "Toyota Corolla, 1.8 Hybrid, 2022",
-        "seller": "The seller claimed that the car was in excellent condition, had no defects, and required no additional investment.",
+        "seller": "Excellent condition, no defects, needs no further spending.",
         "found": "During the inspection, only minor exterior flaws were identified: slight panel gap misalignments near the fender and bumper, a chipped corner on the taillight lens, and damage to the tire sidewall were noted. No serious mechanical or structural issues were found, leaving the vehicle in good overall condition.",
         "verdict": "Recommended"
       }
@@ -615,14 +616,14 @@
       "lt": {
         "tag": "Kėbulas",
         "title": "Skoda Rapid, 1.6 TDI, 2015",
-        "seller": "Pardavėjas teigė, kad automobilis yra tvarkingas, geros techninės būklės ir turėjęs tik smulkų kosmetinį remontą.",
+        "seller": "Tvarkingas, geros techninės būklės, tik smulkus kosmetinis remontas.",
         "found": "Patikros metu kėbulo dažų storio matuoklis užfiksavo glaisto sluoksnį (1.15 mm / 1150 µm), ant sparno krašto aptikti smulkūs įbrėžimai. Nepaisant kėbulo remonto pėdsakų, techninė automobilio būklė yra gera.",
         "verdict": "Rekomenduota pirkti"
       },
       "en": {
         "tag": "Body",
         "title": "Skoda Rapid, 1.6 TDI, 2015",
-        "seller": "The seller claimed that the car was well-maintained, in good mechanical condition, and had only undergone minor cosmetic repairs.",
+        "seller": "Tidy, mechanically sound, only minor cosmetic repairs.",
         "found": "During the inspection, a paint thickness gauge detected a layer of body filler (1.15 mm / 1150 µm), minor scratches were noted along the fender edge. Despite signs of previous bodywork repair, the vehicle is in good mechanical condition.",
         "verdict": "Recommended"
       }
