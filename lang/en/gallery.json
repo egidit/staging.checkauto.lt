@@ -22,11 +22,6 @@
     "close": "Close image",
     "dialog_title": "Inspection image",
     "image_unavailable": "Image unavailable",
-    "cta": {
-      "title": "Know what you are buying",
-      "text": "Book an inspection before you commit to the car.",
-      "button": "Book inspection"
-    },
     "items": {
       "i1": {
         "tag": "Body",

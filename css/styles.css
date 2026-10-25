@@ -2799,25 +2799,6 @@ p {
 }
 
 /* --------------------------------------------------------------------------
-   15. CTA BAND
-   -------------------------------------------------------------------------- */
-.cta-band {
-  text-align: center;
-  padding-block: var(--space-2xl);
-}
-
-.cta-band h2 {
-  margin-bottom: var(--space-sm);
-}
-
-.cta-band p {
-  font-size: var(--font-size-md);
-  margin-bottom: var(--space-lg);
-  max-width: 480px;
-  margin-inline: auto;
-}
-
-/* --------------------------------------------------------------------------
    14b. PRICING
    -------------------------------------------------------------------------- */
 .pricing-grid {
@@ -5105,7 +5086,6 @@ html[lang="en"] .service-offer-body h2 {
 @media (max-width: 639px) {
   .hero-actions,
   .hero-actions .btn,
-  .cta-band .btn,
   .support-band-inner .btn {
     width: 100%;
   }
@@ -5639,7 +5619,7 @@ html[lang="en"] .service-offer-body h2 {
 
 .home-cases-heading h2,
 .home-offer-copy h2,
-.home-final h2 {
+.final-cta h2 {
   font-size: clamp(1.9rem, 1.3rem + 2.2vw, 3rem);
   letter-spacing: -0.035em;
   text-wrap: balance;
@@ -6075,33 +6055,33 @@ html[lang="en"] .service-offer-body h2 {
   }
 }
 
-/* Final call to action */
-.home-page .home-final {
+/* Final call to action, shared by the homepage, services, gallery and about pages. */
+.section.final-cta {
   padding-block: clamp(4rem, 7vw, 5.5rem);
 }
 
-.home-final-top {
+.final-cta-top {
   display: grid;
   gap: 1.75rem;
 }
 
-.home-final h2 {
+.final-cta h2 {
   max-width: 17ch;
 }
 
-.home-final-actions {
+.final-cta-actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.75rem 1.5rem;
 }
 
-.home-final-actions .btn {
+.final-cta-actions .btn {
   white-space: normal;
   text-align: center;
 }
 
-.home-final-call {
+.final-cta-call {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -6115,8 +6095,8 @@ html[lang="en"] .service-offer-body h2 {
   text-underline-offset: 0.25em;
 }
 
-.home-final-call:hover,
-.home-final-call:focus-visible {
+.final-cta-call:hover,
+.final-cta-call:focus-visible {
   text-decoration-color: currentColor;
 }
 
@@ -6231,7 +6211,7 @@ html[lang="en"] .service-offer-body h2 {
 }
 
 @media (min-width: 900px) {
-  .home-final-top {
+  .final-cta-top {
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: end;
   }
@@ -6486,7 +6466,7 @@ html[lang="en"] .service-offer-body h2 {
     font-size: 1.3rem;
   }
 
-  .home-final-actions .btn {
+  .final-cta-actions .btn {
     width: 100%;
   }
 
