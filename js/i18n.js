@@ -166,7 +166,7 @@
 
   /**
    * Apply translations to all elements with [data-i18n] on the page.
-   * Skips elements that have child elements (to preserve inner HTML like <span>).
+   * Elements with child elements keep their markup (see the wordmark below).
    */
   function applyTranslations(data) {
     if (!data) return;
@@ -190,21 +190,12 @@
         if (el.children.length === 0) {
           el.textContent = value;
         } else {
-          // Preserve child elements - only update text nodes
-          const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
-          const textNodes = [];
-          let node;
-          while (node = walker.nextNode()) {
-            if (node.parentElement === el) textNodes.push(node);
-          }
-          // For elements with mixed content, just update first/last text nodes
-          // This handles cases like "Su check<span>auto</span>.lt"
-          if (textNodes.length > 0) {
-            const parts = value.split('checkauto');
-            if (parts.length === 2 && el.querySelector('.logo-accent')) {
-              textNodes[0].textContent = parts[0] + 'check';
-              if (textNodes.length > 1) textNodes[textNodes.length - 1].textContent = '.lt';
-            }
+          // "checkauto.lt" set as the logo inside a sentence keeps its markup;
+          // the translated text goes on either side of it.
+          const mark = el.querySelector('.wordmark');
+          const index = value.indexOf('checkauto.lt');
+          if (mark && index !== -1) {
+            el.replaceChildren(value.slice(0, index), mark, value.slice(index + 'checkauto.lt'.length));
           }
         }
       }

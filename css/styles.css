@@ -363,8 +363,17 @@ p {
   z-index: 1100;
 }
 
-.logo span {
+.logo span,
+.wordmark span {
   color: var(--color-accent);
+}
+
+/* "checkauto.lt" in running text, set like the logo. */
+.wordmark {
+  color: var(--color-text);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
 }
 
 /* Desktop nav */
@@ -1134,10 +1143,6 @@ p {
 
 .compare-heading--with {
   color: #fff;
-}
-
-.logo-accent {
-  color: var(--color-accent);
 }
 
 .compare-list {
