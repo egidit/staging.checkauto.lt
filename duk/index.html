@@ -33,7 +33,7 @@
   <link rel="preload" href="/assets/fonts/Inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/Inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="/css/styles.css?v=20261025-2">
+  <link rel="stylesheet" href="/css/styles.css?v=20261025-5">
   <script src="/js/cookie-consent.js?v=20261014-4"></script>
 
   <script>
@@ -49,58 +49,84 @@
 
   <div id="site-header"></div>
 
-  <main>
-    <section class="page-intro">
-      <div class="container page-intro-grid">
-        <span class="section-label" data-i18n="faq.hero.label">D.U.K.</span>
-        <h1 data-i18n="faq.hero.title">Klausimai prieš rezervuojant automobilio patikrą</h1>
-        <p data-i18n="faq.hero.subtitle">Trumpi atsakymai apie paslaugą, kainą, atvykimą ir rezultatą.</p>
+  <main class="faq-page">
+    <section class="faq-hero" aria-labelledby="faq-title">
+      <div class="container faq-shell">
+        <h1 id="faq-title" data-i18n="faq.hero.title">Klausimai prieš rezervuojant automobilio patikrą</h1>
+        <p class="faq-hero-subtitle" data-i18n="faq.hero.subtitle">Trumpi atsakymai apie paslaugą, kainą, atvykimą ir rezultatą.</p>
+        <nav class="faq-topics" aria-label="Temos" data-i18n-aria="faq.topics_label">
+          <a class="gallery-filter" href="#faq-booking" data-i18n="faq.groups.booking">Rezervacija ir vizitas</a>
+          <a class="gallery-filter" href="#faq-service" data-i18n="faq.groups.service">Paslaugos apimtis</a>
+          <a class="gallery-filter" href="#faq-price" data-i18n="faq.groups.price">Kaina ir atvykimas</a>
+          <a class="gallery-filter" href="#faq-result" data-i18n="faq.groups.result">Rezultatas ir sprendimas</a>
+        </nav>
       </div>
     </section>
 
-    <section class="section section--alt">
-      <div class="container faq-groups">
-        <section class="faq-group" aria-labelledby="faq-booking-title">
-          <h2 id="faq-booking-title" data-i18n="faq.groups.booking">Rezervacija ir vizitas</h2>
+    <section class="section faq-section">
+      <div class="container faq-shell faq-groups">
+        <section class="faq-group" id="faq-booking" aria-labelledby="faq-booking-title">
+          <div class="faq-group-head">
+            <span class="icon-circle"><svg class="home-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+            <h2 id="faq-booking-title" data-i18n="faq.groups.booking">Rezervacija ir vizitas</h2>
+          </div>
           <div class="faq-list">
-            <details class="faq-item"><summary data-i18n="faq.q10">Kaip rezervuoti patikrą?</summary><div class="faq-answer"><p data-i18n="faq.a10">Rezervacijos puslapyje pasirinkite paslaugą, laisvą laiką ir pateikite automobilio duomenis. Vizitas galioja, kai jį patvirtiname el. paštu.</p></div></details>
-            <details class="faq-item"><summary data-i18n="faq.q2">Kiek laiko užtrunka patikra?</summary><div class="faq-answer"><p data-i18n="faq.a2">Išsami patikra paprastai trunka apie 1,5–2 valandas. Tikslus laikas priklauso nuo automobilio būklės ir galimybės atlikti bandomąjį važiavimą.</p></div></details>
-            <details class="faq-item"><summary data-i18n="faq.q6">Ar galiu dalyvauti patikroje?</summary><div class="faq-answer"><p data-i18n="faq.a6">Taip. Galite stebėti patikrą ir užduoti klausimus vietoje, jei automobilio vietos taisyklės tai leidžia.</p></div></details>
+            <details class="faq-item"><summary><span data-i18n="faq.q10">Kaip rezervuoti patikrą?</span></summary><div class="faq-answer"><p data-i18n="faq.a10">Rezervacijos puslapyje pasirinkite paslaugą, laisvą laiką ir pateikite automobilio duomenis. Vizitas galioja, kai jį patvirtiname el. paštu.</p></div></details>
+            <details class="faq-item"><summary><span data-i18n="faq.q2">Kiek laiko užtrunka patikra?</span></summary><div class="faq-answer"><p data-i18n="faq.a2">Išsami patikra paprastai trunka apie 1,5–2 valandas. Tikslus laikas priklauso nuo automobilio būklės ir galimybės atlikti bandomąjį važiavimą.</p></div></details>
+            <details class="faq-item"><summary><span data-i18n="faq.q6">Ar galiu dalyvauti patikroje?</span></summary><div class="faq-answer"><p data-i18n="faq.a6">Taip. Galite stebėti patikrą ir užduoti klausimus vietoje, jei automobilio vietos taisyklės tai leidžia.</p></div></details>
           </div>
         </section>
 
-        <section class="faq-group" aria-labelledby="faq-service-title">
-          <h2 id="faq-service-title" data-i18n="faq.groups.service">Paslaugos apimtis</h2>
+        <section class="faq-group" id="faq-service" aria-labelledby="faq-service-title">
+          <div class="faq-group-head">
+            <span class="icon-circle"><svg class="home-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6v3H9z"/><path d="M15 4.5h2a2 2 0 0 1 2 2V19a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6.5a2 2 0 0 1 2-2h2"/><path d="m9 13.5 2 2 4-4"/></svg></span>
+            <h2 id="faq-service-title" data-i18n="faq.groups.service">Paslaugos apimtis</h2>
+          </div>
           <div class="faq-list">
-            <details class="faq-item"><summary data-i18n="faq.q15">Kuo skiriasi išsami patikra ir diagnostika?</summary><div class="faq-answer"><p data-i18n="faq.a15">Kompiuterinė diagnostika apima valdymo blokų klaidas ir pagrindinius parametrus. Išsami patikra papildomai apima kėbulą, mechaninius mazgus, bandomąjį važiavimą ir ataskaitą su nuotraukomis.</p></div></details>
-            <details class="faq-item"><summary data-i18n="faq.q11">Ką tikrinate per išsamią patikrą?</summary><div class="faq-answer"><p data-i18n="faq.a11">Kėbulą ir dažų storį, variklį, transmisiją, važiuoklę, stabdžius, elektroniką, ridos neatitikimų požymius, padangas, skysčius ir salono funkcijas. Kai galima ir saugu, atliekame bandomąjį važiavimą.</p></div></details>
-            <details class="faq-item"><summary data-i18n="faq.q7">Ar tikrinate tik naudotus automobilius?</summary><div class="faq-answer"><p data-i18n="faq.a7">Paslauga skirta prieš perkant vertinamoms transporto priemonėms, įskaitant naudotus, demonstracinius ir nedaug eksploatuotus automobilius.</p></div></details>
+            <details class="faq-item"><summary><span data-i18n="faq.q15">Kuo skiriasi išsami patikra ir diagnostika?</span></summary><div class="faq-answer"><p data-i18n="faq.a15">Kompiuterinė diagnostika apima valdymo blokų klaidas ir pagrindinius parametrus. Išsami patikra papildomai apima kėbulą, mechaninius mazgus, bandomąjį važiavimą ir ataskaitą su nuotraukomis.</p></div></details>
+            <details class="faq-item"><summary><span data-i18n="faq.q11">Ką tikrinate per išsamią patikrą?</span></summary><div class="faq-answer"><p data-i18n="faq.a11">Kėbulą ir dažų storį, variklį, transmisiją, važiuoklę, stabdžius, elektroniką, ridos neatitikimų požymius, padangas, skysčius ir salono funkcijas. Kai galima ir saugu, atliekame bandomąjį važiavimą.</p></div></details>
+            <details class="faq-item"><summary><span data-i18n="faq.q7">Ar tikrinate tik naudotus automobilius?</span></summary><div class="faq-answer"><p data-i18n="faq.a7">Paslauga skirta prieš perkant vertinamoms transporto priemonėms, įskaitant naudotus, demonstracinius ir nedaug eksploatuotus automobilius.</p></div></details>
           </div>
         </section>
 
-        <section class="faq-group" aria-labelledby="faq-price-title">
-          <h2 id="faq-price-title" data-i18n="faq.groups.price">Kaina ir atvykimas</h2>
+        <section class="faq-group" id="faq-price" aria-labelledby="faq-price-title">
+          <div class="faq-group-head">
+            <span class="icon-circle"><svg class="home-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></span>
+            <h2 id="faq-price-title" data-i18n="faq.groups.price">Kaina ir atvykimas</h2>
+          </div>
           <div class="faq-list">
-            <details class="faq-item"><summary data-i18n="faq.q8">Kiek kainuoja patikra?</summary><div class="faq-answer"><p data-i18n="faq.a8">Išsami patikra prieš pirkimą kainuoja 100 €, kompiuterinė diagnostika – 20 €. Kelionės mokestis, jei taikomas, suderinamas prieš patvirtinant vizitą.</p><a href="/paslaugos/" class="btn btn-ghost" data-i18n="faq.a8_link">Paslaugos ir kainos</a></div></details>
-            <details class="faq-item"><summary data-i18n="faq.q3">Kur atvykstate?</summary><div class="faq-answer"><p data-i18n="faq.a3">Atvykstame į automobilio vietą visoje Lietuvoje. Kaune ir iki 20 km nuo Kauno miesto ribos kelionės mokestis netaikomas; toliau galimą mokestį suderiname iš anksto.</p></div></details>
+            <details class="faq-item"><summary><span data-i18n="faq.q8">Kiek kainuoja patikra?</span></summary><div class="faq-answer"><p data-i18n="faq.a8">Išsami patikra prieš pirkimą kainuoja 100&nbsp;€, kompiuterinė diagnostika –&nbsp;20&nbsp;€. Kelionės mokestis, jei taikomas, suderinamas prieš patvirtinant vizitą.</p><a href="/paslaugos/" class="home-text-link"><span data-i18n="faq.a8_link">Paslaugos ir kainos</span><span aria-hidden="true">→</span></a></div></details>
+            <details class="faq-item"><summary><span data-i18n="faq.q3">Kur atvykstate?</span></summary><div class="faq-answer"><p data-i18n="faq.a3">Atvykstame į automobilio vietą visoje Lietuvoje. Kaune ir iki 20&nbsp;km nuo Kauno miesto ribos kelionės mokestis netaikomas; toliau galimą mokestį suderiname iš anksto.</p></div></details>
           </div>
         </section>
 
-        <section class="faq-group" aria-labelledby="faq-result-title">
-          <h2 id="faq-result-title" data-i18n="faq.groups.result">Rezultatas ir sprendimas</h2>
+        <section class="faq-group" id="faq-result" aria-labelledby="faq-result-title">
+          <div class="faq-group-head">
+            <span class="icon-circle"><svg class="home-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span>
+            <h2 id="faq-result-title" data-i18n="faq.groups.result">Rezultatas ir sprendimas</h2>
+          </div>
           <div class="faq-list">
-            <details class="faq-item"><summary data-i18n="faq.q4">Ką gausiu po patikros?</summary><div class="faq-answer"><p data-i18n="faq.a4">Ataskaitą su nuotraukomis, užfiksuotais trūkumais ir aiškiu bendros automobilio būklės vertinimu.</p></div></details>
-            <details class="faq-item"><summary data-i18n="faq.q9">Ar padedate derėtis dėl kainos?</summary><div class="faq-answer"><p data-i18n="faq.a9">Derybų nevedame, tačiau ataskaitoje užfiksuoti trūkumai suteikia konkretų pagrindą kainai aptarti.</p></div></details>
-            <details class="faq-item"><summary data-i18n="faq.q5">Kas, jei automobilio būklė gera?</summary><div class="faq-answer"><p data-i18n="faq.a5">Tuomet turėsite nepriklausomą patvirtinimą, kokia yra dabartinė būklė ir kokius smulkius darbus verta numatyti.</p></div></details>
+            <details class="faq-item"><summary><span data-i18n="faq.q4">Ką gausiu po patikros?</span></summary><div class="faq-answer"><p data-i18n="faq.a4">Ataskaitą su nuotraukomis, užfiksuotais trūkumais ir aiškiu bendros automobilio būklės vertinimu.</p></div></details>
+            <details class="faq-item"><summary><span data-i18n="faq.q9">Ar padedate derėtis dėl kainos?</span></summary><div class="faq-answer"><p data-i18n="faq.a9">Derybų nevedame, tačiau ataskaitoje užfiksuoti trūkumai suteikia konkretų pagrindą kainai aptarti.</p></div></details>
+            <details class="faq-item"><summary><span data-i18n="faq.q5">Kas, jei automobilio būklė gera?</span></summary><div class="faq-answer"><p data-i18n="faq.a5">Tuomet turėsite nepriklausomą patvirtinimą, kokia yra dabartinė būklė ir kokius smulkius darbus verta numatyti.</p></div></details>
           </div>
         </section>
       </div>
     </section>
 
-    <section class="section support-band">
-      <div class="container support-band-inner">
-        <div><h2 data-i18n="faq.cta.title">Neradote atsakymo?</h2><p data-i18n="faq.cta.text">Skambinkite +370 609 45 238 arba parašykite el. paštu.</p></div>
-        <a href="mailto:info@checkauto.lt" class="btn btn-secondary" data-i18n="faq.cta.button">Parašyti el. paštu</a>
+    <section class="final-cta section section--dark" aria-labelledby="final-cta-title">
+      <div class="container">
+        <div class="final-cta-top">
+          <h2 id="final-cta-title" data-i18n="faq.cta.title">Neradote atsakymo? Paskambinkite arba parašykite.</h2>
+          <div class="final-cta-actions">
+            <a href="mailto:info@checkauto.lt" class="btn btn-primary" data-i18n="faq.cta.button">Parašyti el. paštu</a>
+            <a href="tel:+37060945238" class="final-cta-call">
+              <svg class="home-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5-2.5l5 2v4a2 2 0 0 1-2 2a16 16 0 0 1-15-15a2 2 0 0 1 2-2"/></svg>
+              <span class="visually-hidden" data-i18n="final_cta.call_label">Skambinti</span>
+              <span>+370 609 45 238</span>
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   </main>

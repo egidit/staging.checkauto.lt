@@ -1,10 +1,10 @@
 {
   "faq": {
     "hero": {
-      "label": "FAQ",
       "title": "Questions to ask before booking a vehicle inspection",
       "subtitle": "Concise answers about the service, price, travel, and outcome."
     },
+    "topics_label": "Topics",
     "groups": {
       "booking": "Booking and the visit",
       "service": "Service scope",
@@ -35,8 +35,7 @@
     "q15": "What is the difference between a full inspection and diagnostics?",
     "a15": "Computer diagnostics covers control-unit faults and key parameters. A full inspection also covers the body, mechanical components, a test drive, and a photo report.",
     "cta": {
-      "title": "Still have a question?",
-      "text": "Call +370 609 45 238 or send us an email.",
+      "title": "Didn't find your answer? Call or email us.",
       "button": "Send an email"
     }
   }

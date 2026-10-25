@@ -32,7 +32,7 @@ async function geometry(page) {
     return {
       overflow: document.documentElement.scrollWidth > innerWidth,
       groups: [...document.querySelectorAll('.faq-group')].map(group => ({
-        heading: box(group.querySelector('h2')),
+        heading: box(group),
         list: box(group.querySelector('.faq-list')),
         rows: [...group.querySelectorAll('details, summary')].map(box),
       })),
@@ -71,9 +71,9 @@ try {
         await page.evaluate(lang => window.checkautoI18n.setLanguage(lang), lang);
         const collapsed = await geometry(page);
         for (const group of collapsed.groups) {
-          assert.ok(Math.abs(group.list.x - group.heading.x) < 1, 'Heading/list alignment');
-          assert.ok(Math.abs(group.list.width - group.heading.width) < 1, 'Heading/list width');
-          if (width >= 768) assert.equal(group.list.width, 680, 'Full desktop FAQ width');
+          assert.ok(Math.abs(group.list.x - group.heading.x - 8) < 1, 'Questions sit inside the topic panel');
+          assert.ok(Math.abs(group.heading.width - group.list.width - 16) < 1, 'Questions fill the topic panel');
+          if (width >= 1024) assert.equal(group.heading.width, 768, 'Full desktop FAQ width');
         }
         const summaries = page.locator('.faq-item summary');
         const screenshot = !touch && width === 1280 && lang === 'lt' && process.env.CHECKAUTO_FAQ_SCREENSHOTS;
