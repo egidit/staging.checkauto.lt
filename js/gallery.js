@@ -79,12 +79,12 @@
 
   function createSkeleton() {
     var card = document.createElement('article');
-    card.className = 'gallery-card gallery-card--skeleton';
+    card.className = 'gallery-card case-card gallery-card--skeleton';
     card.setAttribute('aria-hidden', 'true');
     var image = document.createElement('div');
-    image.className = 'gallery-card-image gallery-skeleton-block';
+    image.className = 'case-media gallery-card-image gallery-skeleton-block';
     var body = document.createElement('div');
-    body.className = 'gallery-card-body';
+    body.className = 'case-body';
     body.innerHTML = '<span class="gallery-skeleton-line gallery-skeleton-line--title"></span>' +
       '<span class="gallery-skeleton-line"></span><span class="gallery-skeleton-line"></span>';
     card.appendChild(image);
@@ -140,13 +140,24 @@
     var content = item[lang] || item.lt;
     var copy = labels();
     var card = document.createElement('article');
-    card.className = 'gallery-card ' + (item.recommended
+    card.className = 'gallery-card case-card ' + (item.recommended
       ? 'gallery-card--recommended'
       : 'gallery-card--not-recommended');
     card.dataset.category = item.category;
 
+    var head = document.createElement('div');
+    head.className = 'case-head';
+    var title = document.createElement('h2');
+    title.className = 'case-title';
+    title.textContent = content.title;
+    var tag = document.createElement('span');
+    tag.className = 'gallery-tag gallery-tag--' + item.category;
+    tag.textContent = content.tag;
+    head.appendChild(title);
+    head.appendChild(tag);
+
     var imageWrap = document.createElement('div');
-    imageWrap.className = 'gallery-card-image';
+    imageWrap.className = 'case-media gallery-card-image';
     var image = document.createElement('img');
     image.loading = 'lazy';
     image.decoding = 'async';
@@ -162,12 +173,7 @@
     } else {
       image.src = item.image;
     }
-
-    var tag = document.createElement('span');
-    tag.className = 'gallery-tag gallery-tag--' + item.category;
-    tag.textContent = content.tag;
     imageWrap.appendChild(image);
-    imageWrap.appendChild(tag);
     if (imageUnavailable) appendUnavailableLabel(imageWrap);
 
     var zoomButton = null;
@@ -189,33 +195,25 @@
       });
     }
 
+    // Same structure as the homepage examples: the seller speaks from the photo's edge,
+    // our finding follows as a note and the verdict closes the card.
     var body = document.createElement('div');
-    body.className = 'gallery-card-body';
-    var title = document.createElement('h2');
-    title.className = 'gallery-card-title';
-    title.textContent = content.title;
-    body.appendChild(title);
+    body.className = 'case-body';
+    body.innerHTML =
+      '<div class="case-said">' +
+        '<span class="case-avatar" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM5 20a7 7 0 0 1 14 0"/></svg></span>' +
+        '<div class="case-bubble"><p class="gallery-detail-label"></p><blockquote class="case-quote"><p></p></blockquote></div>' +
+      '</div>' +
+      '<div class="case-note"><p class="gallery-detail-label gallery-detail-label--found"></p><p class="case-found"></p></div>' +
+      '<p class="gallery-verdict case-verdict"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/>' +
+        (item.recommended ? '<path d="m8.5 12.5 2.5 2.5 4.5-5"/>' : '<path d="m9 9 6 6m0-6-6 6"/>') + '</svg><span></span></p>';
+    body.querySelector('.case-bubble .gallery-detail-label').textContent = copy.seller;
+    body.querySelector('.case-quote p').textContent = content.seller;
+    body.querySelector('.case-note .gallery-detail-label').textContent = copy.found;
+    body.querySelector('.case-found').textContent = content.found;
+    body.querySelector('.case-verdict span').textContent = content.verdict;
 
-    function appendDetail(labelText, value, found) {
-      var detail = document.createElement('div');
-      detail.className = 'gallery-card-detail';
-      var label = document.createElement('span');
-      label.className = 'gallery-detail-label' + (found ? ' gallery-detail-label--found' : '');
-      label.textContent = labelText;
-      var paragraph = document.createElement('p');
-      paragraph.textContent = value;
-      detail.appendChild(label);
-      detail.appendChild(paragraph);
-      body.appendChild(detail);
-    }
-
-    appendDetail(copy.seller, content.seller, false);
-    appendDetail(copy.found, content.found, true);
-    var verdict = document.createElement('div');
-    verdict.className = 'gallery-verdict';
-    verdict.textContent = content.verdict;
-    body.appendChild(verdict);
-
+    card.appendChild(head);
     card.appendChild(imageWrap);
     card.appendChild(body);
     return card;

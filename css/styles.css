@@ -3350,29 +3350,14 @@ p {
 .gallery-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-lg);
+  gap: 1rem;
 }
 
 @media (min-width: 768px) {
   .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-xl)  var(--space-lg);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
   }
-}
-
-/* Card */
-.gallery-card {
-  background: var(--color-bg);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  border: 1px solid var(--color-border-light);
-  transition: box-shadow var(--duration-normal) var(--ease-out),
-              transform var(--duration-normal) var(--ease-out);
-}
-
-.gallery-card:hover {
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
 }
 
 /* Card image */
@@ -3436,9 +3421,7 @@ p {
 
 /* Tags */
 .gallery-tag {
-  position: absolute;
-  top: 0.75rem;
-  left: 0.75rem;
+  flex: none;
   padding: 0.3rem 0.85rem;
   border-radius: 100px;
   font-size: var(--font-size-xs);
@@ -3451,26 +3434,6 @@ p {
 .gallery-tag--engine     { background: var(--color-warning); }
 .gallery-tag--mileage    { background: #8e44ad; }
 .gallery-tag--electrical { background: var(--color-accent); }
-
-/* Card body */
-.gallery-card-body {
-  padding: var(--space-md) var(--space-md) var(--space-lg);
-}
-
-.gallery-card-title {
-  font-size: var(--font-size-lg);
-  margin-bottom: var(--space-md);
-}
-
-.gallery-card-detail {
-  margin-bottom: var(--space-md);
-  padding-left: var(--space-sm);
-  border-left: 2px solid var(--color-border-light);
-}
-
-.gallery-card-detail:last-of-type {
-  border-left-color: var(--color-danger);
-}
 
 .gallery-detail-label {
   display: block;
@@ -3486,12 +3449,6 @@ p {
   color: var(--color-danger-text);
 }
 
-.gallery-card-detail p {
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-relaxed);
-  color: var(--color-text);
-}
-
 /* Verdict badge */
 .gallery-verdict {
   display: inline-block;
@@ -3505,10 +3462,6 @@ p {
 }
 
 /* Recommendation status styling */
-.gallery-card--not-recommended {
-  border-color: rgba(255, 59, 48, 0.3);
-}
-
 .gallery-card--not-recommended .gallery-verdict {
   color: var(--color-danger-text);
   background: rgba(255, 59, 48, 0.08);
@@ -3518,10 +3471,6 @@ p {
   color: var(--color-danger-text);
 }
 
-.gallery-card--recommended {
-  border-color: rgba(52, 199, 89, 0.3);
-}
-
 .gallery-card--recommended .gallery-verdict {
   color: var(--color-success-text);
   background: rgba(52, 199, 89, 0.08);
@@ -3529,6 +3478,140 @@ p {
 
 .gallery-card--recommended .gallery-detail-label--found {
   color: var(--color-success-text);
+}
+
+/* Case card: one soft surface per inspection, shared by the gallery and the homepage examples.
+   The photo is the scene, the seller speaks from its bottom edge, our finding answers below
+   and the verdict closes the card, level across cards of equal height. */
+.case-card {
+  --case-inset: 0.5rem;
+  --case-radius: 1.75rem;
+  --case-avatar: 2.5rem;
+  --case-hang: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: var(--case-inset);
+  background: var(--color-bg-alt);
+  border-radius: var(--case-radius);
+}
+
+/* Gallery: the car and its category sit above the photo, aligned with the avatar below. */
+.case-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.65rem 0.65rem 0.85rem 1rem;
+}
+
+.case-title {
+  padding-top: 0.15rem;
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.case-media {
+  background: var(--color-bg);
+  border-radius: calc(var(--case-radius) - var(--case-inset));
+}
+
+/* The bubble overlaps the photo's bottom edge, so the zoom button sits in the top corner. */
+.case-media .gallery-zoom-btn {
+  top: 0.75rem;
+  bottom: auto;
+}
+
+.case-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 0 1rem 1.25rem;
+}
+
+/* The seller's avatar sits on the edge of the photo and the bubble comes out of it. */
+.case-said {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: flex-start;
+  align-self: stretch;
+  gap: 0.75rem;
+  margin-top: calc(var(--case-avatar) / -2);
+}
+
+.case-avatar {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--case-avatar);
+  height: var(--case-avatar);
+  color: #fff;
+  background: var(--color-accent);
+  border: 3px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 0.15);
+}
+
+.case-bubble {
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem var(--case-hang) 0.85rem;
+  background: var(--color-bg);
+  border-radius: 6px 20px 20px 20px;
+  box-shadow: 0 8px 20px rgb(0 0 0 / 0.08);
+}
+
+.case-bubble .gallery-detail-label {
+  margin-bottom: 0.2rem;
+}
+
+.case-quote p {
+  color: var(--color-text);
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+/* Our finding reads like a note in the margin of the report. */
+.case-note {
+  align-self: stretch;
+  padding-left: calc(var(--case-hang) - 2px);
+  border-left: 2px solid var(--color-danger-text);
+}
+
+.gallery-card--recommended .case-note {
+  border-left-color: var(--color-success-text);
+}
+
+.case-found {
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.case-verdict {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding: 0.55rem 1rem 0.55rem var(--case-hang);
+  font-size: var(--font-size-sm);
+}
+
+.case-verdict svg {
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* ---------- Lightbox ---------- */
@@ -4692,6 +4775,11 @@ html[lang="en"] .service-offer-body h2 {
   pointer-events: none;
 }
 
+.gallery-card--skeleton .case-body {
+  gap: 0;
+  padding-top: 1.25rem;
+}
+
 .gallery-skeleton-block,
 .gallery-skeleton-line {
   background: linear-gradient(90deg, #eeeeef 25%, #fafafa 45%, #eeeeef 65%);
@@ -5569,32 +5657,10 @@ html[lang="en"] .service-offer-body h2 {
   color: var(--color-success-text);
 }
 
-/* Each case is one soft surface, like the platforms in the illustrations: the photo is the scene,
-   the seller speaks from its edge, and our finding and verdict answer beside it.
-   Labels, the verdict and the status colours come from the gallery cards. */
-.home-cases {
-  --case-inset: 0.5rem;
-  --case-radius: 1.75rem;
-  --case-avatar: 2.5rem;
-  --case-hang: 1rem;
-}
-
+/* The examples are the shared case cards (see the gallery), with bigger type; on desktop one case per row. */
 .home-cases-list {
   display: grid;
   gap: 1rem;
-}
-
-.home-case {
-  display: grid;
-  grid-template-rows: auto 1fr;
-  padding: var(--case-inset);
-  background: var(--color-bg-alt);
-  border-radius: var(--case-radius);
-}
-
-.home-case-media {
-  background: var(--color-bg);
-  border-radius: calc(var(--case-radius) - var(--case-inset));
 }
 
 .home-case-unavailable {
@@ -5610,90 +5676,20 @@ html[lang="en"] .service-offer-body h2 {
   display: none;
 }
 
-.home-case-body {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.5rem;
-  padding: 0 1rem 1.25rem;
-}
-
-/* The seller's avatar sits on the edge of the photo and the bubble comes out of it. */
-.home-case-said {
-  position: relative;
-  z-index: 3;
-  display: flex;
-  align-items: flex-start;
-  align-self: stretch;
-  gap: 0.75rem;
-  margin-top: calc(var(--case-avatar) / -2);
-}
-
-.home-case-avatar {
-  display: grid;
-  flex: none;
-  place-items: center;
-  width: var(--case-avatar);
-  height: var(--case-avatar);
-  color: #fff;
-  background: var(--color-accent);
-  border: 3px solid #fff;
-  border-radius: 50%;
-  box-shadow: 0 4px 10px rgb(0 0 0 / 0.15);
-}
-
-.home-case-bubble {
-  flex: 1;
-  padding: 0.75rem var(--case-hang) 0.85rem;
-  background: var(--color-bg);
-  border-radius: 6px 20px 20px 20px;
-  box-shadow: 0 8px 20px rgb(0 0 0 / 0.08);
-}
-
-.home-case-bubble .gallery-detail-label {
-  margin-bottom: 0.2rem;
-}
-
-.home-case-quote p {
-  color: var(--color-text);
+.home-case .case-quote p {
   font-size: clamp(1.0625rem, 0.6rem + 0.9vw, 1.3rem);
-  font-weight: 500;
-  line-height: 1.4;
-  text-wrap: pretty;
 }
 
-/* Our finding reads like a note in the margin of the report. */
-.home-case-note {
-  align-self: stretch;
-  padding-left: calc(var(--case-hang) - 2px);
-  border-left: 2px solid var(--color-danger-text);
-}
-
-.gallery-card--recommended .home-case-note {
-  border-left-color: var(--color-success-text);
-}
-
-.home-case-found {
-  color: var(--color-text);
+.home-case .case-found {
   font-size: clamp(1rem, 0.55rem + 0.85vw, 1.25rem);
   font-weight: 500;
   line-height: 1.5;
-  text-wrap: pretty;
 }
 
-/* The verdict closes the case at the bottom, level across cards of equal height. */
-.home-case-verdict {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: auto;
-  padding: 0.55rem 1rem 0.55rem var(--case-hang);
-  font-size: var(--font-size-sm);
-}
-
+/* Lines up with the photos' outer edge. */
 .home-cases-more {
   margin-top: 1.75rem;
-  margin-left: var(--case-inset);
+  margin-left: 0.5rem;
 }
 
 /* Offer: price anchor plus what the inspection covers */
@@ -6227,15 +6223,6 @@ html[lang="en"] .service-offer-body h2 {
   }
 }
 
-/* Until the cases go side by side the seller's bubble overlaps the photo's bottom edge,
-   so the zoom button moves to the top corner. */
-@media (max-width: 959px) {
-  .home-case-media .gallery-zoom-btn {
-    top: 0.75rem;
-    bottom: auto;
-  }
-}
-
 /* Tablets: the two cases side by side, like the gallery grid. */
 @media (min-width: 700px) and (max-width: 959px) {
   .home-cases-list {
@@ -6256,35 +6243,41 @@ html[lang="en"] .service-offer-body h2 {
      with the bubble, rule and verdict hanging into the gutter by the same amount. */
   .home-case {
     --case-gap: calc(var(--case-avatar) / 2 + 0.75rem + var(--case-hang));
+    display: grid;
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-    grid-template-rows: none;
     column-gap: var(--case-gap);
   }
 
-  .home-case-media {
+  .home-case .case-media {
     align-self: start;
   }
 
-  .home-case-body {
+  /* Beside the photo nothing overlaps it, so the zoom button returns to its gallery corner. */
+  .home-case .case-media .gallery-zoom-btn {
+    top: auto;
+    bottom: 0.75rem;
+  }
+
+  .home-case .case-body {
     justify-content: space-between;
     gap: 1.25rem;
     padding: 0 1.75rem 0 0;
   }
 
-  .home-case-said {
+  .home-case .case-said {
     align-items: flex-end;
     margin: 0 0 0 calc(-1 * var(--case-gap) - var(--case-avatar) / 2);
   }
 
-  .home-case-bubble {
+  .home-case .case-bubble {
     border-radius: 20px 20px 20px 6px;
   }
 
-  .home-case-note {
+  .home-case .case-note {
     margin-left: calc(-1 * var(--case-hang));
   }
 
-  .home-case-verdict {
+  .home-case .case-verdict {
     margin: 0 0 0 calc(-1 * var(--case-hang));
   }
 
@@ -6293,20 +6286,20 @@ html[lang="en"] .service-offer-body h2 {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
   }
 
-  .home-case:nth-child(even) .home-case-media {
+  .home-case:nth-child(even) .case-media {
     order: 2;
   }
 
-  .home-case:nth-child(even) .home-case-body {
+  .home-case:nth-child(even) .case-body {
     padding: 0 0 0 calc(1.75rem + var(--case-hang));
   }
 
-  .home-case:nth-child(even) .home-case-said {
+  .home-case:nth-child(even) .case-said {
     flex-direction: row-reverse;
     margin: 0 calc(-1 * var(--case-gap) - var(--case-avatar) / 2) 0 calc(-1 * var(--case-hang));
   }
 
-  .home-case:nth-child(even) .home-case-bubble {
+  .home-case:nth-child(even) .case-bubble {
     border-radius: 20px 20px 6px 20px;
   }
 }
